@@ -142,7 +142,7 @@
           <EntitySet Name="ACCOUNTs" EntityType="STOREMANAGEMENTModel.ACCOUNT" />
           <EntitySet Name="BILLs" EntityType="STOREMANAGEMENTModel.BILL" />
           <EntitySet Name="BILLINFOes" EntityType="STOREMANAGEMENTModel.BILLINFO" />
-          <EntitySet Name="GOODS" EntityType="STOREMANAGEMENTModel.GOOD" />
+          <EntitySet Name="GOODS" EntityType="STOREMANAGEMENTModel.GOODS" />
           <EntitySet Name="STOREs" EntityType="STOREMANAGEMENTModel.STORE" />
           <EntitySet Name="TYPEOFSTOREs" EntityType="STOREMANAGEMENTModel.TYPEOFSTORE" />
           <AssociationSet Name="FK_BillInfoBill" Association="STOREMANAGEMENTModel.FK_BillInfoBill">
@@ -191,7 +191,7 @@
           <NavigationProperty Name="BILL" Relationship="STOREMANAGEMENTModel.FK_BillInfoBill" FromRole="BILLINFO" ToRole="BILL" />
           <NavigationProperty Name="GOOD" Relationship="STOREMANAGEMENTModel.FK_BillInfoGoods" FromRole="BILLINFO" ToRole="GOOD" />
         </EntityType>
-        <EntityType Name="GOOD">
+        <EntityType Name="GOODS">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
@@ -252,7 +252,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_BillInfoGoods">
-          <End Type="STOREMANAGEMENTModel.GOOD" Role="GOOD" Multiplicity="1" />
+          <End Type="STOREMANAGEMENTModel.GOODS" Role="GOOD" Multiplicity="1" />
           <End Type="STOREMANAGEMENTModel.BILLINFO" Role="BILLINFO" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="GOOD">
@@ -309,7 +309,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="GOODS">
-            <EntityTypeMapping TypeName="STOREMANAGEMENTModel.GOOD">
+            <EntityTypeMapping TypeName="STOREMANAGEMENTModel.GOODS">
               <MappingFragment StoreEntitySet="GOODS">
                 <ScalarProperty Name="COUNT" ColumnName="COUNT" />
                 <ScalarProperty Name="PRICE" ColumnName="PRICE" />

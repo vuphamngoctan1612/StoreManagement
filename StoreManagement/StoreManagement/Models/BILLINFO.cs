@@ -19,6 +19,6 @@ namespace StoreManagement.Models
         public Nullable<int> COUNT { get; set; }
     
         public virtual BILL BILL { get; set; }
-        public virtual GOOD GOOD { get; set; }
+        public virtual GOODS GOOD { get; set; }
     }
 }

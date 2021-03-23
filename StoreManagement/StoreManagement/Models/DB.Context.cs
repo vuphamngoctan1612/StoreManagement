@@ -28,7 +28,7 @@ namespace StoreManagement.Models
         public virtual DbSet<ACCOUNT> ACCOUNTs { get; set; }
         public virtual DbSet<BILL> BILLs { get; set; }
         public virtual DbSet<BILLINFO> BILLINFOes { get; set; }
-        public virtual DbSet<GOOD> GOODS { get; set; }
+        public virtual DbSet<GOODS> GOODS { get; set; }
         public virtual DbSet<STORE> STOREs { get; set; }
         public virtual DbSet<TYPEOFSTORE> TYPEOFSTOREs { get; set; }
     }
