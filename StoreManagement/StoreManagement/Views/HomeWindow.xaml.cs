@@ -11,6 +11,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using MaterialDesignColors;
+using MaterialDesignThemes;
 
 namespace StoreManagement
 {
@@ -22,6 +24,11 @@ namespace StoreManagement
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        private void InitializeComponent()
+        {
+            
         }
     }
 }
