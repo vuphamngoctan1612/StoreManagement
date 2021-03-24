@@ -13,7 +13,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:StoreManagement.Views"
         mc:Ignorable="d"
-        Title="Login" Height="960" Width="1828">
+        Title="Login" Height="810" Width="1440">
     <Grid>
         <Grid.Background>
             <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
@@ -22,9 +22,9 @@
             </LinearGradientBrush>
         </Grid.Background>
         <Button x:Name="btLogin" Style="{StaticResource MaterialDesignRaisedButton}"
-                Height="115" Width="548" 
+                Height="100" Width="400" 
                 materialDesign:ButtonAssist.CornerRadius="24"
-                ToolTip="MaterialDesignRaisedButton with Round Corners" Margin="1173,494,0,0" HorizontalContentAlignment="Center" HorizontalAlignment="Left" VerticalAlignment="Top">
+                ToolTip="MaterialDesignRaisedButton with Round Corners" Margin="939,424,0,0" HorizontalContentAlignment="Center" HorizontalAlignment="Left" VerticalAlignment="Top">
             <Button.Background>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <GradientStop Color="#FFEC74E7" Offset="0"/>
@@ -33,19 +33,19 @@
             </Button.Background>
             <TextBlock Text="Ready to sign in" FontFamily="Segoe UI" FontSize="30" Width="216" Height="45" />
         </Button>
-        <TextBox x:Name="txtUser" Style="{StaticResource MaterialDesignTextBox}" Height="115" Width="548" Background="White" 
-                 materialDesign:TextFieldAssist.TextFieldCornerRadius="24" Margin="1173,228,0,0" HorizontalContentAlignment="Center" VerticalAlignment="Top" HorizontalAlignment="Left"
+        <TextBox x:Name="txtUser" Style="{StaticResource MaterialDesignTextBox}" Height="100" Width="400" Background="White" 
+                 materialDesign:TextFieldAssist.TextFieldCornerRadius="24" Margin="939,173,0,0" HorizontalContentAlignment="Center" VerticalAlignment="Top" HorizontalAlignment="Left"
                  FontFamily="Segoe UI" FontSize="30" Text="Username" VerticalContentAlignment="Center" 
                  >
         </TextBox>
-        <TextBox x:Name="txtPassword" Style="{StaticResource MaterialDesignTextBox}" Height="115" Width="548" Background="White" 
-                materialDesign:TextFieldAssist.TextFieldCornerRadius="24" Margin="1173,357,0,0" HorizontalContentAlignment="Center" VerticalAlignment="Top" HorizontalAlignment="Left" VerticalContentAlignment="Center"
+        <TextBox x:Name="txtPassword" Style="{StaticResource MaterialDesignTextBox}" Height="100" Width="400" Background="White" 
+                materialDesign:TextFieldAssist.TextFieldCornerRadius="24" Margin="939,302,0,0" HorizontalContentAlignment="Center" VerticalAlignment="Top" HorizontalAlignment="Left" VerticalContentAlignment="Center"
                 FontFamily="Segoe UI" FontSize="30" Text="Password"  
                  >
         </TextBox>
-        <Ellipse Height="1257" Width="1257"
-                 Margin="-285,45,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"
-                 StrokeThickness ="300" >
+        <Ellipse Height="1620" Width="1620"
+                 Margin="-681,-10,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"
+                 StrokeThickness ="390" >
             <Ellipse.Stroke>
                 <RadialGradientBrush>
                     <GradientStop Color="#3FFFFFFF" Offset="0"/>
@@ -53,9 +53,9 @@
                 </RadialGradientBrush>
             </Ellipse.Stroke>
         </Ellipse>
-        <TextBlock Style="{StaticResource MaterialDesignHeadline4TextBlock}" Text="Hi There!" Height="90" Width="279" 
-                   Margin="1307,112,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" TextAlignment="Center"
-                   FontFamily="Segoe UI" FontSize="60" FontWeight="Bold"
+        <TextBlock Style="{StaticResource MaterialDesignHeadline4TextBlock}" Text="Hi There!" Height="90" Width="209" 
+                   Margin="705,116,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" TextAlignment="Center"
+                   FontFamily="Segoe UI" FontSize="45" FontWeight="Bold"
                    >
             <TextBlock.Foreground>
                 <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
@@ -64,8 +64,8 @@
             </TextBlock.Foreground>
         </TextBlock>
         <TextBlock Style="{StaticResource MaterialDesignHeadline4TextBlock}" Text="AGENCY MANAGEMENT" Height="147.53" Width="1133" 
-                   Margin="62,697.7,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" TextAlignment="Center"
-                   FontFamily="Segoe UI" FontSize="90" FontWeight="Bold" 
+                   Margin="-103,617.7,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" TextAlignment="Center"
+                   FontFamily="Segoe UI" FontSize="70" FontWeight="Bold" 
                    >
             <TextBlock.Foreground>
                 <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
@@ -73,9 +73,9 @@
                 </LinearGradientBrush>
             </TextBlock.Foreground>
         </TextBlock>
-        <TextBlock Style="{StaticResource MaterialDesignHeadline4TextBlock}" Text="AGENCY MANAGEMENT" Height="147.53" Width="1133" 
-                   Margin="0,780,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" TextAlignment="Center"
-                   FontFamily="Segoe UI" FontSize="90" FontWeight="Bold" 
+        <TextBlock Style="{StaticResource MaterialDesignHeadline4TextBlock}" Text="AGENCY MANAGEMENT" Height="105" Width="800" 
+                   Margin="12,686,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" TextAlignment="Center"
+                   FontFamily="Segoe UI" FontSize="70" FontWeight="Bold" 
                    >
             <TextBlock.Foreground>
                 <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
@@ -84,7 +84,7 @@
             </TextBlock.Foreground>
         </TextBlock>
         <TextBlock Style="{StaticResource MaterialDesignHeadline4TextBlock}" Text="Remeber your account" Height="33" Width="277" 
-                   Margin="1342,640,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" TextAlignment="Center"
+                   Margin="1000,555,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" TextAlignment="Left"
                    FontFamily="Segoe UI" FontSize="22" FontWeight="Bold"
                    >
             <TextBlock.Foreground>
@@ -94,7 +94,7 @@
             </TextBlock.Foreground>
         </TextBlock>
         <TextBlock Style="{StaticResource MaterialDesignHeadline4TextBlock}" Text="Forgot your password" Height="33" Width="277" 
-                   Margin="1342,690,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" TextAlignment="Center"
+                   Margin="1000,605,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" TextAlignment="Left"
                    FontFamily="Segoe UI" FontSize="22" FontWeight="Bold"
                    >
             <TextBlock.Foreground>
@@ -103,8 +103,8 @@
                 </LinearGradientBrush>
             </TextBlock.Foreground>
         </TextBlock>
-        <TextBlock Style="{StaticResource MaterialDesignHeadline4TextBlock}" Text="New arround here ?" Height="33" Width="277" 
-                   Margin="1300,739,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" TextAlignment="Center"
+        <TextBlock Style="{StaticResource MaterialDesignHeadline4TextBlock}" Text="New arround here ?" Height="33" Width="220" 
+                   Margin="1000,655,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" TextAlignment="Left"
                    FontFamily="Segoe UI" FontSize="25"
                    >
             <TextBlock.Foreground>
@@ -115,14 +115,14 @@
         </TextBlock>
         <Button x:Name="btSignUp"
             Style="{StaticResource MaterialDesignFlatButton}" Height="38" Width="150"
-            ToolTip="MaterialDesignFlatButton" Margin="1550,735,0,0" HorizontalContentAlignment="Center" HorizontalAlignment="Left" VerticalAlignment="Top">
-            <TextBlock Text="Sign Up" FontFamily="Segoe UI" FontSize="24" Width="150" Height="45" />
+            ToolTip="MaterialDesignFlatButton" Margin="1250,650,0,0" HorizontalContentAlignment="Left" HorizontalAlignment="Left" VerticalAlignment="Top"
+            Content="Sign Up" FontSize="25" FontFamily="Segoe UI">
         </Button>
         <CheckBox x:Name="cbRemember" 
-                  Margin ="1320,645,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" RenderTransformOrigin="0.5,0.5">
+                  Margin ="950,562,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" RenderTransformOrigin="0.5,0.5">
             <CheckBox.RenderTransform>
                 <TransformGroup>
-                    <ScaleTransform ScaleX="3" ScaleY="3"/>
+                    <ScaleTransform ScaleX="2" ScaleY="2"/>
                 </TransformGroup>
             </CheckBox.RenderTransform>
             <CheckBox.Background>
@@ -132,10 +132,10 @@
             </CheckBox.Background>
         </CheckBox>
         <CheckBox x:Name="cbForgot" 
-                  Margin ="1320,690,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" RenderTransformOrigin="0.5,0.5">
+                  Margin ="950,611,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" RenderTransformOrigin="0.5,0.5">
             <CheckBox.RenderTransform>
                 <TransformGroup>
-                    <ScaleTransform ScaleX="3" ScaleY="3"/>
+                    <ScaleTransform ScaleX="2" ScaleY="2"/>
                 </TransformGroup>
             </CheckBox.RenderTransform>
             <CheckBox.Background>
