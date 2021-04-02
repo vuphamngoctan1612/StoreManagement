@@ -7,7 +7,7 @@ using System.Windows.Input;
 
 namespace StoreManagement.ViewModels
 {
-    public class RelayCommand<T> : ICommand
+    class RelayCommand<T> : ICommand
     {
         private readonly Predicate<T> _canExecute;
         private readonly Action<T> _execute;
