@@ -266,26 +266,18 @@
         <Button x:Name="btClose"
                 Style="{StaticResource MaterialDesignIconButton}"
                 ToolTip="MaterialDesignIconButton" 
-                Margin="1390.25,28,0,0"
+                Margin="1380.25,28,0,0"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top" >
-                <materialDesign:PackIcon Kind="CloseOutline"  />
+            <materialDesign:PackIcon Kind="CloseOutline"  />
         </Button>
         <Button x:Name="btMinimize"
                 Style="{StaticResource MaterialDesignIconButton}"
                 ToolTip="MaterialDesignIconButton"
-                Margin="1247.25,28,0,0" 
+                Margin="1300,28,0,0" 
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top" >
-                <materialDesign:PackIcon Kind="WindowMinimize" />
-        </Button>
-        <Button x:Name="btMaximine"
-                Style="{StaticResource MaterialDesignIconButton}"
-                ToolTip="MaterialDesignIconButton"
-                Margin="1319,28,0,0" 
-                HorizontalAlignment="Left" 
-                VerticalAlignment="Top" >
-                <materialDesign:PackIcon Kind="WindowMaximize"  />
+            <materialDesign:PackIcon Kind="WindowMinimize" />
         </Button>
     </Grid>
 </Window>
