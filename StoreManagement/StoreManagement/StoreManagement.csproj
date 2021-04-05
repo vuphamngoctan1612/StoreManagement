@@ -67,13 +67,25 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Views\usStores.xaml.cs">
-      <DependentUpon>usStores.xaml</DependentUpon>
+    <Compile Include="Resources\UserControls\AccountSettingUC.xaml.cs">
+      <DependentUpon>AccountSettingUC.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\UserControls\DebtReportUC.xaml.cs">
+      <DependentUpon>DebtReportUC.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\UserControls\ReportUC.xaml.cs">
+      <DependentUpon>ReportUC.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\UserControls\SalesReportUC.xaml.cs">
+      <DependentUpon>SalesReportUC.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\UserControls\StoresUC.xaml.cs">
+      <DependentUpon>StoresUC.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Views\fSignUp.xaml.cs">
-      <DependentUpon>fSignUp.xaml</DependentUpon>
+    <Compile Include="Views\SignUpWindow.xaml.cs">
+      <DependentUpon>SignUpWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\HomeWindow.xaml.cs">
       <DependentUpon>HomeWindow.xaml</DependentUpon>
@@ -106,12 +118,18 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\" />
-    <Folder Include="Resources\Images\" />
-    <Folder Include="Resources\UserControls\" />
     <Folder Include="ViewModels\" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="Views\fSignUp.xaml">
+    <Page Include="Resources\UserControls\DebtReportUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\UserControls\SalesReportUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SignUpWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -119,7 +137,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\usStores.xaml">
+    <Page Include="Resources\UserControls\AccountSettingUC.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\UserControls\ReportUC.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\UserControls\StoresUC.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
