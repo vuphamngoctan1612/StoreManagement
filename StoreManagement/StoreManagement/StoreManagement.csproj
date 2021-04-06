@@ -37,11 +37,19 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+
+    <Reference Include="LiveCharts, Version=0.9.7.0, Culture=neutral, PublicKeyToken=0bc1f845d1ebb8df, processorArchitecture=MSIL">
+      <HintPath>..\packages\LiveCharts.0.9.7\lib\net45\LiveCharts.dll</HintPath>
+    </Reference>
+    <Reference Include="LiveCharts.Wpf, Version=0.9.7.0, Culture=neutral, PublicKeyToken=0bc1f845d1ebb8df, processorArchitecture=MSIL">
+      <HintPath>..\packages\LiveCharts.Wpf.0.9.7\lib\net45\LiveCharts.Wpf.dll</HintPath>
+
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+
     </Reference>
     <Reference Include="MaterialDesignColors, Version=2.0.0.2422, Culture=neutral, PublicKeyToken=df2a72020bd7962a, processorArchitecture=MSIL">
       <HintPath>..\packages\MaterialDesignColors.2.0.0\lib\net452\MaterialDesignColors.dll</HintPath>
@@ -76,8 +84,39 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Resources\UserControls\AccountSettingUC.xaml.cs">
+      <DependentUpon>AccountSettingUC.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\UserControls\BillHomeUC.xaml.cs">
+      <DependentUpon>BillHomeUC.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\UserControls\BillUC.xaml.cs">
+      <DependentUpon>BillUC.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\UserControls\DebtReportUC.xaml.cs">
+      <DependentUpon>DebtReportUC.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\UserControls\ReportUC.xaml.cs">
+      <DependentUpon>ReportUC.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\UserControls\SalesReportUC.xaml.cs">
+      <DependentUpon>SalesReportUC.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\UserControls\StoresHomeUC.xaml.cs">
+      <DependentUpon>StoresHomeUC.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\UserControls\StoresUC.xaml.cs">
+      <DependentUpon>StoresUC.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Views\Home.xaml.cs">
+      <DependentUpon>Home.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SignUpWindow.xaml.cs">
+      <DependentUpon>SignUpWindow.xaml</DependentUpon>
+    </Compile>
+
     <Compile Include="Models\ACCOUNT.cs">
       <DependentUpon>DB.tt</DependentUpon>
     </Compile>
@@ -116,6 +155,7 @@
     <Compile Include="ViewModels\HomeViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\RelayCommand.cs" />
+
     <Compile Include="Views\HomeWindow.xaml.cs">
       <DependentUpon>HomeWindow.xaml</DependentUpon>
     </Compile>
@@ -153,11 +193,56 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+
+    <Folder Include="Models\" />
+    <Folder Include="ViewModels\" />
+
     <Folder Include="Resources\Images\" />
     <Folder Include="Resources\UserControls\" />
+
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Resources\UserControls\BillHomeUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\UserControls\BillUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\UserControls\DebtReportUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\UserControls\SalesReportUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\UserControls\StoresHomeUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Home.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SignUpWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\HomeWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\UserControls\AccountSettingUC.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\UserControls\ReportUC.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\UserControls\StoresUC.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
