@@ -1,14 +1,13 @@
-﻿<Window
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:StoreManagement.Views"
-        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        xmlns:StoreManagement="clr-namespace:StoreManagement" x:Class="StoreManagement.Views.Bill"
-        mc:Ignorable="d"
-        WindowStyle="None"
-        Title="Bill" Height="630" Width="1140">
+﻿<UserControl x:Class="StoreManagement.Resources.UserControls.BillHomeUC"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:StoreManagement.Resources.UserControls"
+              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             mc:Ignorable="d" 
+             d:DesignHeight="630" d:DesignWidth="1140"
+             Background="White">
     <Grid>
         <Grid
             x:Name="grdListview"
@@ -216,4 +215,4 @@
             VerticalAlignment="Top" 
             Width="3"/>
     </Grid>
-</Window>
+</UserControl>
