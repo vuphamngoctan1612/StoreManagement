@@ -5,7 +5,6 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:StoreManagement.Views"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
         mc:Ignorable="d"
         WindowStyle="None"
         Title="Home" Height="810" Width="1440">
@@ -429,13 +428,18 @@
                 </TextBlock>
             </Grid>
 
-            <lvc:CartesianChart
+            <!--<lvc:CartesianChart
                 x:Name="chartTotal"
                 Height="313"
                 Width="973" 
                 Margin="89,467,70,22">
-            </lvc:CartesianChart>
-            
+            </lvc:CartesianChart>-->
+            <Grid
+                Height="630"
+                Width="1140"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Bottom"
+                ></Grid>
         </Grid>
     </Grid>
 </Window>
