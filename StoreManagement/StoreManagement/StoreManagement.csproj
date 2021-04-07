@@ -91,6 +91,9 @@
     <Compile Include="Resources\UserControls\DebtReportUC.xaml.cs">
       <DependentUpon>DebtReportUC.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Resources\UserControls\ProductHomeUC.xaml.cs">
+      <DependentUpon>ProductHomeUC.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Resources\UserControls\ReportUC.xaml.cs">
       <DependentUpon>ReportUC.xaml</DependentUpon>
     </Compile>
@@ -189,6 +192,10 @@
     <Folder Include="Resources\Images\" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Resources\MainResources.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Resources\UserControls\BillHomeUC.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -198,6 +205,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Resources\UserControls\DebtReportUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\UserControls\ProductHomeUC.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
