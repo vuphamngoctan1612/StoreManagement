@@ -1,0 +1,256 @@
+﻿<UserControl x:Class="StoreManagement.Views.usStores"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:StoreManagement.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="628" 
+             d:DesignWidth="1140">
+    <Grid>
+        <Grid.Background>
+            <LinearGradientBrush>
+                <GradientStop Color="White"/>
+            </LinearGradientBrush>
+        </Grid.Background>
+        <materialDesign:Card
+            Background="#F97299"
+            Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}"
+            Height="60"
+            Width="710"
+            Margin="215,46,0,0" 
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top" 
+            Padding="8"
+            UniformCornerRadius="20">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="100"></ColumnDefinition>
+                    <ColumnDefinition Width="610"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Column="0">
+                    <materialDesign:PackIcon Kind="Account"
+                                             Width="40"
+                                             Height="40"
+                                             Foreground="#57548B">
+                    </materialDesign:PackIcon>
+                </Grid>
+                <Grid Grid.Column="1">
+                    <TextBlock Text="Information's Agency"
+                               FontFamily="Segoe UI"
+                               FontSize="25"
+                               FontWeight="Bold"
+                               Foreground="#57548B"
+                               Margin="114,0,0,0" 
+                               HorizontalAlignment="Left" 
+                               VerticalAlignment="Top">
+                    </TextBlock>
+                </Grid>
+            </Grid>
+        </materialDesign:Card>
+        <materialDesign:Card Height="60"
+                             Width="240"
+                             Margin="215,131,0,0"
+                             HorizontalAlignment="Left"
+                             VerticalAlignment="Top"
+                             Padding="8"
+                             UniformCornerRadius="25"
+                             Background="#1EC4C4C4">
+            <TextBlock
+                Text="Name:"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                FontSize="22"
+                FontFamily="Segoe UI"
+                Foreground="#57548B"></TextBlock>
+        </materialDesign:Card>
+        <materialDesign:Card Height="60"
+                             Width="240"
+                             Margin="215,216,0,0"
+                             HorizontalAlignment="Left"
+                             VerticalAlignment="Top"
+                             Padding="8"
+                             UniformCornerRadius="25"
+                             Background="#1EC4C4C4">
+            <TextBlock
+                Text="Phone Number:"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                FontSize="22"
+                FontFamily="Segoe UI"
+                Foreground="#57548B"></TextBlock>
+        </materialDesign:Card>
+        <materialDesign:Card Height="60"
+                             Width="240"
+                             Margin="215,301,0,0"
+                             HorizontalAlignment="Left"
+                             VerticalAlignment="Top"
+                             Padding="8"
+                             UniformCornerRadius="25"
+                             Background="#1EC4C4C4">
+            <TextBlock
+                Text="District:"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                FontSize="22"
+                FontFamily="Segoe UI"
+                Foreground="#57548B"></TextBlock>
+        </materialDesign:Card>
+        <materialDesign:Card Height="60"
+                             Width="240"
+                             Margin="215,386,0,0"
+                             HorizontalAlignment="Left"
+                             VerticalAlignment="Top"
+                             Padding="8"
+                             UniformCornerRadius="25"
+                             Background="#1EC4C4C4">
+            <TextBlock
+                Text="Species:"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                FontSize="22"
+                FontFamily="Segoe UI"
+                Foreground="#57548B"></TextBlock>
+        </materialDesign:Card>
+        <materialDesign:Card Height="60"
+                             Width="240"
+                             Margin="215,471,0,0"
+                             HorizontalAlignment="Left"
+                             VerticalAlignment="Top"
+                             Padding="8"
+                             UniformCornerRadius="25"
+                             Background="#1EC4C4C4">
+            <TextBlock
+                Text="Address:"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                FontSize="22"
+                FontFamily="Segoe UI"
+                Foreground="#57548B"></TextBlock>
+        </materialDesign:Card>
+        <materialDesign:Card Height="60"
+                             Width="240"
+                             Margin="215,556,0,0"
+                             HorizontalAlignment="Left"
+                             VerticalAlignment="Top"
+                             Padding="8"
+                             UniformCornerRadius="25"
+                             Background="#1EC4C4C4">
+            <TextBlock
+                Text="Day"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                FontSize="22"
+                FontFamily="Segoe UI"
+                Foreground="#57548B"></TextBlock>
+        </materialDesign:Card>
+        <TextBox x:Name="txtName"
+                 Style="{StaticResource MaterialDesignTextBox}"
+                 Height="60"
+                 Width="450"
+                 materialDesign:TextFieldAssist.TextFieldCornerRadius="15"
+                 Margin="475,131,0,0"
+                 HorizontalAlignment="Left"
+                 VerticalAlignment="Top"
+                 FontSize="22"
+                 FontFamily="Segoe UI"
+                 Background="#68D8D8D8"
+                 IsEnabled="False">
+        </TextBox>
+        <TextBox x:Name="txtPhoneNumber"
+                 Style="{StaticResource MaterialDesignTextBox}"
+                 Height="60"
+                 Width="450"
+                 materialDesign:TextFieldAssist.TextFieldCornerRadius="15"
+                 Margin="475,216,0,0"
+                 HorizontalAlignment="Left"
+                 VerticalAlignment="Top"
+                 FontSize="22"
+                 FontFamily="Segoe UI"
+                 Background="#68D8D8D8"
+                 IsEnabled="False">
+        </TextBox>
+        <ComboBox x:Name="ccbDistrict"
+                  Style="{StaticResource MaterialDesignFilledComboBox}"
+                  materialDesign:HintAssist.Hint="District"
+                  ItemsSource="{Binding ShortStringList}"
+                  materialDesign:TextFieldAssist.HasClearButton="True"
+                  Height="60"
+                  Width="450"
+                  Margin="475,301,0,0"
+                  HorizontalAlignment="Left"
+                  VerticalAlignment="Top"
+                  FontSize="22"
+                  FontFamily="Segoe UI"
+                  Background="#68D8D8D8"
+                  VerticalContentAlignment="Top"
+                  HorizontalContentAlignment="Left"
+                  Padding="20,0,0,0"
+                  IsEnabled="False">
+            <ComboBoxItem>District 1</ComboBoxItem>
+            <ComboBoxItem>District 2</ComboBoxItem>
+            <ComboBoxItem>District 3</ComboBoxItem>
+            <ComboBoxItem>District 4</ComboBoxItem>
+            <ComboBoxItem>District 5</ComboBoxItem>
+            <ComboBoxItem>District 6</ComboBoxItem>
+            <ComboBoxItem>District 7</ComboBoxItem>
+            <ComboBoxItem>District 8</ComboBoxItem>
+            <ComboBoxItem>District 9</ComboBoxItem>
+            <ComboBoxItem>District 10</ComboBoxItem>
+            <ComboBoxItem>District 11</ComboBoxItem>
+            <ComboBoxItem>District 12</ComboBoxItem>
+            <ComboBoxItem>District Thu Duc</ComboBoxItem>
+            <ComboBoxItem>District Binh Thanh</ComboBoxItem>
+            <ComboBoxItem>District Go Vap</ComboBoxItem>
+        </ComboBox>
+        <ComboBox x:Name="ccbSpecies"
+                  Style="{StaticResource MaterialDesignFilledComboBox}"
+                  materialDesign:HintAssist.Hint="Species"
+                  ItemsSource="{Binding ShortStringList}"
+                  materialDesign:TextFieldAssist.HasClearButton="True"
+                  Height="60"
+                  Width="450"
+                  Margin="475,386,0,0"
+                  HorizontalAlignment="Left"
+                  VerticalAlignment="Top"
+                  FontSize="22"
+                  FontFamily="Segoe UI"
+                  Background="#68D8D8D8"
+                  VerticalContentAlignment="Top"
+                  HorizontalContentAlignment="Left"
+                  Padding="20,0,0,0"
+                  IsEnabled="False">
+            <ComboBoxItem>1</ComboBoxItem>
+            <ComboBoxItem>2</ComboBoxItem>
+        </ComboBox>
+        <TextBox x:Name="txtAddress"
+                 Style="{StaticResource MaterialDesignTextBox}"
+                 Height="60"
+                 Width="450"
+                 materialDesign:TextFieldAssist.TextFieldCornerRadius="15"
+                 Margin="475,471,0,0"
+                 HorizontalAlignment="Left"
+                 VerticalAlignment="Top"
+                 FontSize="22"
+                 FontFamily="Segoe UI"
+                 Background="#68D8D8D8"
+                 IsEnabled="False">
+        </TextBox>
+        <DatePicker x:Name="dpDay"
+                    Height="60"
+                    Width="450"
+                    materialDesign:HintAssist.Hint="Pick Date"
+                    Style="{StaticResource MaterialDesignFilledDatePicker}"
+                    Margin="475,556,0,0"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"
+                    FontSize="22"
+                    FontFamily="Segoe UI"
+                    VerticalContentAlignment="Top"
+                    HorizontalContentAlignment="Left"
+                    Padding="20,0,0,0"
+                    Background="#68D8D8D8"
+                    IsEnabled="False"/>
+    </Grid>
+</UserControl>
