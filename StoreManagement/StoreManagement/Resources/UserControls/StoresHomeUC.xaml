@@ -7,28 +7,24 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
              d:DesignHeight="205" d:DesignWidth="225">
-    <Grid>
-        <Border CornerRadius="1" BorderThickness="20">
-            <Border.BorderBrush>
-                <SolidColorBrush>
-                    <SolidColorBrush.Color>
-                        <Color A="255" R="255" G="151" B="151"/>
-                    </SolidColorBrush.Color>
-                </SolidColorBrush>
-            </Border.BorderBrush>
+    <Grid 
+        Background="Transparent">
+        <Border
+            CornerRadius="1"
+            BorderThickness="20">
         </Border>
         <Grid
             Height="180"
             Width="190"
             VerticalAlignment="Center"
             HorizontalAlignment="Center">
-            <Grid.Background>
+            <!--<Grid.Background>
                 <SolidColorBrush>
                     <SolidColorBrush.Color>
                         <Color A="255" R="255" G="151" B="151"/>
                     </SolidColorBrush.Color>
                 </SolidColorBrush>
-            </Grid.Background>
+            </Grid.Background>-->
             <TextBlock
                 x:Name="tbNameStore"
                 Foreground="#4C4C66"
