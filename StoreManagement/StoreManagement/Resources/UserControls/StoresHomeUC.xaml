@@ -8,46 +8,40 @@
              mc:Ignorable="d" 
              d:DesignHeight="205" d:DesignWidth="225">
     <Grid 
-        Background="Transparent">
-        <Border
-            CornerRadius="1"
-            BorderThickness="20">
-        </Border>
-        <Grid
-            Height="180"
-            Width="190"
-            VerticalAlignment="Center"
-            HorizontalAlignment="Center">
-            <!--<Grid.Background>
-                <SolidColorBrush>
-                    <SolidColorBrush.Color>
-                        <Color A="255" R="255" G="151" B="151"/>
-                    </SolidColorBrush.Color>
-                </SolidColorBrush>
-            </Grid.Background>-->
-            <TextBlock
-                x:Name="tbNameStore"
-                Foreground="#4C4C66"
-                Text="TN Agency"
-                FontSize="22" 
-                Margin="54,44,-4,106">
-            </TextBlock>
-            <TextBlock
-                x:Name="tbRanking"
-                Foreground="#D03131"
-                Text="Top 1"
-                FontSize="18" 
-                Margin="55,80,-5,70">
-            </TextBlock>
-            <Button
-                x:Name="btnMore"
-                Height="Auto"
-                Content="More"
-                FontSize="10"
-                BorderBrush="{x:Null}"
-                Foreground="#4C4C66"
-                Background="Transparent" Margin="151,157,-21,-5"
-                />
-        </Grid>
+        Background="Transparent"
+        Height="205"
+        Width="225"
+        VerticalAlignment="Center"
+        HorizontalAlignment="Center"
+        >
+        <TextBlock
+            x:Name="tbNameStore"
+            Foreground="#4C4C66"
+            Text="TN Agency"
+            FontSize="22" 
+            Margin="54,44,-4,106" 
+            HorizontalAlignment="Left" 
+            VerticalAlignment="Top"/>
+        <TextBlock
+            x:Name="tbRanking"
+            Foreground="#D03131"
+            Text="Top 1"
+            FontSize="18" 
+            Margin="55,80,-5,70" 
+            HorizontalAlignment="Left">
+        </TextBlock>
+        <Button
+            x:Name="btnMore"
+            Content="More"
+            
+            FontSize="10"
+            BorderBrush="{x:Null}"
+            Foreground="#4C4C66"
+            Background="Transparent" 
+            VerticalAlignment="Bottom" 
+            HorizontalAlignment="Right"
+            Margin="0,0,0,5" 
+            >
+        </Button>
     </Grid>
 </UserControl>

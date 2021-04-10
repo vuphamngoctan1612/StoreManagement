@@ -465,13 +465,13 @@
                         <controls:StoresHomeUC
                             Margin="30 5 30 5"
                             Background="#FF7979"
-                            Opacity="0.76">
+                            Opacity="0.86">
                         </controls:StoresHomeUC>
                     </Grid>
                     <Grid Grid.Column="1">
                         <controls:StoresHomeUC
                             Margin="30 5 30 5"
-                            Opacity="0.35"
+                            Opacity="0.60"
                             Background="#1BE5B1">
 
                         </controls:StoresHomeUC>
@@ -479,14 +479,14 @@
                     <Grid Grid.Column="2">
                         <controls:StoresHomeUC
                             Margin="30 5 30 5"
-                            Opacity="0.36"
+                            Opacity="0.60"
                             Background="#FFD599">
                         </controls:StoresHomeUC>
                     </Grid>
                     <Grid Grid.Column="3">
                         <controls:StoresHomeUC
                             Margin="30 5 30 5"
-                            Opacity="0.36"
+                            Opacity="0.6"
                             Background="#86E3FF">
                         </controls:StoresHomeUC>
                     </Grid>
