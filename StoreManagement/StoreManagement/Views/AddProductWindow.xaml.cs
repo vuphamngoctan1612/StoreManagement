@@ -15,11 +15,11 @@ using System.Windows.Shapes;
 namespace StoreManagement.Views
 {
     /// <summary>
-    /// Interaction logic for Home.xaml
+    /// Interaction logic for AddProductWindow.xaml
     /// </summary>
-    public partial class Home : Window
+    public partial class AddProductWindow : Window
     {
-        public Home()
+        public AddProductWindow()
         {
             InitializeComponent();
         }

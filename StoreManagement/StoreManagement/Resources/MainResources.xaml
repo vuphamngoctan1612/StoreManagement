@@ -3,4 +3,6 @@
                     xmlns:local="clr-namespace:StoreManagement.Resources"
                     xmlns:viewmodels ="clr-namespace:StoreManagement.ViewModels"
                     xmlns:models ="clr-namespace:StoreManagement.Models">
+    <viewmodels:HomeViewModel x:Key="HomeVM"></viewmodels:HomeViewModel>
+    <viewmodels:ProductViewModel x:Key="ProductVM"></viewmodels:ProductViewModel>
 </ResourceDictionary>
