@@ -14,10 +14,10 @@ namespace StoreManagement.ViewModels
 
         public ProductViewModel()
         {
-            AddProductCommand = new RelayCommand<HomeWindow>((para) => true, (para) => OpenAddProductWindow(para));
+            AddProductCommand = new RelayCommand<Views.HomeWindow>((para) => true, (para) => OpenAddProductWindow(para));
         }
 
-        void OpenAddProductWindow(HomeWindow para)
+        void OpenAddProductWindow(Views.HomeWindow para)
         {
             AddProductWindow addProductWindow = new AddProductWindow();
             addProductWindow.ShowDialog();

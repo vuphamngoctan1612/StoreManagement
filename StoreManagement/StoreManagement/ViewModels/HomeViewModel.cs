@@ -18,10 +18,10 @@ namespace StoreManagement.ViewModels
 
         public HomeViewModel()
         {
-            OpenProductsWindowCommand = new RelayCommand<HomeWindow>((para) => true, (para) => OpenProductsWindow(para));
+            OpenProductsWindowCommand = new RelayCommand<Views.HomeWindow>((para) => true, (para) => OpenProductsWindow(para));
         }
 
-        void OpenProductsWindow(HomeWindow para)
+        void OpenProductsWindow(Views.HomeWindow para)
         {
             para.grdMain.Visibility = System.Windows.Visibility.Hidden;
             para.grdProduct.Visibility = System.Windows.Visibility.Visible;

@@ -22,7 +22,6 @@
             <Rectangle 
                 x:Name="recImage"
                 StrokeDashArray="4 2" 
-                Stroke="{StaticResource Primary}" 
                 StrokeThickness="4" 
                 RadiusX="4" 
                 RadiusY="4"
@@ -137,7 +136,6 @@
                     BorderThickness="0" 
                     MaxLines="1"
                     Padding="0" 
-                    Validation.ErrorTemplate="{StaticResource textBoxErrorTemplate}"
                     Foreground="{StaticResource Gray3}" 
                     Margin="0,0,10,0" 
                     HorizontalContentAlignment="Left" 

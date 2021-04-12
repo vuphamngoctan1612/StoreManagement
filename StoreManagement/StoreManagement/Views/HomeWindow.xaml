@@ -518,8 +518,10 @@
                     </lvc:CartesianChart>
                 </Grid>
             </Grid>
-
+            
+            <!--grid product -->
             <Grid
+                DataContext="{StaticResource ProductVM}"
                 x:Name="grdProduct"
                 Height="665"
                 Width="1140"
