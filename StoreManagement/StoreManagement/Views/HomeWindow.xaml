@@ -7,8 +7,9 @@
         xmlns:controls="clr-namespace:StoreManagement.Resources.UserControls"
         xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
         mc:Ignorable="d"
-        WindowStyle="None"
-        Title="Home" Height="810" Width="1440"
+        Title="Agency Management"
+        Height="810"
+        Width="1440"
         WindowStartupLocation="CenterScreen"
         x:Name="wdHome"
         DataContext="{StaticResource HomeVM}"
@@ -538,6 +539,11 @@
                 </Grid>
                 <Button 
                     x:Name="btnAddProduct"
+                    Background="#F79BB5"
+                    Uid="0"
+                    BorderBrush="{x:Null}"
+                    Cursor="Hand"
+                    Foreground="#504D85"
                     HorizontalAlignment="Left" 
                     VerticalAlignment="Top"
                     Content="Add product"
@@ -545,7 +551,7 @@
                     Margin="929 20 0 0"
                     Style="{StaticResource MaterialDesignRaisedButton}"
                     ToolTip="Thêm sản phẩm"
-                    Command="{Binding AddProductCommand}"
+                    Command="{Binding AddWindowProductCommand}"
                     CommandParameter="{Binding ElementName=wdHome}">
                 </Button>
                 <Grid 
@@ -643,6 +649,7 @@
                     </Grid>
                     <Grid Grid.Row="1"
                         Background="#FFFFFF">
+                        
                     </Grid>
                 </Grid>
             </Grid>
