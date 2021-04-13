@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:controls="clr-namespace:StoreManagement.Resources.UserControls"
-        xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+        xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf" xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         mc:Ignorable="d"
         Title="Agency Management"
         Height="810"
@@ -317,6 +317,7 @@
                     Foreground="#504D85"
                     FontSize="48"
                     Width="585"
+                    FontWeight="Bold"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center">
                 </TextBlock>
@@ -423,7 +424,7 @@
                 Width="1140"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Bottom"
-                Visibility="Hidden">
+                Visibility="Visible">
 
                 <Grid.RowDefinitions>
                     <RowDefinition Height="70"></RowDefinition>
@@ -442,6 +443,7 @@
                             Foreground="#F97298"
                             FontSize="25"
                             HorizontalAlignment="Left"
+                            FontWeight="SemiBold"
                             VerticalAlignment="Center">
                         </TextBlock>
                     </Grid>
@@ -453,9 +455,9 @@
                         </Grid.ColumnDefinitions>
                         <TextBlock
                             Text="TODAY RANKING"
-                            FontWeight="DemiBold"
                             FontSize="18"
                             Foreground="#504D85"
+                            FontWeight="SemiBold"
                             HorizontalAlignment="Left"
                             VerticalAlignment="Center"
                             Margin="20,3,0,3.4">
@@ -528,7 +530,13 @@
                 Width="1140"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Bottom"
-                Visibility="Visible">
+                Visibility="Hidden">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="Loaded">
+                        <i:InvokeCommandAction Command="{Binding LoadProductOnWindowCommand}" 
+                                               CommandParameter="{Binding ElementName=wdHome}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
                 <Grid
                     Width="1065"
                     Height="3" 
@@ -588,68 +596,67 @@
                         </Grid.ColumnDefinitions>
                         <TextBlock Grid.Column="0"
                             Text="ID" 
-                            VerticalAlignment="Top" 
                             HorizontalAlignment="Left"
                             FontFamily="Poppins"
                             FontStyle="Normal"
-                            FontSize="22"
-                            LineHeight="33" 
+                            FontSize="22" 
                             Margin="30,15,30,10"
                             FontWeight="SemiBold"
-                            Foreground="#504D85">
-                        </TextBlock>
+                            Foreground="#504D85"/>
                         <TextBlock Grid.Column="1"
                             Text="Items" 
-                            VerticalAlignment="Top" 
                             HorizontalAlignment="Left"
                             FontFamily="Poppins"
                             FontStyle="Normal"
                             FontSize="22"
-                            LineHeight="33" 
                             FontWeight="SemiBold"
                             Margin="30,15,30,10"
-                            Foreground="#504D85">
-                        </TextBlock>
+                            Foreground="#504D85"/>
                         <TextBlock Grid.Column="2"
                             Text="Units" 
-                            VerticalAlignment="Top" 
                             HorizontalAlignment="Left"
                             FontFamily="Poppins"
                             FontStyle="Normal"
                             FontSize="22"
                             FontWeight="SemiBold"
-                            LineHeight="33" 
                             Margin="30,15,30,10"
-                            Foreground="#504D85">
-                        </TextBlock>
+                            Foreground="#504D85"/>
                         <TextBlock Grid.Column="3"
                             Text="Price" 
-                            VerticalAlignment="Top" 
                             HorizontalAlignment="Left"
                             FontWeight="SemiBold"
                             FontFamily="Poppins"
                             FontStyle="Normal"
                             FontSize="22"
-                            LineHeight="33" 
                             Margin="30,15,30,10"
-                            Foreground="#504D85">
-                        </TextBlock>
+                            Foreground="#504D85"/>
                         <TextBlock Grid.Column="4"
                             Text="Count" 
-                            VerticalAlignment="Top" 
                             HorizontalAlignment="Left"
                             FontFamily="Poppins"
                             FontStyle="Normal"
                             FontSize="22"
                             FontWeight="SemiBold"
-                            LineHeight="33" 
                             Margin="20,15,40,10"
-                            Foreground="#504D85">
-                        </TextBlock>
+                            Foreground="#504D85"/>
                     </Grid>
-                    <Grid Grid.Row="1"
-                        Background="#FFFFFF">
-                        
+                    <Grid 
+                    Grid.Row="1"
+                    HorizontalAlignment="Left"
+                    Background="#FFFFFF">
+                        <ScrollViewer 
+                        Grid.Row="2"
+                        HorizontalScrollBarVisibility="Disabled" 
+                        Margin="0"
+                        HorizontalAlignment="Left" 
+                        Style="{StaticResource FavsScrollViewer}"
+                        VerticalScrollBarVisibility="Auto">
+                            <StackPanel 
+                            x:Name="stkProducts" 
+                            Width="955" 
+                            ScrollViewer.VerticalScrollBarVisibility="Auto" 
+                            ScrollViewer.HorizontalScrollBarVisibility="Disabled"/>
+                        </ScrollViewer>
                     </Grid>
                 </Grid>
             </Grid>

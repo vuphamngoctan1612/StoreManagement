@@ -13,127 +13,122 @@
     <Grid 
         x:Name="grdMain"
         Background="#FFFFFF">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="90"></ColumnDefinition>
-            <ColumnDefinition Width="180"></ColumnDefinition>
-            <ColumnDefinition Width="165"></ColumnDefinition>
-            <ColumnDefinition Width="200"></ColumnDefinition>
-            <ColumnDefinition Width="200"></ColumnDefinition>
-            <ColumnDefinition Width="150"></ColumnDefinition>
-        </Grid.ColumnDefinitions>
-        <TextBlock 
-            x:Name="txbId"
-            Grid.Column="0"
-            HorizontalAlignment="Left" 
-            Foreground="{x:Null}" />
-        <TextBlock 
-            x:Name="txbOrderNum"
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="1"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="90"></ColumnDefinition>
+                <ColumnDefinition Width="180"></ColumnDefinition>
+                <ColumnDefinition Width="165"></ColumnDefinition>
+                <ColumnDefinition Width="200"></ColumnDefinition>
+                <ColumnDefinition Width="200"></ColumnDefinition>
+                <ColumnDefinition Width="150"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <TextBlock 
+            x:Name="txbID"
             Text="No"
-            Grid.Column="0"
-            HorizontalAlignment="Center" 
-            Margin="0" 
+            Grid.Column="0" 
+            Margin="30,10,30,10"
             TextWrapping="Wrap" 
-            VerticalAlignment="Center" 
             FontSize="18" 
-            FontWeight="SemiBold"/>
-        <Rectangle 
+            FontWeight="SemiBold" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+            <Rectangle 
             Grid.Column="0" 
             HorizontalAlignment="Right" 
             Height="30" 
             Margin="0" 
             Width="2"
             VerticalAlignment="Center"/>
-        <TextBlock 
+            <TextBlock 
             x:Name="txbName"
             Text="Tên mặt hàng" 
             Grid.Column="1"
             HorizontalAlignment="Left" 
-            Margin="20,0,0,0" 
+            Margin="30,10,30,10"
             TextWrapping="Wrap" 
-            VerticalAlignment="Center" 
             FontSize="18" 
-            FontWeight="SemiBold" />
-        <Rectangle 
+            FontWeight="SemiBold" VerticalAlignment="Top" />
+            <Rectangle 
             Grid.Column="1" 
             HorizontalAlignment="Right" 
             Height="30" 
             Margin="0" 
             Width="2"
             VerticalAlignment="Center"/>
-        <TextBlock 
+            <TextBlock 
             x:Name="txbUnit"
             Text="Đơn vị tính" 
             Grid.Column="2"
-            HorizontalAlignment="Center" 
-            Margin="0" 
+            HorizontalAlignment="Left" 
+            Margin="30,10,30,10"
             TextWrapping="Wrap" 
-            VerticalAlignment="Center" 
             FontSize="18" 
-            FontWeight="SemiBold"/>
-        <Rectangle 
+            FontWeight="SemiBold" VerticalAlignment="Top"/>
+            <Rectangle 
             Grid.Column="2" 
             HorizontalAlignment="Right" 
             Height="30" 
             Margin="0" 
             Width="2"
             VerticalAlignment="Center"/>
-        <TextBlock 
+            <TextBlock 
             x:Name="txbPrice"
             Text="Giá bán" 
             Grid.Column="3"
-            HorizontalAlignment="Center" 
-            Margin="0" 
+            HorizontalAlignment="Left" 
+            Margin="30,10,30,10"
             TextWrapping="Wrap" 
-            VerticalAlignment="Center" 
             FontSize="18" 
-            FontWeight="SemiBold"/>
-        <Rectangle 
+            FontWeight="SemiBold" VerticalAlignment="Top"/>
+            <Rectangle 
             Grid.Column="3" 
             HorizontalAlignment="Right" 
             Height="30" 
             Margin="0" 
             Width="2" 
             VerticalAlignment="Center"/>
-        <TextBlock 
+            <TextBlock 
             x:Name="txbCount"
             Text="Số lượng" 
             Grid.Column="4"
-            HorizontalAlignment="Center" 
-            Margin="0" 
+            HorizontalAlignment="Left" 
+            Margin="20,10,40,10"
             TextWrapping="Wrap" 
-            VerticalAlignment="Center" 
             FontSize="18" 
-            FontWeight="SemiBold"/>
-        <Button
-            Grid.Column="5"
+            FontWeight="SemiBold" VerticalAlignment="Top"/>
+            <Button
             x:Name="btnEditProduct"
+            Grid.Column="5"
             ToolTip="Edit product"
             Height="30"
             Width="40"
             HorizontalAlignment="Right"
             VerticalAlignment="Center"
-            Margin="0 0 110 0"
+            Margin="0 0 105 5"
             FontSize="16"
             Padding="0"
             FontWeight="SemiBold"
             Background="{x:Null}" 
             BorderBrush="{x:Null}" 
-            Foreground="{DynamicResource Primary}" >
-            <materialDesign:PackIcon
+            Foreground="#57548B" 
+            Command="{Binding EditProductCommand}"
+            CommandParameter="{Binding ElementName=txbID}">
+                <materialDesign:PackIcon
                 Kind="SquareEditOutline"
                 Height="24"
                 Width="24">
-            </materialDesign:PackIcon>
-        </Button>
-        <Button 
+                </materialDesign:PackIcon>
+            </Button>
+            <Button 
             Grid.Column="5"
             x:Name="btnDeleteProduct"
-            Command="{Binding DeleteGoodsCommand}"
-            CommandParameter="{Binding ElementName=ucDisplayGoods}"
-            Style="{StaticResource MaterialDesignRaisedButton}"
+            Command="{Binding DeleteProductCommand}"
+            CommandParameter="{Binding ElementName=txbId}"
             ToolTip="Xóa mặt hàng" 
             Height="30"
-            Margin="0,0,60,0" 
+            Margin="0,0,50,5" 
             FontSize="16" 
             VerticalAlignment="Center" 
             FocusVisualStyle="{x:Null}"
@@ -144,10 +139,15 @@
             BorderBrush="{x:Null}"
             FontWeight="SemiBold" 
             Padding="0" >
-            <materialDesign:PackIcon 
+                <materialDesign:PackIcon 
                 Kind="Delete" 
                 Height="24"
                 Width="24"/>
-        </Button>
+            </Button>
+        </Grid>
+        <Grid Grid.Row="1"
+            Width="955"
+            Background="#DDDDDD">
+        </Grid>
     </Grid>
 </UserControl>

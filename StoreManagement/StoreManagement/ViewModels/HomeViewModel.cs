@@ -10,7 +10,7 @@ using StoreManagement.Views;
 
 namespace StoreManagement.ViewModels
 {
-    public class HomeViewModel
+    public class HomeViewModel : BaseViewModel
     {
         public ICommand Formatter { get; set; }
         public ICommand OpenProductsWindowCommand { get; set; }

@@ -13,6 +13,7 @@
                 <ResourceDictionary Source="Resources/MainResources.xaml"/>
                 <ResourceDictionary Source="Resources/ColorPalette.xaml"></ResourceDictionary>
                 <ResourceDictionary Source="Resources/ButtonStyle.xaml"></ResourceDictionary>
+                <ResourceDictionary Source="Resources/ScrollBarStyle.xaml"></ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>
