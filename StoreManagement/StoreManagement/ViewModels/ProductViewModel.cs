@@ -54,6 +54,7 @@ namespace StoreManagement.ViewModels
                 control.txbID.Text = product.ID.ToString();
                 control.txbName.Text = product.NAME;
                 control.txbUnit.Text = product.UNIT;
+                control.txbImportPrice.Text = string.Format("{0:N0}", product.COSTPRICE);
                 control.txbPrice.Text = string.Format("{0:N0}", product.PRICE);
                 control.txbCount.Text = string.Format("{0:N0}", product.COUNT);
 
@@ -98,22 +99,27 @@ namespace StoreManagement.ViewModels
         {
             if (string.IsNullOrEmpty(para.txtName.Text))
             {
+                para.txtName.Focus();
                 return;
             }
             if (string.IsNullOrEmpty(para.txtUnit.Text))
             {
+                para.txtUnit.Focus();
                 return;
             }
             if (string.IsNullOrEmpty(para.txtImportPrice.Text))
             {
+                para.txtImportPrice.Focus();
                 return;
             }
             if (string.IsNullOrEmpty(para.txtExportPrice.Text))
             {
+                para.txtExportPrice.Focus();
                 return;
             }
             if (string.IsNullOrEmpty(para.txtAmount.Text))
             {
+                para.txtAmount.Focus();
                 return;
             }
 

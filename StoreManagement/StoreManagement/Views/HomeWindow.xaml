@@ -24,11 +24,10 @@
         <Grid 
             x:Name="grdMenu" 
             HorizontalAlignment="Left" 
-            Height="810" 
+            Height="780" 
             Margin="0" 
             VerticalAlignment="Top" 
-            Width="300" 
-            Grid.RowSpan="2">
+            Width="300">
             <Border Grid.Column="0" Margin="0,0,0,0" >
                 <Border.Background>
                     <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
@@ -424,7 +423,7 @@
                 Width="1140"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Bottom"
-                Visibility="Visible">
+                Visibility="Hidden">
 
                 <Grid.RowDefinitions>
                     <RowDefinition Height="70"></RowDefinition>
@@ -521,16 +520,17 @@
                     </lvc:CartesianChart>
                 </Grid>
             </Grid>
-            
+
             <!--grid product -->
             <Grid
                 DataContext="{StaticResource ProductVM}"
                 x:Name="grdProduct"
+                Background="#F2F2F2"
                 Height="665"
                 Width="1140"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Bottom"
-                Visibility="Hidden">
+                Visibility="Visible">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="Loaded">
                         <i:InvokeCommandAction Command="{Binding LoadProductOnWindowCommand}" 
@@ -538,13 +538,11 @@
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
                 <Grid
-                    Width="1065"
-                    Height="3" 
-                    HorizontalAlignment="Left" 
-                    VerticalAlignment="Top"
-                    Background="#FBA1BB"
-                    Margin="50 0 70 0">
-                </Grid>
+                    Width="1140"
+                    Height="3"
+                    Background="#FBA1BB" 
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"/>
                 <Button 
                     x:Name="btnAddProduct"
                     Background="#F79BB5"
@@ -556,43 +554,33 @@
                     VerticalAlignment="Top"
                     Content="Add product"
                     FontFamily="Segoe UI"
-                    Margin="929 20 0 0"
+                    Margin="988,20,0,0"
                     Style="{StaticResource MaterialDesignRaisedButton}"
                     ToolTip="Thêm sản phẩm"
                     Command="{Binding AddWindowProductCommand}"
                     CommandParameter="{Binding ElementName=wdHome}">
                 </Button>
                 <Grid 
-                    HorizontalAlignment="Stretch" 
-                    VerticalAlignment="Top"
-                    Margin="65,80,80,0"
-                    Height="530"
-                    Width="955"
+                    HorizontalAlignment="Center" 
+                    VerticalAlignment="Center"
+                    Margin="0 40 10 0"
+                    Height="570"
+                    Width="1070"
                     Background="#FCE5EC">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="50"></RowDefinition>
                         <RowDefinition></RowDefinition>
                     </Grid.RowDefinitions>
-                    <!--<TextBlock Grid.Row="0"
-                        HorizontalAlignment="Left" 
-                        VerticalAlignment="Top"
-                        Margin="405,10,420,5"
-                        Text="Products"
-                        FontSize="25"
-                        FontStyle="Normal"
-                        LineHeight="37"
-                        FontFamily="Poppins"
-                        Foreground="#504D85">
-                    </TextBlock>-->
                     <Grid Grid.Row="0"
                           Background="#FF9CB9">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="90"></ColumnDefinition>
-                            <ColumnDefinition Width="180"></ColumnDefinition>
-                            <ColumnDefinition Width="165"></ColumnDefinition>
-                            <ColumnDefinition Width="200"></ColumnDefinition>
-                            <ColumnDefinition Width="200"></ColumnDefinition>
+                            <ColumnDefinition Width="85"></ColumnDefinition>
+                            <ColumnDefinition Width="220"></ColumnDefinition>
+                            <ColumnDefinition Width="130"></ColumnDefinition>
+                            <ColumnDefinition Width="190"></ColumnDefinition>
+                            <ColumnDefinition Width="190"></ColumnDefinition>
                             <ColumnDefinition Width="150"></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
                         </Grid.ColumnDefinitions>
                         <TextBlock Grid.Column="0"
                             Text="ID" 
@@ -622,7 +610,7 @@
                             Margin="30,15,30,10"
                             Foreground="#504D85"/>
                         <TextBlock Grid.Column="3"
-                            Text="Price" 
+                            Text="Import Price" 
                             HorizontalAlignment="Left"
                             FontWeight="SemiBold"
                             FontFamily="Poppins"
@@ -631,6 +619,15 @@
                             Margin="30,15,30,10"
                             Foreground="#504D85"/>
                         <TextBlock Grid.Column="4"
+                            Text="Price" 
+                            HorizontalAlignment="Left"
+                            FontWeight="SemiBold"
+                            FontFamily="Poppins"
+                            FontStyle="Normal"
+                            FontSize="22"
+                            Margin="30,15,30,10"
+                            Foreground="#504D85"/>
+                        <TextBlock Grid.Column="5"
                             Text="Count" 
                             HorizontalAlignment="Left"
                             FontFamily="Poppins"
@@ -643,7 +640,7 @@
                     <Grid 
                     Grid.Row="1"
                     HorizontalAlignment="Left"
-                    Background="#FFFFFF">
+                    Background="#F2F2F2">
                         <ScrollViewer 
                         Grid.Row="2"
                         HorizontalScrollBarVisibility="Disabled" 
@@ -653,7 +650,7 @@
                         VerticalScrollBarVisibility="Auto">
                             <StackPanel 
                             x:Name="stkProducts" 
-                            Width="955" 
+                            Width="1070" 
                             ScrollViewer.VerticalScrollBarVisibility="Auto" 
                             ScrollViewer.HorizontalScrollBarVisibility="Disabled"/>
                         </ScrollViewer>
