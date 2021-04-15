@@ -70,7 +70,53 @@
                 VerticalAlignment="Top"
                 Width="300" >
                 <Grid 
-                    x:Name="grdStores" 
+                    x:Name="grdMenu_Main" 
+                    HorizontalAlignment="Left"
+                    Height="60" 
+                    Margin="0" 
+                    Width="300">
+                    <materialDesign:PackIcon
+                        x:Name="icnMain"
+                        Kind="HomeOutline"
+                        Foreground="#504D85"
+                        Width="30" 
+                        Height="30" 
+                        VerticalAlignment="Center" 
+                        Cursor="Hand" 
+                        Margin="60,0" >
+                    </materialDesign:PackIcon>
+                    <Button 
+                        x:Name="btnMain" 
+                        Uid="0"
+                        Content="Main"
+                        Foreground="#504D85"
+                        Height="40" 
+                        Margin="0" 
+                        Width="250" 
+                        VerticalAlignment="Center"
+                        BorderBrush="{x:Null}"
+                        Background="{x:Null}" 
+                        FontSize="22" 
+                        VerticalContentAlignment="Center"
+                        HorizontalContentAlignment="Left" 
+                        FontWeight="SemiBold" 
+                        Padding="75,0,0,0" 
+                        Cursor="Hand" 
+                        FocusVisualStyle="{x:Null}">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Click">
+                                <i:InvokeCommandAction Command="{Binding SwitchTabCommand}"
+                                                       CommandParameter="{Binding ElementName = wdHome}"/>
+                            </i:EventTrigger>
+                            <i:EventTrigger EventName="MouseMove">
+                                <i:InvokeCommandAction Command="{Binding GetUidCommand}"
+                                                       CommandParameter="{Binding ElementName=btnMain}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </Button>
+                </Grid>
+                <Grid 
+                    x:Name="grdMenu_Stores" 
                     HorizontalAlignment="Left"
                     Height="60" 
                     Margin="0" 
@@ -87,7 +133,7 @@
                     </materialDesign:PackIcon>
                     <Button 
                         x:Name="btnStores" 
-                        Uid="0"
+                        Uid="1"
                         Content="Stores"
                         Foreground="#504D85"
                         Height="40" 
@@ -103,10 +149,20 @@
                         Padding="75,0,0,0" 
                         Cursor="Hand" 
                         FocusVisualStyle="{x:Null}">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Click">
+                                <i:InvokeCommandAction Command="{Binding SwitchTabCommand}"
+                                                       CommandParameter="{Binding ElementName = wdHome}"/>
+                            </i:EventTrigger>
+                            <i:EventTrigger EventName="MouseMove">
+                                <i:InvokeCommandAction Command="{Binding GetUidCommand}"
+                                                       CommandParameter="{Binding ElementName=btnStores}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
                     </Button>
                 </Grid>
                 <Grid
-                    x:Name="grdProducts"
+                    x:Name="grdMenu_Products"
                     HorizontalAlignment="Center"
                     Height="60" 
                     Margin="0" 
@@ -123,7 +179,7 @@
                     </materialDesign:PackIcon>
                     <Button 
                         x:Name="btnProdcuts" 
-                        Uid="1"
+                        Uid="2"
                         Content="Products"
                         Foreground="#504D85"
                         HorizontalAlignment="Center" 
@@ -142,18 +198,24 @@
                         FocusVisualStyle="{x:Null}"
                         Command="{Binding OpenProductsWindowCommand}"
                         CommandParameter="{Binding ElementName=wdHome}">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Click">
+                                <i:InvokeCommandAction Command="{Binding SwitchTabCommand}"
+                                                       CommandParameter="{Binding ElementName = wdHome}"/>
+                            </i:EventTrigger>
+                            <i:EventTrigger EventName="MouseMove">
+                                <i:InvokeCommandAction Command="{Binding GetUidCommand}"
+                                                       CommandParameter="{Binding ElementName=btnProdcuts}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
                     </Button>
                 </Grid>
                 <Grid
-                    x:Name="grdBills"
+                    x:Name="grdMenu_Bills"
                     HorizontalAlignment="Center"
                     Height="60" 
                     Margin="0" 
                     Width="300">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="29*"/>
-                        <ColumnDefinition Width="31*"/>
-                    </Grid.ColumnDefinitions>
                     <materialDesign:PackIcon
                         x:Name="icnBill"
                         Kind="NewspaperVariantMultipleOutline"
@@ -166,7 +228,7 @@
                     </materialDesign:PackIcon>
                     <Button 
                         x:Name="btnBills" 
-                        Uid="2"
+                        Uid="3"
                         Content="Bill"
                         Foreground="#504D85"
                         HorizontalAlignment="Center" 
@@ -182,11 +244,22 @@
                         FontWeight="SemiBold" 
                         Padding="75,0,0,0" 
                         Cursor="Hand" 
-                        FocusVisualStyle="{x:Null}" Grid.ColumnSpan="2">
+                        FocusVisualStyle="{x:Null}" 
+                        Grid.ColumnSpan="2">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Click">
+                                <i:InvokeCommandAction Command="{Binding SwitchTabCommand}"
+                                                       CommandParameter="{Binding ElementName = wdHome}"/>
+                            </i:EventTrigger>
+                            <i:EventTrigger EventName="MouseMove">
+                                <i:InvokeCommandAction Command="{Binding GetUidCommand}"
+                                                       CommandParameter="{Binding ElementName=btnBills}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
                     </Button>
                 </Grid>
                 <Grid
-                    x:Name="grdReport"
+                    x:Name="grdMenu_Report"
                     HorizontalAlignment="Center"
                     Height="60" 
                     Margin="0" 
@@ -203,7 +276,7 @@
                     </materialDesign:PackIcon>
                     <Button 
                         x:Name="btnReport" 
-                        Uid="3"
+                        Uid="4"
                         Content="Report"
                         Foreground="#504D85"
                         HorizontalAlignment="Center" 
@@ -220,10 +293,20 @@
                         Padding="75,0,0,0" 
                         Cursor="Hand" 
                         FocusVisualStyle="{x:Null}">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Click">
+                                <i:InvokeCommandAction Command="{Binding SwitchTabCommand}"
+                                                       CommandParameter="{Binding ElementName = wdHome}"/>
+                            </i:EventTrigger>
+                            <i:EventTrigger EventName="MouseMove">
+                                <i:InvokeCommandAction Command="{Binding GetUidCommand}"
+                                                       CommandParameter="{Binding ElementName=btnReport}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
                     </Button>
                 </Grid>
                 <Grid
-                    x:Name="grdSetting"
+                    x:Name="grdMenu_Setting"
                     HorizontalAlignment="Left"
                     Height="60" 
                     Margin="0" 
@@ -240,7 +323,7 @@
                     </materialDesign:PackIcon>
                     <Button 
                         x:Name="btnSetting" 
-                        Uid="4"
+                        Uid="5"
                         Content="Account Setting"
                         Foreground="#504D85"
                         HorizontalAlignment="Center" 
@@ -257,11 +340,21 @@
                         Padding="75,0,0,0" 
                         Cursor="Hand" 
                         FocusVisualStyle="{x:Null}">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Click">
+                                <i:InvokeCommandAction Command="{Binding SwitchTabCommand}"
+                                                       CommandParameter="{Binding ElementName = wdHome}"/>
+                            </i:EventTrigger>
+                            <i:EventTrigger EventName="MouseMove">
+                                <i:InvokeCommandAction Command="{Binding GetUidCommand}"
+                                                       CommandParameter="{Binding ElementName=btnSetting}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
                     </Button>
                 </Grid>
             </StackPanel>
             <Grid
-                x:Name="grdLogout"
+                x:Name="grdMenu_Logout"
                 Height="60"
                 Width="300"
                 Margin="0,700,0,0">
@@ -417,8 +510,10 @@
 
                 </StackPanel>
             </Button>-->
+            
+            <!--Body main-->
             <Grid
-                x:Name="grdMain"
+                x:Name="grdBody_Main"
                 Height="665"
                 Width="1140"
                 HorizontalAlignment="Left"
@@ -520,17 +615,35 @@
                     </lvc:CartesianChart>
                 </Grid>
             </Grid>
-
-            <!--grid product -->
+            <!--Body stores-->
             <Grid
-                DataContext="{StaticResource ProductVM}"
-                x:Name="grdProduct"
+                x:Name="grdBody_Store"
                 Background="#F2F2F2"
                 Height="665"
                 Width="1140"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Bottom"
-                Visibility="Visible">
+                Visibility="Hidden">
+
+                <Grid
+                    Width="1140"
+                    Height="3"
+                    Background="#FBA1BB" 
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top">
+                    
+                </Grid>
+            </Grid>
+            <!--Body products -->
+            <Grid
+                DataContext="{StaticResource ProductVM}"
+                x:Name="grdBody_Product"
+                Background="#F2F2F2"
+                Height="665"
+                Width="1140"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Bottom"
+                Visibility="Hidden">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="Loaded">
                         <i:InvokeCommandAction Command="{Binding LoadProductOnWindowCommand}" 
@@ -655,6 +768,63 @@
                             ScrollViewer.HorizontalScrollBarVisibility="Disabled"/>
                         </ScrollViewer>
                     </Grid>
+                </Grid>
+            </Grid>
+            <!--Body bills-->
+            <Grid
+                x:Name="grdBody_Bill"
+                Background="#F2F2F2"
+                Height="665"
+                Width="1140"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Bottom"
+                Visibility="Hidden">
+
+                <Grid
+                    Width="1140"
+                    Height="3"
+                    Background="#FBA1BB" 
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top">
+
+                </Grid>
+            </Grid>
+            <!--Body report-->
+            <Grid
+                x:Name="grdBody_Report"
+                Background="#F2F2F2"
+                Height="665"
+                Width="1140"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Bottom"
+                Visibility="Hidden">
+
+                <Grid
+                    Width="1140"
+                    Height="3"
+                    Background="#FBA1BB" 
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top">
+
+                </Grid>
+            </Grid>
+            <!--Body account setting-->
+            <Grid
+                x:Name="grdBody_AccountSetting"
+                Background="#F2F2F2"
+                Height="665"
+                Width="1140"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Bottom"
+                Visibility="Hidden">
+
+                <Grid
+                    Width="1140"
+                    Height="3"
+                    Background="#FBA1BB" 
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top">
+
                 </Grid>
             </Grid>
         </Grid>

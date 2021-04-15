@@ -121,7 +121,11 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ViewModels\AccountViewModel.cs" />
+    <Compile Include="ViewModels\BillViewModel.cs" />
     <Compile Include="ViewModels\ProductViewModel.cs" />
+    <Compile Include="ViewModels\ReportViewModel.cs" />
+    <Compile Include="ViewModels\StoreViewModel.cs" />
     <Compile Include="Views\AddProductWindow.xaml.cs">
       <DependentUpon>AddProductWindow.xaml</DependentUpon>
     </Compile>
