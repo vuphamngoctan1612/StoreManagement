@@ -113,6 +113,9 @@
     <Compile Include="Resources\UserControls\SalesReportUC.xaml.cs">
       <DependentUpon>SalesReportUC.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Resources\UserControls\StoreControlUC.xaml.cs">
+      <DependentUpon>StoreControlUC.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Resources\UserControls\StoresHomeUC.xaml.cs">
       <DependentUpon>StoresHomeUC.xaml</DependentUpon>
     </Compile>
@@ -243,6 +246,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Resources\UserControls\SalesReportUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\UserControls\StoreControlUC.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

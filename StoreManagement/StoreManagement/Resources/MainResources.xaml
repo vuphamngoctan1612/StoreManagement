@@ -5,6 +5,7 @@
                     xmlns:models ="clr-namespace:StoreManagement.Models">
     <viewmodels:HomeViewModel x:Key="HomeVM"></viewmodels:HomeViewModel>
     <viewmodels:ProductViewModel x:Key="ProductVM"></viewmodels:ProductViewModel>
+    <viewmodels:ReportViewModel x:Key="ReportVM"></viewmodels:ReportViewModel>
     <ControlTemplate x:Key="textBoxErrorTemplate">
         <StackPanel>
             <AdornedElementPlaceholder x:Name="placeholder"/>

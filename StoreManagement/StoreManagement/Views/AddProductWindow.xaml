@@ -38,6 +38,7 @@
                 Content="Select image"
                 Background="#F79BB5"
                 Foreground="#57548B"
+                FocusVisualStyle="{x:Null}"
                 FontWeight="SemiBold"
                 FontSize="18"
                 Margin="15"
@@ -355,6 +356,7 @@
                     Background="#F79BB5"
                     FontSize="22"
                     Cursor="Hand"
+                    FocusVisualStyle="{x:Null}"
                     FontWeight="SemiBold"
                     Command="{Binding SaveCommand}"
                     CommandParameter="{Binding ElementName=wdAddProduct}">
@@ -369,6 +371,7 @@
                     BorderThickness="0"
                     Cursor="Hand"
                     Background="#F0F0F0"
+                    FocusVisualStyle="{x:Null}"
                     Foreground="#57548B"
                     FontSize="22"
                     FontWeight="SemiBold"
