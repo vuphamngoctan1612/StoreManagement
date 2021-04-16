@@ -75,6 +75,14 @@
                     Height="60" 
                     Margin="0" 
                     Width="300">
+                    <Rectangle
+                        Name="rec_btn_Menu_Main"
+                        Height="45"
+                        Width="260"
+                        RadiusX="10"
+                        RadiusY="10"
+                        Fill="Transparent">
+                    </Rectangle>
                     <materialDesign:PackIcon
                         x:Name="icnMain"
                         Kind="HomeOutline"
@@ -83,16 +91,17 @@
                         Height="30" 
                         VerticalAlignment="Center" 
                         Cursor="Hand" 
-                        Margin="60,0" >
+                        Margin="55 0 0 0" >
                     </materialDesign:PackIcon>
                     <Button 
                         x:Name="btnMain" 
                         Uid="0"
                         Content="Main"
                         Foreground="#504D85"
-                        Height="40" 
+                        Height="45" 
+                        Width="260" 
+                        BorderThickness="10"
                         Margin="0" 
-                        Width="250" 
                         VerticalAlignment="Center"
                         BorderBrush="{x:Null}"
                         Background="{x:Null}" 
@@ -121,6 +130,14 @@
                     Height="60" 
                     Margin="0" 
                     Width="300">
+                    <Rectangle
+                        Name="rec_btn_Menu_Store"
+                        Height="45"
+                        Width="260"
+                        RadiusX="10"
+                        RadiusY="10"
+                        Fill="Transparent">
+                    </Rectangle>
                     <materialDesign:PackIcon
                         x:Name="icnStores"
                         Kind="StorefrontOutline"
@@ -129,16 +146,17 @@
                         Height="30" 
                         VerticalAlignment="Center" 
                         Cursor="Hand" 
-                        Margin="60,0" >
+                        Margin="55 0 0 0">
                     </materialDesign:PackIcon>
                     <Button 
                         x:Name="btnStores" 
                         Uid="1"
                         Content="Stores"
                         Foreground="#504D85"
-                        Height="40" 
                         Margin="0" 
-                        Width="250" 
+                        Height="45" 
+                        Width="260" 
+                        BorderThickness="10"
                         VerticalAlignment="Center"
                         BorderBrush="{x:Null}"
                         Background="{x:Null}" 
@@ -167,6 +185,14 @@
                     Height="60" 
                     Margin="0" 
                     Width="300">
+                    <Rectangle
+                        Name="rec_btn_Menu_Product"
+                        Height="45"
+                        Width="260"
+                        RadiusX="10"
+                        RadiusY="10"
+                        Fill="Transparent">
+                    </Rectangle>
                     <materialDesign:PackIcon
                         x:Name="icnProducts"
                         Kind="PageLayoutSidebarRight"
@@ -175,7 +201,7 @@
                         Height="30" 
                         VerticalAlignment="Center" 
                         Cursor="Hand" 
-                        Margin="60,0" >
+                        Margin="55 0 0 0" >
                     </materialDesign:PackIcon>
                     <Button 
                         x:Name="btnProdcuts" 
@@ -183,9 +209,10 @@
                         Content="Products"
                         Foreground="#504D85"
                         HorizontalAlignment="Center" 
-                        Height="40" 
                         Margin="0" 
-                        Width="250" 
+                        Height="45" 
+                        Width="260" 
+                        BorderThickness="10" 
                         VerticalAlignment="Center"
                         BorderBrush="{x:Null}"
                         Background="{x:Null}" 
@@ -216,6 +243,14 @@
                     Height="60" 
                     Margin="0" 
                     Width="300">
+                    <Rectangle
+                        Name="rec_btn_Menu_Bill"
+                        Height="45"
+                        Width="260"
+                        RadiusX="10"
+                        RadiusY="10"
+                        Fill="Transparent">
+                    </Rectangle>
                     <materialDesign:PackIcon
                         x:Name="icnBill"
                         Kind="NewspaperVariantMultipleOutline"
@@ -224,7 +259,7 @@
                         Height="30" 
                         VerticalAlignment="Center" 
                         Cursor="Hand" 
-                        Margin="60,15,0,15" >
+                        Margin="55 0 0 0" >
                     </materialDesign:PackIcon>
                     <Button 
                         x:Name="btnBills" 
@@ -232,9 +267,10 @@
                         Content="Bill"
                         Foreground="#504D85"
                         HorizontalAlignment="Center" 
-                        Height="40" 
                         Margin="25,10" 
-                        Width="250" 
+                        Height="45" 
+                        Width="260" 
+                        BorderThickness="10"
                         VerticalAlignment="Center"
                         BorderBrush="{x:Null}"
                         Background="{x:Null}" 
@@ -264,6 +300,14 @@
                     Height="60" 
                     Margin="0" 
                     Width="300">
+                    <Rectangle
+                        Name="rec_btn_Menu_Report"
+                        Height="45"
+                        Width="260"
+                        RadiusX="10"
+                        RadiusY="10"
+                        Fill="Transparent">
+                    </Rectangle>
                     <materialDesign:PackIcon
                         x:Name="icnReport"
                         Kind="ChartAreaspline"
@@ -272,7 +316,7 @@
                         Height="30" 
                         VerticalAlignment="Center" 
                         Cursor="Hand" 
-                        Margin="60,0" >
+                        Margin="55 0 0 0" >
                     </materialDesign:PackIcon>
                     <Button 
                         x:Name="btnReport" 
@@ -280,9 +324,10 @@
                         Content="Report"
                         Foreground="#504D85"
                         HorizontalAlignment="Center" 
-                        Height="40" 
                         Margin="0" 
-                        Width="250" 
+                        Height="45" 
+                        Width="260" 
+                        BorderThickness="10"
                         VerticalAlignment="Center"
                         BorderBrush="{x:Null}"
                         Background="{x:Null}" 
@@ -311,6 +356,14 @@
                     Height="60" 
                     Margin="0" 
                     Width="300">
+                    <Rectangle
+                        Name="rec_btn_Menu_Setting"
+                        Height="45"
+                        Width="260"
+                        RadiusX="10"
+                        RadiusY="10"
+                        Fill="Transparent">
+                    </Rectangle>
                     <materialDesign:PackIcon
                         x:Name="icnSetting"
                         Kind="AccountCog"
@@ -319,7 +372,7 @@
                         Height="30" 
                         VerticalAlignment="Center" 
                         Cursor="Hand" 
-                        Margin="60,0" >
+                        Margin="55 0 0 0">
                     </materialDesign:PackIcon>
                     <Button 
                         x:Name="btnSetting" 
@@ -327,9 +380,10 @@
                         Content="Account Setting"
                         Foreground="#504D85"
                         HorizontalAlignment="Center" 
-                        Height="40" 
                         Margin="0" 
-                        Width="250" 
+                       Height="45" 
+                        Width="260" 
+                        BorderThickness="10"
                         VerticalAlignment="Center"
                         BorderBrush="{x:Null}"
                         Background="{x:Null}" 
