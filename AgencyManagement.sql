@@ -18,7 +18,7 @@ create table Agency
 (
 	ID int,
 	Name nvarchar(100),
-	TypeOfType int,
+	TypeOfAgency int,
 	PhoneNumber varchar(100),
 	Address nvarchar(100),
 	District nvarchar(100),
@@ -75,6 +75,7 @@ create table InvoiceInfo
 
 	constraint PK_InvoiceInfo primary key(InvoiceID, ProductID)
 )
+go
 
 create table Receipt
 (
@@ -82,9 +83,23 @@ create table Receipt
 	AgencyID int,
 	Date date,
 	Amount bigint,
-	For nvarchar(1000), --text để ghi nội dung thanh toán
+	Message nvarchar(1000), --text để ghi nội dung thanh toán
 
 	constraint PK_Receipt primary key(ID)
 )
 go
 
+
+alter table InvoiceInfo add constraint FK_InvoiceID foreign key (InvoiceID) references Invoice(ID)
+go
+alter table InvoiceInfo add constraint FK_ProductID foreign key (ProductID) references Product(ID)
+go
+
+alter table Invoice add constraint FK_Invoice_AgencyID foreign key (AgencyID) references Agency(ID)
+go
+
+alter table Receipt add constraint FK_Receipt_AgencyID foreign key (AgencyID) references Agency(ID)
+go
+
+alter table Agency add constraint FK_Type foreign key (TypeOfAgency) references TypeOfAgency(ID)
+go

@@ -12,13 +12,12 @@ namespace StoreManagement.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class BILLINFO
+    public partial class sysdiagram
     {
-        public int BILLID { get; set; }
-        public int GOODSID { get; set; }
-        public Nullable<int> COUNT { get; set; }
-    
-        public virtual BILL BILL { get; set; }
-        public virtual GOODS GOOD { get; set; }
+        public string name { get; set; }
+        public int principal_id { get; set; }
+        public int diagram_id { get; set; }
+        public Nullable<int> version { get; set; }
+        public byte[] definition { get; set; }
     }
 }

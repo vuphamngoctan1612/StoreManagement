@@ -12,22 +12,23 @@ namespace StoreManagement.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class GOODS
+    public partial class Product
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public GOODS()
+        public Product()
         {
-            this.BILLINFOes = new HashSet<BILLINFO>();
+            this.InvoiceInfoes = new HashSet<InvoiceInfo>();
         }
     
         public int ID { get; set; }
-        public string NAME { get; set; }
-        public string UNIT { get; set; }
-        public Nullable<long> COSTPRICE { get; set; }
-        public Nullable<long> PRICE { get; set; }
-        public Nullable<int> COUNT { get; set; }
+        public string Name { get; set; }
+        public string Unit { get; set; }
+        public byte[] Image { get; set; }
+        public Nullable<long> ImportPrice { get; set; }
+        public Nullable<long> ExportPrice { get; set; }
+        public Nullable<long> Count { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<BILLINFO> BILLINFOes { get; set; }
+        public virtual ICollection<InvoiceInfo> InvoiceInfoes { get; set; }
     }
 }
