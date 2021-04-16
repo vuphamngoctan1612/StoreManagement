@@ -10,9 +10,9 @@ namespace StoreManagement.Models
     {
         private static DataProvider instance;
 
-        public static DataProvider Instance 
+        public static DataProvider Instance
         {
-            get 
+            get
             {
                 if (instance == null)
                 {
@@ -23,11 +23,11 @@ namespace StoreManagement.Models
             private set => instance = value;
         }
 
-        public STOREMANAGEMENT_Entities DB { get; set; }
+        public AgencyManagementEntities DB { get; set; }
 
         private DataProvider()
         {
-            DB = new STOREMANAGEMENT_Entities();
+            DB = new AgencyManagementEntities();
         }
     }
 }

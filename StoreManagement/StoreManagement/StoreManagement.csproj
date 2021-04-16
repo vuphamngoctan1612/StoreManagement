@@ -92,6 +92,45 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Models\Account.cs">
+      <DependentUpon>AgencyManagement_Entities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Agency.cs">
+      <DependentUpon>AgencyManagement_Entities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AgencyManagement_Entities.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AgencyManagement_Entities.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AgencyManagement_Entities.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AgencyManagement_Entities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AgencyManagement_Entities.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AgencyManagement_Entities.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Invoice.cs">
+      <DependentUpon>AgencyManagement_Entities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\InvoiceInfo.cs">
+      <DependentUpon>AgencyManagement_Entities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Product.cs">
+      <DependentUpon>AgencyManagement_Entities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Receipt.cs">
+      <DependentUpon>AgencyManagement_Entities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sysdiagram.cs">
+      <DependentUpon>AgencyManagement_Entities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TypeOfAgency.cs">
+      <DependentUpon>AgencyManagement_Entities.tt</DependentUpon>
+    </Compile>
     <Compile Include="Resources\UserControls\AccountSettingUC.xaml.cs">
       <DependentUpon>AccountSettingUC.xaml</DependentUpon>
     </Compile>
@@ -138,40 +177,7 @@
     <Compile Include="Views\SignUpWindow.xaml.cs">
       <DependentUpon>SignUpWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Models\ACCOUNT.cs">
-      <DependentUpon>DB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\BILL.cs">
-      <DependentUpon>DB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\BILLINFO.cs">
-      <DependentUpon>DB.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\DataProvider.cs" />
-    <Compile Include="Models\DB.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>DB.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\DB.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>DB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\DB.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>DB.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="Models\GOODS.cs">
-      <DependentUpon>DB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\STORE.cs">
-      <DependentUpon>DB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\TYPEOFSTORE.cs">
-      <DependentUpon>DB.tt</DependentUpon>
-    </Compile>
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\HomeViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
@@ -193,12 +199,12 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EntityDeploy Include="Models\DB.edmx">
+    <EntityDeploy Include="Models\AgencyManagement_Entities.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>DB.Designer.cs</LastGenOutput>
+      <LastGenOutput>AgencyManagement_Entities.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="Models\DB.edmx.diagram">
-      <DependentUpon>DB.edmx</DependentUpon>
+    <None Include="Models\AgencyManagement_Entities.edmx.diagram">
+      <DependentUpon>AgencyManagement_Entities.edmx</DependentUpon>
     </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
@@ -286,15 +292,15 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Models\DB.Context.tt">
+    <Content Include="Models\AgencyManagement_Entities.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>DB.edmx</DependentUpon>
-      <LastGenOutput>DB.Context.cs</LastGenOutput>
+      <DependentUpon>AgencyManagement_Entities.edmx</DependentUpon>
+      <LastGenOutput>AgencyManagement_Entities.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Models\DB.tt">
+    <Content Include="Models\AgencyManagement_Entities.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>DB.edmx</DependentUpon>
-      <LastGenOutput>DB.cs</LastGenOutput>
+      <DependentUpon>AgencyManagement_Entities.edmx</DependentUpon>
+      <LastGenOutput>AgencyManagement_Entities.cs</LastGenOutput>
     </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

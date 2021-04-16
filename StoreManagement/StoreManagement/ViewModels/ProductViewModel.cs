@@ -43,20 +43,20 @@ namespace StoreManagement.ViewModels
         {
             this.HomeWindow = para;
             this.HomeWindow.stkProducts.Children.Clear();
-            List<GOODS> products = new List<GOODS>();
+            List<Product> products = new List<Product>();
 
-            string query = "SELECT * FROM GOODS";
-            products = DataProvider.Instance.DB.GOODS.SqlQuery(query).ToList();
+            string query = "SELECT * FROM Product";
+            products = DataProvider.Instance.DB.Products.SqlQuery(query).ToList();
 
-            foreach (GOODS product in products)
+            foreach (Product product in products)
             {
                 ProductControlUC control = new ProductControlUC();
                 control.txbID.Text = product.ID.ToString();
-                control.txbName.Text = product.NAME;
-                control.txbUnit.Text = product.UNIT;
-                control.txbImportPrice.Text = string.Format("{0:N0}", product.COSTPRICE);
-                control.txbPrice.Text = string.Format("{0:N0}", product.PRICE);
-                control.txbCount.Text = string.Format("{0:N0}", product.COUNT);
+                control.txbName.Text = product.Name;
+                control.txbUnit.Text = product.Unit;
+                control.txbImportPrice.Text = string.Format("{0:N0}", product.ImportPrice);
+                control.txbPrice.Text = string.Format("{0:N0}", product.ExportPrice);
+                control.txbCount.Text = string.Format("{0:N0}", product.Count);
 
                 this.HomeWindow.stkProducts.Children.Add(control);
             }
@@ -69,17 +69,17 @@ namespace StoreManagement.ViewModels
 
         private void EditProduct(TextBlock para)
         {
-            GOODS product = new GOODS();
+            Product product = new Product();
             int id = int.Parse(para.Text);
-            product = (GOODS)DataProvider.Instance.DB.GOODS.Where(x => x.ID == id).First();
+            product = (Product)DataProvider.Instance.DB.Products.Where(x => x.ID == id).First();
 
             AddProductWindow window = new AddProductWindow();
             window.txtID.Text = product.ID.ToString();
-            window.txtName.Text = product.NAME;
-            window.txtUnit.Text = product.UNIT;
-            window.txtImportPrice.Text = string.Format("{0:N0}", product.COSTPRICE);
-            window.txtExportPrice.Text = string.Format("{0:N0}", product.PRICE);
-            window.txtAmount.Text = string.Format("{0:N0}", product.COUNT);
+            window.txtName.Text = product.Name;
+            window.txtUnit.Text = product.Unit;
+            window.txtImportPrice.Text = string.Format("{0:N0}", product.ImportPrice);
+            window.txtExportPrice.Text = string.Format("{0:N0}", product.ExportPrice);
+            window.txtAmount.Text = string.Format("{0:N0}", product.Count);
             window.Title = "Update info product";
             window.ShowDialog();
         }
@@ -132,15 +132,15 @@ namespace StoreManagement.ViewModels
 
             try
             {
-                GOODS product = new GOODS();
+                Product product = new Product();
                 product.ID = int.Parse(id);
-                product.NAME = name;
-                product.UNIT = unit;
-                product.COSTPRICE = importPrice;
-                product.PRICE = exportPrice;
-                product.COUNT = amount;
+                product.Name = name;
+                product.Unit = unit;
+                product.ImportPrice = importPrice;
+                product.ExportPrice = exportPrice;
+                product.Count= amount;
 
-                DataProvider.Instance.DB.GOODS.AddOrUpdate(product);
+                DataProvider.Instance.DB.Products.AddOrUpdate(product);
                 DataProvider.Instance.DB.SaveChanges();
             }
             catch (Exception ex)
@@ -165,9 +165,9 @@ namespace StoreManagement.ViewModels
 
             try
             {
-                string query = "SELECT * FROM GOODS";
-            
-                GOODS product = DataProvider.Instance.DB.GOODS.SqlQuery(query).Last();
+                string query = "SELECT * FROM Product";
+
+                Product product = DataProvider.Instance.DB.Products.SqlQuery(query).Last();
                 addProductWindow.txtID.Text = (product.ID + 1).ToString();
             }
             catch

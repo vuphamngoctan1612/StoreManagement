@@ -12,21 +12,19 @@ namespace StoreManagement.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class BILL
+    public partial class TypeOfAgency
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public BILL()
+        public TypeOfAgency()
         {
-            this.BILLINFOes = new HashSet<BILLINFO>();
+            this.Agencies = new HashSet<Agency>();
         }
     
         public int ID { get; set; }
-        public Nullable<int> STOREID { get; set; }
-        public Nullable<System.DateTime> CHECKOUT { get; set; }
-        public Nullable<long> TOTAL { get; set; }
+        public string Name { get; set; }
+        public Nullable<long> MaxOfDebt { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<BILLINFO> BILLINFOes { get; set; }
-        public virtual STORE STORE { get; set; }
+        public virtual ICollection<Agency> Agencies { get; set; }
     }
 }
