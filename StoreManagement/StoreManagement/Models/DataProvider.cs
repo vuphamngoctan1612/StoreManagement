@@ -23,11 +23,11 @@ namespace StoreManagement.Models
             private set => instance = value;
         }
 
-        public STOREMANAGEMENT_Entities DB { get; set; }
+        public AgencyManagementEntities DB { get; set; }
 
         private DataProvider()
         {
-            DB = new STOREMANAGEMENT_Entities();
+            DB = new AgencyManagementEntities();
         }
     }
 }
