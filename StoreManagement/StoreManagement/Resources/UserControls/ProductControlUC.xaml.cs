@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace StoreManagement.Resources.UserControls
 {
     /// <summary>
-    /// Interaction logic for ProductUC.xaml
+    /// Interaction logic for ProductControlUC.xaml
     /// </summary>
-    public partial class ProductUC : UserControl
+    public partial class ProductControlUC : UserControl
     {
-        public ProductUC()
+        public ProductControlUC()
         {
             InitializeComponent();
         }

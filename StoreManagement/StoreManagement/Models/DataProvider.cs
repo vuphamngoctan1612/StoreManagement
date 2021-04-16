@@ -10,9 +10,9 @@ namespace StoreManagement.Models
     {
         private static DataProvider instance;
 
-        public static DataProvider Instance 
+        public static DataProvider Instance
         {
-            get 
+            get
             {
                 if (instance == null)
                 {
