@@ -30,6 +30,7 @@ namespace StoreManagement.Models
         public Nullable<System.DateTime> CheckIn { get; set; }
         public string Email { get; set; }
         public Nullable<long> Debt { get; set; }
+        public Nullable<bool> IsDelete { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Invoice> Invoices { get; set; }

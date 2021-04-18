@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="AgencyManagementModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="AgencyManagementModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Account">
           <Key>
             <PropertyRef Name="Username" />
@@ -27,6 +27,7 @@
           <Property Name="CheckIn" Type="date" />
           <Property Name="Email" Type="varchar" MaxLength="100" />
           <Property Name="Debt" Type="bigint" />
+          <Property Name="IsDelete" Type="bit" />
         </EntityType>
         <EntityType Name="Invoice">
           <Key>
@@ -58,6 +59,7 @@
           <Property Name="ImportPrice" Type="bigint" />
           <Property Name="ExportPrice" Type="bigint" />
           <Property Name="Count" Type="bigint" />
+          <Property Name="IsDelete" Type="bit" />
         </EntityType>
         <EntityType Name="Receipt">
           <Key>
@@ -68,16 +70,6 @@
           <Property Name="Date" Type="date" />
           <Property Name="Amount" Type="bigint" />
           <Property Name="Message" Type="nvarchar" MaxLength="1000" />
-        </EntityType>
-        <EntityType Name="sysdiagrams">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="principal_id" Type="int" Nullable="false" />
-          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="version" Type="int" />
-          <Property Name="definition" Type="varbinary(max)" />
         </EntityType>
         <EntityType Name="TypeOfAgency">
           <Key>
@@ -154,7 +146,6 @@
           <EntitySet Name="InvoiceInfo" EntityType="Self.InvoiceInfo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Receipt" EntityType="Self.Receipt" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TypeOfAgency" EntityType="Self.TypeOfAgency" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Invoice_AgencyID" Association="Self.FK_Invoice_AgencyID">
             <End Role="Agency" EntitySet="Agency" />
@@ -177,16 +168,44 @@
             <End Role="Agency" EntitySet="Agency" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="AgencyManagementModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="AgencyManagementEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Accounts" EntityType="AgencyManagementModel.Account" />
+          <EntitySet Name="Agencies" EntityType="AgencyManagementModel.Agency" />
+          <EntitySet Name="Invoices" EntityType="AgencyManagementModel.Invoice" />
+          <EntitySet Name="InvoiceInfoes" EntityType="AgencyManagementModel.InvoiceInfo" />
+          <EntitySet Name="Products" EntityType="AgencyManagementModel.Product" />
+          <EntitySet Name="Receipts" EntityType="AgencyManagementModel.Receipt" />
+          <EntitySet Name="TypeOfAgencies" EntityType="AgencyManagementModel.TypeOfAgency" />
+          <AssociationSet Name="FK_Invoice_AgencyID" Association="AgencyManagementModel.FK_Invoice_AgencyID">
+            <End Role="Agency" EntitySet="Agencies" />
+            <End Role="Invoice" EntitySet="Invoices" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Receipt_AgencyID" Association="AgencyManagementModel.FK_Receipt_AgencyID">
+            <End Role="Agency" EntitySet="Agencies" />
+            <End Role="Receipt" EntitySet="Receipts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Type" Association="AgencyManagementModel.FK_Type">
+            <End Role="TypeOfAgency" EntitySet="TypeOfAgencies" />
+            <End Role="Agency" EntitySet="Agencies" />
+          </AssociationSet>
+          <AssociationSet Name="FK_InvoiceID" Association="AgencyManagementModel.FK_InvoiceID">
+            <End Role="Invoice" EntitySet="Invoices" />
+            <End Role="InvoiceInfo" EntitySet="InvoiceInfoes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductID" Association="AgencyManagementModel.FK_ProductID">
+            <End Role="Product" EntitySet="Products" />
+            <End Role="InvoiceInfo" EntitySet="InvoiceInfoes" />
+          </AssociationSet>
+        </EntityContainer>
         <EntityType Name="Account">
           <Key>
             <PropertyRef Name="Username" />
           </Key>
-          <Property Name="Username" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Username" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="Password" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
           <Property Name="DisplayName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="Image" Type="Binary" MaxLength="Max" FixedLength="false" />
@@ -204,9 +223,10 @@
           <Property Name="CheckIn" Type="DateTime" Precision="0" />
           <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="Debt" Type="Int64" />
-          <NavigationProperty Name="Invoices" Relationship="Self.FK_Invoice_AgencyID" FromRole="Agency" ToRole="Invoice" />
-          <NavigationProperty Name="Receipts" Relationship="Self.FK_Receipt_AgencyID" FromRole="Agency" ToRole="Receipt" />
-          <NavigationProperty Name="TypeOfAgency1" Relationship="Self.FK_Type" FromRole="Agency" ToRole="TypeOfAgency" />
+          <Property Name="IsDelete" Type="Boolean" />
+          <NavigationProperty Name="Invoices" Relationship="AgencyManagementModel.FK_Invoice_AgencyID" FromRole="Agency" ToRole="Invoice" />
+          <NavigationProperty Name="Receipts" Relationship="AgencyManagementModel.FK_Receipt_AgencyID" FromRole="Agency" ToRole="Receipt" />
+          <NavigationProperty Name="TypeOfAgency1" Relationship="AgencyManagementModel.FK_Type" FromRole="Agency" ToRole="TypeOfAgency" />
         </EntityType>
         <EntityType Name="Invoice">
           <Key>
@@ -216,8 +236,8 @@
           <Property Name="AgencyID" Type="Int32" />
           <Property Name="Checkout" Type="DateTime" Precision="0" />
           <Property Name="Debt" Type="Int64" />
-          <NavigationProperty Name="Agency" Relationship="Self.FK_Invoice_AgencyID" FromRole="Invoice" ToRole="Agency" />
-          <NavigationProperty Name="InvoiceInfoes" Relationship="Self.FK_InvoiceID" FromRole="Invoice" ToRole="InvoiceInfo" />
+          <NavigationProperty Name="Agency" Relationship="AgencyManagementModel.FK_Invoice_AgencyID" FromRole="Invoice" ToRole="Agency" />
+          <NavigationProperty Name="InvoiceInfoes" Relationship="AgencyManagementModel.FK_InvoiceID" FromRole="Invoice" ToRole="InvoiceInfo" />
         </EntityType>
         <EntityType Name="InvoiceInfo">
           <Key>
@@ -228,8 +248,8 @@
           <Property Name="ProductID" Type="Int32" Nullable="false" />
           <Property Name="Amount" Type="Int32" />
           <Property Name="Total" Type="Int64" />
-          <NavigationProperty Name="Invoice" Relationship="Self.FK_InvoiceID" FromRole="InvoiceInfo" ToRole="Invoice" />
-          <NavigationProperty Name="Product" Relationship="Self.FK_ProductID" FromRole="InvoiceInfo" ToRole="Product" />
+          <NavigationProperty Name="Invoice" Relationship="AgencyManagementModel.FK_InvoiceID" FromRole="InvoiceInfo" ToRole="Invoice" />
+          <NavigationProperty Name="Product" Relationship="AgencyManagementModel.FK_ProductID" FromRole="InvoiceInfo" ToRole="Product" />
         </EntityType>
         <EntityType Name="Product">
           <Key>
@@ -242,7 +262,8 @@
           <Property Name="ImportPrice" Type="Int64" />
           <Property Name="ExportPrice" Type="Int64" />
           <Property Name="Count" Type="Int64" />
-          <NavigationProperty Name="InvoiceInfoes" Relationship="Self.FK_ProductID" FromRole="Product" ToRole="InvoiceInfo" />
+          <Property Name="IsDelete" Type="Boolean" />
+          <NavigationProperty Name="InvoiceInfoes" Relationship="AgencyManagementModel.FK_ProductID" FromRole="Product" ToRole="InvoiceInfo" />
         </EntityType>
         <EntityType Name="Receipt">
           <Key>
@@ -253,17 +274,7 @@
           <Property Name="Date" Type="DateTime" Precision="0" />
           <Property Name="Amount" Type="Int64" />
           <Property Name="Message" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Agency" Relationship="Self.FK_Receipt_AgencyID" FromRole="Receipt" ToRole="Agency" />
-        </EntityType>
-        <EntityType Name="sysdiagram">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="principal_id" Type="Int32" Nullable="false" />
-          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="version" Type="Int32" />
-          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <NavigationProperty Name="Agency" Relationship="AgencyManagementModel.FK_Receipt_AgencyID" FromRole="Receipt" ToRole="Agency" />
         </EntityType>
         <EntityType Name="TypeOfAgency">
           <Key>
@@ -272,11 +283,11 @@
           <Property Name="ID" Type="Int32" Nullable="false" />
           <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="MaxOfDebt" Type="Int64" />
-          <NavigationProperty Name="Agencies" Relationship="Self.FK_Type" FromRole="TypeOfAgency" ToRole="Agency" />
+          <NavigationProperty Name="Agencies" Relationship="AgencyManagementModel.FK_Type" FromRole="TypeOfAgency" ToRole="Agency" />
         </EntityType>
         <Association Name="FK_Invoice_AgencyID">
-          <End Role="Agency" Type="Self.Agency" Multiplicity="0..1" />
-          <End Role="Invoice" Type="Self.Invoice" Multiplicity="*" />
+          <End Type="AgencyManagementModel.Agency" Role="Agency" Multiplicity="0..1" />
+          <End Type="AgencyManagementModel.Invoice" Role="Invoice" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Agency">
               <PropertyRef Name="ID" />
@@ -287,8 +298,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Receipt_AgencyID">
-          <End Role="Agency" Type="Self.Agency" Multiplicity="0..1" />
-          <End Role="Receipt" Type="Self.Receipt" Multiplicity="*" />
+          <End Type="AgencyManagementModel.Agency" Role="Agency" Multiplicity="0..1" />
+          <End Type="AgencyManagementModel.Receipt" Role="Receipt" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Agency">
               <PropertyRef Name="ID" />
@@ -299,8 +310,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Type">
-          <End Role="TypeOfAgency" Type="Self.TypeOfAgency" Multiplicity="0..1" />
-          <End Role="Agency" Type="Self.Agency" Multiplicity="*" />
+          <End Type="AgencyManagementModel.TypeOfAgency" Role="TypeOfAgency" Multiplicity="0..1" />
+          <End Type="AgencyManagementModel.Agency" Role="Agency" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="TypeOfAgency">
               <PropertyRef Name="ID" />
@@ -311,8 +322,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_InvoiceID">
-          <End Role="Invoice" Type="Self.Invoice" Multiplicity="1" />
-          <End Role="InvoiceInfo" Type="Self.InvoiceInfo" Multiplicity="*" />
+          <End Type="AgencyManagementModel.Invoice" Role="Invoice" Multiplicity="1" />
+          <End Type="AgencyManagementModel.InvoiceInfo" Role="InvoiceInfo" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Invoice">
               <PropertyRef Name="ID" />
@@ -323,8 +334,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_ProductID">
-          <End Role="Product" Type="Self.Product" Multiplicity="1" />
-          <End Role="InvoiceInfo" Type="Self.InvoiceInfo" Multiplicity="*" />
+          <End Type="AgencyManagementModel.Product" Role="Product" Multiplicity="1" />
+          <End Type="AgencyManagementModel.InvoiceInfo" Role="InvoiceInfo" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Product">
               <PropertyRef Name="ID" />
@@ -334,36 +345,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="AgencyManagementEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Accounts" EntityType="Self.Account" />
-          <EntitySet Name="Agencies" EntityType="Self.Agency" />
-          <EntitySet Name="Invoices" EntityType="Self.Invoice" />
-          <EntitySet Name="InvoiceInfoes" EntityType="Self.InvoiceInfo" />
-          <EntitySet Name="Products" EntityType="Self.Product" />
-          <EntitySet Name="Receipts" EntityType="Self.Receipt" />
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
-          <EntitySet Name="TypeOfAgencies" EntityType="Self.TypeOfAgency" />
-          <AssociationSet Name="FK_Invoice_AgencyID" Association="Self.FK_Invoice_AgencyID">
-            <End Role="Agency" EntitySet="Agencies" />
-            <End Role="Invoice" EntitySet="Invoices" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Receipt_AgencyID" Association="Self.FK_Receipt_AgencyID">
-            <End Role="Agency" EntitySet="Agencies" />
-            <End Role="Receipt" EntitySet="Receipts" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Type" Association="Self.FK_Type">
-            <End Role="TypeOfAgency" EntitySet="TypeOfAgencies" />
-            <End Role="Agency" EntitySet="Agencies" />
-          </AssociationSet>
-          <AssociationSet Name="FK_InvoiceID" Association="Self.FK_InvoiceID">
-            <End Role="Invoice" EntitySet="Invoices" />
-            <End Role="InvoiceInfo" EntitySet="InvoiceInfoes" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ProductID" Association="Self.FK_ProductID">
-            <End Role="Product" EntitySet="Products" />
-            <End Role="InvoiceInfo" EntitySet="InvoiceInfoes" />
-          </AssociationSet>
-        </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -373,89 +354,80 @@
           <EntitySetMapping Name="Accounts">
             <EntityTypeMapping TypeName="AgencyManagementModel.Account">
               <MappingFragment StoreEntitySet="Account">
-                <ScalarProperty Name="Username" ColumnName="Username" />
-                <ScalarProperty Name="Password" ColumnName="Password" />
-                <ScalarProperty Name="DisplayName" ColumnName="DisplayName" />
                 <ScalarProperty Name="Image" ColumnName="Image" />
+                <ScalarProperty Name="DisplayName" ColumnName="DisplayName" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Agencies">
             <EntityTypeMapping TypeName="AgencyManagementModel.Agency">
               <MappingFragment StoreEntitySet="Agency">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="TypeOfAgency" ColumnName="TypeOfAgency" />
-                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
-                <ScalarProperty Name="Address" ColumnName="Address" />
-                <ScalarProperty Name="District" ColumnName="District" />
-                <ScalarProperty Name="CheckIn" ColumnName="CheckIn" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
                 <ScalarProperty Name="Debt" ColumnName="Debt" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="CheckIn" ColumnName="CheckIn" />
+                <ScalarProperty Name="District" ColumnName="District" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="TypeOfAgency" ColumnName="TypeOfAgency" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Invoices">
             <EntityTypeMapping TypeName="AgencyManagementModel.Invoice">
               <MappingFragment StoreEntitySet="Invoice">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="AgencyID" ColumnName="AgencyID" />
-                <ScalarProperty Name="Checkout" ColumnName="Checkout" />
                 <ScalarProperty Name="Debt" ColumnName="Debt" />
+                <ScalarProperty Name="Checkout" ColumnName="Checkout" />
+                <ScalarProperty Name="AgencyID" ColumnName="AgencyID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="InvoiceInfoes">
             <EntityTypeMapping TypeName="AgencyManagementModel.InvoiceInfo">
               <MappingFragment StoreEntitySet="InvoiceInfo">
-                <ScalarProperty Name="InvoiceID" ColumnName="InvoiceID" />
-                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
-                <ScalarProperty Name="Amount" ColumnName="Amount" />
                 <ScalarProperty Name="Total" ColumnName="Total" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+                <ScalarProperty Name="InvoiceID" ColumnName="InvoiceID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Products">
             <EntityTypeMapping TypeName="AgencyManagementModel.Product">
               <MappingFragment StoreEntitySet="Product">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Unit" ColumnName="Unit" />
-                <ScalarProperty Name="Image" ColumnName="Image" />
-                <ScalarProperty Name="ImportPrice" ColumnName="ImportPrice" />
-                <ScalarProperty Name="ExportPrice" ColumnName="ExportPrice" />
+                <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
                 <ScalarProperty Name="Count" ColumnName="Count" />
+                <ScalarProperty Name="ExportPrice" ColumnName="ExportPrice" />
+                <ScalarProperty Name="ImportPrice" ColumnName="ImportPrice" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
+                <ScalarProperty Name="Unit" ColumnName="Unit" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Receipts">
             <EntityTypeMapping TypeName="AgencyManagementModel.Receipt">
               <MappingFragment StoreEntitySet="Receipt">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="AgencyID" ColumnName="AgencyID" />
-                <ScalarProperty Name="Date" ColumnName="Date" />
-                <ScalarProperty Name="Amount" ColumnName="Amount" />
                 <ScalarProperty Name="Message" ColumnName="Message" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="sysdiagrams">
-            <EntityTypeMapping TypeName="AgencyManagementModel.sysdiagram">
-              <MappingFragment StoreEntitySet="sysdiagrams">
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
-                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
-                <ScalarProperty Name="version" ColumnName="version" />
-                <ScalarProperty Name="definition" ColumnName="definition" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="AgencyID" ColumnName="AgencyID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="TypeOfAgencies">
             <EntityTypeMapping TypeName="AgencyManagementModel.TypeOfAgency">
               <MappingFragment StoreEntitySet="TypeOfAgency">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="MaxOfDebt" ColumnName="MaxOfDebt" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

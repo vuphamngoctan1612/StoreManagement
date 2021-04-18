@@ -25,6 +25,7 @@ create table Agency
 	CheckIn date,
 	Email varchar(100),
 	Debt bigint,
+	IsDelete bit,
 
 	constraint PK_Agency primary key(ID)
 )
@@ -49,6 +50,7 @@ create table Product
 	ImportPrice bigint,
 	ExportPrice bigint,
 	Count bigint,
+	IsDelete bit,
 
 	constraint PK_Product primary key (ID)
 )

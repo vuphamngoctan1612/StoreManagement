@@ -31,7 +31,6 @@ namespace StoreManagement.Models
         public virtual DbSet<InvoiceInfo> InvoiceInfoes { get; set; }
         public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<Receipt> Receipts { get; set; }
-        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<TypeOfAgency> TypeOfAgencies { get; set; }
     }
 }
