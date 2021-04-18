@@ -27,6 +27,7 @@ namespace StoreManagement.Models
         public Nullable<long> ImportPrice { get; set; }
         public Nullable<long> ExportPrice { get; set; }
         public Nullable<long> Count { get; set; }
+        public Nullable<bool> IsDelete { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<InvoiceInfo> InvoiceInfoes { get; set; }
