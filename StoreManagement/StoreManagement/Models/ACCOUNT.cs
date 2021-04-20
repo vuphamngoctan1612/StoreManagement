@@ -12,9 +12,11 @@ namespace StoreManagement.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class ACCOUNT
+    public partial class Account
     {
-        public string USERNAME { get; set; }
-        public string PASSWORD { get; set; }
+        public string Username { get; set; }
+        public string Password { get; set; }
+        public string DisplayName { get; set; }
+        public byte[] Image { get; set; }
     }
 }
