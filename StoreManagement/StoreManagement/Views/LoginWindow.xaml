@@ -1,0 +1,283 @@
+﻿<Window x:Class="StoreManagement.Views.LoginWindow"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:StoreManagement.Views"
+        mc:Ignorable="d"
+        Title="Login" 
+        Height="810" 
+        Width="1440" 
+        WindowStyle="None">
+    <Grid>
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.5,1" 
+                                 MappingMode="RelativeToBoundingBox"
+                                 StartPoint="0.5,0">
+                <GradientStop Color="#B2F3C9D5" 
+                              Offset="1"/>
+                <GradientStop Color="#00FBE8E9" 
+                              Offset="1"/>
+            </LinearGradientBrush>
+        </Grid.Background>
+        <Button x:Name="btLogin" 
+                Style="{StaticResource MaterialDesignRaisedButton}"
+                Height="100" 
+                Width="400" 
+                materialDesign:ButtonAssist.CornerRadius="24"
+                ToolTip="MaterialDesignRaisedButton with Round Corners" 
+                Margin="939,424,0,0" 
+                HorizontalContentAlignment="Center" 
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top">
+            <Button.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FFEC74E7" Offset="0"/>
+                    <GradientStop Color="#EAF97298" Offset="1"/>
+                </LinearGradientBrush>
+            </Button.Background>
+            <TextBlock Text="Ready to sign in" 
+                       FontFamily="Segoe UI" 
+                       FontSize="30" 
+                       Width="216" 
+                       Height="45" />
+        </Button>
+        <TextBox x:Name="txtUser"
+                 Style="{StaticResource MaterialDesignTextBox}"
+                 Height="100" 
+                 Width="400"
+                 Background="White" 
+                 materialDesign:TextFieldAssist.TextFieldCornerRadius="24"
+                 Margin="939,173,0,0"
+                 HorizontalContentAlignment="Center" 
+                 VerticalAlignment="Top" 
+                 HorizontalAlignment="Left"
+                 FontFamily="Segoe UI"
+                 FontSize="30" 
+                 Text="Username"
+                 VerticalContentAlignment="Center" >
+        </TextBox>
+        <TextBox x:Name="txtPassword"
+                 Style="{StaticResource MaterialDesignTextBox}"
+                 Height="100" 
+                 Width="400" 
+                 Background="White" 
+                 materialDesign:TextFieldAssist.TextFieldCornerRadius="24"
+                 Margin="939,302,0,0" HorizontalContentAlignment="Center"
+                 VerticalAlignment="Top" 
+                 HorizontalAlignment="Left"
+                 VerticalContentAlignment="Center"
+                 FontFamily="Segoe UI"
+                 FontSize="30" 
+                 Text="Password" >
+        </TextBox>
+        <Ellipse Height="1620" 
+                 Width="1620"
+                 Margin="-681,-10,0,0"
+                 VerticalAlignment="Top" 
+                 HorizontalAlignment="Left"
+                 StrokeThickness ="390" >
+            <Ellipse.Stroke>
+                <RadialGradientBrush>
+                    <GradientStop Color="#3FFFFFFF"
+                                  Offset="0"/>
+                    <GradientStop Color="#AAE89F9F"/>
+                </RadialGradientBrush>
+            </Ellipse.Stroke>
+        </Ellipse>
+        <TextBlock Style="{StaticResource MaterialDesignHeadline4TextBlock}"
+                   Text="Hi There!"
+                   Height="90"
+                   Width="209" 
+                   Margin="705,116,0,0"
+                   VerticalAlignment="Top"
+                   HorizontalAlignment="Left"
+                   TextAlignment="Center"
+                   FontFamily="Segoe UI"
+                   FontSize="45" 
+                   FontWeight="Bold"
+                   >
+            <TextBlock.Foreground>
+                <LinearGradientBrush EndPoint="0.5,1"
+                                     MappingMode="RelativeToBoundingBox" 
+                                     StartPoint="0.5,0">
+                    <GradientStop Color="#F97299"/>
+                </LinearGradientBrush>
+            </TextBlock.Foreground>
+        </TextBlock>
+        <TextBlock Style="{StaticResource MaterialDesignHeadline4TextBlock}" 
+                   Text="AGENCY MANAGEMENT" 
+                   Height="147.53" 
+                   Width="1133" 
+                   Margin="-103,617.7,0,0"
+                   VerticalAlignment="Top"
+                   HorizontalAlignment="Left" 
+                   TextAlignment="Center"
+                   FontFamily="Segoe UI" 
+                   FontSize="70" 
+                   FontWeight="Bold" 
+                   >
+            <TextBlock.Foreground>
+                <LinearGradientBrush EndPoint="0.5,1" 
+                                     MappingMode="RelativeToBoundingBox"
+                                     StartPoint="0.5,0">
+                    <GradientStop Color="#6F6C99"/>
+                </LinearGradientBrush>
+            </TextBlock.Foreground>
+        </TextBlock>
+        <TextBlock Style="{StaticResource MaterialDesignHeadline4TextBlock}" 
+                   Text="AGENCY MANAGEMENT" 
+                   Height="105" 
+                   Width="800" 
+                   Margin="12,686,0,0"
+                   VerticalAlignment="Top" 
+                   HorizontalAlignment="Left" 
+                   TextAlignment="Center"
+                   FontFamily="Segoe UI"
+                   FontSize="70" 
+                   FontWeight="Bold" >
+            <TextBlock.Foreground>
+                <LinearGradientBrush EndPoint="0.5,1" 
+                                     MappingMode="RelativeToBoundingBox"
+                                     StartPoint="0.5,0">
+                    <GradientStop Color="#E2E2E8"/>
+                </LinearGradientBrush>
+            </TextBlock.Foreground>
+        </TextBlock>
+        <TextBlock Style="{StaticResource MaterialDesignHeadline4TextBlock}"
+                   Text="Remember your account" 
+                   Height="33" 
+                   Width="277" 
+                   Margin="1000,555,0,0" 
+                   VerticalAlignment="Top"
+                   HorizontalAlignment="Left"
+                   TextAlignment="Left"
+                   FontFamily="Segoe UI"
+                   FontSize="22"
+                   FontWeight="Bold"
+                   >
+            <TextBlock.Foreground>
+                <LinearGradientBrush EndPoint="0.5,1"
+                                     MappingMode="RelativeToBoundingBox"
+                                     StartPoint="0.5,0">
+                    <GradientStop Color="#7D78A2"/>
+                </LinearGradientBrush>
+            </TextBlock.Foreground>
+        </TextBlock>
+        <TextBlock Style="{StaticResource MaterialDesignHeadline4TextBlock}"
+                   Text="Forgot your password"
+                   Height="33"
+                   Width="277" 
+                   Margin="1000,605,0,0" 
+                   VerticalAlignment="Top"
+                   HorizontalAlignment="Left" 
+                   TextAlignment="Left"
+                   FontFamily="Segoe UI"
+                   FontSize="22" 
+                   FontWeight="Bold" >
+            <TextBlock.Foreground>
+                <LinearGradientBrush EndPoint="0.5,1"
+                                     MappingMode="RelativeToBoundingBox"
+                                     StartPoint="0.5,0">
+                    <GradientStop Color="#7D78A2"/>
+                </LinearGradientBrush>
+            </TextBlock.Foreground>
+        </TextBlock>
+        <TextBlock Style="{StaticResource MaterialDesignHeadline4TextBlock}"
+                   Text="New around here ?" 
+                   Height="33"
+                   Width="220" 
+                   Margin="1000,655,0,0"
+                   VerticalAlignment="Top"
+                   HorizontalAlignment="Left"
+                   TextAlignment="Left"
+                   FontFamily="Segoe UI"
+                   FontSize="25"
+                   >
+            <TextBlock.Foreground>
+                <LinearGradientBrush EndPoint="0.5,1"
+                                     MappingMode="RelativeToBoundingBox"
+                                     StartPoint="0.5,0">
+                    <GradientStop Color="Black"/>
+                </LinearGradientBrush>
+            </TextBlock.Foreground>
+        </TextBlock>
+        <Button x:Name="btSignUp"
+                Style="{StaticResource MaterialDesignFlatButton}"
+                Height="38" 
+                Width="150"
+                ToolTip="MaterialDesignFlatButton"
+                Margin="1250,650,0,0" 
+                HorizontalContentAlignment="Left"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Content="Sign Up" 
+                FontSize="25"
+                FontFamily="Segoe UI">
+        </Button>
+        <CheckBox x:Name="cbRemember" 
+                  Margin ="950,562,0,0"
+                  HorizontalAlignment="Left"
+                  VerticalAlignment="Top" 
+                  VerticalContentAlignment="Center" 
+                  HorizontalContentAlignment="Center"
+                  RenderTransformOrigin="0.5,0.5">
+            <CheckBox.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform ScaleX="2" 
+                                    ScaleY="2"/>
+                </TransformGroup>
+            </CheckBox.RenderTransform>
+            <CheckBox.Background>
+                <LinearGradientBrush EndPoint="0.5,1"
+                                     StartPoint="0.5,0">
+                    <GradientStop Color="White"/>
+                </LinearGradientBrush>
+            </CheckBox.Background>
+        </CheckBox>
+        <CheckBox x:Name="cbForgot" 
+                  Margin ="950,611,0,0"
+                  HorizontalAlignment="Left" 
+                  VerticalAlignment="Top"
+                  VerticalContentAlignment="Center"
+                  HorizontalContentAlignment="Center"
+                  RenderTransformOrigin="0.5,0.5">
+            <CheckBox.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform ScaleX="2" 
+                                    ScaleY="2"/>
+                </TransformGroup>
+            </CheckBox.RenderTransform>
+            <CheckBox.Background>
+                <LinearGradientBrush EndPoint="0.5,1" 
+                                     StartPoint="0.5,0">
+                    <GradientStop Color="White"/>
+                </LinearGradientBrush>
+            </CheckBox.Background>
+        </CheckBox>
+        <Button x:Name="btClose"
+                Style="{StaticResource MaterialDesignIconButton}"
+                ToolTip="MaterialDesignIconButton" 
+                Margin="1380.25,28,0,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top" >
+            <materialDesign:PackIcon Kind="CloseOutline"  />
+        </Button>
+        <Button x:Name="btMinimize"
+                Style="{StaticResource MaterialDesignIconButton}"
+                ToolTip="MaterialDesignIconButton"
+                Margin="1300,28,0,0" 
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top" >
+            <materialDesign:PackIcon Kind="WindowMinimize" />
+        </Button>
+    </Grid>
+</Window>
