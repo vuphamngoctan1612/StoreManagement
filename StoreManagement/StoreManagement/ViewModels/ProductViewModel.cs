@@ -36,31 +36,31 @@ namespace StoreManagement.ViewModels
             SeparateThousandsCommand = new RelayCommand<TextBox>((para) => true, (para) => SeparateThousands(para));
             EditProductCommand = new RelayCommand<TextBlock>((para) => true, (para) => EditProduct(para));
             DeleteProductCommand = new RelayCommand<TextBlock>((para) => true, (para) => DeleteProduct(para));
-            LoadProductOnWindowCommand = new RelayCommand<HomeWindow>((para) => true, (para) => LoadProduct(para));
+            //LoadProductOnWindowCommand = new RelayCommand<HomeWindow>((para) => true, (para) => LoadProduct(para));
         }
 
-        private void LoadProduct(HomeWindow para)
-        {
-            this.HomeWindow = para;
-            this.HomeWindow.stkProducts.Children.Clear();
-            List<Product> products = new List<Product>();
+        //private void LoadProduct(HomeWindow para)
+        //{
+        //    this.HomeWindow = para;
+        //    this.HomeWindow.stkProducts.Children.Clear();
+        //    List<Product> products = new List<Product>();
 
-            string query = "SELECT * FROM Product";
-            products = DataProvider.Instance.DB.Products.SqlQuery(query).ToList();
+        //    string query = "SELECT * FROM Product";
+        //    products = DataProvider.Instance.DB.Products.SqlQuery(query).ToList();
 
-            foreach (Product product in products)
-            {
-                ProductControlUC control = new ProductControlUC();
-                control.txbID.Text = product.ID.ToString();
-                control.txbName.Text = product.Name;
-                control.txbUnit.Text = product.Unit;
-                control.txbImportPrice.Text = string.Format("{0:N0}", product.ImportPrice);
-                control.txbPrice.Text = string.Format("{0:N0}", product.ExportPrice);
-                control.txbCount.Text = string.Format("{0:N0}", product.Count);
+        //    foreach (Product product in products)
+        //    {
+        //        ProductControlUC control = new ProductControlUC();
+        //        control.txbID.Text = product.ID.ToString();
+        //        control.txbName.Text = product.Name;
+        //        control.txbUnit.Text = product.Unit;
+        //        control.txbImportPrice.Text = string.Format("{0:N0}", product.ImportPrice);
+        //        control.txbPrice.Text = string.Format("{0:N0}", product.ExportPrice);
+        //        control.txbCount.Text = string.Format("{0:N0}", product.Count);
 
-                this.HomeWindow.stkProducts.Children.Add(control);
-            }
-        }
+        //        this.HomeWindow.stkProducts.Children.Add(control);
+        //    }
+        //}
 
         private void DeleteProduct(TextBlock para)
         {
@@ -149,7 +149,7 @@ namespace StoreManagement.ViewModels
             }
             finally
             {
-                LoadProduct(this.HomeWindow);
+                //LoadProduct(this.HomeWindow);
                 para.Close();
             }
         }

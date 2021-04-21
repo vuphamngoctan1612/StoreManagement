@@ -105,3 +105,6 @@ go
 
 alter table Agency add constraint FK_Type foreign key (TypeOfAgency) references TypeOfAgency(ID)
 go
+select * from Product;
+insert into Product 
+values (1,'Mì gói','Gói',null,3000,5000,1000,0)

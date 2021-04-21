@@ -1,6 +1,5 @@
-﻿using System.Reflection;
-using System.Resources;
-using System.Runtime.CompilerServices;
+﻿using Microsoft.SharePoint.Client;
+using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Windows;
 

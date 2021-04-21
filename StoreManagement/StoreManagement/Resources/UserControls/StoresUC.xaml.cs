@@ -18,9 +18,9 @@ namespace StoreManagement.Views
     /// <summary>
     /// Interaction logic for usStores.xaml
     /// </summary>
-    public partial class usStores : UserControl
+    public partial class StoresUC : UserControl
     {
-        public usStores()
+        public StoresUC()
         {
             InitializeComponent();
         }

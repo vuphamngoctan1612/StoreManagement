@@ -1,8 +1,9 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:local="clr-namespace:StoreManagement.Resources"
+                    xmlns:local="clr-namespace:StoreManagement.Resources.UserControls"
                     xmlns:viewmodels ="clr-namespace:StoreManagement.ViewModels"
-                    xmlns:models ="clr-namespace:StoreManagement.Models">
+                    xmlns:models ="clr-namespace:StoreManagement.Models"
+                    >
     <viewmodels:HomeViewModel x:Key="HomeVM"></viewmodels:HomeViewModel>
     <viewmodels:ProductViewModel x:Key="ProductVM"></viewmodels:ProductViewModel>
     <viewmodels:ReportViewModel x:Key="ReportVM"></viewmodels:ReportViewModel>

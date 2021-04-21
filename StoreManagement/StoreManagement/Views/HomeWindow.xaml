@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:controls="clr-namespace:StoreManagement.Resources.UserControls"
-        xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf" xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf" 
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         mc:Ignorable="d"
         Title="Agency Management"
         Height="810"
@@ -13,7 +14,8 @@
         WindowStartupLocation="CenterScreen"
         x:Name="wdHome"
         DataContext="{StaticResource HomeVM}"
-        ResizeMode="CanMinimize">
+        ResizeMode="CanMinimize"
+        >
     <Grid
         x:Name="grdWindow">
 
@@ -452,7 +454,8 @@
                 x:Name="nameApp"
                 Height="100"
                 Width="585"                
-                Margin="20,0,530,660">
+                Margin="20,0,530,660"
+                Visibility="Hidden">
                 <Grid.RowDefinitions>
                     <RowDefinition></RowDefinition>
                     <RowDefinition></RowDefinition>
@@ -573,7 +576,7 @@
                 Width="1140"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Bottom"
-                Visibility="Visible">
+                Visibility="Collapsed">
                 
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="Loaded">
@@ -644,7 +647,7 @@
                         <lvc:CartesianChart.AxisY>
                             <lvc:Axis 
                                 Title="" 
-                                LabelFormatter="{Binding Formatter}">
+                                LabelFormatter="{Binding Formatter  }">
                             </lvc:Axis>
                         </lvc:CartesianChart.AxisY>
                     </lvc:CartesianChart>
@@ -844,19 +847,294 @@
             <!--Body bills-->
             <Grid
                 x:Name="grdBody_Bill"
-                Height="665"
+                Height="720"
                 Width="1140"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Bottom"
-                Visibility="Hidden">
-
-                <Grid
-                    Width="1140"
-                    Height="3"
-                    Background="#FBA1BB" 
+                Visibility="Visible">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="3"></RowDefinition>
+                    <RowDefinition Height="100"></RowDefinition>
+                    <RowDefinition Height="450"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0"
+                      Background="#FBA1BB" >
+                </Grid>
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="400"></ColumnDefinition>
+                        <ColumnDefinition Width="400"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="0">
+                        <Rectangle
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Top"
+                        Width="280"
+                        Height="50"
+                        Margin="50 25 0 0"
+                        StrokeThickness="2"
+                        RadiusX="10"
+                        RadiusY="10"
+                        Stroke="#E2D2DA"/>
+                        <TextBox
+                        x:Name="txtSearch"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Top"
+                        Width="280"
+                        Margin="50 25 0 0"
+                        BorderThickness="0"
+                        materialDesign:HintAssist.Hint="Search Agency"
+                        MaxLines="1"
+                        Height="40"
+                        FontSize="22"
+                        FontWeight="SemiBold"
+                        Padding="0"
+                        HorizontalContentAlignment="Left"
+                        VerticalContentAlignment="Center" 
+                        Cursor="Arrow"/>
+                        <materialDesign:PackIcon Kind="Magnify"
+                                             Height="40"
+                                             Width="40"
+                                             HorizontalAlignment="Left"
+                                             VerticalAlignment="Top"
+                                             Margin="280 30 0 0"/>
+                    </Grid>
+                    <Grid Grid.Column="1">
+                        <Button x:Name="btReleasingBill" 
+                            Style="{StaticResource MaterialDesignRaisedButton}"
+                            Height="50" 
+                            Width="280" 
+                            materialDesign:ButtonAssist.CornerRadius="20"
+                            ToolTip="MaterialDesignRaisedButton with Round Corners"
+                            Margin="85,25,0,0" 
+                            HorizontalContentAlignment="Center" 
+                            HorizontalAlignment="Left" 
+                            VerticalAlignment="Top"
+                            Background="#FBCCDA"
+                            Content="Releasing Bill"
+                            FontSize="22"
+                            Foreground="#57548B"
+                            FontWeight="Bold">
+                        </Button>
+                    </Grid>
+                    <Grid Grid.Column="2">
+                        <Button x:Name="btReceiptBill" 
+                            Style="{StaticResource MaterialDesignRaisedButton}"
+                            Height="50" 
+                            Width="280" 
+                            materialDesign:ButtonAssist.CornerRadius="20"
+                            ToolTip="MaterialDesignRaisedButton with Round Corners"
+                            Margin="-15,25,0,0" 
+                            HorizontalContentAlignment="Center" 
+                            HorizontalAlignment="Left" 
+                            VerticalAlignment="Top"
+                            Background="#FBCCDA"
+                            Content="Receipt Bill"
+                            FontSize="22"
+                            Foreground="#57548B"
+                            FontWeight="Bold">
+                        </Button>
+                    </Grid>
+                </Grid>
+                <Grid Grid.Row="2">
+                    <Rectangle
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Top"
+                        Width="1010"
+                        Height="450"
+                        Margin="50 0 0 0"
+                        StrokeThickness="2"
+                        Stroke="#E2D2DA"/>
+                    <materialDesign:Card x:Name="cardTitleDebt"
+                             Height="70"
+                             Width="1010"
+                             Margin="50,0,0,0"
+                             HorizontalAlignment="Left"
+                             VerticalAlignment="Top"
+                             Padding="0"
+                             UniformCornerRadius="0"
+                             Background="White"
+                             Visibility="Visible">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="75"></ColumnDefinition>
+                                <ColumnDefinition Width="75"></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid Grid.Column="0">
+                                <materialDesign:PackIcon Kind="ChevronLeft"
+                                                         Width="75"
+                                                         Height="70"
+                                                         HorizontalAlignment="Left"
+                                                         VerticalAlignment="Top"
+                                                         Margin="0 -10 0 0"
+                                                         Foreground="#57548B"/>
+                            </Grid>
+                            <Grid Grid.Column="1">
+                                <materialDesign:PackIcon Kind="ChevronRight"
+                                                         Width="75"
+                                                         Height="70"
+                                                         HorizontalAlignment="Left"
+                                                         VerticalAlignment="Top"
+                                                         Margin="0 -10 0 0"
+                                                         Foreground="#57548B"/>
+                            </Grid>
+                            <Grid Grid.Column="2">
+                                <TextBlock x:Name="textReleasingBill"
+                                    Text="Releasing Bill"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    FontSize="25"
+                                    FontFamily="Segoe UI"
+                                    FontWeight="Bold"
+                                    Foreground="#57548B"></TextBlock>
+                                <TextBlock x:Name="textReceiptBill"
+                                    Text="Receipt Bill"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    FontSize="25"
+                                    FontFamily="Segoe UI"
+                                    FontWeight="Bold"
+                                    Foreground="#57548B"
+                                           Visibility="Hidden"></TextBlock>
+                            </Grid>
+                        </Grid>
+                    </materialDesign:Card>
+                    <Grid
+                    Grid.Row="1"
+                    Background="#FF9CB9"
+                    Height="50"
+                    Width="1010"
                     HorizontalAlignment="Left"
-                    VerticalAlignment="Top">
-
+                    VerticalAlignment="Top"
+                    Margin="50 70 0 0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="220"/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Grid>
+                            <TextBlock
+                            Text="No"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Center"
+                            FontSize="22"
+                            Foreground="#504D85"
+                            FontWeight="SemiBold"/>
+                        </Grid>
+                        <Grid
+                        Grid.Column="1">
+                            <TextBlock
+                            Text="Items"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Center"
+                            FontSize="22"
+                            Foreground="#504D85"
+                            FontWeight="SemiBold"/>
+                        </Grid>
+                        <Grid
+                        Grid.Column="2">
+                            <TextBlock
+                            Text="Unit"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Center"
+                            FontSize="22"
+                            Foreground="#504D85"
+                            FontWeight="SemiBold"/>
+                        </Grid>
+                        <Grid
+                        Grid.Column="3">
+                            <TextBlock
+                            Text="Amount"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Center"
+                            FontSize="22"
+                            Foreground="#504D85"
+                            FontWeight="SemiBold"/>
+                        </Grid>
+                        <Grid
+                        Grid.Column="4">
+                            <TextBlock
+                            Text="Price"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Center"
+                            FontSize="22"
+                            Foreground="#504D85"
+                            FontWeight="SemiBold"/>
+                        </Grid>
+                        <Grid
+                        Grid.Column="5">
+                            <TextBlock
+                            Text="Total"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Center"
+                            FontSize="22"
+                            Foreground="#504D85"
+                            FontWeight="SemiBold"/>
+                        </Grid>
+                    </Grid>
+                    <StackPanel x:Name="stkBill"
+                                Width="1010"
+                                Height="300"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Top"
+                                Margin="50 120 0 0">
+                        
+                    </StackPanel>
+                </Grid>
+                <Grid Grid.Row="3">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="240"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="0">
+                        <TextBlock Text="Tổng:"
+                                   FontSize="25"
+                                   HorizontalAlignment="Left"
+                                   VerticalAlignment="Top"
+                                   Margin="770 10 0 0"
+                                   Foreground="#504D85"/>
+                        <TextBlock Text="Trả trước:"
+                                   FontSize="25"
+                                   HorizontalAlignment="Left"
+                                   VerticalAlignment="Top"
+                                   Margin="770 50 0 0"
+                                   Foreground="#504D85"/>
+                        <TextBlock Text="Còn lại:"
+                                   FontSize="25"
+                                   HorizontalAlignment="Left"
+                                   VerticalAlignment="Top"
+                                   Margin="770 90 0 0"
+                                   Foreground="#504D85"/>
+                    </Grid>
+                    <Grid Grid.Column="1">
+                        <TextBlock x:Name="textTotal"
+                                   Text="90000000"
+                                   FontSize="25"
+                                   HorizontalAlignment="Left"
+                                   VerticalAlignment="Top"
+                                   Margin="10 10 0 0"
+                                   Foreground="#504D85"/>
+                        <TextBlock x:Name="textPrePay"
+                                   Text="90000000"
+                                   FontSize="25"
+                                   HorizontalAlignment="Left"
+                                   VerticalAlignment="Top"
+                                   Margin="10 50 0 0"
+                                   Foreground="#504D85"/>
+                        <TextBlock x:Name="textDept"
+                                   Text="90000000"
+                                   FontSize="25"
+                                   HorizontalAlignment="Left"
+                                   VerticalAlignment="Top"
+                                   Margin="10 90 0 0"
+                                   Foreground="#504D85"/>
+                    </Grid>
                 </Grid>
             </Grid>
             <!--Body report-->
