@@ -576,7 +576,7 @@
                 Width="1140"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Bottom"
-                Visibility="Collapsed">
+                Visibility="Visible">
                 
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="Loaded">
@@ -851,7 +851,7 @@
                 Width="1140"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Bottom"
-                Visibility="Visible">
+                Visibility="Hidden">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="3"></RowDefinition>
                     <RowDefinition Height="100"></RowDefinition>
