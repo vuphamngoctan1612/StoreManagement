@@ -40,28 +40,13 @@
             <Grid 
                 x:Name="grdTitle" 
                 HorizontalAlignment="Center"
-                Height="200" 
                 Margin="0,20,0,0"
                 VerticalAlignment="Top"
-                Width="300">
-                <Button
-                    VerticalAlignment="Center"
-                    HorizontalAlignment="Center"
-                    Background="Transparent"
-                    BorderBrush="{x:Null}" 
-                    Margin="60,108,65,28" Height="64" >
-                    <StackPanel Orientation="Horizontal" Height="49">
-                        <Image 
-                               Height="39"
-                               Width="44"/>
-                        <TextBlock Text="Mmaynee"
-                                   HorizontalAlignment="Stretch"
-                                   TextAlignment="Center"
-                                   VerticalAlignment="Center"
-                                   Foreground="#504D85"
-                                   FontSize="22"/>
-                    </StackPanel>
-                </Button>
+                Height="215" 
+                Width="245">
+                <Image
+                    Source="..\..\Resources\Images\logo.png">
+                </Image>
             </Grid>
             <StackPanel 
                 x:Name="stkMenu"
@@ -447,168 +432,97 @@
         <Grid
             x:Name="Main"
             Grid.Column="1">
-
-            <Grid
-                x:Name="nameApp"
-                Height="100"
-                Width="585"                
-                Margin="20,0,530,660">
-                <Grid.RowDefinitions>
-                    <RowDefinition></RowDefinition>
-                    <RowDefinition></RowDefinition>
-                </Grid.RowDefinitions>
-                <TextBlock
-                    x:Name="agency"
-                    Text="AGENCY MANAGEMENT"
-                    Foreground="#504D85"
-                    FontSize="48"
-                    Width="585"
-                    FontWeight="Bold"
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Center">
-                </TextBlock>
-                <Grid Grid.Row="1">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="254*"/>
-                        <ColumnDefinition Width="331*"/>
-                    </Grid.ColumnDefinitions>
-                    <TextBlock
-                        x:Name="nameTeam"
-                        Text="Create by MayMay"
-                        FontWeight="DemiBold"
-                        Foreground="#504D85"
-                        FontSize="18"
-                        HorizontalAlignment="Left"
-                        VerticalAlignment="Center"
-                        Padding="60,0,0,0" Margin="0,13,0,12.6">
-                    </TextBlock>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="80"></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="600"></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Column="0">
+                </Grid>
+                <Grid Grid.Column="1">
+                    <Grid 
+                        Width="250"
+                        Height="60"
+                        HorizontalAlignment="Right"
+                        Margin="0 0 31.8 0">
+                        <Ellipse
+                            Width="60" 
+                            HorizontalAlignment="Left"
+                            Fill="#504D85">
+                        </Ellipse>
+                        <Border 
+                            CornerRadius="10"
+                            Width="60"
+                            Height="60" 
+                            HorizontalAlignment="Left">
+                            <Image>
+                                
+                            </Image>
+                        </Border>
+                        <TextBlock 
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Center"
+                            FontSize="22"
+                            FontFamily="Poppins"
+                            FontWeight="SemiBold"
+                            Margin="80 0 0 0"
+                            Text="Usename"
+                            Foreground="#504D85">
+                        </TextBlock>
+                        <materialDesign:PackIcon
+                            Kind="ChevronDown" 
+                            HorizontalAlignment="Right" 
+                            VerticalAlignment="Stretch"
+                            Margin="0 0 0 0"
+                            Width="40"
+                            Height="40"
+                            Foreground="#504D85">
+                            
+                        </materialDesign:PackIcon>
+                    </Grid>
                 </Grid>
             </Grid>
-            <!--<TextBox 
-                    x:Name="txtSearch" 
-                    Grid.Column="0"
-                    Style="{StaticResource MaterialDesignTextBox}" 
-                    Height="39" Width="300" 
-                    materialDesign:TextFieldAssist.TextFieldCornerRadius="24" 
-                    HorizontalContentAlignment="Center" 
-                    VerticalAlignment="Center" 
-                    HorizontalAlignment="Left"
-                    FontFamily="Segoe UI" 
-                    FontSize="22"
-                    Foreground="#6F6C99"
-                    VerticalContentAlignment="Center" 
-                    Background="#FCE5EC" Margin="630,76,179,675"
-                    materialDesign:TextFieldAssist.DecorationVisibility="Hidden" BorderThickness="0">
-            </TextBox>-->
-            <!--<Grid
-                Width="80"
-                Margin="1004,62,0,666"
-                HorizontalAlignment="Left">
-                <Button 
-                    x:Name="btnNotification"
-                    Style="{StaticResource MaterialDesignRaisedButton}"
-                    Height="40" 
-                    Width="60" 
-                    Content="15"
-                    materialDesign:ButtonAssist.CornerRadius="15"
-                    ToolTip="MaterialDesignRaisedButton with Round Corners"
-                    VerticalAlignment="Center"
-                    HorizontalAlignment="Center"
-                    HorizontalContentAlignment="Right"
-                    BorderBrush="{x:Null}">
-                    <Button.Background>
-                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                            <GradientStop Color="#FF469F" Offset="0.0"></GradientStop>
-                            <GradientStop Color="#C438EF" Offset="1"></GradientStop>
-                        </LinearGradientBrush>
-                    </Button.Background>
-                </Button>
-
-                <materialDesign:PackIcon
-                        x:Name="icnNotification"
-                        Kind="Bell"
-                        Foreground="White"
-                        Width="20" 
-                        Height="20" 
-                        VerticalAlignment="Center" 
-                        Cursor="Hand" 
-                        HorizontalAlignment="Left"
-                        Margin="15,10,0,10"/>
-            </Grid>-->
-            <!--<Grid
-                Width="30"
-                Margin="964,88,138,684">
-                <materialDesign:PackIcon
-                        x:Name="icnMenu"
-                        Kind="DotsGrid"
-                        Foreground="#504D85"
-                        Width="30" 
-                        Height="30" 
-                        
-                        Cursor="Hand" Margin="-5,-5,0,0" />
-            </Grid>-->
-            <!--<Button
-                x:Name="btnMenu"
-                Style="{StaticResource MaterialDesignRaisedButton}"
-                Height="30" 
-                Width="30" 
-                Background="Transparent"
-                BorderBrush="{x:Null}"
-                materialDesign:ButtonAssist.CornerRadius="10"
-                ToolTip="MaterialDesignRaisedButton with Round Corners"
-                HorizontalContentAlignment="Right" 
-                HorizontalAlignment="Center" 
-                VerticalAlignment="Center" 
-                Margin="950,88,152,684">
-                <StackPanel Orientation="Horizontal">
-
-                </StackPanel>
-            </Button>-->
-            
             <!--Body main-->
-            <Grid
+            <Grid Grid.Row="1"
                 x:Name="grdBody_Main"
                 DataContext="{StaticResource ReportVM}"
-                Height="665"
-                Width="1140"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Bottom"
                 Visibility="Visible">
-                
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="Loaded">
-                        <i:InvokeCommandAction Command="{Binding LoadTop4AgencyCommand}" 
+                        <i:InvokeCommandAction Command="{Binding LoadTop3AgencyCommand}" 
                                                CommandParameter="{Binding ElementName=wdHome}"/>
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
-                
                 <Grid.RowDefinitions>
+                    <RowDefinition Height="2"></RowDefinition>
                     <RowDefinition Height="70"></RowDefinition>
                     <RowDefinition Height="200"></RowDefinition>
                     <RowDefinition></RowDefinition>
                 </Grid.RowDefinitions>
-                <Grid Grid.Row="0">
+                <Grid Grid.Row="0"
+                      Background="#FBA1BB">
+                </Grid>
+                <Grid Grid.Row="1">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="40"></RowDefinition>
                         <RowDefinition Height="30"></RowDefinition>
                     </Grid.RowDefinitions>
-                    <Grid Grid.Row="0" 
-                        Margin="30,0,336.308,0">
+                    <Grid Grid.Row="0">
                         <TextBlock
                             Text="MY STORES"
                             Foreground="#F97298"
                             FontSize="25"
-                            HorizontalAlignment="Left"
                             FontWeight="SemiBold"
+                            Margin="30 0 0 0"
+                            HorizontalAlignment="Left"
                             VerticalAlignment="Center">
                         </TextBlock>
                     </Grid>
-                    <Grid Grid.Row="1" 
-                        Margin="65,0,316.308,0.4">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="54*"/>
-                            <ColumnDefinition Width="65*"/>
-                        </Grid.ColumnDefinitions>
+                    <Grid Grid.Row="1">
                         <TextBlock
                             Text="TODAY RANKING"
                             FontSize="18"
@@ -616,11 +530,11 @@
                             FontWeight="SemiBold"
                             HorizontalAlignment="Left"
                             VerticalAlignment="Center"
-                            Margin="20,3,0,3.4">
+                            Margin="65 0 0 5">
                         </TextBlock>
                     </Grid>
                 </Grid>
-                <Grid Grid.Row="1">
+                <Grid Grid.Row="2">
                     <WrapPanel  
                         x:Name="wpBody_Main_TopAgency"
                         Width="1140"
@@ -630,33 +544,45 @@
                         Margin="0">
                     </WrapPanel>
                 </Grid>
-                <Grid Grid.Row="2">
+                <Grid Grid.Row="3">
+                    <Rectangle
+                        Height="400"
+                        Width="1100"
+                        RadiusX="15"
+                        RadiusY="15"
+                        Stroke="#DEDEDE">
+                    </Rectangle>
                     <lvc:CartesianChart 
                         Series="{Binding SeriesCollection}"
                         LegendLocation="Left"
-                        Margin="0 20 25 0">
+                        Margin="20 20 20 20">
                         <lvc:CartesianChart.AxisX>
                             <lvc:Axis 
-                                Title="Salesman" 
-                                Labels="{Binding Labels}">
+                                Title="{Binding AxisXTitle, Mode=TwoWay}"
+                                Labels="{Binding Labels, Mode=TwoWay}">
+                                <lvc:Axis.Separator>
+                                    <lvc:Separator Step="1"></lvc:Separator>
+                                </lvc:Axis.Separator>
                             </lvc:Axis>
                         </lvc:CartesianChart.AxisX>
                         <lvc:CartesianChart.AxisY>
                             <lvc:Axis 
-                                Title="" 
+                                Title="{Binding AxixYTitle, Mode=TwoWay}"
                                 LabelFormatter="{Binding Formatter}">
                             </lvc:Axis>
                         </lvc:CartesianChart.AxisY>
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Loaded">
+                                <i:InvokeCommandAction Command="{Binding InitColumnChartCommand}" 
+                                           CommandParameter="{Binding ElementName=wdHome}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
                     </lvc:CartesianChart>
                 </Grid>
             </Grid>
             <!--Body stores-->
-            <Grid
+            <Grid Grid.Row="1"
                 x:Name="grdBody_Store"
-                Height="665"
-                Width="1140"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Bottom"
                 Visibility="Hidden">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="3"></RowDefinition>
@@ -706,13 +632,9 @@
                 </Grid>
             </Grid>
             <!--Body products -->
-            <Grid
+            <Grid Grid.Row="1"
                 DataContext="{StaticResource ProductVM}"
                 x:Name="grdBody_Product"
-                Height="665"
-                Width="1140"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Bottom"
                 Visibility="Hidden">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="Loaded">
@@ -720,37 +642,85 @@
                                                CommandParameter="{Binding ElementName=wdHome}"/>
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
-                <Grid
-                    Width="1140"
-                    Height="3"
-                    Background="#FBA1BB" 
-                    HorizontalAlignment="Left"
-                    VerticalAlignment="Top"/>
-                <Button 
-                    x:Name="btnAddProduct"
-                    Background="#F79BB5"
-                    Uid="0"
-                    FocusVisualStyle="{x:Null}"
-                    BorderBrush="{x:Null}"
-                    Cursor="Hand"
-                    Foreground="#504D85"
-                    HorizontalAlignment="Left" 
-                    VerticalAlignment="Top"
-                    Content="Add product"
-                    FontFamily="Segoe UI"
-                    Margin="988,20,0,0"
-                    Style="{StaticResource MaterialDesignRaisedButton}"
-                    ToolTip="Thêm sản phẩm"
-                    Command="{Binding AddWindowProductCommand}"
-                    CommandParameter="{Binding ElementName=wdHome}">
-                </Button>
-                <Grid 
-                    HorizontalAlignment="Center" 
-                    VerticalAlignment="Center"
-                    Margin="0 40 10 0"
-                    Height="570"
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="3"></RowDefinition>
+                    <RowDefinition Height="60"></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0"
+                    Background="#FBA1BB"/>
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="0">
+                        <Rectangle 
+                            HorizontalAlignment="Left" 
+                            VerticalAlignment="Center"
+                            Stroke="#FCE5EC"
+                            Fill="#FCE5EC"
+                            Margin="30 10 0 0"
+                            Height="40"
+                            Width ="300"
+                            RadiusX="10"
+                            RadiusY="10"/>
+                        <materialDesign:PackIcon
+                            Kind="Magnify"
+                            Width="40"
+                            Height="35"
+                            HorizontalAlignment="Stretch" 
+                            VerticalAlignment="Stretch"
+                            Margin="45 10 0 0">
+                        </materialDesign:PackIcon>
+                        <TextBox
+                            x:Name="txtSeachProduct"
+                            Height="35"
+                            Width="250" 
+                            HorizontalAlignment="Left"
+                            Margin="40 10 0 0"
+                            materialDesign:HintAssist.Hint="Search product"
+                            FontSize="22"
+                            FontFamily="Poppins"
+                            FontWeight="Regular"
+                            BorderBrush="#FCE5EC">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="TextChanged">
+                                    <i:InvokeCommandAction Command="{Binding SearchProductCommand}" 
+                                                       CommandParameter="{Binding ElementName=wdHome}"/>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </TextBox>
+                    </Grid>
+                    <Grid Grid.Column="1">
+                        <StackPanel 
+                            Orientation="Horizontal"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center">
+                            <Button
+                                x:Name="btnAddProduct"
+                                Background="#F79BB5"
+                                Uid="0"
+                                Margin="390 10 0 0"
+                                FocusVisualStyle="{x:Null}"
+                                BorderBrush="{x:Null}"
+                                Cursor="Hand"
+                                Foreground="#504D85"
+                                Content="Add product"
+                                FontFamily="Segoe UI"
+                                ToolTip="Thêm sản phẩm"
+                                Style="{StaticResource MaterialDesignRaisedButton}"
+                                Command="{Binding AddWindowProductCommand}"
+                                CommandParameter="{Binding ElementName=wdHome}"/>
+                        </StackPanel>
+                    </Grid>
+                </Grid>
+                <Grid Grid.Row="2"
+                    Height="590"
                     Width="1070"
-                    Background="#FCE5EC">
+                    Margin="0 10 0 0"
+                    Background="#FCE5EC" 
+                    VerticalAlignment="Top">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="50"></RowDefinition>
                         <RowDefinition></RowDefinition>
@@ -842,12 +812,8 @@
                 </Grid>
             </Grid>
             <!--Body bills-->
-            <Grid
+            <Grid Grid.Row="1"
                 x:Name="grdBody_Bill"
-                Height="665"
-                Width="1140"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Bottom"
                 Visibility="Hidden">
 
                 <Grid
@@ -860,13 +826,8 @@
                 </Grid>
             </Grid>
             <!--Body report-->
-            <Grid
+            <Grid Grid.Row="1"
                 x:Name="grdBody_Report"
-                Background="#F2F2F2"
-                Height="665"
-                Width="1140"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Bottom"
                 Visibility="Hidden">
 
                 <Grid
@@ -879,12 +840,8 @@
                 </Grid>
             </Grid>
             <!--Body account setting-->
-            <Grid
+            <Grid Grid.Row="1"
                 x:Name="grdBody_AccountSetting"
-                Height="665"
-                Width="1140"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Bottom"
                 Visibility="Hidden">
 
                 <Grid

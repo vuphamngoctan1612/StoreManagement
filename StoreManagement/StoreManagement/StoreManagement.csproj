@@ -92,6 +92,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Converter.cs" />
     <Compile Include="Models\Account.cs">
       <DependentUpon>AgencyManagement_Entities.tt</DependentUpon>
     </Compile>
@@ -123,9 +124,6 @@
       <DependentUpon>AgencyManagement_Entities.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Receipt.cs">
-      <DependentUpon>AgencyManagement_Entities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\sysdiagram.cs">
       <DependentUpon>AgencyManagement_Entities.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\TypeOfAgency.cs">
@@ -215,9 +213,7 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Resources\Images\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Page Include="Resources\ButtonStyle.xaml">
       <SubType>Designer</SubType>
@@ -302,6 +298,8 @@
       <DependentUpon>AgencyManagement_Entities.edmx</DependentUpon>
       <LastGenOutput>AgencyManagement_Entities.cs</LastGenOutput>
     </Content>
+    <Resource Include="Resources\Images\default.jpg" />
+    <Resource Include="Resources\Images\logo.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\MaterialDesignThemes.4.0.0\build\MaterialDesignThemes.targets" Condition="Exists('..\packages\MaterialDesignThemes.4.0.0\build\MaterialDesignThemes.targets')" />
