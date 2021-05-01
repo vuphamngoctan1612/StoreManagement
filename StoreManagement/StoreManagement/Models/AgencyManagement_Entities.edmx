@@ -37,6 +37,7 @@
           <Property Name="AgencyID" Type="int" />
           <Property Name="Checkout" Type="date" />
           <Property Name="Debt" Type="bigint" />
+          <Property Name="Total" Type="bigint" />
         </EntityType>
         <EntityType Name="InvoiceInfo">
           <Key>
@@ -236,6 +237,7 @@
           <Property Name="AgencyID" Type="Int32" />
           <Property Name="Checkout" Type="DateTime" Precision="0" />
           <Property Name="Debt" Type="Int64" />
+          <Property Name="Total" Type="Int64" />
           <NavigationProperty Name="Agency" Relationship="AgencyManagementModel.FK_Invoice_AgencyID" FromRole="Invoice" ToRole="Agency" />
           <NavigationProperty Name="InvoiceInfoes" Relationship="AgencyManagementModel.FK_InvoiceID" FromRole="Invoice" ToRole="InvoiceInfo" />
         </EntityType>
@@ -345,7 +347,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -380,6 +382,7 @@
           <EntitySetMapping Name="Invoices">
             <EntityTypeMapping TypeName="AgencyManagementModel.Invoice">
               <MappingFragment StoreEntitySet="Invoice">
+                <ScalarProperty Name="Total" ColumnName="Total" />
                 <ScalarProperty Name="Debt" ColumnName="Debt" />
                 <ScalarProperty Name="Checkout" ColumnName="Checkout" />
                 <ScalarProperty Name="AgencyID" ColumnName="AgencyID" />

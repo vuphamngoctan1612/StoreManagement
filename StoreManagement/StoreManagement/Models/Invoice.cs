@@ -24,6 +24,7 @@ namespace StoreManagement.Models
         public Nullable<int> AgencyID { get; set; }
         public Nullable<System.DateTime> Checkout { get; set; }
         public Nullable<long> Debt { get; set; }
+        public Nullable<long> Total { get; set; }
     
         public virtual Agency Agency { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

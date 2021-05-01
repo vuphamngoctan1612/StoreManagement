@@ -442,6 +442,15 @@
                     <ColumnDefinition></ColumnDefinition>
                 </Grid.ColumnDefinitions>
                 <Grid Grid.Column="0">
+                    <TextBlock
+                        Text="AGENCY MANAGEMENT"
+                        FontSize="40"
+                        FontWeight="Bold"
+                        Foreground="#504D85"
+                        VerticalAlignment="Top"
+                        HorizontalAlignment="Left"
+                        Margin="20 0 0 0">                        
+                    </TextBlock>
                 </Grid>
                 <Grid Grid.Column="1">
                     <Grid 
@@ -490,13 +499,7 @@
             <Grid Grid.Row="1"
                 x:Name="grdBody_Main"
                 DataContext="{StaticResource ReportVM}"
-                Visibility="Visible">
-                <i:Interaction.Triggers>
-                    <i:EventTrigger EventName="Loaded">
-                        <i:InvokeCommandAction Command="{Binding LoadTop3AgencyCommand}" 
-                                               CommandParameter="{Binding ElementName=wdHome}"/>
-                    </i:EventTrigger>
-                </i:Interaction.Triggers>
+                Visibility="Visible">                
                 <Grid.RowDefinitions>
                     <RowDefinition Height="2"></RowDefinition>
                     <RowDefinition Height="70"></RowDefinition>
@@ -535,49 +538,144 @@
                     </Grid>
                 </Grid>
                 <Grid Grid.Row="2">
-                    <WrapPanel  
-                        x:Name="wpBody_Main_TopAgency"
-                        Width="1140"
-                        HorizontalAlignment="Left" 
-                        ScrollViewer.VerticalScrollBarVisibility="Auto" 
-                        ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
-                        Margin="0">
-                    </WrapPanel>
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Loaded">
+                            <i:InvokeCommandAction Command="{Binding LoadTop3AgencyCommand}" 
+                                               CommandParameter="{Binding ElementName=wdHome}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                    <Border
+                        BorderThickness="1"
+                        CornerRadius="2"
+                        Background="White"
+                        Width="1100">
+                        <Border.Effect>
+                            <DropShadowEffect 
+                                BlurRadius="8" 
+                                ShadowDepth="1.5" 
+                                Direction="270"
+                                Color="{StaticResource MaterialDesignShadow}" 
+                                Opacity=".42"/>
+                        </Border.Effect>
+                        <WrapPanel  
+                            x:Name="wpBody_Main_TopAgency"
+                            Width="1100"
+                            Height="200"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            ScrollViewer.VerticalScrollBarVisibility="Auto" 
+                            ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
+                            Margin="0">
+                        </WrapPanel>
+                    </Border>
                 </Grid>
                 <Grid Grid.Row="3">
-                    <Rectangle
-                        Height="400"
+                    <Border
+                        BorderThickness="1"
+                        Background="White"
+                        CornerRadius="2"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
                         Width="1100"
-                        RadiusX="15"
-                        RadiusY="15"
-                        Stroke="#DEDEDE">
-                    </Rectangle>
-                    <lvc:CartesianChart 
-                        Series="{Binding SeriesCollection}"
-                        LegendLocation="Left"
-                        Margin="20 20 20 20">
-                        <lvc:CartesianChart.AxisX>
-                            <lvc:Axis 
-                                Title="{Binding AxisXTitle, Mode=TwoWay}"
-                                Labels="{Binding Labels, Mode=TwoWay}">
-                                <lvc:Axis.Separator>
-                                    <lvc:Separator Step="1"></lvc:Separator>
-                                </lvc:Axis.Separator>
-                            </lvc:Axis>
-                        </lvc:CartesianChart.AxisX>
-                        <lvc:CartesianChart.AxisY>
-                            <lvc:Axis 
-                                Title="{Binding AxixYTitle, Mode=TwoWay}"
-                                LabelFormatter="{Binding Formatter}">
-                            </lvc:Axis>
-                        </lvc:CartesianChart.AxisY>
-                        <i:Interaction.Triggers>
-                            <i:EventTrigger EventName="Loaded">
-                                <i:InvokeCommandAction Command="{Binding InitColumnChartCommand}" 
+                        Height="400">
+                        <Border.Effect>
+                            <DropShadowEffect 
+                            BlurRadius="8" 
+                            ShadowDepth="1.5" 
+                            Direction="270"
+                            Color="{StaticResource MaterialDesignShadow}" 
+                            Opacity=".42"/>
+                        </Border.Effect>
+                        <Grid
+                            Height="380"
+                            Width="1050"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Center"
+                            Margin="0">
+                            <StackPanel
+                                Width="400"
+                                Height="50"
+                                Orientation="Horizontal"
+                                VerticalAlignment="Top"
+                                HorizontalAlignment="Left"
+                                Margin="80 5 0 0">
+                                <ComboBox
+                                    DataContext="{StaticResource ReportVM}"
+                                    x:Name="cboSelectPeriod"
+                                    materialDesign:ComboBoxAssist.ClassicMode="true"
+                                    FontSize="16"
+                                    FontWeight="Medium" 
+                                    Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+                                    materialDesign:HintAssist.Hint="Chọn chu kỳ"
+                                    Width="160" 
+                                    Height="40" 
+                                    HorizontalAlignment="Left" 
+                                    HorizontalContentAlignment="Left"
+                                    VerticalContentAlignment="Center" 
+                                    Padding="3,0,0,0" 
+                                    Margin="0">
+                                    <i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="SelectionChanged">
+                                            <i:InvokeCommandAction Command="{Binding SelectionChangedCommand}" 
                                            CommandParameter="{Binding ElementName=wdHome}"/>
-                            </i:EventTrigger>
-                        </i:Interaction.Triggers>
-                    </lvc:CartesianChart>
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>
+                                    <ComboBoxItem Content="Theo tháng"/>
+                                    <ComboBoxItem Content="Theo quý"/>
+                                    <ComboBoxItem Content="Theo năm"/>
+                                </ComboBox>
+                                <ComboBox
+                                    x:Name="cboSelectTime"
+                                    DataContext="{StaticResource ReportVM}"
+                                    ItemsSource="{Binding ItemSourceTime, Mode=TwoWay}"
+                                    materialDesign:ComboBoxAssist.ClassicMode="true"
+                                    FontSize="16"
+                                    FontWeight="Medium" 
+                                    Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+                                    materialDesign:HintAssist.Hint="Chọn"
+                                    Width="160" 
+                                    Height="40" 
+                                    HorizontalAlignment="Left" 
+                                    HorizontalContentAlignment="Left"
+                                    VerticalContentAlignment="Center" 
+                                    Padding="3,0,0,0" 
+                                    Margin="60,0,0,0" >
+                                    <i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="SelectionChanged">
+                                            <i:InvokeCommandAction Command="{Binding }" 
+                                           CommandParameter="{Binding ElementName=wdHome}"/>
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>
+                                </ComboBox>
+                            </StackPanel>
+                            <lvc:CartesianChart 
+                                Series="{Binding SeriesCollection}"
+                                LegendLocation="Left"
+                                Margin="20 80 20 20">
+                                <lvc:CartesianChart.AxisX>
+                                    <lvc:Axis 
+                                        Title="{Binding AxisXTitle, Mode=TwoWay}"
+                                        Labels="{Binding Labels, Mode=TwoWay}">
+                                        <lvc:Axis.Separator>
+                                            <lvc:Separator Step="1"></lvc:Separator>
+                                        </lvc:Axis.Separator>
+                                    </lvc:Axis>
+                                </lvc:CartesianChart.AxisX>
+                                <lvc:CartesianChart.AxisY>
+                                    <lvc:Axis 
+                                        Title="{Binding AxixYTitle, Mode=TwoWay}"
+                                        LabelFormatter="{Binding Formatter}">
+                                    </lvc:Axis>
+                                </lvc:CartesianChart.AxisY>
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="Loaded">
+                                        <i:InvokeCommandAction Command="{Binding InitColumnChartCommand}" 
+                                           CommandParameter="{Binding ElementName=wdHome}"/>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </lvc:CartesianChart>
+                        </Grid>
+                    </Border>                    
                 </Grid>
             </Grid>
             <!--Body stores-->
