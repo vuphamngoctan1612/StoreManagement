@@ -161,6 +161,12 @@ namespace StoreManagement.ViewModels
             string month = DateTime.Now.Month.ToString();
             string year = DateTime.Now.Year.ToString();
 
+            para.cboSelectPeriod.IsEnabled = true;
+            para.cboSelectTime.IsEnabled = true;
+
+            para.cboSelectPeriod.Text = "Theo tháng";
+            para.cboSelectTime.Text = "Tháng " + month;
+
             AxisXTitle = "Days";
             SeriesCollection = new SeriesCollection
             {
@@ -187,32 +193,26 @@ namespace StoreManagement.ViewModels
             int count = 1;
             foreach (Agency item in agencies)
             {
-                StoresHomeUC control = new StoresHomeUC();
+                CardStoreUC control = new CardStoreUC();
+                control.txbID.Text = item.ID.ToString();
                 control.tbNameStore.Text = item.Name;
                 control.tbRanking.Text = string.Format("Top {0}", count);
                 control.Margin = new System.Windows.Thickness(100, 10, 100, 0);
                 if (count == 1)
                 {
-                    //control.recBG.Fill = (Brush)new BrushConverter().ConvertFrom("#FF8E8E");
-                    //control.ColorDrop.Color = System.Windows.Media.Color.FromRgb(255, 145, 145);
                     control.bdBG.Background = (Brush)new BrushConverter().ConvertFrom("#FF8E8E");
                     control.tbRanking.Foreground = (Brush)new BrushConverter().ConvertFrom("#D03131");
                 }
                 if (count == 2)
                 {
-                    //control.recBG.Fill = (Brush)new BrushConverter().ConvertFrom("#AFF6E4");
-                    //control.ColorDrop.Color = System.Windows.Media.Color.FromRgb(49, 208, 173);
                     control.bdBG.Background = (Brush)new BrushConverter().ConvertFrom("#AFF6E4");
                     control.tbRanking.Foreground = (Brush)new BrushConverter().ConvertFrom("#31D0AD");
                 }
                 if (count == 3)
                 {
-                    //control.recBG.Fill = (Brush)new BrushConverter().ConvertFrom("#FEEFDA");
-                    //control.ColorDrop.Color = System.Windows.Media.Color.FromRgb(220, 198, 19);
                     control.bdBG.Background = (Brush)new BrushConverter().ConvertFrom("#DCC613");
                     control.tbRanking.Foreground = (Brush)new BrushConverter().ConvertFrom("#DCC613");
                 }
-                //control.tbRanking.Visibility = System.Windows.Visibility.Visible;
                 this.HomeWindow.wpBody_Main_TopAgency.Children.Add(control);
                 count++;
             }
