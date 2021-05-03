@@ -78,9 +78,9 @@ namespace StoreManagement.ViewModels
                     control.txbID.Text = product.ID.ToString();
                     control.txbName.Text = product.Name;
                     control.txbUnit.Text = product.Unit;
-                    control.txbImportPrice.Text = string.Format("{0:N0}", product.ImportPrice);
-                    control.txbPrice.Text = string.Format("{0:N0}", product.ExportPrice);
-                    control.txbCount.Text = string.Format("{0:N0}", product.Count);
+                    control.txbImportPrice.Text = ConvertToString(product.ImportPrice);
+                    control.txbPrice.Text = ConvertToString(product.ExportPrice);
+                    control.txbCount.Text = ConvertToString(product.Count);
 
                     this.HomeWindow.stkProducts.Children.Add(control);
                 }
@@ -110,21 +110,23 @@ namespace StoreManagement.ViewModels
             imageBrush.ImageSource = Converter.Instance.ConvertByteToBitmapImage(product.Image);
 
             AddProductWindow window = new AddProductWindow();
+
             window.txtID.Text = product.ID.ToString();
+
             window.txtName.Text = product.Name;
             window.txtName.SelectionStart = window.txtName.Text.Length;
 
             window.txtUnit.Text = product.Unit;
-            window.txtName.SelectionStart = window.txtUnit.Text.Length;
+            window.txtUnit.SelectionStart = window.txtUnit.Text.Length;
 
-            window.txtImportPrice.Text = string.Format("{0:N0}", product.ImportPrice);
-            window.txtName.SelectionStart = window.txtImportPrice.Text.Length;
+            window.txtImportPrice.Text = ConvertToString(product.ImportPrice);
+            window.txtImportPrice.SelectionStart = window.txtImportPrice.Text.Length;
 
-            window.txtExportPrice.Text = string.Format("{0:N0}", product.ExportPrice);
-            window.txtName.SelectionStart = window.txtExportPrice.Text.Length;
+            window.txtExportPrice.Text = ConvertToString(product.ExportPrice);
+            window.txtExportPrice.SelectionStart = window.txtExportPrice.Text.Length;
 
-            window.txtAmount.Text = string.Format("{0:N0}", product.Count);
-            window.txtName.SelectionStart = window.txtAmount.Text.Length;
+            window.txtAmount.Text = ConvertToString(product.Count);
+            window.txtAmount.SelectionStart = window.txtAmount.Text.Length;
 
             window.Title = "Update info product";
             window.grdImage.Background = imageBrush;
@@ -134,16 +136,7 @@ namespace StoreManagement.ViewModels
                 window.grdImage.Children.Remove(window.grdImage.Children[1]);
             }
 
-            //window.btnEdit.Visibility = Visibility.Visible;
-            //window.btnSave.Visibility = Visibility.Hidden;
             window.ShowDialog();
-
-            //para.txbID.Text = window.txtID.Text;
-            //para.txbName.Text = window.txtName.Text;
-            //para.txbUnit.Text = window.txtUnit.Text;
-            //para.txbImportPrice.Text = string.Format("{0:N0}", window.txtImportPrice.Text);
-            //para.txbPrice.Text = string.Format("{0:N0}", window.txtExportPrice.Text);
-            //para.txbCount.Text = string.Format("{0:N0}", window.txtAmount.Text);
         }
 
         private void ChooseImage(Grid para)
@@ -198,15 +191,16 @@ namespace StoreManagement.ViewModels
                 return;
             }
 
-            string id = para.txtID.Text;
-            string name = para.txtName.Text;
-            string unit = para.txtUnit.Text;
-            long importPrice = ConvertToNumber(para.txtImportPrice.Text);
-            long exportPrice = ConvertToNumber(para.txtExportPrice.Text);
-            int amount = (int)ConvertToNumber(para.txtAmount.Text);
-            byte[] imgByteArr;
             try
             {
+                string id = para.txtID.Text;
+                string name = para.txtName.Text;
+                string unit = para.txtUnit.Text;
+                long importPrice = ConvertToNumber(para.txtImportPrice.Text);
+                long exportPrice = ConvertToNumber(para.txtExportPrice.Text);
+                int amount = (int)ConvertToNumber(para.txtAmount.Text);
+                
+                byte[] imgByteArr;
                 if (imageFileName == null)
                 {
                     imgByteArr = Converter.Instance.ConvertImageToBytes(@"..\..\Resources\Images\default.jpg");
@@ -240,7 +234,7 @@ namespace StoreManagement.ViewModels
             }
         }
 
-        void OpenAddProductWindow(Views.HomeWindow para)
+        private void OpenAddProductWindow(Views.HomeWindow para)
         {
             AddProductWindow window = new AddProductWindow();
             this.imageFileName = null;

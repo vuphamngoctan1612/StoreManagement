@@ -14,7 +14,6 @@ namespace StoreManagement.ViewModels
     public class BaseViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
-
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
@@ -42,6 +41,15 @@ namespace StoreManagement.ViewModels
                 tmp += a;
             }
             return long.Parse(tmp);
+        }
+
+        public string ConvertToString(long? input)
+        {
+            string res;
+            System.Globalization.CultureInfo culture = new System.Globalization.CultureInfo("en-US");
+            res = String.Format(culture, "{0:N0}", input);
+
+            return res;
         }
 
         //Chuyển sang dạng 0,000,000

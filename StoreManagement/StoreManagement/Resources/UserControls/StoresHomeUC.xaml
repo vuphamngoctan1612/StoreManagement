@@ -8,48 +8,59 @@
              mc:Ignorable="d" 
              d:DesignHeight="180" d:DesignWidth="200">
     <Grid>
-        <Rectangle
-            x:Name="recBG"
-            Width="190"
-            Height="170"
-            RadiusX="10"
-            RadiusY="10"
-            Fill="Transparent">
-        </Rectangle>
-        <materialDesign:PackIcon 
-            Kind="StoreOutline"
-            Width="30"
-            Height="30"
-            VerticalAlignment="Center"
-            HorizontalAlignment="Center"
-            Foreground="#4C4C66"
-            Margin="0 0 150 25">            
-        </materialDesign:PackIcon>
-        <TextBlock
-                x:Name="tbNameStore"
-                Foreground="#4C4C66"
-                Text="TN Agency"
-                FontSize="22"
-                HorizontalAlignment="Center" 
-                VerticalAlignment="Center"
-                Margin="0 0 0 60"/>
-        <TextBlock
-                x:Name="tbRanking"
-                Foreground="#D03131"
-                Text="Top 1"
-                FontSize="18"
-                HorizontalAlignment="Center"
-                VerticalAlignment="Center"/>
-        <Button
-                x:Name="btnMore"
-                Content="More"            
-                FontSize="10"
-                BorderBrush="{x:Null}"
-                Foreground="#4C4C66"
-                Background="Transparent" 
-                VerticalAlignment="Bottom" 
-                HorizontalAlignment="Right"
-                Margin="0,0,0,5">
-        </Button>
+        <Border
+            x:Name="bdBG"
+            BorderThickness="1"
+            Background="Transparent"
+            CornerRadius="2"
+            Height="180"
+            Width="200">
+            <Border.Effect>
+                <DropShadowEffect 
+                    x:Name="ColorDrop"
+                    BlurRadius="8" 
+                    ShadowDepth="1.5" 
+                    Direction="270" 
+                    Color="{StaticResource MaterialDesignShadow}" 
+                    Opacity=".42"/>
+            </Border.Effect>
+            <Grid>
+                <materialDesign:PackIcon 
+                    Kind="StoreOutline"
+                    Width="30"
+                    Height="30"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center"
+                    Foreground="#4C4C66"
+                    Margin="10 0 150 25">            
+                </materialDesign:PackIcon>
+                <TextBlock
+                    x:Name="tbNameStore"
+                    Foreground="#4C4C66"
+                    Text="TN Agency"
+                    FontSize="22"
+                    HorizontalAlignment="Center" 
+                    VerticalAlignment="Center"
+                    Margin="0 0 0 60"/>
+                <TextBlock
+                    x:Name="tbRanking"
+                    Foreground="#D03131"
+                    Text="Top 1"
+                    FontSize="18"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Margin="0 0 0 0"/>
+                <Button
+                    x:Name="btnMore"
+                    Content="More"            
+                    FontSize="10"
+                    BorderBrush="{x:Null}"
+                    Foreground="#4C4C66"
+                    Background="Transparent" 
+                    VerticalAlignment="Bottom" 
+                    HorizontalAlignment="Right">
+                </Button>   
+            </Grid>
+        </Border>
     </Grid>
 </UserControl>

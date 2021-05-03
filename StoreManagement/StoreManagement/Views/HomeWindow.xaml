@@ -252,7 +252,7 @@
                         Content="Bill"
                         Foreground="#504D85"
                         HorizontalAlignment="Center" 
-                        Margin="25,10" 
+                        Margin="0" 
                         Height="45" 
                         Width="260" 
                         BorderThickness="10"
@@ -544,20 +544,7 @@
                                                CommandParameter="{Binding ElementName=wdHome}"/>
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
-                    <Border
-                        BorderThickness="1"
-                        CornerRadius="2"
-                        Background="White"
-                        Width="1100">
-                        <Border.Effect>
-                            <DropShadowEffect 
-                                BlurRadius="8" 
-                                ShadowDepth="1.5" 
-                                Direction="270"
-                                Color="{StaticResource MaterialDesignShadow}" 
-                                Opacity=".42"/>
-                        </Border.Effect>
-                        <WrapPanel  
+                    <WrapPanel  
                             x:Name="wpBody_Main_TopAgency"
                             Width="1100"
                             Height="200"
@@ -566,8 +553,7 @@
                             ScrollViewer.VerticalScrollBarVisibility="Auto" 
                             ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
                             Margin="0">
-                        </WrapPanel>
-                    </Border>
+                    </WrapPanel>
                 </Grid>
                 <Grid Grid.Row="3">
                     <Border
@@ -616,7 +602,7 @@
                                     Margin="0">
                                     <i:Interaction.Triggers>
                                         <i:EventTrigger EventName="SelectionChanged">
-                                            <i:InvokeCommandAction Command="{Binding SelectionChangedCommand}" 
+                                            <i:InvokeCommandAction Command="{Binding SelectedPeriodChangedCommand}" 
                                            CommandParameter="{Binding ElementName=wdHome}"/>
                                         </i:EventTrigger>
                                     </i:Interaction.Triggers>
@@ -642,7 +628,7 @@
                                     Margin="60,0,0,0" >
                                     <i:Interaction.Triggers>
                                         <i:EventTrigger EventName="SelectionChanged">
-                                            <i:InvokeCommandAction Command="{Binding }" 
+                                            <i:InvokeCommandAction Command="{Binding SelectedTimeChangeCommand}" 
                                            CommandParameter="{Binding ElementName=wdHome}"/>
                                         </i:EventTrigger>
                                     </i:Interaction.Triggers>
@@ -730,14 +716,15 @@
                 </Grid>
             </Grid>
             <!--Body products -->
-            <Grid Grid.Row="1"
+            <Grid Grid.Row="1"                 
                 DataContext="{StaticResource ProductVM}"
                 x:Name="grdBody_Product"
                 Visibility="Hidden">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="Loaded">
-                        <i:InvokeCommandAction Command="{Binding LoadProductOnWindowCommand}" 
-                                               CommandParameter="{Binding ElementName=wdHome}"/>
+                        <i:InvokeCommandAction 
+                            Command="{Binding LoadProductOnWindowCommand}" 
+                            CommandParameter="{Binding ElementName=wdHome}"/>
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
                 <Grid.RowDefinitions>
@@ -890,21 +877,21 @@
                             Foreground="#504D85"/>
                     </Grid>
                     <Grid 
-                    Grid.Row="1"
-                    HorizontalAlignment="Left"
-                    Background="#F2F2F2">
+                        Grid.Row="1"
+                        HorizontalAlignment="Left"
+                        Background="#F2F2F2">
                         <ScrollViewer 
-                        Grid.Row="2"
-                        HorizontalScrollBarVisibility="Disabled" 
-                        Margin="0"
-                        HorizontalAlignment="Left" 
-                        Style="{StaticResource FavsScrollViewer}"
-                        VerticalScrollBarVisibility="Auto">
+                            Grid.Row="2"
+                            HorizontalScrollBarVisibility="Disabled" 
+                            Margin="0"
+                            HorizontalAlignment="Left" 
+                            Style="{StaticResource FavsScrollViewer}"
+                            VerticalScrollBarVisibility="Auto">
                             <StackPanel 
-                            x:Name="stkProducts" 
-                            Width="1070" 
-                            ScrollViewer.VerticalScrollBarVisibility="Auto" 
-                            ScrollViewer.HorizontalScrollBarVisibility="Disabled"/>
+                                x:Name="stkProducts" 
+                                Width="1070" 
+                                ScrollViewer.VerticalScrollBarVisibility="Auto" 
+                                ScrollViewer.HorizontalScrollBarVisibility="Disabled"/>
                         </ScrollViewer>
                     </Grid>
                 </Grid>

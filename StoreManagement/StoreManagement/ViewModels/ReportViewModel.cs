@@ -5,6 +5,7 @@ using StoreManagement.Resources.UserControls;
 using StoreManagement.Views;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Data;
 using System.Linq;
 using System.Text;
@@ -17,6 +18,17 @@ namespace StoreManagement.ViewModels
     public class ReportViewModel : BaseViewModel
     {
         public HomeWindow HomeWindow { get; set; }
+
+        private ObservableCollection<string> itemSourceTime = new ObservableCollection<string>();
+        public ObservableCollection<string> ItemSourceTime 
+        { 
+            get => itemSourceTime; 
+            set
+            { 
+                itemSourceTime = value;
+                OnPropertyChanged(); 
+            }
+        }
 
         private string axisXTitle;
         public string AxisXTitle
@@ -75,60 +87,132 @@ namespace StoreManagement.ViewModels
 
         public ICommand LoadTop3AgencyCommand { get; set; }
         public ICommand InitColumnChartCommand { get; set; }
+        public ICommand SelectedPeriodChangedCommand { get; set; }
+        public ICommand SelectedTimeChangeCommand { get; set; }
 
         public ReportViewModel()
         {
             LoadTop3AgencyCommand = new RelayCommand<HomeWindow>((para) => true, (para) => LoadTop3Agency(para));
             InitColumnChartCommand = new RelayCommand<HomeWindow>((para) => true, (para) => InitColumnChart(para));
+            SelectedPeriodChangedCommand = new RelayCommand<HomeWindow>((para) => true, (para) => cbbPeriodSelectedIndex_Changed(para));
+            SelectedTimeChangeCommand = new RelayCommand<HomeWindow>((para) => true, (para) => cbbTimeSelectedIndex_Changed(para));
+        }
+
+        private void cbbTimeSelectedIndex_Changed(HomeWindow para)
+        {
+            this.HomeWindow = para;
+            if (this.HomeWindow.cboSelectPeriod.SelectedIndex == 0) // theo thang
+            {
+                if (this.HomeWindow.cboSelectTime.SelectedIndex != -1)
+                {
+                    string[] tmp = this.HomeWindow.cboSelectTime.SelectedValue.ToString().Split(' ');
+                    string currentMonth = tmp[1];
+                    string currenYear = DateTime.Now.Year.ToString();
+
+                    this.LoadChartByMonth(currentMonth, currenYear);
+                }
+            }
+            else if (this.HomeWindow.cboSelectPeriod.SelectedIndex == 1) //theo quy
+            {
+                if (this.HomeWindow.cboSelectTime.SelectedIndex != -1)
+                {
+                    string[] tmp = this.HomeWindow.cboSelectTime.SelectedValue.ToString().Split(' ');
+                    string selectedYear = tmp[1];
+
+                    this.LoadChartByQuarter(selectedYear);
+                }
+            }
+            else // theo nam => 12 thang
+            {
+                if (this.HomeWindow.cboSelectTime.SelectedIndex != -1)
+                {
+                    string[] tmp = this.HomeWindow.cboSelectTime.SelectedValue.ToString().Split(' ');
+                    string selectedYear = tmp[1];
+
+                    this.LoadChartByYear(selectedYear);
+                }
+            }
+        }
+
+        private void cbbPeriodSelectedIndex_Changed(HomeWindow para)
+        {
+            this.ItemSourceTime.Clear();
+            if (para.cboSelectPeriod.SelectedIndex == 0)    //theo thang
+            {
+                string[] MonthInYear = this.GetMonthInYear(DateTime.Now.Year.ToString());
+                //int currentMonth = DateTime.Now.Month;
+                for (int i = 0; i < MonthInYear.Length; i++)
+                {
+                    this.ItemSourceTime.Add(string.Format("Tháng {0}", MonthInYear[i].ToString()));
+                }
+            }
+            else // theo nam, quy
+            {
+                string[] Year = this.GetYear();
+                for (int i = 0; i < Year.Length; i++)
+                {
+                    this.ItemSourceTime.Add(string.Format("Năm {0}", Year[i].ToString()));
+                }
+            }
         }
 
         private void InitColumnChart(HomeWindow para)
         {
+            string month = DateTime.Now.Month.ToString();
+            string year = DateTime.Now.Year.ToString();
+
             AxisXTitle = "Days";
             SeriesCollection = new SeriesCollection
             {
                 new ColumnSeries
                 {
                     Title = "Revenue",
-                    Values = this.GetTotalByMonth("3", "2021")
+                    Values = this.GetTotalByMonth(month, year)
                 },
                 new ColumnSeries
                 {
                     Title  = "Debt",
-                    Values = this.GetDebtByMonth("3", "2021")
+                    Values = this.GetDebtByMonth(month, year)
                 }
             };
-            Labels = this.GetDayInMonth("3", "2021");
+            Labels = this.GetDayInMonth(month, year);
             Formatter = value => string.Format("{0:N0}", value);
         }
 
         private void LoadTop3Agency(HomeWindow para)
         {
             this.HomeWindow = para;
-            List<Agency> agencies = this.GetTop3AgencyByMonth(DateTime.Now.Month.ToString());
+            //List<Agency> agencies = this.GetTop3AgencyByMonth(DateTime.Now.Month.ToString());
+            List<Agency> agencies = this.GetTop3AgencyByMonth("4");
             int count = 1;
             foreach (Agency item in agencies)
             {
                 StoresHomeUC control = new StoresHomeUC();
                 control.tbNameStore.Text = item.Name;
                 control.tbRanking.Text = string.Format("Top {0}", count);
-                control.Margin = new System.Windows.Thickness(100, 10, 80, 10);
+                control.Margin = new System.Windows.Thickness(100, 10, 100, 0);
                 if (count == 1)
                 {
-                    control.recBG.Fill = (Brush)new BrushConverter().ConvertFrom("#FF8E8E");
+                    //control.recBG.Fill = (Brush)new BrushConverter().ConvertFrom("#FF8E8E");
+                    //control.ColorDrop.Color = System.Windows.Media.Color.FromRgb(255, 145, 145);
+                    control.bdBG.Background = (Brush)new BrushConverter().ConvertFrom("#FF8E8E");
                     control.tbRanking.Foreground = (Brush)new BrushConverter().ConvertFrom("#D03131");
                 }
                 if (count == 2)
                 {
-                    control.recBG.Fill = (Brush)new BrushConverter().ConvertFrom("#AFF6E4");
+                    //control.recBG.Fill = (Brush)new BrushConverter().ConvertFrom("#AFF6E4");
+                    //control.ColorDrop.Color = System.Windows.Media.Color.FromRgb(49, 208, 173);
+                    control.bdBG.Background = (Brush)new BrushConverter().ConvertFrom("#AFF6E4");
                     control.tbRanking.Foreground = (Brush)new BrushConverter().ConvertFrom("#31D0AD");
                 }
                 if (count == 3)
                 {
-                    control.recBG.Fill = (Brush)new BrushConverter().ConvertFrom("#FEEFDA");
+                    //control.recBG.Fill = (Brush)new BrushConverter().ConvertFrom("#FEEFDA");
+                    //control.ColorDrop.Color = System.Windows.Media.Color.FromRgb(220, 198, 19);
+                    control.bdBG.Background = (Brush)new BrushConverter().ConvertFrom("#DCC613");
                     control.tbRanking.Foreground = (Brush)new BrushConverter().ConvertFrom("#DCC613");
                 }
-
+                //control.tbRanking.Visibility = System.Windows.Visibility.Visible;
                 this.HomeWindow.wpBody_Main_TopAgency.Children.Add(control);
                 count++;
             }
@@ -194,6 +278,27 @@ namespace StoreManagement.ViewModels
         }
         #endregion
         #region For Live Chart
+        private string[] GetYear()
+        {
+            List<string> res = new List<string>();
+            List<Int32> temp = new List<Int32>();
+
+            try
+            {
+                string query = "SELECT YEAR(Invoice.CHECKOUT) AS YEAR FROM Invoice " +
+                    "GROUP BY YEAR(Invoice.CHECKOUT)";
+                temp = DataProvider.Instance.DB.Database.SqlQuery<Int32>(query).ToList();
+                foreach (var item in temp)
+                {
+                    res.Add(item.ToString());
+                }
+                return res.ToArray();
+            }
+            catch
+            {
+                return res.ToArray();
+            }
+        }
         private string[] GetDayInMonth(string month, string year)
         {
             List<string> res = new List<string>();
