@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Security.Cryptography;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -61,6 +62,15 @@ namespace StoreManagement.ViewModels
                 ulong valueBefore = ulong.Parse(ConvertToNumber(txt.Text).ToString(), System.Globalization.NumberStyles.AllowThousands);
                 txt.Text = String.Format(culture, "{0:N0}", valueBefore);
                 txt.Select(txt.Text.Length, 0);
+            }
+        }
+        //Chỉ cho nhập số
+        public void NumberValidationTextBox(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex("[^0-9]+");
+            if (regex.IsMatch(e.Text) && e.Text.Any(c => !char.IsDigit(c)))
+            {
+                e.Handled = true;
             }
         }
     }

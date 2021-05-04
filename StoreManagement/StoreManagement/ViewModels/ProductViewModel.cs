@@ -30,6 +30,7 @@ namespace StoreManagement.ViewModels
         public ICommand DeleteProductCommand { get; set; }
         public ICommand LoadProductOnWindowCommand { get; set; }
         public ICommand SearchProductCommand { get; set; }
+        //public ICommand PreviewKeyDownCommand { get; set; }
 
         public ProductViewModel()
         {
@@ -42,7 +43,16 @@ namespace StoreManagement.ViewModels
             DeleteProductCommand = new RelayCommand<ProductControlUC>((para) => true, (para) => DeleteProduct(para));
             LoadProductOnWindowCommand = new RelayCommand<HomeWindow>((para) => true, (para) => LoadProduct(para));
             SearchProductCommand = new RelayCommand<HomeWindow>((para) => true, (para) => SearchProduct(para));
+            //PreviewKeyDownCommand = new RelayCommand<TextBox>((para) => true, (para) => PreviewKeyDown(para));
         }
+
+        //private void PreviewKeyDown(TextBox para)
+        //{
+        //    if (!Char.IsDigit((char)KeyInterop.VirtualKeyFromKey(e.Key)) && !Char.IsControl((char)KeyInterop.VirtualKeyFromKey(e.Key)))
+        //    {
+        //        e.Handled = true;
+        //    }
+        //}
 
         private void SearchProduct(HomeWindow para)
         {
