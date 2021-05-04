@@ -21,6 +21,7 @@ namespace StoreManagement.ViewModels
         {
             get; set;
         }
+        public List<Agency> ListStores;
         public ICommand LoadStoreOnWindowCommand { get; set; }
         public ICommand NextPageStoresCommand { get; set; }
         public ICommand BackPageStoresCommand { get; set; }
@@ -29,6 +30,8 @@ namespace StoreManagement.ViewModels
         public ICommand SaveStoreCommand { get; set; }
         public ICommand DeleteStoreCommand { get; set; }
         public ICommand CloseStoreWindowCommand { get; set; }
+        public ICommand SeparateThousandsCommand { get; set; }
+        public ICommand SearchAgencyCommand { get; set; }
 
 
         public StoreViewModel()
@@ -36,20 +39,82 @@ namespace StoreManagement.ViewModels
 
             this.ListType = DataProvider.Instance.DB.TypeOfAgencies.ToList<TypeOfAgency>();
             PageNumber = 1;
-            LoadStoreOnWindowCommand = new RelayCommand<HomeWindow>((para) => true, (para) => LoadStores(para, PageNumber));
+            this.ListStores = DataProvider.Instance.DB.Agencies.ToList<Agency>();
+            LoadStoreOnWindowCommand = new RelayCommand<HomeWindow>((para) => true, (para) => LoadStores(para, this.ListStores, PageNumber));
             NextPageStoresCommand = new RelayCommand<HomeWindow>((para) => true, (para) => {
                 PageNumber = LoadNextPage(PageNumber);
-                ReLoadStores(this.HomeWindow, PageNumber);
+                ReLoadStores(this.HomeWindow, this.ListStores, PageNumber);
             });
             BackPageStoresCommand = new RelayCommand<HomeWindow>((para) => true, (para) => {
                 PageNumber = LoadBackPage(PageNumber);
-                ReLoadStores(this.HomeWindow, PageNumber);
+                ReLoadStores(this.HomeWindow, this.ListStores, PageNumber);
             });
             OpenAddStoreWindowCommand = new RelayCommand<HomeWindow>((para) => true, (para) => OpenAddStoreWindow());
             OpenEditStoreWindowCommand = new RelayCommand<StoreControlUC>((para) => true, (para) => OpenEditStoreWindow(para));
             CloseStoreWindowCommand = new RelayCommand<AddStoreWindow>((para) => true, (para) => para.Close());
             SaveStoreCommand = new RelayCommand<AddStoreWindow>((para) => true, (para) => SaveStore(para));
             DeleteStoreCommand = new RelayCommand<usStores>((para) => true, (para) => DeleteStore(para));
+            SeparateThousandsCommand = new RelayCommand<TextBox>((para) => true, (para) => SeparateThousands(para));
+            SearchAgencyCommand = new RelayCommand<HomeWindow>((para) => true, (para) => SearchAgency(para));
+        }
+
+        private void SearchAgency(HomeWindow para)
+        {
+            int loadPos = 0;
+            int i = 0;
+            int pos = 0;
+
+            if (String.IsNullOrEmpty(this.HomeWindow.txtSearchAgency.Text))
+            {
+                LoadStores(para, this.ListStores, PageNumber);
+            } else
+            {
+                para.grdStoreFisrt.Children.Clear();
+                para.grdStoreSecond.Children.Clear();
+                para.grdStoreThird.Children.Clear();
+
+                //hiển thị ds theo phân trang(number page)
+                while (i < 3)
+                {
+                    for (pos = loadPos; pos < DataProvider.Instance.DB.Agencies.Count(); pos++)
+                    {
+                        if (this.ListStores[pos].Name.ToLower().Contains(this.HomeWindow.txtSearchAgency.Text.ToLower()))
+                        {
+                            i++;
+                            loadPos = pos+1;
+                            int typeA = int.Parse(ListStores[pos].TypeOfAgency.ToString());
+                            TypeOfAgency type = (TypeOfAgency)DataProvider.Instance.DB.TypeOfAgencies.Where(x => x.ID == typeA).First();
+
+                            StoreControlUC uc = new StoreControlUC();
+                            uc.Height = 350;
+                            uc.Width = 280;
+                            uc.txbID.Text = ListStores[pos].ID.ToString();
+                            uc.AgencyName.Text = ListStores[pos].Name.ToString();
+                            uc.txbAgencyPhone.Text = ListStores[pos].PhoneNumber.ToString();
+                            uc.txbAgencyDate.Text = ListStores[pos].CheckIn.Value.ToShortDateString();
+                            uc.txbAgencyPosition.Text = ListStores[pos].Address.ToString();
+                            uc.txbAgencyType.Text = type.Name.ToString();
+
+                            switch (i-1)
+                            {
+                                case 0:
+                                    para.grdStoreFisrt.Children.Add(uc);
+                                    break;
+                                case 1:
+                                    para.grdStoreSecond.Children.Add(uc);
+                                    break;
+                                case 2:
+                                    para.grdStoreThird.Children.Add(uc);
+                                    break;
+                            }    
+                        }
+                    }
+                    if (pos == DataProvider.Instance.DB.Agencies.Count())
+                    {
+                        break;
+                    }
+                }
+            }
         }
 
         private void DeleteStore(usStores para)
@@ -102,7 +167,7 @@ namespace StoreManagement.ViewModels
 
             TypeOfAgency type = (TypeOfAgency)DataProvider.Instance.DB.TypeOfAgencies.Where(x => x.Name == para.txtSpecies.Text).First();
 
-            if (type.MaxOfDebt < int.Parse(para.txtDebt.Text))
+            if (type.MaxOfDebt < ConvertToNumber(para.txtDebt.Text))
             {
                 MessageBox.Show("Nợ vượt quá cho phép.");
                 return;
@@ -115,7 +180,7 @@ namespace StoreManagement.ViewModels
                 item.PhoneNumber = para.txtPhone.Text;
                 item.Address = para.txtAddress.Text;
                 item.District = para.txtDistrict.Text;
-                item.Debt = int.Parse(para.txtDebt.Text);
+                item.Debt = ConvertToNumber(para.txtDebt.Text);
                 item.CheckIn = DateTime.Parse(para.txtCheckin.Text);
                 item.TypeOfAgency = type.ID;
                 item.Email = para.txtEmail.Text;
@@ -128,7 +193,9 @@ namespace StoreManagement.ViewModels
             } 
             finally
             {
-                LoadStores(this.HomeWindow, 1);
+                this.ListStores = DataProvider.Instance.DB.Agencies.ToList<Agency>();
+                PageNumber = 1;
+                LoadStores(this.HomeWindow, this.ListStores, PageNumber);
                 para.Close();
             }
         }
@@ -150,13 +217,14 @@ namespace StoreManagement.ViewModels
             wd.txtEmail.Text = store.Email.ToString();
             wd.txtCheckin.Text = store.CheckIn.ToString();
             wd.txtPhone.Text = store.PhoneNumber.ToString();
-            //wd.txtSpecies.Text = store.TypeOfAgency.ToString();
+
             for (int i = 0; i < wd.txtSpecies.Items.Count; i++)
             {
                 wd.txtSpecies.SelectedIndex = i;
                 if (wd.txtSpecies.Text.ToString() == type.Name)
                     pos = i;
             }
+
             wd.txtSpecies.SelectedIndex = pos;
             wd.txtDebt.Text = store.Debt.ToString();
             wd.Title = "Sửa thông tin đại lý";
@@ -184,11 +252,9 @@ namespace StoreManagement.ViewModels
             }
         }
 
-        private void LoadStores(HomeWindow para, int pageNumber)
+        private void LoadStores(HomeWindow para, List<Agency> listStores, int pageNumber)
         {
             this.HomeWindow = para;
-            //lấy danh ds cửa hàng
-            List<Agency> ListStores = DataProvider.Instance.DB.Agencies.ToList<Agency>();
 
             //hiển thị ds theo phân trang(number page)
             for (int i = 0; i < 3; i++)
@@ -234,11 +300,8 @@ namespace StoreManagement.ViewModels
                 return pageNumber;
         }
 
-        private void ReLoadStores(HomeWindow para, int pageNumber)
+        private void ReLoadStores(HomeWindow para, List<Agency> listStores, int pageNumber)
         {
-            //lấy danh ds cửa hàng
-            List<Agency> ListStores = DataProvider.Instance.DB.Agencies.ToList<Agency>();
-
             para.grdStoreFisrt.Children.Clear();
             para.grdStoreSecond.Children.Clear();
             para.grdStoreThird.Children.Clear();
@@ -281,7 +344,6 @@ namespace StoreManagement.ViewModels
 
         private int LoadNextPage(int pageNumber)
         {
-            List<Agency> ListStores = DataProvider.Instance.DB.Agencies.ToList<Agency>();
             int countPage;
 
             if (ListStores.Count % 3 != 0)

@@ -6,6 +6,7 @@
     <viewmodels:ProductViewModel x:Key="ProductVM"></viewmodels:ProductViewModel>
     <viewmodels:ReportViewModel x:Key="ReportVM"></viewmodels:ReportViewModel>
     <viewmodels:StoreViewModel x:Key="StoreVM"></viewmodels:StoreViewModel>
+    <viewmodels:BusinessViewModel x:Key="BusinessVM"/>
     <ControlTemplate x:Key="textBoxErrorTemplate">
         <StackPanel>
             <AdornedElementPlaceholder x:Name="placeholder"/>

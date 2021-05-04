@@ -5,16 +5,22 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:StoreManagement.Views"
         mc:Ignorable="d"
-        Title="InvoiceWindow" Height="800" Width="900">
+        Title="InvoiceWindow" Height="800" Width="900"
+        WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="150"></RowDefinition>
+            <RowDefinition Height="120"></RowDefinition>
             <RowDefinition Height="130"></RowDefinition>
             <RowDefinition Height="380"></RowDefinition>
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
         <Grid
             Background="#FFF5F8">
+            <Image
+                VerticalAlignment="Center"
+                HorizontalAlignment="Left"
+                Margin="30,0"
+                Source="\Resources\Images\logo.png"/>
             <TextBlock
                 Text="INVOICE"
                 Foreground="#504D85"
@@ -22,7 +28,7 @@
                 FontWeight="Bold"
                 VerticalAlignment="Center"
                 HorizontalAlignment="Left"
-                Margin="150,0"></TextBlock>
+                Margin="150,0"/>
         </Grid>
         <Grid Grid.Row="1">
             <Grid.RowDefinitions>
@@ -104,7 +110,7 @@
                 FontWeight="SemiBold"
                 VerticalAlignment="Top"
                 HorizontalAlignment="Left"
-                Margin="60,20"/>
+                Margin="60,50"/>
             <TextBlock 
                 Text="Date"
                 Foreground="#504D85"
@@ -114,14 +120,16 @@
                 HorizontalAlignment="Left"
                 Margin="60,20"/>
             <TextBlock 
+                x:Name="txbIDinvoice"
                 Text="123456"
                 Foreground="#343F44"
                 FontSize="16"
                 FontWeight="SemiBold"
                 VerticalAlignment="Top"
                 HorizontalAlignment="Left"
-                Margin="200,20"/>
+                Margin="200,50"/>
             <TextBlock 
+                x:Name="txbDate"
                 Text="0366901216"
                 Foreground="#343F44"
                 FontSize="16"
@@ -147,9 +155,9 @@
                 Foreground="#263238"
                 FontSize="16"
                 FontWeight="SemiBold"
-                VerticalAlignment="Top"
+                VerticalAlignment="Center"
                 HorizontalAlignment="Right"
-                Margin="200,45"/>
+                Margin="200,55"/>
             <TextBlock 
                 Text="Còn lại"
                 Foreground="#263238"
@@ -161,6 +169,7 @@
                 HorizontalAlignment="Right"
                 Margin="200,20"/>
             <TextBlock 
+                x:Name="txbTotal"
                 Text="9999999"
                 Width="80"
                 TextAlignment="Right"
@@ -171,16 +180,18 @@
                 HorizontalAlignment="Right"
                 Margin="100,20"/>
             <TextBlock 
+                x:Name="txbRetainer"
                 Text="9999999"
                 Width="80"
                 TextAlignment="Right"
                 Foreground="#263238"
                 FontSize="16"
                 FontWeight="SemiBold"
-                VerticalAlignment="Top"
+                VerticalAlignment="Center"
                 HorizontalAlignment="Right"
-                Margin="100,45"/>
+                Margin="100,55"/>
             <TextBlock 
+                x:Name="txbChange"
                 Text="9999999"
                 Foreground="#263238"
                 Width="80"
@@ -192,7 +203,6 @@
                 Margin="100,20"/>
             <TextBlock 
                 Text="VND"
-                Width="80"
                 TextAlignment="Right"
                 Foreground="#263238"
                 FontSize="16"
@@ -202,18 +212,16 @@
                 Margin="60,20"/>
             <TextBlock 
                 Text="VND"
-                Width="80"
                 TextAlignment="Right"
                 Foreground="#263238"
                 FontSize="16"
                 FontWeight="SemiBold"
-                VerticalAlignment="Top"
+                VerticalAlignment="Center"
                 HorizontalAlignment="Right"
-                Margin="60,45"/>
+                Margin="60,55"/>
             <TextBlock 
                 Text="VND"
                 Foreground="#263238"
-                Width="80"
                 TextAlignment="Right"
                 FontSize="16"
                 FontWeight="SemiBold"
