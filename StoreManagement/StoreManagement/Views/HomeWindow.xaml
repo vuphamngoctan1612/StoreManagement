@@ -556,7 +556,7 @@
             <Grid Grid.Row="1"
                 x:Name="grdBody_Main"
                 DataContext="{StaticResource ReportVM}"
-                Visibility="Visible">                
+                Visibility="Hidden">                
                 <Grid.RowDefinitions>
                     <RowDefinition Height="2"></RowDefinition>
                     <RowDefinition Height="70"></RowDefinition>
@@ -1506,16 +1506,218 @@
             <!--Body account setting-->
             <Grid Grid.Row="1"
                 x:Name="grdBody_AccountSetting"
-                Visibility="Hidden">
+                Visibility="Visible"
+                  DataContext="{StaticResource AccountVM}">
 
-                <Grid
-                    Width="1140"
-                    Height="3"
-                    Background="#FBA1BB" 
-                    HorizontalAlignment="Left"
-                    VerticalAlignment="Top">
-
-                </Grid>
+                <Grid.Background>
+                    <LinearGradientBrush>
+                        <GradientStop Color="White"/>
+                    </LinearGradientBrush>
+                </Grid.Background>
+                <Rectangle Width="3"
+                   Margin="320,0,0,0"
+                   HorizontalAlignment="Left"
+                   Fill="#F5C3D1"
+                   Stroke="#F5C3D1"></Rectangle>
+                <Ellipse x:Name="ellipseImage"
+                 Height="200"
+                 Width="200"
+                 Margin="60,46,0,0"
+                 HorizontalAlignment="Left"
+                 VerticalAlignment="Top"
+                 Stroke="#FCE5EC"
+                 StrokeThickness="15"></Ellipse>
+                <materialDesign:PackIcon Kind="Account"
+                                 Height="30"
+                                 Width="30"
+                                 Margin="145,266,0,0"
+                                 HorizontalAlignment="Left"
+                                 VerticalAlignment="Top"
+                                 Foreground="#504D85"></materialDesign:PackIcon>
+                <TextBlock x:Name="tbName"
+                   Text="Tên dài"
+                   Height="30"
+                   Width="320"
+                   Margin="0,321,0,0"
+                   HorizontalAlignment="Left"
+                   VerticalAlignment="Top"
+                   TextAlignment="Center"
+                   FontSize="22"
+                   FontFamily="Segoe UI"
+                   FontWeight="Bold"
+                   Foreground="#504D85"></TextBlock>
+                <materialDesign:PackIcon Kind="CogSyncOutline"
+                                 Height="30"
+                                 Width="30"
+                                 Margin="355,31,0,0"
+                                 HorizontalAlignment="Left"
+                                 VerticalAlignment="Top"
+                                 Foreground="#504D85"></materialDesign:PackIcon>
+                <materialDesign:PackIcon Kind="MapMarker"
+                                 Height="30"
+                                 Width="30"
+                                 Margin="355,111,0,0"
+                                 HorizontalAlignment="Left"
+                                 VerticalAlignment="Top"
+                                 Foreground="#504D85"></materialDesign:PackIcon>
+                <materialDesign:PackIcon Kind="Phone"
+                                 Height="30"
+                                 Width="30"
+                                 Margin="355,191,0,0"
+                                 HorizontalAlignment="Left"
+                                 VerticalAlignment="Top"
+                                 Foreground="#504D85"></materialDesign:PackIcon>
+                <materialDesign:PackIcon Kind="Sync"
+                                 Height="30"
+                                 Width="30"
+                                 Margin="355,271,0,0"
+                                 HorizontalAlignment="Left"
+                                 VerticalAlignment="Top"
+                                 Foreground="#504D85"></materialDesign:PackIcon>
+                <TextBlock Text="Name Change:"
+                   Height="30"
+                   Width="210"
+                   Margin="405,31,0,0"
+                   HorizontalAlignment="Left"
+                   VerticalAlignment="Top"
+                   TextAlignment="Center"
+                   FontSize="22"
+                   FontFamily="Segoe UI"
+                   FontWeight="Bold"
+                   Foreground="#504D85"></TextBlock>
+                <TextBlock Text="Location:"
+                   Height="30"
+                   Width="210"
+                   Margin="405,111,0,0"
+                   HorizontalAlignment="Left"
+                   VerticalAlignment="Top"
+                   TextAlignment="Center"
+                   FontSize="22"
+                   FontFamily="Segoe UI"
+                   FontWeight="Bold"
+                   Foreground="#504D85"></TextBlock>
+                <TextBlock Text="Phone Number:"
+                   Height="30"
+                   Width="210"
+                   Margin="405,191,0,0"
+                   HorizontalAlignment="Left"
+                   VerticalAlignment="Top"
+                   TextAlignment="Center"
+                   FontSize="22"
+                   FontFamily="Segoe UI"
+                   FontWeight="Bold"
+                   Foreground="#504D85"></TextBlock>
+                <TextBlock Text="Change Password:"
+                   Height="30"
+                   Width="210"
+                   Margin="405,271,0,0"
+                   HorizontalAlignment="Left"
+                   VerticalAlignment="Top"
+                   TextAlignment="Center"
+                   FontSize="22"
+                   FontFamily="Segoe UI"
+                   FontWeight="Bold"
+                   Foreground="#504D85"></TextBlock>
+                <TextBox x:Name="txtName"
+                 Height="30"
+                 Width="450" 
+                 Margin="655,31,0,0"
+                 materialDesign:ValidationAssist.UsePopup="True"
+                 HorizontalAlignment="Left"
+                 VerticalAlignment="Top"
+                 TextAlignment="Left"
+                 FontSize="22"
+                 FontFamily="Segoe UI"
+                 FontWeight="Bold"
+                 Foreground="#504D85"></TextBox>
+                <TextBox x:Name="txtLocation"
+                 Height="30"
+                 Width="450" 
+                 Margin="655,111,0,0"
+                 materialDesign:ValidationAssist.UsePopup="True"
+                 HorizontalAlignment="Left"
+                 VerticalAlignment="Top"
+                 TextAlignment="Left"
+                 FontSize="22"
+                 FontFamily="Segoe UI"
+                 FontWeight="Bold"
+                 Foreground="#504D85"></TextBox>
+                <TextBox x:Name="txtPhoneNumber"
+                 Height="30"
+                 Width="450" 
+                 Margin="655,191,0,0"
+                 materialDesign:ValidationAssist.UsePopup="True"
+                 HorizontalAlignment="Left"
+                 VerticalAlignment="Top"
+                 TextAlignment="Left"
+                 FontSize="22"
+                 FontFamily="Segoe UI"
+                 FontWeight="Bold"
+                 Foreground="#504D85"></TextBox>
+                <TextBox x:Name="txtPassword"
+                 Style="{StaticResource MaterialDesignTextBox}"
+                 Height="40" 
+                 Width="450" 
+                 Background="#F5C3D1" 
+                 materialDesign:TextFieldAssist.TextFieldCornerRadius="20"
+                 Margin="655,261,0,0" HorizontalContentAlignment="Center"
+                 VerticalAlignment="Top" 
+                 HorizontalAlignment="Left"
+                 VerticalContentAlignment="Center"
+                 FontFamily="Segoe UI"
+                 FontSize="22" 
+                 Text="Password"
+                 Foreground="White"></TextBox>
+                <TextBox x:Name="txtNewPassword"
+                 Style="{StaticResource MaterialDesignTextBox}"
+                 Height="40" 
+                 Width="450" 
+                 Background="#F5C3D1" 
+                 materialDesign:TextFieldAssist.TextFieldCornerRadius="20"
+                 Margin="655,351,0,0" HorizontalContentAlignment="Center"
+                 VerticalAlignment="Top" 
+                 HorizontalAlignment="Left"
+                 VerticalContentAlignment="Center"
+                 FontFamily="Segoe UI"
+                 FontSize="22" 
+                 Text="New Password"
+                 Foreground="White"></TextBox>
+                <TextBox x:Name="txtNewPasswordAgain"
+                 Style="{StaticResource MaterialDesignTextBox}"
+                 Height="40" 
+                 Width="450" 
+                 Background="#F5C3D1" 
+                 materialDesign:TextFieldAssist.TextFieldCornerRadius="20"
+                 Margin="655,441,0,0" HorizontalContentAlignment="Center"
+                 VerticalAlignment="Top" 
+                 HorizontalAlignment="Left"
+                 VerticalContentAlignment="Center"
+                 FontFamily="Segoe UI"
+                 FontSize="22" 
+                 Text="New Password Again"
+                 Foreground="White"></TextBox>
+                <Button x:Name="btLogin" 
+                Style="{StaticResource MaterialDesignRaisedButton}"
+                Height="40" 
+                Width="200" 
+                materialDesign:ButtonAssist.CornerRadius="24"
+                ToolTip="MaterialDesignRaisedButton with Round Corners" 
+                Margin="780,531,0,0" 
+                HorizontalContentAlignment="Center" 
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top">
+                    <Button.Background>
+                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                            <GradientStop Color="#FFEC74E7" Offset="0"/>
+                            <GradientStop Color="#EAF97298" Offset="1"/>
+                        </LinearGradientBrush>
+                    </Button.Background>
+                    <TextBlock Text="Done" 
+                       FontFamily="Segoe UI" 
+                       FontSize="22" 
+                       Width="50" 
+                       Height="40" />
+                </Button>
             </Grid>
         </Grid>
     </Grid>
