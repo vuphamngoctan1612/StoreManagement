@@ -35,6 +35,7 @@ namespace StoreManagement.ViewModels
         {
             this.ListAgency = DataProvider.Instance.DB.Agencies.ToList<Agency>();
             this.ListProduct = DataProvider.Instance.DB.Products.ToList<Product>();
+            this.ListProductChosen = new List<Product>();
             LoadBusinessWindowCommand = new RelayCommand<HomeWindow>((para) => true, (para) => LoadBusiness(para));
             ChosenProductCommand = new RelayCommand<BusinessProductUC>((para) => true, (para) => LoadListChosen(para));
             RemovefromListChosenCommand = new RelayCommand<BusinessProductChosenUC>((para) => true, (para) => RemovefromListChosen(para));
