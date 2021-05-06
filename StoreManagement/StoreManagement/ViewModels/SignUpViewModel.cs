@@ -28,7 +28,7 @@ namespace StoreManagement.ViewModels
         public ICommand LoadCommand { get; set; }
         public ICommand PasswordChangedCommand { get; set; }
         public ICommand PasswordConfirmChangedCommand { get; set; }
-        public ICommand KeyCommand { get; set; }
+    
         public ICommand OpenHomeWinDowCommand { get; set; }
         private bool isSignUp;
         private bool isExisted;
