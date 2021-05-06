@@ -10,23 +10,19 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace StoreManagement.Views
+namespace StoreManagement.Resources.UserControls
 {
     /// <summary>
-    /// Interaction logic for LoginWindow.xaml
+    /// Interaction logic for BusinessProductUC.xaml
     /// </summary>
-    public partial class SignUpWindow : Window
+    public partial class BusinessProductUC : UserControl
     {
-        public SignUpWindow()
+        public BusinessProductUC()
         {
             InitializeComponent();
-        }
-
-        private void btSignUp_Click(object sender, RoutedEventArgs e)
-        {
-
         }
     }
 }

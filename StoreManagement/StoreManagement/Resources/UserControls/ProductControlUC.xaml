@@ -8,6 +8,7 @@
              mc:Ignorable="d" 
              Foreground="{DynamicResource Gray1}"
              DataContext="{StaticResource ProductVM}"
+             x:Name="DisplayProductUC"
              d:DesignHeight="45" 
              d:DesignWidth="1070">
     <Grid 
@@ -98,7 +99,7 @@
             BorderBrush="{x:Null}" 
             Foreground="#57548B" 
             Command="{Binding EditProductCommand}"
-            CommandParameter="{Binding ElementName=txbID}">
+            CommandParameter="{Binding ElementName=DisplayProductUC}">
                 <materialDesign:PackIcon
                 Kind="SquareEditOutline"
                 Height="24"
@@ -109,7 +110,7 @@
             Grid.Column="6"
             x:Name="btnDeleteProduct"
             Command="{Binding DeleteProductCommand}"
-            CommandParameter="{Binding ElementName=txbId}"
+            CommandParameter="{Binding ElementName=DisplayProductUC}"
             ToolTip="Xóa sản phẩm" 
             Height="30"
             Margin="0,0,20,5" 

@@ -15,18 +15,13 @@ using System.Windows.Shapes;
 namespace StoreManagement.Views
 {
     /// <summary>
-    /// Interaction logic for LoginWindow.xaml
+    /// Interaction logic for AddStoreWindow.xaml
     /// </summary>
-    public partial class SignUpWindow : Window
+    public partial class AddStoreWindow : Window
     {
-        public SignUpWindow()
+        public AddStoreWindow()
         {
             InitializeComponent();
-        }
-
-        private void btSignUp_Click(object sender, RoutedEventArgs e)
-        {
-
         }
     }
 }

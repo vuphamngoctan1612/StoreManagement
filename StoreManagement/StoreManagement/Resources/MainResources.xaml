@@ -1,11 +1,14 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:local="clr-namespace:StoreManagement.Resources"
                     xmlns:viewmodels ="clr-namespace:StoreManagement.ViewModels"
                     xmlns:models ="clr-namespace:StoreManagement.Models">
+    <viewmodels:LoginViewModel x:Key="LoginVM"></viewmodels:LoginViewModel>
+    <viewmodels:SignUpViewModel x:Key="SignUpVM"></viewmodels:SignUpViewModel>
+    <viewmodels:StoreViewModel x:Key="StoreVM"></viewmodels:StoreViewModel>
     <viewmodels:HomeViewModel x:Key="HomeVM"></viewmodels:HomeViewModel>
     <viewmodels:ProductViewModel x:Key="ProductVM"></viewmodels:ProductViewModel>
     <viewmodels:ReportViewModel x:Key="ReportVM"></viewmodels:ReportViewModel>
+   
     <ControlTemplate x:Key="textBoxErrorTemplate">
         <StackPanel>
             <AdornedElementPlaceholder x:Name="placeholder"/>

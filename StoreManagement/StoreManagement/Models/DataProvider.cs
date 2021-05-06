@@ -29,5 +29,7 @@ namespace StoreManagement.Models
         {
             DB = new AgencyManagementEntities();
         }
+
     }
+
 }
