@@ -116,13 +116,17 @@
                     Height="60" 
                     Margin="0" 
                     Width="300">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="19*"/>
+                        <ColumnDefinition Width="11*"/>
+                    </Grid.ColumnDefinitions>
                     <Rectangle
                         Name="rec_btn_Menu_Store"
                         Height="45"
                         Width="260"
                         RadiusX="10"
                         RadiusY="10"
-                        Fill="Transparent">
+                        Fill="Transparent" Grid.ColumnSpan="2" Margin="20,8">
                     </Rectangle>
                     <materialDesign:PackIcon
                         x:Name="icnStores"
@@ -132,15 +136,15 @@
                         Height="30" 
                         VerticalAlignment="Center" 
                         Cursor="Hand" 
-                        Margin="55 0 0 0">
+                        Margin="55,15,0,15">
                     </materialDesign:PackIcon>
                     <Button 
                         x:Name="btnStores" 
                         Uid="1"
                         Content="Stores"
                         Foreground="#504D85"
-                        Margin="0" 
-                        Height="45" 
+                        Margin="20,8" 
+                        Height="44" 
                         Width="260" 
                         BorderThickness="10"
                         VerticalAlignment="Center"
@@ -152,7 +156,7 @@
                         FontWeight="SemiBold" 
                         Padding="75,0,0,0" 
                         Cursor="Hand" 
-                        FocusVisualStyle="{x:Null}">
+                        FocusVisualStyle="{x:Null}" Grid.ColumnSpan="2">
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="Click">
                                 <i:InvokeCommandAction Command="{Binding SwitchTabCommand}"
@@ -505,7 +509,7 @@
                         Foreground="#504D85"
                         VerticalAlignment="Top"
                         HorizontalAlignment="Left"
-                        Margin="20 0 0 0">                        
+                        Margin="20 0 0 0">
                     </TextBlock>
                 </Grid>
                 <Grid Grid.Column="1">
@@ -525,7 +529,7 @@
                             Height="60" 
                             HorizontalAlignment="Left">
                             <Image>
-                                
+
                             </Image>
                         </Border>
                         <TextBlock 
@@ -546,7 +550,7 @@
                             Width="40"
                             Height="40"
                             Foreground="#504D85">
-                            
+
                         </materialDesign:PackIcon>
                     </Grid>
                 </Grid>
@@ -556,7 +560,7 @@
             <Grid Grid.Row="1"
                 x:Name="grdBody_Main"
                 DataContext="{StaticResource ReportVM}"
-                Visibility="Hidden">                
+                Visibility="Hidden">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="2"></RowDefinition>
                     <RowDefinition Height="70"></RowDefinition>
@@ -718,7 +722,7 @@
                                 </i:Interaction.Triggers>
                             </lvc:CartesianChart>
                         </Grid>
-                    </Border>                    
+                    </Border>
                 </Grid>
             </Grid>
             <!--Body stores-->
@@ -1506,8 +1510,17 @@
             <!--Body account setting-->
             <Grid Grid.Row="1"
                 x:Name="grdBody_AccountSetting"
-                Visibility="Visible"
-                  DataContext="{StaticResource AccountVM}">
+                 DataContext="{StaticResource AccountVM}" Margin="0,0,-6.4,0"
+                Visibility="Hidden"
+                  >
+                <i:Interaction.Triggers>
+                <i:EventTrigger EventName="Loaded">
+                    <i:InvokeCommandAction 
+                            Command="{Binding LoadAccountOnWindowCommand}" 
+                            CommandParameter="{Binding ElementName=wdHome}"/>
+                </i:EventTrigger>
+                </i:Interaction.Triggers>
+                
 
                 <Grid.Background>
                     <LinearGradientBrush>
