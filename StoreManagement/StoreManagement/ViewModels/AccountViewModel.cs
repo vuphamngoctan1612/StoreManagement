@@ -13,6 +13,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using StoreManagement.Resources.UserControls;
+using Microsoft.Win32;
+using System.Windows;
+using System.Data.Entity.Migrations;
 
 namespace StoreManagement.ViewModels
 {
@@ -21,71 +24,145 @@ namespace StoreManagement.ViewModels
 
 
         public HomeWindow HomeWindow { get; set; }
+        private string imageFileName;
+        private string username;
         public ICommand DeleteAccountCommand { get; set; }
         public ICommand UpdateAccountCommand { get; set; }
-        public ICommand LoadAccountCommand { get; set; }
+        public ICommand LoadAccountOnWindowCommand { get; set; }
 
         public ICommand SaveCommand { get; set; }
-
+        public ICommand ChooseImgAccountCommand { get; set; }
 
         public AccountViewModel()
         {
-
+            username = "Na";
+            
             UpdateAccountCommand = new RelayCommand<HomeWindow>((para) => true, (para) => UpdateAccount(para));
-            LoadAccountCommand = new RelayCommand<HomeWindow>(para => true, para => LoadAccount(para));
+            LoadAccountOnWindowCommand = new RelayCommand<HomeWindow>(para => true, para => LoadAccount(para));
+            ChooseImgAccountCommand = new RelayCommand<Grid>(para => true, para => ChooseImg(para));
+        }
 
+        private void ChooseImg(Grid para)
+        {
+            OpenFileDialog op = new OpenFileDialog();
+            op.Title = "Chọn ảnh";
+            op.Filter = "All supported graphics|*.jpg;*.jpeg;*.png|" + "JPEG (*.jpg;*.jpeg)|*.jpg;*.jpeg|" + "Portable Network Graphic (*.png)|*.png";
+            if (op.ShowDialog() == true)
+            {
+                imageFileName = op.FileName;
+                ImageBrush imageBrush = new ImageBrush();
+                BitmapImage bitmap = new BitmapImage();
+                bitmap.BeginInit();
+                bitmap.CacheOption = BitmapCacheOption.OnLoad;
+                bitmap.UriSource = new Uri(imageFileName);
+                bitmap.EndInit();
+                imageBrush.ImageSource = bitmap;
+                para.Background = imageBrush;
+                if (para.Children.Count > 1)
+                {
+                    para.Children.Remove(para.Children[0]);
+                    para.Children.Remove(para.Children[1]);
+                }
+            }
         }
 
         private void UpdateAccount(HomeWindow para)
         {
-            Account account = new Account();
-            int id = 1;
-            account = (Account)DataProvider.Instance.DB.Accounts.Where(x => x.ID == id).First();
-
-            ImageBrush imageBrush = new ImageBrush();
-            imageBrush.ImageSource = Converter.Instance.ConvertByteToBitmapImage(account.Image);
-
-
-            ///HomeWindow.txtName.Text = account.ID.ToString();
-
-            para.txtName.Text = account.Username;
-            para.txtName.SelectionStart = para.txtName.Text.Length;
-
-            para.txtLocation.Text = account.Location;
-            para.txtLocation.SelectionStart = para.txtLocation.Text.Length;
-
-            para.txtPhoneNumber.Text = account.PhoneNumber;
-            para.txtPhoneNumber.SelectionStart = para.txtPhoneNumber.Text.Length;
-
-            para.txtPassword.Text = account.Password;
-            para.txtPassword.SelectionStart = para.txtPassword.Text.Length;
-
-            para.txtNewPassword.Text = account.Password;
-            para.txtNewPassword.SelectionStart = para.txtNewPassword.Text.Length;
-
-            para.txtNewPasswordAgain.Text = account.Password;
-            para.txtNewPasswordAgain.SelectionStart = para.txtNewPasswordAgain.Text.Length;
-
-            para.Title = "Update info account";
-            para.grdBody_AccountSetting.Background = imageBrush;
-            /*if (para.grd.Children.Count > 1)
+            if (string.IsNullOrEmpty(para.txtName.Text))
             {
-                window.grdImage.Children.Remove(window.grdImage.Children[0]);
-                window.grdImage.Children.Remove(window.grdImage.Children[1]);
-            }*/
+                para.txtName.Focus();
+                return;
+            } 
+            if (string.IsNullOrEmpty(para.txtLocation.Text))
+            {
+                para.txtLocation.Focus();
+                return;
+            }
+            if (string.IsNullOrEmpty(para.txtPhoneNumber.Text))
+            {
+                para.txtPhoneNumber.Focus();
+                return;
+            }
 
-            para.ShowDialog();
+
+            if (string.IsNullOrEmpty(para.txtNewPassword.Text))
+            {
+                para.txtNewPassword.Focus();
+                return;
+            }
+            if (string.IsNullOrEmpty(para.txtNewPasswordAgain.Text))
+            {
+                para.txtNewPasswordAgain.Focus();
+                return;
+            }
+
+            if (para.txtNewPassword.Text != para.txtNewPasswordAgain.Text)
+            {
+                para.txtNewPassword.Focus();
+                return;
+            }
+
+            byte[] imgByteArr;
+            if (imageFileName == null)
+            {
+                imgByteArr = Converter.Instance.ConvertImageToBytes(@"..\..\Resources\Images\default.jpg");
+            }
+            else
+            {
+                imgByteArr = Converter.Instance.ConvertImageToBytes(imageFileName);
+            }
+
+            try
+            {
+                Account acc = new Account();
+
+
+                acc = DataProvider.Instance.DB.Accounts.Where(x => x.Username == this.username).First();
+
+                if (para.txtNewPassword.Text == acc.Password && para.txtName.Text == acc.DisplayName)
+                {
+                    MessageBox.Show("Thông tin không thay đổi");
+                    return;
+                }
+                {
+
+                    acc.DisplayName = para.txtName.Text;
+                    acc.Password = para.txtNewPassword.Text;
+                    acc.Image = imgByteArr;
+                    acc.Location = para.txtLocation.Text;
+                    acc.PhoneNumber = para.txtPhoneNumber.Text;
+
+                    DataProvider.Instance.DB.Accounts.AddOrUpdate(acc);
+                    DataProvider.Instance.DB.SaveChanges();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            finally
+            {
+                MessageBox.Show("Cập nhật thành công.");
+            }
+
         }
         private void LoadAccount(HomeWindow para)
         {
             this.HomeWindow = para;
-            this.HomeWindow.Main.Children.Clear();
-            string username = "";
-            //string query = "SELECT " + username + " FROM Acount";
-            Account account = DataProvider.Instance.DB.Accounts.FirstOrDefault(x => x.Username == username);
 
-            usAccountSetting accountSetting = new usAccountSetting();
-            accountSetting.tbName.Text = account.Username;
+            //this.HomeWindow.Main.Children.Clear();
+            //string query = "SELECT " + username + " FROM Acount";
+            Account account = DataProvider.Instance.DB.Accounts.FirstOrDefault(x => x.Username == this.username);
+           
+            ImageBrush imageBrush = new ImageBrush();
+            imageBrush.ImageSource = Converter.Instance.ConvertByteToBitmapImage(account.Image);
+
+            para.txtName.Text = account.DisplayName;
+            para.txtPassword.Text = account.Password;
+            para.txtLocation.Text = account.Location;
+            para.txtPhoneNumber.Text = account.PhoneNumber;
+
+            para.grdImageAccount.Background = imageBrush;
             
         }
     }

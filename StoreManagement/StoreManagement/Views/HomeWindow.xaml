@@ -1511,7 +1511,7 @@
             <Grid Grid.Row="1"
                 x:Name="grdBody_AccountSetting"
                  DataContext="{StaticResource AccountVM}" Margin="0,0,-6.4,0"
-                Visibility="Hidden"
+                Visibility="Visible"
                   >
                 <i:Interaction.Triggers>
                 <i:EventTrigger EventName="Loaded">
@@ -1532,21 +1532,28 @@
                    HorizontalAlignment="Left"
                    Fill="#F5C3D1"
                    Stroke="#F5C3D1"></Rectangle>
-                <Ellipse x:Name="ellipseImage"
+                <Grid x:Name="grdImageAccount"
                  Height="200"
                  Width="200"
                  Margin="60,46,0,0"
                  HorizontalAlignment="Left"
-                 VerticalAlignment="Top"
-                 Stroke="#FCE5EC"
-                 StrokeThickness="15"></Ellipse>
-                <materialDesign:PackIcon Kind="Account"
-                                 Height="30"
-                                 Width="30"
-                                 Margin="145,266,0,0"
-                                 HorizontalAlignment="Left"
-                                 VerticalAlignment="Top"
-                                 Foreground="#504D85"></materialDesign:PackIcon>
+                 VerticalAlignment="Top"/>
+                <Button
+                    x:Name="btnChooseImg"
+                    Height="40"
+                    Width="40"
+                    VerticalAlignment="Top"
+                    HorizontalAlignment="Left"
+                    Margin="145,266,0,0"
+                    Padding="0"
+                    Background="{x:Null}"
+                    Command="{Binding ChooseImgAccountCommand}"
+                    CommandParameter="{Binding ElementName=grdImageAccount}">
+                    <materialDesign:PackIcon Kind="Account"
+                                     Height="30"
+                                     Width="30"
+                                     Foreground="#504D85"></materialDesign:PackIcon>
+                </Button>
                 <TextBlock x:Name="tbName"
                    Text="Tên dài"
                    Height="30"
@@ -1632,7 +1639,7 @@
                    FontWeight="Bold"
                    Foreground="#504D85"></TextBlock>
                 <TextBox x:Name="txtName"
-                 Height="30"
+                 Height="40"
                  Width="450" 
                  Margin="655,31,0,0"
                  materialDesign:ValidationAssist.UsePopup="True"
@@ -1644,7 +1651,7 @@
                  FontWeight="Bold"
                  Foreground="#504D85"></TextBox>
                 <TextBox x:Name="txtLocation"
-                 Height="30"
+                 Height="40"
                  Width="450" 
                  Margin="655,111,0,0"
                  materialDesign:ValidationAssist.UsePopup="True"
@@ -1656,7 +1663,7 @@
                  FontWeight="Bold"
                  Foreground="#504D85"></TextBox>
                 <TextBox x:Name="txtPhoneNumber"
-                 Height="30"
+                 Height="40"
                  Width="450" 
                  Margin="655,191,0,0"
                  materialDesign:ValidationAssist.UsePopup="True"
@@ -1680,6 +1687,7 @@
                  FontFamily="Segoe UI"
                  FontSize="22" 
                  Text="Password"
+                         IsEnabled="False"
                  Foreground="White"></TextBox>
                 <TextBox x:Name="txtNewPassword"
                  Style="{StaticResource MaterialDesignTextBox}"
@@ -1693,7 +1701,7 @@
                  VerticalContentAlignment="Center"
                  FontFamily="Segoe UI"
                  FontSize="22" 
-                 Text="New Password"
+                 materialDesign:HintAssist.Hint="New password"
                  Foreground="White"></TextBox>
                 <TextBox x:Name="txtNewPasswordAgain"
                  Style="{StaticResource MaterialDesignTextBox}"
@@ -1707,7 +1715,7 @@
                  VerticalContentAlignment="Center"
                  FontFamily="Segoe UI"
                  FontSize="22" 
-                 Text="New Password Again"
+                 materialDesign:HintAssist.Hint="New password again"
                  Foreground="White"></TextBox>
                 <Button x:Name="btLogin" 
                 Style="{StaticResource MaterialDesignRaisedButton}"
@@ -1718,7 +1726,9 @@
                 Margin="780,531,0,0" 
                 HorizontalContentAlignment="Center" 
                 HorizontalAlignment="Left"
-                VerticalAlignment="Top">
+                VerticalAlignment="Top"
+                        Command="{Binding UpdateAccountCommand}"
+                        CommandParameter="{Binding ElementName=wdHome}">
                     <Button.Background>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                             <GradientStop Color="#FFEC74E7" Offset="0"/>
