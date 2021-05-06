@@ -556,7 +556,7 @@
             <Grid Grid.Row="1"
                 x:Name="grdBody_Main"
                 DataContext="{StaticResource ReportVM}"
-                Visibility="Visible">                
+                Visibility="Hidden">                
                 <Grid.RowDefinitions>
                     <RowDefinition Height="2"></RowDefinition>
                     <RowDefinition Height="70"></RowDefinition>
@@ -1020,7 +1020,7 @@
             <Grid Grid.Row="1"
                 x:Name="grdBody_Business"
                 Background="White"
-                Visibility="Hidden">
+                Visibility="Visible">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition></ColumnDefinition>
                     <ColumnDefinition Width="320"></ColumnDefinition>
@@ -1036,15 +1036,13 @@
                             BorderBrush="DarkGray"
                             Background="White"
                             BorderThickness="1,1,1,1"
-                                CornerRadius="8">
+                            CornerRadius="8">
                             <Grid>
                                 <TextBlock
                                     Text="Product Chosen"
                                     Foreground="#6F6C99"
                                     FontSize="20"
                                     FontWeight="Bold"
-                                    Height="28"
-                                    Width="150"
                                     HorizontalAlignment="Left"
                                     VerticalAlignment="Top"
                                     Margin="15"/>
