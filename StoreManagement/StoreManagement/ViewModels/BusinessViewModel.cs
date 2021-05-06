@@ -30,6 +30,7 @@ namespace StoreManagement.ViewModels
         public ICommand PayBusinessCommand { get; set; }
         public ICommand LoadListAgencybusinessCommand { get; set; }
         public ICommand SearchProductBusinessCommand { get; set; }
+        public ICommand PrintInvoiceCommand { get; set; }
 
         public BusinessViewModel()
         {
@@ -46,9 +47,26 @@ namespace StoreManagement.ViewModels
             AddAgencytoPaymentCommand = new RelayCommand<ComboBox>((para) => true, (para) => AddAgencytoPayment(para));
             PayBusinessCommand = new RelayCommand<HomeWindow>((para) => true, (para) => PayBusiness(this.HomeWindow));
             LoadListAgencybusinessCommand = new RelayCommand<HomeWindow>((para) => true, (para) => {
-                LoadListAgencybusiness(this.HomeWindow);
+                LoadListAgencybusiness(para);
             });
             SearchProductBusinessCommand = new RelayCommand<HomeWindow>((para) => true, (para) => SearchProductBusiness(para));
+            PrintInvoiceCommand = new RelayCommand<InvoiceWindow>((para) => true, (para) => PrintInvoice(para));
+        }
+
+        private void PrintInvoice(InvoiceWindow para)
+        {
+            try
+            {
+                para.btnPrint.IsEnabled = false;
+
+                PrintDialog printDialog = new PrintDialog();
+                if (printDialog.ShowDialog() == true)
+                {
+                    printDialog.PrintVisual(para, "Invoice");
+                }
+            } finally{
+                para.btnPrint.IsEnabled = true;
+            }
         }
 
         private void SearchProductBusiness(HomeWindow para)
@@ -58,7 +76,7 @@ namespace StoreManagement.ViewModels
             {
                 if (!control.txbNameProductfore.Text.ToLower().Contains(this.HomeWindow.txbSearchProducts.Text))
                 {
-                    control.Visibility = Visibility.Hidden;
+                    control.Visibility = Visibility.Collapsed;
                 }
                 else
                 {
