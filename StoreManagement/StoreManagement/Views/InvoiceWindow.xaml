@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:StoreManagement.Views"
         mc:Ignorable="d"
-        Title="InvoiceWindow" Height="800" Width="900">
+        Title="InvoiceWindow" Height="810" Width="900">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="150"></RowDefinition>
@@ -89,7 +89,7 @@
         <Grid
             Grid.Row="2">
             <StackPanel
-                x:Name="stkListProductChosen"
+                x:Name="stkListInvoiceInfos"
                 ScrollViewer.VerticalScrollBarVisibility="Auto" 
                 ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                 Width="800"
@@ -114,6 +114,7 @@
                 HorizontalAlignment="Left"
                 Margin="60,20"/>
             <TextBlock 
+                x:Name="txbInvoiceID"
                 Text="123456"
                 Foreground="#343F44"
                 FontSize="16"
@@ -122,6 +123,7 @@
                 HorizontalAlignment="Left"
                 Margin="200,20"/>
             <TextBlock 
+                x:Name="txbInvoiceDate"
                 Text="0366901216"
                 Foreground="#343F44"
                 FontSize="16"
@@ -161,6 +163,7 @@
                 HorizontalAlignment="Right"
                 Margin="200,20"/>
             <TextBlock 
+                x:Name="txbTotal"
                 Text="9999999"
                 Width="80"
                 TextAlignment="Right"
@@ -171,6 +174,7 @@
                 HorizontalAlignment="Right"
                 Margin="100,20"/>
             <TextBlock 
+                x:Name="txbPrepay"
                 Text="9999999"
                 Width="80"
                 TextAlignment="Right"
@@ -181,6 +185,7 @@
                 HorizontalAlignment="Right"
                 Margin="100,45"/>
             <TextBlock 
+                x:Name="txbDebt"
                 Text="9999999"
                 Foreground="#263238"
                 Width="80"

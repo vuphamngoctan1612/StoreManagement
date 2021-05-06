@@ -132,9 +132,6 @@
     <Compile Include="Resources\UserControls\AccountSettingUC.xaml.cs">
       <DependentUpon>AccountSettingUC.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Resources\UserControls\BillHomeUC.xaml.cs">
-      <DependentUpon>BillHomeUC.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Resources\UserControls\BillUC.xaml.cs">
       <DependentUpon>BillUC.xaml</DependentUpon>
     </Compile>
@@ -144,8 +141,14 @@
     <Compile Include="Resources\UserControls\DebtReportUC.xaml.cs">
       <DependentUpon>DebtReportUC.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Resources\UserControls\InvoiceUC.xaml.cs">
+      <DependentUpon>InvoiceUC.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Resources\UserControls\ProductControlUC.xaml.cs">
       <DependentUpon>ProductControlUC.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\UserControls\ReceiptBillUC.xaml.cs">
+      <DependentUpon>ReceiptBillUC.xaml</DependentUpon>
     </Compile>
     <Compile Include="Resources\UserControls\ReportUC.xaml.cs">
       <DependentUpon>ReportUC.xaml</DependentUpon>
@@ -162,6 +165,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ViewModels\AccountViewModel.cs" />
+    <Compile Include="ViewModels\AgencyReportViewModel.cs" />
     <Compile Include="ViewModels\BillViewModel.cs" />
     <Compile Include="ViewModels\ProductViewModel.cs" />
     <Compile Include="ViewModels\ReportViewModel.cs" />
@@ -177,6 +181,9 @@
     </Compile>
     <Compile Include="Views\InvoiceWindow.xaml.cs">
       <DependentUpon>InvoiceWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ReceiptBillWindow.xaml.cs">
+      <DependentUpon>ReceiptBillWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\SignUpWindow.xaml.cs">
       <DependentUpon>SignUpWindow.xaml</DependentUpon>
@@ -237,10 +244,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Resources\UserControls\BillHomeUC.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Resources\UserControls\BillUC.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -253,7 +256,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Resources\UserControls\InvoiceUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Resources\UserControls\ProductControlUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\UserControls\ReceiptBillUC.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -278,6 +289,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\InvoiceWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ReceiptBillWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

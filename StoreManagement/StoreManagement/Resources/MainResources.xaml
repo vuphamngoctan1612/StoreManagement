@@ -3,8 +3,10 @@
                     xmlns:viewmodels ="clr-namespace:StoreManagement.ViewModels"
                     xmlns:models ="clr-namespace:StoreManagement.Models">
     <viewmodels:HomeViewModel x:Key="HomeVM"></viewmodels:HomeViewModel>
+    <viewmodels:BillViewModel x:Key="BillVM"></viewmodels:BillViewModel>
     <viewmodels:ProductViewModel x:Key="ProductVM"></viewmodels:ProductViewModel>
     <viewmodels:ReportViewModel x:Key="ReportVM"></viewmodels:ReportViewModel>
+    <viewmodels:AgencyReportViewModel x:Key="AgencyReportVM"></viewmodels:AgencyReportViewModel>
     <viewmodels:StoreViewModel x:Key="StoreVM"></viewmodels:StoreViewModel>
     <ControlTemplate x:Key="textBoxErrorTemplate">
         <StackPanel>

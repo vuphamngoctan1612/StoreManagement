@@ -29,7 +29,7 @@
         <Grid
             Grid.Column="1">
             <TextBlock
-                x:Name="Name"
+                x:Name="UnitName"
                 Foreground="#504D85"
                 VerticalAlignment="Center"
                 HorizontalAlignment="Center"
