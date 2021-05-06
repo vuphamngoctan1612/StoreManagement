@@ -13,8 +13,16 @@
         Width="1440"
         WindowStartupLocation="CenterScreen"
         x:Name="wdHome"
-        DataContext="{StaticResource HomeVM}"
+    
+        
+    DataContext="{StaticResource HomeVM}"
         ResizeMode="CanMinimize">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding LoadedWindowCommand}" 
+                                   CommandParameter="{Binding ElementName=wdHome}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
     <Grid
         x:Name="grdWindow">
 
@@ -45,9 +53,9 @@
                 VerticalAlignment="Top"
                 Height="215" 
                 Width="245">
-                <Image
+                <!--<Image
                     Source="..\..\Resources\Images\logo.png">
-                </Image>
+                </Image>-->
             </Grid>
             <StackPanel 
                 x:Name="stkMenu"
@@ -729,7 +737,7 @@
                 HorizontalAlignment="Left"
                 VerticalAlignment="Bottom"
                 Visibility="Hidden"
-                DataContext="{StaticResource StoreVM}">
+               >
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="Loaded">
                         <i:InvokeCommandAction Command="{Binding LoadStoreOnWindowCommand}" 

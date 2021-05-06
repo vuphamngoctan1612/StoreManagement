@@ -13,10 +13,10 @@ namespace StoreManagement.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class AgencyManagementEntities : DbContext
+    public partial class STOREMANAGEMENTEntities : DbContext
     {
-        public AgencyManagementEntities()
-            : base("name=AgencyManagementEntities")
+        public STOREMANAGEMENTEntities()
+            : base("name=STOREMANAGEMENTEntities")
         {
         }
     
@@ -25,13 +25,11 @@ namespace StoreManagement.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Account> Accounts { get; set; }
-        public virtual DbSet<Agency> Agencies { get; set; }
-        public virtual DbSet<Invoice> Invoices { get; set; }
-        public virtual DbSet<InvoiceInfo> InvoiceInfoes { get; set; }
-        public virtual DbSet<Product> Products { get; set; }
-        public virtual DbSet<Receipt> Receipts { get; set; }
-        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
-        public virtual DbSet<TypeOfAgency> TypeOfAgencies { get; set; }
+        public virtual DbSet<ACCOUNT> ACCOUNTs { get; set; }
+        public virtual DbSet<BILL> BILLs { get; set; }
+        public virtual DbSet<BILLINFO> BILLINFOes { get; set; }
+        public virtual DbSet<GOOD> GOODS { get; set; }
+        public virtual DbSet<STORE> STOREs { get; set; }
+        public virtual DbSet<TYPEOFSTORE> TYPEOFSTOREs { get; set; }
     }
 }
