@@ -632,7 +632,7 @@
                 Width="1140"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Bottom"
-                Visibility="Visible">
+                Visibility="Hidden">
 
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="Loaded">
@@ -717,7 +717,7 @@
                 Width="1140"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Bottom"
-                Visibility="Hidden">
+                Visibility="Visible">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="Loaded">
                         <i:InvokeCommandAction Command="{Binding LoadStoreOnWindowCommand}" 
@@ -734,14 +734,45 @@
                       Width="1000">
                 </Grid>
                 <Grid Grid.Row="1">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="121*"/>
-                        <ColumnDefinition Width="259*"/>
-                    </Grid.ColumnDefinitions>
+                    <Border
+                        Background="{x:Null}"
+                        CornerRadius="8"
+                        BorderBrush="#FBA1BB"
+                        BorderThickness="1"
+                        Height="32"
+                        Width="200"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Margin="280,0">
+                        <ComboBox
+                            Name="cbbStore_Store"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Height="40"
+                            Width="240"
+                            BorderThickness="0"
+                            materialDesign:HintAssist.Hint="Hình thức xem"
+                            FontSize="17"
+                            FontWeight="SemiBold"
+                            Padding="0"
+                            HorizontalContentAlignment="Center"
+                            VerticalContentAlignment="Center" 
+                            Cursor="Arrow"
+                            ScrollViewer.VerticalScrollBarVisibility="Visible">
+                            <ComboBoxItem>Dạng một trang</ComboBoxItem>
+                            <ComboBoxItem>Dạng nhiều trang</ComboBoxItem>
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="SelectionChanged">
+                                    <i:InvokeCommandAction Command="{Binding ChangeWayShowAgencyCommand}" 
+                                                       CommandParameter="{Binding ElementName=wdHome}"/>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </ComboBox>
+                    </Border>
                     <Button 
                         x:Name="btnAddAgency"
-                        Width="170"
-                        Height="50"
+                        Width="112"
+                        Height="32"
                         Background="#F79BB5"
                         Uid="0"
                         FocusVisualStyle="{x:Null}"
@@ -762,17 +793,17 @@
                         x:Name="txtSearchAgency"
                         VerticalAlignment="Center"
                         HorizontalAlignment="Left"
-                        Height="40"
-                        Width="250"
+                        Height="32"
+                        Width="200"
                         materialDesign:HintAssist.Hint="Search agency"
-                        FontSize="18"
+                        FontSize="16"
                         FontFamily="Poppins"
                         FontWeight="Regular"
                         BorderBrush="#F79BB5"
                         HorizontalContentAlignment="Center"
                         VerticalContentAlignment="Center"
                         Style="{StaticResource MaterialDesignTextBox}"  
-                        materialDesign:TextFieldAssist.TextFieldCornerRadius="24"
+                        materialDesign:TextFieldAssist.TextFieldCornerRadius="8"
                         BorderThickness="1"
                         Margin="60,25,0,25">
                         <i:Interaction.Triggers>
@@ -784,78 +815,176 @@
                     </TextBox>
                     <materialDesign:PackIcon
                         Kind="Search"
-                        Height="30"
-                        Width="30"
+                        Height="25"
+                        Width="25"
                         Foreground="#F79BB5"
-                        HorizontalAlignment="Right"
+                        HorizontalAlignment="Left"
                         VerticalAlignment="Center"
-                        Margin="70,0"/>
+                        Margin="230,0"/>
                 </Grid>
                 <Grid Grid.Row="2">
-                    <Grid.RowDefinitions>
-                        <RowDefinition></RowDefinition>
-                        <RowDefinition Height="110"></RowDefinition>
-                    </Grid.RowDefinitions>
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition></ColumnDefinition>
-                            <ColumnDefinition></ColumnDefinition>
-                            <ColumnDefinition></ColumnDefinition>
-                        </Grid.ColumnDefinitions>
-                        <Grid
-                            x:Name="grdStoreFisrt">
+                    <Grid
+                        x:Name="grdListStore_Store"
+                        HorizontalAlignment="Center"
+                        Width="1070"
+                        Visibility="Hidden">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="45"></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="0"
+                            Background="#FF9CB9"
+                              Margin="0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="200"></ColumnDefinition>
+                                <ColumnDefinition Width="150"></ColumnDefinition>
+                                <ColumnDefinition Width="100"></ColumnDefinition>
+                                <ColumnDefinition Width="200"></ColumnDefinition>
+                                <ColumnDefinition Width="150"></ColumnDefinition>
+                                <ColumnDefinition Width="150"></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0"
+                                Text="Name" 
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                FontFamily="Poppins"
+                                FontStyle="Normal"
+                                FontSize="22" 
+                                FontWeight="SemiBold"
+                                Foreground="#504D85"/>
+                            <TextBlock Grid.Column="1"
+                                Text="Species" 
+                                HorizontalAlignment="Center"
+                                FontFamily="Poppins"
+                                FontStyle="Normal"
+                                FontSize="22"
+                                FontWeight="SemiBold"
+                                VerticalAlignment="Center"
+                                Foreground="#504D85"/>
+                            <TextBlock Grid.Column="2"
+                                Text="District" 
+                                HorizontalAlignment="Center"
+                                FontFamily="Poppins"
+                                FontStyle="Normal"
+                                FontSize="22"
+                                FontWeight="SemiBold"
+                                VerticalAlignment="Center"
+                                Foreground="#504D85"/>
+                            <TextBlock Grid.Column="3"
+                                Text="Address" 
+                                HorizontalAlignment="Center"
+                                FontWeight="SemiBold"
+                                FontFamily="Poppins"
+                                FontStyle="Normal"
+                                FontSize="22"
+                                VerticalAlignment="Center"
+                                Foreground="#504D85"/>
+                            <TextBlock Grid.Column="4"
+                                Text="Phone" 
+                                HorizontalAlignment="Center"
+                                FontWeight="SemiBold"
+                                FontFamily="Poppins"
+                                FontStyle="Normal"
+                                FontSize="22"
+                                VerticalAlignment="Center"
+                                Foreground="#504D85"/>
+                            <TextBlock Grid.Column="5"
+                                Text="Debt" 
+                                HorizontalAlignment="Center"
+                                FontFamily="Poppins"
+                                FontStyle="Normal"
+                                FontSize="22"
+                                FontWeight="SemiBold"
+                                VerticalAlignment="Center"
+                                Foreground="#504D85"/>
                         </Grid>
-                        <Grid
-                            x:Name="grdStoreSecond"
-                            Grid.Column="1">
-                        </Grid>
-                        <Grid
-                            x:Name="grdStoreThird"
-                            Grid.Column="2">
+                        <Grid Grid.Row="1">
+                            <ScrollViewer 
+                                Grid.Row="2"
+                                HorizontalScrollBarVisibility="Disabled" 
+                                Margin="0"
+                                HorizontalAlignment="Left" 
+                                Style="{StaticResource FavsScrollViewer}"
+                                Width="1070" 
+                                Height="500"
+                                VerticalAlignment="Top"
+                                VerticalScrollBarVisibility="Auto">
+                                <StackPanel 
+                                    x:Name="stkStore_Store" 
+                                    ScrollViewer.VerticalScrollBarVisibility="Auto" 
+                                    ScrollViewer.HorizontalScrollBarVisibility="Disabled"/>
+                            </ScrollViewer>
                         </Grid>
                     </Grid>
                     <Grid
-                        Grid.Row="1">
-                        <Button
-                            x:Name="btnNextPage"
-                            Width="50"
-                            Height="50"
-                            Background="{x:Null}"
-                            BorderBrush="{x:Null}" 
-                            Padding="0"
-                            VerticalAlignment="Center"
-                            HorizontalAlignment="Right"
-                            Margin="30"
-                            Command="{Binding NextPageStoresCommand}"
-                            CommandParameter="{Binding HomeWindow}">
-                            <materialDesign:PackIcon 
-                                Kind="ArrowRightBoldCircleOutline" 
-                                Foreground="LightPink"
-                                Height="50"
+                        x:Name="grdList3Store_Store"
+                        Visibility="Visible">
+                        <Grid.RowDefinitions>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition Height="110"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid
+                                x:Name="grdStoreFisrt">
+                            </Grid>
+                            <Grid
+                                x:Name="grdStoreSecond"
+                                Grid.Column="1">
+                            </Grid>
+                            <Grid
+                                x:Name="grdStoreThird"
+                                Grid.Column="2">
+                            </Grid>
+                        </Grid>
+                        <Grid
+                            Grid.Row="1">
+                            <Button
+                                x:Name="btnNextPage"
                                 Width="50"
-                                VerticalAlignment="Center"
-                                HorizontalAlignment="Center"/>
-                        </Button>
-                        <Button
-                            x:Name="btnBackPage"
-                            Width="50"
-                            Height="50"
-                            Background="{x:Null}"
-                            BorderBrush="{x:Null}" 
-                            Padding="0"
-                            VerticalAlignment="Center"
-                            HorizontalAlignment="Right"
-                            Margin="100,30"
-                            Command="{Binding BackPageStoresCommand}"
-                            CommandParameter="{Binding HomeWindow}">
-                            <materialDesign:PackIcon 
-                                Kind="ArrowLeftBoldCircleOutline" 
-                                Foreground="LightPink"
                                 Height="50"
-                                Width="50"
+                                Background="{x:Null}"
+                                BorderBrush="{x:Null}" 
+                                Padding="0"
                                 VerticalAlignment="Center"
-                                HorizontalAlignment="Center"/>
-                        </Button>
+                                HorizontalAlignment="Right"
+                                Margin="30"
+                                Command="{Binding NextPageStoresCommand}"
+                                CommandParameter="{Binding HomeWindow}">
+                                <materialDesign:PackIcon 
+                                    Kind="ArrowRightBoldCircleOutline" 
+                                    Foreground="LightPink"
+                                    Height="50"
+                                    Width="50"
+                                    VerticalAlignment="Center"
+                                    HorizontalAlignment="Center"/>
+                            </Button>
+                            <Button
+                                x:Name="btnBackPage"
+                                Width="50"
+                                Height="50"
+                                Background="{x:Null}"
+                                BorderBrush="{x:Null}" 
+                                Padding="0"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Right"
+                                Margin="100,30"
+                                Command="{Binding BackPageStoresCommand}"
+                                CommandParameter="{Binding HomeWindow}">
+                                <materialDesign:PackIcon 
+                                    Kind="ArrowLeftBoldCircleOutline" 
+                                    Foreground="LightPink"
+                                    Height="50"
+                                    Width="50"
+                                    VerticalAlignment="Center"
+                                    HorizontalAlignment="Center"/>
+                            </Button>
+                        </Grid>
                     </Grid>
                 </Grid>
             </Grid>
@@ -1004,10 +1133,14 @@
                 Width="1140"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Bottom"
-                Visibility="Visible">
+                Visibility="Hidden">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="Loaded">
                         <i:InvokeCommandAction Command="{Binding LoadBusinessWindowCommand}" 
+                                               CommandParameter="{Binding ElementName=wdHome}"/>
+                    </i:EventTrigger>
+                    <i:EventTrigger EventName="IsVisibleChanged">
+                        <i:InvokeCommandAction Command="{Binding LoadListBusinessWindowCommand}" 
                                                CommandParameter="{Binding ElementName=wdHome}"/>
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
@@ -1103,7 +1236,7 @@
                                                     HorizontalScrollBarVisibility="Auto"
                                                     VerticalScrollBarVisibility="Auto">
                                                     <StackPanel
-                                                        x:Name="stkListProductChosen"
+                                                        x:Name="stkListProductChosenBusiness"
                                                         ScrollViewer.VerticalScrollBarVisibility="Auto" 
                                                         ScrollViewer.HorizontalScrollBarVisibility="Disabled">
                                                     </StackPanel>
@@ -1143,7 +1276,7 @@
                                     VerticalAlignment="Top"
                                     Margin="200,20">
                                     <TextBox
-                                        x:Name="txbSearchProducts"
+                                        x:Name="txbSearchProductsBusiness"
                                         Height="35"
                                         Width="200"
                                         HorizontalAlignment="Left"
@@ -1183,12 +1316,12 @@
                                     Margin="19,73,19,25">
                                     <ScrollViewer
                                         HorizontalScrollBarVisibility="Auto"
-                                        VerticalScrollBarVisibility="Auto">
+                                        VerticalScrollBarVisibility="Disabled">
                                         <StackPanel
-                                                x:Name="stkListProduct"
-                                                Orientation="Horizontal"
-                                                ScrollViewer.VerticalScrollBarVisibility="Disabled" 
-                                                ScrollViewer.HorizontalScrollBarVisibility="Auto" >
+                                            x:Name="stkListProductBusiness"
+                                            Orientation= "Horizontal"
+                                            ScrollViewer.VerticalScrollBarVisibility="Disabled" 
+                                            ScrollViewer.HorizontalScrollBarVisibility="Auto" >
                                         </StackPanel>
                                     </ScrollViewer>
                                 </Grid>
@@ -1253,16 +1386,10 @@
                                             HorizontalContentAlignment="Center"
                                             VerticalContentAlignment="Center" 
                                             Cursor="Arrow"
-                                            ItemsSource="{Binding Path= ListAgency}"
+                                            ItemsSource="{Binding Path=ListAgency, Mode=OneWay}"
                                             SelectedValuePath="ID"
                                             DisplayMemberPath="Name"
                                             ScrollViewer.VerticalScrollBarVisibility="Visible">
-                                            <i:Interaction.Triggers>
-                                                <i:EventTrigger EventName="MouseDown">
-                                                    <i:InvokeCommandAction Command="{Binding LoadListAgencybusinessCommand}" 
-                                                                            CommandParameter="{Binding ElementName=wdHome}"/>
-                                                </i:EventTrigger>
-                                            </i:Interaction.Triggers>
                                         </ComboBox>
                                     </Border>
                                     <!--<Button
@@ -1416,7 +1543,7 @@
                                         VerticalAlignment="Center"
                                         Margin="20,10"/>
                                     <TextBlock
-                                        x:Name="TotalFeeofProductChosen"
+                                        x:Name="TotalFeeofProductChosenPayment"
                                         Text="0"
                                         Foreground="#263238"
                                         FontSize="16"
@@ -1448,7 +1575,7 @@
                                         VerticalAlignment="Center"
                                         Margin="20,10"/>
                                     <TextBox
-                                        x:Name="txtRetainer"
+                                        x:Name="txtRetainerPaymment"
                                         Text="0"
                                         Height="30"
                                         Width="100"
@@ -1457,9 +1584,7 @@
                                         Margin="50,5"
                                         HorizontalContentAlignment="Right"
                                         VerticalContentAlignment="Bottom"
-                                        BorderBrush="Gray"
-                                        BorderThickness="1"
-                                        materialDesign:HintAssist.Hint="Tiền trả trước">
+                                        materialDesign:BottomDashedLineAdorner.Brush="Gray">
                                         <i:Interaction.Triggers>
                                             <i:EventTrigger EventName="PreviewTextInput" >
                                                 <ei:CallMethodAction TargetObject="{Binding}"
@@ -1467,7 +1592,7 @@
                                             </i:EventTrigger>
                                             <i:EventTrigger EventName="TextChanged">
                                                 <i:InvokeCommandAction Command="{Binding CalculationPaymentCommand}" 
-                                                   CommandParameter="{Binding ElementName=txtRetainer}"/>
+                                                   CommandParameter="{Binding ElementName=txtRetainerPaymment}"/>
                                             </i:EventTrigger>
                                         </i:Interaction.Triggers>
                                     </TextBox>
@@ -1495,7 +1620,7 @@
                                         VerticalAlignment="Center"
                                         Margin="20,12,0,11" Grid.ColumnSpan="2"/>
                                     <TextBlock
-                                        x:Name="txbChange"
+                                        x:Name="txbChangePayment"
                                         Text="0"
                                         Foreground="#263238"
                                         FontSize="16"

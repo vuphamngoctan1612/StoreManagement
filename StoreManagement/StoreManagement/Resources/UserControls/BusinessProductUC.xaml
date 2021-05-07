@@ -31,7 +31,7 @@
                 x:Name="txbId"
                 Visibility="Hidden"/>
             <TextBlock
-                x:Name="txbNameProductfore"
+                x:Name="txbNameProductBusinessUC"
                 Text="hero.maymay"
                 Foreground="#00329E"
                 FontSize="14"

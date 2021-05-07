@@ -28,98 +28,170 @@ namespace StoreManagement.ViewModels
         public ICommand OpenAddStoreWindowCommand { get; set; }
         public ICommand OpenEditStoreWindowCommand { get; set; }
         public ICommand SaveStoreCommand { get; set; }
-        public ICommand DeleteStoreCommand { get; set; }
+        public ICommand DeleteAgencyCommand { get; set; }
         public ICommand CloseStoreWindowCommand { get; set; }
         public ICommand SeparateThousandsCommand { get; set; }
         public ICommand SearchAgencyCommand { get; set; }
-
+        public ICommand ChangeWayShowAgencyCommand { get; set; }
+        public ICommand EditAgencyCommand { get; set; }
 
         public StoreViewModel()
         {
 
             this.ListType = DataProvider.Instance.DB.TypeOfAgencies.ToList<TypeOfAgency>();
             PageNumber = 1;
-            this.ListStores = DataProvider.Instance.DB.Agencies.ToList<Agency>();
-            LoadStoreOnWindowCommand = new RelayCommand<HomeWindow>((para) => true, (para) => LoadStores(para, this.ListStores, PageNumber));
+            string query = "SELECT * FROM AGENCY WHERE ISDELETE = 0";
+            this.ListStores = DataProvider.Instance.DB.Agencies.SqlQuery(query).ToList();
+            LoadStoreOnWindowCommand = new RelayCommand<HomeWindow>((para) => true, (para) => Load3Stores(para, this.ListStores, PageNumber));
             NextPageStoresCommand = new RelayCommand<HomeWindow>((para) => true, (para) => {
                 PageNumber = LoadNextPage(PageNumber);
-                ReLoadStores(this.HomeWindow, this.ListStores, PageNumber);
+                ReLoad3Stores(this.HomeWindow, this.ListStores, PageNumber);
             });
             BackPageStoresCommand = new RelayCommand<HomeWindow>((para) => true, (para) => {
                 PageNumber = LoadBackPage(PageNumber);
-                ReLoadStores(this.HomeWindow, this.ListStores, PageNumber);
+                ReLoad3Stores(this.HomeWindow, this.ListStores, PageNumber);
             });
             OpenAddStoreWindowCommand = new RelayCommand<HomeWindow>((para) => true, (para) => OpenAddStoreWindow());
-            OpenEditStoreWindowCommand = new RelayCommand<StoreControlUC>((para) => true, (para) => OpenEditStoreWindow(para));
+            OpenEditStoreWindowCommand = new RelayCommand<StoreControlUC>((para) => true, (para) => OpenEditStoreWindow(para.txbID.Text));
             CloseStoreWindowCommand = new RelayCommand<AddStoreWindow>((para) => true, (para) => para.Close());
             SaveStoreCommand = new RelayCommand<AddStoreWindow>((para) => true, (para) => SaveStore(para));
-            DeleteStoreCommand = new RelayCommand<usStores>((para) => true, (para) => DeleteStore(para));
+            DeleteAgencyCommand = new RelayCommand<AgencyControlUC>((para) => true, (para) => DeleteStore(para));
             SeparateThousandsCommand = new RelayCommand<TextBox>((para) => true, (para) => SeparateThousands(para));
             SearchAgencyCommand = new RelayCommand<HomeWindow>((para) => true, (para) => SearchAgency(para));
+            ChangeWayShowAgencyCommand = new RelayCommand<HomeWindow>((para) => true, (para) => ChangeWayShowAgency(para));
+            EditAgencyCommand = new RelayCommand<TextBlock>((para) => true, (para) => OpenEditStoreWindow(para.Text));
+        }
+
+        private void ChangeWayShowAgency(HomeWindow para)
+        {
+            if (para.cbbStore_Store.SelectedIndex == 0)
+            {
+                LoadListAgency();
+                para.grdListStore_Store.Visibility = Visibility.Visible;
+                para.grdList3Store_Store.Visibility = Visibility.Hidden;
+            }
+            else
+            {
+                Load3Stores(this.HomeWindow, ListStores, PageNumber);
+                para.grdListStore_Store.Visibility = Visibility.Hidden;
+                para.grdList3Store_Store.Visibility = Visibility.Visible;
+            }
+        }
+
+        private void LoadListAgency()
+        {
+            string query = "SELECT * FROM AGENCY WHERE ISDELETE = 0";
+            this.ListStores = DataProvider.Instance.DB.Agencies.SqlQuery(query).ToList();
+
+            foreach (Agency agency in ListStores)
+            {
+                AgencyControlUC item = new AgencyControlUC();
+
+                item.txtID.Text = agency.ID.ToString();
+                item.txtName.Text = agency.Name;
+                item.txtPhone.Text = agency.PhoneNumber;
+                item.txtSpecies.Text = agency.TypeOfAgency.ToString();
+                item.txtAddress.Text = agency.Address;
+                item.txtDistrict.Text = agency.District;
+                item.txtDebt.Text = agency.Debt.ToString();
+                item.Height = 45;
+
+                this.HomeWindow.stkStore_Store.Children.Add(item);
+            }
         }
 
         private void SearchAgency(HomeWindow para)
         {
-            int loadPos = 0;
-            int i = 0;
-            int pos = 0;
-
-            if (String.IsNullOrEmpty(this.HomeWindow.txtSearchAgency.Text))
+            if (para.grdListStore_Store.Visibility == Visibility.Visible)
             {
-                LoadStores(para, this.ListStores, PageNumber);
-            } else
-            {
-                para.grdStoreFisrt.Children.Clear();
-                para.grdStoreSecond.Children.Clear();
-                para.grdStoreThird.Children.Clear();
-
-                //hiển thị ds theo phân trang(number page)
-                while (i < 3)
+                foreach (AgencyControlUC control in HomeWindow.stkStore_Store.Children)
                 {
-                    for (pos = loadPos; pos < DataProvider.Instance.DB.Agencies.Count(); pos++)
+                    if (!control.txtName.Text.ToLower().Contains(this.HomeWindow.txtSearchAgency.Text))
                     {
-                        if (this.ListStores[pos].Name.ToLower().Contains(this.HomeWindow.txtSearchAgency.Text.ToLower()))
-                        {
-                            i++;
-                            loadPos = pos+1;
-                            int typeA = int.Parse(ListStores[pos].TypeOfAgency.ToString());
-                            TypeOfAgency type = (TypeOfAgency)DataProvider.Instance.DB.TypeOfAgencies.Where(x => x.ID == typeA).First();
-
-                            StoreControlUC uc = new StoreControlUC();
-                            uc.Height = 350;
-                            uc.Width = 280;
-                            uc.txbID.Text = ListStores[pos].ID.ToString();
-                            uc.AgencyName.Text = ListStores[pos].Name.ToString();
-                            uc.txbAgencyPhone.Text = ListStores[pos].PhoneNumber.ToString();
-                            uc.txbAgencyDate.Text = ListStores[pos].CheckIn.Value.ToShortDateString();
-                            uc.txbAgencyPosition.Text = ListStores[pos].Address.ToString();
-                            uc.txbAgencyType.Text = type.Name.ToString();
-
-                            switch (i-1)
-                            {
-                                case 0:
-                                    para.grdStoreFisrt.Children.Add(uc);
-                                    break;
-                                case 1:
-                                    para.grdStoreSecond.Children.Add(uc);
-                                    break;
-                                case 2:
-                                    para.grdStoreThird.Children.Add(uc);
-                                    break;
-                            }    
-                        }
+                        control.Visibility = Visibility.Collapsed;
                     }
-                    if (pos == DataProvider.Instance.DB.Agencies.Count())
+                    else
                     {
-                        break;
+                        control.Visibility = Visibility.Visible;
+                    }
+                }
+            }
+            else
+            {
+                int loadPos = 0;
+                int i = 0;
+                int pos = 0;
+
+                string query = "SELECT * FROM AGENCY WHERE ISDELETE = 0";
+
+                this.ListStores = DataProvider.Instance.DB.Agencies.SqlQuery(query).ToList();
+
+                if (String.IsNullOrEmpty(this.HomeWindow.txtSearchAgency.Text))
+                {
+                    Load3Stores(para, this.ListStores, PageNumber);
+                }
+                else
+                {
+                    para.grdStoreFisrt.Children.Clear();
+                    para.grdStoreSecond.Children.Clear();
+                    para.grdStoreThird.Children.Clear();
+
+                    //hiển thị ds theo phân trang(number page)
+                    while (i < 3)
+                    {
+                        for (pos = loadPos; pos < this.ListStores.Count; pos++)
+                        {
+                            if (this.ListStores[pos].Name.ToLower().Contains(this.HomeWindow.txtSearchAgency.Text.ToLower()))
+                            {
+                                i++;
+                                loadPos = pos + 1;
+                                int typeA = int.Parse(ListStores[pos].TypeOfAgency.ToString());
+                                TypeOfAgency type = (TypeOfAgency)DataProvider.Instance.DB.TypeOfAgencies.Where(x => x.ID == typeA).First();
+
+                                StoreControlUC uc = new StoreControlUC();
+                                uc.Height = 350;
+                                uc.Width = 280;
+                                uc.txbID.Text = ListStores[pos].ID.ToString();
+                                uc.AgencyName.Text = ListStores[pos].Name.ToString();
+                                uc.txbAgencyPhone.Text = ListStores[pos].PhoneNumber.ToString();
+                                uc.txbAgencyDate.Text = ListStores[pos].CheckIn.Value.ToShortDateString();
+                                uc.txbAgencyPosition.Text = ListStores[pos].Address.ToString();
+                                uc.txbAgencyType.Text = type.Name.ToString();
+
+                                switch (i - 1)
+                                {
+                                    case 0:
+                                        para.grdStoreFisrt.Children.Add(uc);
+                                        break;
+                                    case 1:
+                                        para.grdStoreSecond.Children.Add(uc);
+                                        break;
+                                    case 2:
+                                        para.grdStoreThird.Children.Add(uc);
+                                        break;
+                                }
+                            }
+                        }
+                        if (pos == this.ListStores.Count)
+                        {
+                            break;
+                        }
                     }
                 }
             }
         }
 
-        private void DeleteStore(usStores para)
+        private void DeleteStore(AgencyControlUC para)
         {
-            throw new NotImplementedException();
+            Agency store= new Agency();
+            int id = int.Parse(para.txtID.Text);
+            store = (Agency)DataProvider.Instance.DB.Agencies.Where(x => x.ID == id).First();
+
+            store.IsDelete = true;
+            DataProvider.Instance.DB.Agencies.AddOrUpdate(store);
+            DataProvider.Instance.DB.SaveChanges();
+
+            this.HomeWindow.stkStore_Store.Children.Remove(para);
         }
 
         private void SaveStore(AddStoreWindow para)
@@ -184,28 +256,36 @@ namespace StoreManagement.ViewModels
                 item.CheckIn = DateTime.Parse(para.txtCheckin.Text);
                 item.TypeOfAgency = type.ID;
                 item.Email = para.txtEmail.Text;
+                item.IsDelete = false;
 
                 DataProvider.Instance.DB.Agencies.AddOrUpdate(item);
                 DataProvider.Instance.DB.SaveChanges();
-            } catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
-            } 
+            }
             finally
             {
-                this.ListStores = DataProvider.Instance.DB.Agencies.ToList<Agency>();
-                PageNumber = 1;
-                LoadStores(this.HomeWindow, this.ListStores, PageNumber);
+                if (this.HomeWindow.grdList3Store_Store.Visibility == Visibility.Visible)
+                {
+                    PageNumber = 1;
+                    Load3Stores(this.HomeWindow, this.ListStores, PageNumber);
+                }
+                else
+                {
+                    LoadListAgency();
+                }
                 para.Close();
             }
         }
 
-        private void OpenEditStoreWindow(StoreControlUC para)
+        private void OpenEditStoreWindow(String para)
         {
             Agency store = new Agency();
-            int id = int.Parse(para.txbID.Text);
+            int id = int.Parse(para);
             store = (Agency)DataProvider.Instance.DB.Agencies.Where(x => x.ID == id).First();
-            int pos =0;
+            int pos = 0;
             int typeA = int.Parse(store.TypeOfAgency.ToString());
             TypeOfAgency type = (TypeOfAgency)DataProvider.Instance.DB.TypeOfAgencies.Where(x => x.ID == typeA).First();
 
@@ -228,6 +308,8 @@ namespace StoreManagement.ViewModels
             wd.txtSpecies.SelectedIndex = pos;
             wd.txtDebt.Text = store.Debt.ToString();
             wd.Title = "Sửa thông tin đại lý";
+            wd.txtDebt.IsEnabled = false;
+            wd.txtCheckin.IsEnabled = false;
             wd.ShowDialog();
         }
 
@@ -252,16 +334,22 @@ namespace StoreManagement.ViewModels
             }
         }
 
-        private void LoadStores(HomeWindow para, List<Agency> listStores, int pageNumber)
+        private void Load3Stores(HomeWindow para, List<Agency> listStores, int pageNumber)
         {
             this.HomeWindow = para;
+
+            para.cbbStore_Store.SelectedIndex = 1;
+
+            string query = "SELECT * FROM AGENCY WHERE ISDELETE = 0";
+
+            this.ListStores = DataProvider.Instance.DB.Agencies.SqlQuery(query).ToList();
 
             //hiển thị ds theo phân trang(number page)
             for (int i = 0; i < 3; i++)
             {
                 int pos = (pageNumber - 1) * 3 + i;
 
-                if (pos == DataProvider.Instance.DB.Agencies.Count())
+                if (pos == this.ListStores.Count)
                     break;
 
                 int typeA = int.Parse(ListStores[pos].TypeOfAgency.ToString());
@@ -300,18 +388,22 @@ namespace StoreManagement.ViewModels
                 return pageNumber;
         }
 
-        private void ReLoadStores(HomeWindow para, List<Agency> listStores, int pageNumber)
+        private void ReLoad3Stores(HomeWindow para, List<Agency> listStores, int pageNumber)
         {
             para.grdStoreFisrt.Children.Clear();
             para.grdStoreSecond.Children.Clear();
             para.grdStoreThird.Children.Clear();
+
+            string query = "SELECT * FROM AGENCY WHERE ISDELETE = 0";
+
+            this.ListStores = DataProvider.Instance.DB.Agencies.SqlQuery(query).ToList();
 
             //hiển thị ds theo phân trang(number page)
             for (int i = 0; i < 3; i++)
             {
                 int pos = (pageNumber - 1) * 3 + i;
 
-                if (pos == DataProvider.Instance.DB.Agencies.Count())
+                if (pos == this.ListStores.Count)
                     break;
 
                 int typeA = int.Parse(ListStores[pos].TypeOfAgency.ToString());

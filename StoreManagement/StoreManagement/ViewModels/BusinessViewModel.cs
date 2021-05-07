@@ -28,9 +28,9 @@ namespace StoreManagement.ViewModels
         public ICommand CalculationPaymentCommand { get; set; }
         public ICommand AddAgencytoPaymentCommand { get; set; }
         public ICommand PayBusinessCommand { get; set; }
-        public ICommand LoadListAgencybusinessCommand { get; set; }
         public ICommand SearchProductBusinessCommand { get; set; }
         public ICommand PrintInvoiceCommand { get; set; }
+        public ICommand LoadListBusinessWindowCommand { get; set; }
 
         public BusinessViewModel()
         {
@@ -43,14 +43,21 @@ namespace StoreManagement.ViewModels
             CalculationPaymentCommand = new RelayCommand<TextBox>((para) => true, (para) => {
                 SeparateThousands(para);
                 LoadPayment(para);
-                });
+            });
             AddAgencytoPaymentCommand = new RelayCommand<ComboBox>((para) => true, (para) => AddAgencytoPayment(para));
             PayBusinessCommand = new RelayCommand<HomeWindow>((para) => true, (para) => PayBusiness(this.HomeWindow));
-            LoadListAgencybusinessCommand = new RelayCommand<HomeWindow>((para) => true, (para) => {
-                LoadListAgencybusiness(para);
-            });
             SearchProductBusinessCommand = new RelayCommand<HomeWindow>((para) => true, (para) => SearchProductBusiness(para));
             PrintInvoiceCommand = new RelayCommand<InvoiceWindow>((para) => true, (para) => PrintInvoice(para));
+            LoadListBusinessWindowCommand = new RelayCommand<HomeWindow>((para) => true, (para) => LoadListBusiness(para));
+        }
+
+        private void LoadListBusiness(HomeWindow para)
+        {
+            this.HomeWindow = para;
+            this.ListAgency = DataProvider.Instance.DB.Agencies.ToList<Agency>();
+            this.ListProduct = DataProvider.Instance.DB.Products.ToList<Product>();
+
+            LoadBusiness(para);
         }
 
         private void PrintInvoice(InvoiceWindow para)
@@ -64,7 +71,9 @@ namespace StoreManagement.ViewModels
                 {
                     printDialog.PrintVisual(para, "Invoice");
                 }
-            } finally{
+            }
+            finally
+            {
                 para.btnPrint.IsEnabled = true;
             }
         }
@@ -72,9 +81,9 @@ namespace StoreManagement.ViewModels
         private void SearchProductBusiness(HomeWindow para)
         {
             this.HomeWindow = para;
-            foreach (BusinessProductUC control in HomeWindow.stkListProduct.Children)
+            foreach (BusinessProductUC control in HomeWindow.stkListProductBusiness.Children)
             {
-                if (!control.txbNameProductfore.Text.ToLower().Contains(this.HomeWindow.txbSearchProducts.Text))
+                if (!control.txbNameProductBusinessUC.Text.ToLower().Contains(this.HomeWindow.txbSearchProductsBusiness.Text))
                 {
                     control.Visibility = Visibility.Collapsed;
                 }
@@ -85,14 +94,9 @@ namespace StoreManagement.ViewModels
             }
         }
 
-        private void LoadListAgencybusiness(HomeWindow para)
-        {
-            this.ListAgency = DataProvider.Instance.DB.Agencies.ToList<Agency>();
-        }
-
         private void PayBusiness(HomeWindow para)
         {
-            if (para.txbIDAgencyPayment.Text == "-1" )
+            if (para.txbIDAgencyPayment.Text == "-1")
             {
                 MessageBox.Show("Vui lòng chọn đại lý");
                 return;
@@ -112,9 +116,9 @@ namespace StoreManagement.ViewModels
 
             InvoiceWindow wdInvoice = new InvoiceWindow();
 
-            wdInvoice.stkListProductChosen.Children.Add(new InvoiceBusinessUC());
+            wdInvoice.stkListProductChosenInvoice.Children.Add(new InvoiceBusinessUC());
 
-            foreach (BusinessProductChosenUC item in this.HomeWindow.stkListProductChosen.Children)
+            foreach (BusinessProductChosenUC item in this.HomeWindow.stkListProductChosenBusiness.Children)
             {
                 InvoiceBusinessUC uc = new InvoiceBusinessUC();
 
@@ -125,12 +129,12 @@ namespace StoreManagement.ViewModels
                 uc.txbTotal.Text = item.txbTotal.Text;
                 uc.txbID.Text = item.txbID.Text;
 
-                wdInvoice.stkListProductChosen.Children.Add(uc);
+                wdInvoice.stkListProductChosenInvoice.Children.Add(uc);
             }
 
-            wdInvoice.txbTotal.Text = this.HomeWindow.TotalFeeofProductChosen.Text;
-            wdInvoice.txbRetainer.Text = this.HomeWindow.txtRetainer.Text;
-            wdInvoice.txbChange.Text = this.HomeWindow.txbChange.Text;
+            wdInvoice.txbTotal.Text = this.HomeWindow.TotalFeeofProductChosenPayment.Text;
+            wdInvoice.txbRetainer.Text = this.HomeWindow.txtRetainerPaymment.Text;
+            wdInvoice.txbChange.Text = this.HomeWindow.txbChangePayment.Text;
             wdInvoice.txbName.Text = this.HomeWindow.txbAgencyinPayment.Text;
             wdInvoice.txbPhone.Text = this.HomeWindow.txbPhoneNumberinPayment.Text;
             wdInvoice.txbAddress.Text = this.HomeWindow.txbAddressinPayment.Text;
@@ -157,10 +161,10 @@ namespace StoreManagement.ViewModels
 
             DataProvider.Instance.DB.Invoices.Add(inv);
 
-            for (int i = 1; i < wdInvoice.stkListProductChosen.Children.Count ; i++)
+            for (int i = 1; i < wdInvoice.stkListProductChosenInvoice.Children.Count; i++)
             {
                 InvoiceInfo invInfo = new InvoiceInfo();
-                InvoiceBusinessUC item = (InvoiceBusinessUC)(wdInvoice.stkListProductChosen.Children[i]);
+                InvoiceBusinessUC item = (InvoiceBusinessUC)(wdInvoice.stkListProductChosenInvoice.Children[i]);
 
                 invInfo.InvoiceID = inv.ID;
                 invInfo.ProductID = int.Parse(item.txbID.Text);
@@ -173,28 +177,31 @@ namespace StoreManagement.ViewModels
             DataProvider.Instance.DB.SaveChanges();
             wdInvoice.ShowDialog();
 
-            ReloadBusiness();    
+            ReloadBusiness();
         }
 
         private void ReloadBusiness()
         {
-            this.HomeWindow.stkListProductChosen.Children.Clear();
+            this.HomeWindow.stkListProductChosenBusiness.Children.Clear();
             this.ListProductChosen.Clear();
             this.HomeWindow.txbIDAgencyPayment.Text = "-1";
             this.HomeWindow.txbAgencyinPayment.Text = "";
             this.HomeWindow.txbAddressinPayment.Text = "";
             this.HomeWindow.txbPhoneNumberinPayment.Text = "";
-            this.HomeWindow.TotalFeeofProductChosen.Text = "0";
-            this.HomeWindow.txtRetainer.Text = "0";
-            this.HomeWindow.txbChange.Text = "0";
+            this.HomeWindow.TotalFeeofProductChosenPayment.Text = "0";
+            this.HomeWindow.txtRetainerPaymment.Text = "0";
+            this.HomeWindow.txbChangePayment.Text = "0";
         }
 
         private void AddAgencytoPayment(ComboBox para)
         {
+            this.ListAgency = DataProvider.Instance.DB.Agencies.ToList<Agency>();
+
             if (String.IsNullOrEmpty(para.Text))
             {
                 MessageBox.Show("Vui lòng chọn đại lý");
-            } else
+            }
+            else
             {
                 int pos = para.SelectedIndex;
                 int id = ListAgency[pos].ID;
@@ -212,10 +219,10 @@ namespace StoreManagement.ViewModels
             if (!String.IsNullOrEmpty(para.Text))
             {
                 long retainer = ConvertToNumber(para.Text);
-                long total = ConvertToNumber(this.HomeWindow.TotalFeeofProductChosen.Text);
+                long total = ConvertToNumber(this.HomeWindow.TotalFeeofProductChosenPayment.Text);
 
                 if (retainer < total)
-                    this.HomeWindow.txbChange.Text = SeparateThousands((total - retainer).ToString());
+                    this.HomeWindow.txbChangePayment.Text = SeparateThousands((total - retainer).ToString());
                 else
                     para.Text = "0";
             }
@@ -225,29 +232,29 @@ namespace StoreManagement.ViewModels
 
         private void RemovefromListChosen(BusinessProductChosenUC para)
         {
-            this.HomeWindow.stkListProductChosen.Children.Remove(para);
+            this.HomeWindow.stkListProductChosenBusiness.Children.Remove(para);
 
-            int id =int.Parse(para.txbID.Text);
+            int id = int.Parse(para.txbID.Text);
 
             Product item = DataProvider.Instance.DB.Products.Where(x => x.ID == id).First();
             ListProductChosen.Remove(item);
             LoadTotalofPayment();
-            this.HomeWindow.txbChange.Text = "";
-            this.HomeWindow.txtRetainer.Text = "";
+            this.HomeWindow.txbChangePayment.Text = "";
+            this.HomeWindow.txtRetainerPaymment.Text = "";
         }
 
 
         private void LoadTotalofPayment()
         {
             long total = 0;
-            foreach (BusinessProductChosenUC item in this.HomeWindow.stkListProductChosen.Children)
+            foreach (BusinessProductChosenUC item in this.HomeWindow.stkListProductChosenBusiness.Children)
             {
                 total += ConvertToNumber(item.txbTotal.Text);
             }
 
-            this.HomeWindow.TotalFeeofProductChosen.Text =SeparateThousands(total.ToString());
+            this.HomeWindow.TotalFeeofProductChosenPayment.Text = SeparateThousands(total.ToString());
         }
-    
+
         private void LoadListChosen(BusinessProductUC para)
         {
             bool flag = true;
@@ -261,7 +268,7 @@ namespace StoreManagement.ViewModels
                     {
                         flag = false;
                         break;
-                    }    
+                    }
                 }
             }
             else
@@ -282,10 +289,11 @@ namespace StoreManagement.ViewModels
                 uc.txbAmount.Text = "1";
                 uc.txbTotal.Text = SeparateThousands(item.ExportPrice.Value.ToString());
 
-                this.HomeWindow.stkListProductChosen.Children.Add(uc);
-            } else
+                this.HomeWindow.stkListProductChosenBusiness.Children.Add(uc);
+            }
+            else
             {
-                foreach (BusinessProductChosenUC item in this.HomeWindow.stkListProductChosen.Children)
+                foreach (BusinessProductChosenUC item in this.HomeWindow.stkListProductChosenBusiness.Children)
                 {
                     if (item.txbID.Text == id.ToString())
                     {
@@ -297,7 +305,7 @@ namespace StoreManagement.ViewModels
                 }
             }
             LoadTotalofPayment();
-            LoadPayment(this.HomeWindow.txtRetainer);
+            LoadPayment(this.HomeWindow.txtRetainerPaymment);
         }
 
         private void LoadBusiness(HomeWindow para)
@@ -308,15 +316,14 @@ namespace StoreManagement.ViewModels
             {
                 BusinessProductUC uc = new BusinessProductUC();
                 uc.txbId.Text = item.ID.ToString();
-                uc.txbNameProductfore.Text = item.Name.ToString();
+                uc.txbNameProductBusinessUC.Text = item.Name.ToString();
                 uc.txbPriceProduct.Text = SeparateThousands(item.ExportPrice.Value.ToString());
-                
+
                 ImageBrush imageBrush = new ImageBrush();
                 imageBrush.ImageSource = Converter.Instance.ConvertByteToBitmapImage(item.Image);
 
                 uc.imgProduct.Background = imageBrush;
-
-                para.stkListProduct.Children.Add(uc);
+                para.stkListProductBusiness.Children.Add(uc);
             }
         }
 
@@ -328,7 +335,7 @@ namespace StoreManagement.ViewModels
                 ulong valueBefore = ulong.Parse(ConvertToNumber(txt).ToString(), System.Globalization.NumberStyles.AllowThousands);
                 txt = String.Format(culture, "{0:N0}", valueBefore);
             }
-                return txt;
+            return txt;
         }
     }
 }

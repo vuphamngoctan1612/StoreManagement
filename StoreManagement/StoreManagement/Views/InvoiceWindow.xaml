@@ -116,7 +116,7 @@
         <Grid
             Grid.Row="2">
             <StackPanel
-                x:Name="stkListProductChosen"
+                x:Name="stkListProductChosenInvoice"
                 ScrollViewer.VerticalScrollBarVisibility="Auto" 
                 ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                 Width="800"
@@ -158,7 +158,7 @@
                 VerticalAlignment="Bottom"
                 HorizontalAlignment="Left"
                 Margin="200,20"/>
-            
+
             <TextBlock 
                 Text="Total"
                 Width="80"
