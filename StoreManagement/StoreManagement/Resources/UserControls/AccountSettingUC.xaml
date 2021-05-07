@@ -35,7 +35,7 @@
                                  VerticalAlignment="Top"
                                  Foreground="#504D85"></materialDesign:PackIcon>
         <TextBlock x:Name="tbName"
-                   Text="Tên dài"
+                   Text="Username"
                    Height="30"
                    Width="320"
                    Margin="0,321,0,0"

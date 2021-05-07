@@ -18,38 +18,28 @@ namespace StoreManagement.ViewModels
     class LoginViewModel : BaseViewModel
     {
         public bool IsLogin { get; set; }
-        private string _UserName;
-        public string UserName { get => _UserName; set { _UserName = value; OnPropertyChanged(); } }
-        private string _Password;
-        public string Password { get => _Password; set { _Password = value; OnPropertyChanged(); } }
-
-        public ICommand CloseCommand { get; set; }
+       
+      
         public ICommand LoginCommand { get; set; }
-        public ICommand PasswordChangedCommand { get; set; }
+       
         public ICommand OpenSignUpWindowCommand { get; set; }
         public ICommand OpenHomeWindowCommand { get; set; }
 
         public LoginViewModel()
         {
             LoginCommand = new RelayCommand<LoginWindow>((p) => { return true; }, (p) => { Login(p); });
-            CloseCommand = new RelayCommand<LoginWindow>((p) => { return true; }, (p) => { p.Close(); });
-            PasswordChangedCommand = new RelayCommand<PasswordBox>((p) => { return true; }, (p) => { Password = p.Password; });
+           
+          
             OpenSignUpWindowCommand = new RelayCommand<LoginWindow>((parameter) => true, (parameter) => OpenSignUpWindow(parameter));
             OpenHomeWindowCommand = new RelayCommand<LoginWindow>((parameter) => true, (parameter) => OpenHomeWindow(parameter));
         }
-        //public void OpenSignUpWindow(Window parameter)
-        //{
-        //    SignUpWindow signUp = new SignUpWindow();
-        //    parameter.Show();
-        //}
+       
         public void OpenSignUpWindow(LoginWindow parameter)
         {
           SignUpWindow signUp = new SignUpWindow();
-            //parameter.WindowStyle = WindowStyle.None;
+           
             signUp.ShowDialog();
-            //parameter.WindowStyle = WindowStyle.SingleBorderWindow;
-            //parameter.Opacity = 1;
-            //parameter.Show();
+            
         }
         private void OpenHomeWindow(LoginWindow parameter)
         {
@@ -99,22 +89,9 @@ namespace StoreManagement.ViewModels
             }
             else
             {
-                MessageBox.Show("Đăng nhập thất bại");
+                MessageBox.Show("Sai tên đăng nhập hoặc mật khẩu!");
             }
-            //var accCount = DataProvider.Instance.DB.Accounts.Where(x => x.Username == UserName && x.Password == passEncode).Count();
-
-            //if (accCount > 0)
-            //{
-            //    IsLogin = true;
-
-            //    parameter.Close();
-            //}
-            //else
-            //{
-            //    IsLogin = false;
-            //    MessageBox.Show("Sai tài khoản hoặc mật khẩu!");
-            //}
-
+            
 
 
         }

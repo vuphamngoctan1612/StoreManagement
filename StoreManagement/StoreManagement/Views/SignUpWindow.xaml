@@ -239,7 +239,9 @@
                     Background="White" 
                     Margin="35,35,0,0" 
                     HorizontalAlignment="Left" 
-                    VerticalAlignment="Top" >
+                    VerticalAlignment="Top" 
+                     Command="{Binding CloseCommand}"
+                    CommandParameter="{Binding ElementName=wdSignUp}">
                 <materialDesign:PackIcon Kind="ArrowLeft"  />
             </Button>
             <TextBlock Style="{StaticResource MaterialDesignHeadline4TextBlock}" 

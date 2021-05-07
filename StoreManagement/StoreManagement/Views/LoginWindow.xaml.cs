@@ -23,5 +23,10 @@ namespace StoreManagement.Views
         {
             InitializeComponent();
         }
+
+        private void btClose_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
