@@ -50,7 +50,7 @@ namespace StoreManagement.ViewModels
             OpenEditStoreWindowCommand = new RelayCommand<StoreControlUC>((para) => true, (para) => OpenEditStoreWindow(para));
             CloseStoreWindowCommand = new RelayCommand<AddStoreWindow>((para) => true, (para) => para.Close());
             SaveStoreCommand = new RelayCommand<AddStoreWindow>((para) => true, (para) => SaveStore(para));
-            DeleteStoreCommand = new RelayCommand<usStores>((para) => true, (para) => DeleteStore(para));
+            DeleteStoreCommand = new RelayCommand<StoreControlUC>((para) => true, (para) => DeleteStore(para));
             OpenWindowStoreCommand = new RelayCommand<CardStoreUC>((para) => true, (para) => OpenWindowStore(para));
         }
 
@@ -89,7 +89,7 @@ namespace StoreManagement.ViewModels
             window.ShowDialog();
         }
 
-        private void DeleteStore(usStores para)
+        private void DeleteStore(StoreControlUC para)
         {
             throw new NotImplementedException();
         }
