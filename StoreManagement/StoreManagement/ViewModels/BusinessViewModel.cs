@@ -34,7 +34,8 @@ namespace StoreManagement.ViewModels
 
         public BusinessViewModel()
         {
-            this.ListAgency = DataProvider.Instance.DB.Agencies.ToList<Agency>();
+            string query = "SELECT * FROM AGENCY WHERE ISDELETE = 0";
+            this.ListAgency = DataProvider.Instance.DB.Agencies.SqlQuery(query).ToList<Agency>();
             this.ListProduct = DataProvider.Instance.DB.Products.ToList<Product>();
             this.ListProductChosen = new List<Product>();
             LoadBusinessWindowCommand = new RelayCommand<HomeWindow>((para) => true, (para) => LoadBusiness(para));
@@ -195,7 +196,8 @@ namespace StoreManagement.ViewModels
 
         private void AddAgencytoPayment(ComboBox para)
         {
-            this.ListAgency = DataProvider.Instance.DB.Agencies.ToList<Agency>();
+            string query = "SELECT * FROM AGENCY WHERE ISDELETE = 0";
+            this.ListAgency = DataProvider.Instance.DB.Agencies.SqlQuery(query).ToList<Agency>();
 
             if (String.IsNullOrEmpty(para.Text))
             {

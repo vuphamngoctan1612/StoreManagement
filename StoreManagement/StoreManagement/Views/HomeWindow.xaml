@@ -1139,10 +1139,6 @@
                         <i:InvokeCommandAction Command="{Binding LoadBusinessWindowCommand}" 
                                                CommandParameter="{Binding ElementName=wdHome}"/>
                     </i:EventTrigger>
-                    <i:EventTrigger EventName="IsVisibleChanged">
-                        <i:InvokeCommandAction Command="{Binding LoadListBusinessWindowCommand}" 
-                                               CommandParameter="{Binding ElementName=wdHome}"/>
-                    </i:EventTrigger>
                 </i:Interaction.Triggers>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition></ColumnDefinition>
@@ -1390,6 +1386,12 @@
                                             SelectedValuePath="ID"
                                             DisplayMemberPath="Name"
                                             ScrollViewer.VerticalScrollBarVisibility="Visible">
+                                            <i:Interaction.Triggers>
+                                                <i:EventTrigger EventName="DropDownOpened">
+                                                    <i:InvokeCommandAction Command="{Binding LoadListBusinessWindowCommand}" 
+                                                       CommandParameter="{Binding ElementName=wdHome}"/>
+                                                </i:EventTrigger>
+                                            </i:Interaction.Triggers>
                                         </ComboBox>
                                     </Border>
                                     <!--<Button
