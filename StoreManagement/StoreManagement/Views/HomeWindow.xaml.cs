@@ -23,5 +23,15 @@ namespace StoreManagement.Views
         {
             InitializeComponent();
         }
+
+        private void txtLocation_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
+
+        private void txtName_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
     }
 }

@@ -23,9 +23,11 @@ namespace StoreManagement.ViewModels
     {
 
 
+        private bool isExisted;
         public HomeWindow HomeWindow { get; set; }
         private string imageFileName;
         private string username;
+
         public ICommand DeleteAccountCommand { get; set; }
         public ICommand UpdateAccountCommand { get; set; }
         public ICommand LoadAccountOnWindowCommand { get; set; }
@@ -35,10 +37,9 @@ namespace StoreManagement.ViewModels
 
         public AccountViewModel()
         {
-            username = "Na";
-            
+
             UpdateAccountCommand = new RelayCommand<HomeWindow>((para) => true, (para) => UpdateAccount(para));
-            LoadAccountOnWindowCommand = new RelayCommand<HomeWindow>(para => true, para => LoadAccount(para));
+            //LoadAccountOnWindowCommand = new RelayCommand<HomeWindow>((para) => true, (para) => LoadAccount(para));
             ChooseImgAccountCommand = new RelayCommand<Grid>(para => true, para => ChooseImg(para));
         }
 
@@ -72,7 +73,7 @@ namespace StoreManagement.ViewModels
             {
                 para.txtName.Focus();
                 return;
-            } 
+            }
             if (string.IsNullOrEmpty(para.txtLocation.Text))
             {
                 para.txtLocation.Focus();
@@ -83,6 +84,7 @@ namespace StoreManagement.ViewModels
                 para.txtPhoneNumber.Focus();
                 return;
             }
+
 
 
             if (string.IsNullOrEmpty(para.txtNewPassword.Text))
@@ -99,6 +101,35 @@ namespace StoreManagement.ViewModels
             if (para.txtNewPassword.Text != para.txtNewPasswordAgain.Text)
             {
                 para.txtNewPassword.Focus();
+                return;
+            }
+
+            para.Title = "Update info account";
+            //delete image
+            /* para..Background = imageBrush;
+             if (para.grdImage.Children.Count > 1)
+             {
+                 para.grdImage.Children.Remove(para.grdImage.Children[0]);
+                 para.grdImage.Children.Remove(para.grdImage.Children[1]);
+             }
+            */
+            //para.ShowDialog();
+
+            //checkdb
+            string queryAccount = "select* from account";
+            List<Account> accounts = DataProvider.Instance.DB.Accounts.SqlQuery(queryAccount).ToList();
+            foreach (Account acc in accounts)
+            {
+                if (para.txtName.Text == acc.Username)
+                {
+                    isExisted = true;
+                    break;
+                }
+            }
+
+            if (isExisted)
+            {
+                MessageBox.Show("Tên này đã tồn tại, vui lòng nhập tên khác", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
 
@@ -129,8 +160,8 @@ namespace StoreManagement.ViewModels
                     acc.DisplayName = para.txtName.Text;
                     acc.Password = para.txtNewPassword.Text;
                     acc.Image = imgByteArr;
-                    acc.Location = para.txtLocation.Text;
-                    acc.PhoneNumber = para.txtPhoneNumber.Text;
+                    // acc.Location = para.txtLocation.Text;
+                    //acc.PhoneNumber = para.txtPhoneNumber.Text;
 
                     DataProvider.Instance.DB.Accounts.AddOrUpdate(acc);
                     DataProvider.Instance.DB.SaveChanges();
@@ -145,26 +176,38 @@ namespace StoreManagement.ViewModels
                 MessageBox.Show("Cập nhật thành công.");
             }
 
+
         }
+
+
         private void LoadAccount(HomeWindow para)
         {
             this.HomeWindow = para;
 
             //this.HomeWindow.Main.Children.Clear();
-            //string query = "SELECT " + username + " FROM Acount";
+            //string query = "SELECT " + username + " FROM Acount;
+
             Account account = DataProvider.Instance.DB.Accounts.FirstOrDefault(x => x.Username == this.username);
-           
             ImageBrush imageBrush = new ImageBrush();
             imageBrush.ImageSource = Converter.Instance.ConvertByteToBitmapImage(account.Image);
 
+
+
+
             para.txtName.Text = account.DisplayName;
             para.txtPassword.Text = account.Password;
-            para.txtLocation.Text = account.Location;
-            para.txtPhoneNumber.Text = account.PhoneNumber;
+            //para.txtLocation.Text = account.Location;
+            //para.txtPhoneNumber.Text = account.PhoneNumber;
 
             para.grdImageAccount.Background = imageBrush;
-            
+
         }
+
     }
 }
+
+
+
+    
+
        
