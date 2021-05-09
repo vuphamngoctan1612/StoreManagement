@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,28 +22,60 @@ namespace StoreManagement.ViewModels
 {
     public class AccountViewModel : BaseViewModel
     {
-
-
         private bool isExisted;
         public HomeWindow HomeWindow { get; set; }
         private string imageFileName;
         private string username;
-
+      
         public ICommand DeleteAccountCommand { get; set; }
         public ICommand UpdateAccountCommand { get; set; }
         public ICommand LoadAccountOnWindowCommand { get; set; }
+        public ICommand UsernameChecker { get; set; } //Check xem tên sắp đổi có bị trùng không
 
         public ICommand SaveCommand { get; set; }
         public ICommand ChooseImgAccountCommand { get; set; }
+
 
         public AccountViewModel()
         {
 
             UpdateAccountCommand = new RelayCommand<HomeWindow>((para) => true, (para) => UpdateAccount(para));
-            //LoadAccountOnWindowCommand = new RelayCommand<HomeWindow>((para) => true, (para) => LoadAccount(para));
+            UsernameChecker = new RelayCommand<HomeWindow>((para) => true, para => NameChecker(para));
+            LoadAccountOnWindowCommand = new RelayCommand<HomeWindow>((para) => true, (para) => LoadAccount(para));
             ChooseImgAccountCommand = new RelayCommand<Grid>(para => true, para => ChooseImg(para));
         }
+        private void NameChecker(HomeWindow para)
+        {
+            if (string.IsNullOrEmpty(para.txtName.Text))
+            {
+                para.txtName.Focus();
+                MessageBox.Show("Vui lòng nhập tên để kiểm tra!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+            string queryAccount = "select* from account";
+            List<Account> accounts = DataProvider.Instance.DB.Accounts.SqlQuery(queryAccount).ToList();
+            foreach (Account acc in accounts)
+            {
+                if (para.txtName.Text == acc.DisplayName)//Username không đổi chỉ được đổi displayname
+                {
+                    isExisted = true;
+                    break;
+                }
+            }
 
+            if (isExisted)
+            {
+                MessageBox.Show("Tên này đã tồn tại, vui lòng nhập tên khác", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
+                isExisted = false; //trả về false để kiếm tra tên nhập kế tiếp
+                para.txtName.Clear();//Clear data txtName để user nhập tên mới
+                para.txtName.Focus();
+                return;
+            }
+            else
+            {
+                MessageBox.Show("Tên hợp lệ", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
+        }
         private void ChooseImg(Grid para)
         {
             OpenFileDialog op = new OpenFileDialog();
@@ -115,23 +148,7 @@ namespace StoreManagement.ViewModels
             */
             //para.ShowDialog();
 
-            //checkdb
-            string queryAccount = "select* from account";
-            List<Account> accounts = DataProvider.Instance.DB.Accounts.SqlQuery(queryAccount).ToList();
-            foreach (Account acc in accounts)
-            {
-                if (para.txtName.Text == acc.Username)
-                {
-                    isExisted = true;
-                    break;
-                }
-            }
-
-            if (isExisted)
-            {
-                MessageBox.Show("Tên này đã tồn tại, vui lòng nhập tên khác", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
-                return;
-            }
+            
 
             byte[] imgByteArr;
             if (imageFileName == null)
@@ -146,15 +163,13 @@ namespace StoreManagement.ViewModels
             try
             {
                 Account acc = new Account();
-
-
-                acc = DataProvider.Instance.DB.Accounts.Where(x => x.Username == this.username).First();
+                acc = DataProvider.Instance.DB.Accounts.Where(x => x.Username == /*"zz2zz22"*/ this.username).First(); //Test bằng username trong SQL db
 
                 if (para.txtNewPassword.Text == acc.Password && para.txtName.Text == acc.DisplayName)
                 {
                     MessageBox.Show("Thông tin không thay đổi");
                     return;
-                }
+                }else
                 {
 
                     acc.DisplayName = para.txtName.Text;
@@ -165,17 +180,13 @@ namespace StoreManagement.ViewModels
 
                     DataProvider.Instance.DB.Accounts.AddOrUpdate(acc);
                     DataProvider.Instance.DB.SaveChanges();
+                    MessageBox.Show("Cập nhật thành công.");
                 }
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
-            finally
-            {
-                MessageBox.Show("Cập nhật thành công.");
-            }
-
 
         }
 
@@ -186,21 +197,17 @@ namespace StoreManagement.ViewModels
 
             //this.HomeWindow.Main.Children.Clear();
             //string query = "SELECT " + username + " FROM Acount;
-
-            Account account = DataProvider.Instance.DB.Accounts.FirstOrDefault(x => x.Username == this.username);
+           
+            Account account = DataProvider.Instance.DB.Accounts.FirstOrDefault(x => x.Username == /*"zz2zz22"*/ this.username); //Test bằng username trong SQL db
             ImageBrush imageBrush = new ImageBrush();
             imageBrush.ImageSource = Converter.Instance.ConvertByteToBitmapImage(account.Image);
 
-
-
-
             para.txtName.Text = account.DisplayName;
-            para.txtPassword.Text = account.Password;
+            //para.txtPassword.Text = account.Password;  ////Khi load thông tin không nên load luôn mật khẩu
             //para.txtLocation.Text = account.Location;
             //para.txtPhoneNumber.Text = account.PhoneNumber;
 
             para.grdImageAccount.Background = imageBrush;
-
         }
 
     }

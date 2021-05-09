@@ -46,7 +46,7 @@
                 Height="215" 
                 Width="245">
                 <Image
-                    Source="..\..\Resources\Images\logo.png" Margin="304,121,-303,-122">
+                    Source="..\Resources\Images\logo.png" Margin="304,121,-303,-122">
                 </Image>
             </Grid>
             <StackPanel 
@@ -532,7 +532,7 @@
 
                             </Image>
                         </Border>
-                        <TextBlock 
+                        <TextBlock x:Name="testTxtUserName"
                             HorizontalAlignment="Left"
                             VerticalAlignment="Center"
                             FontSize="22"
@@ -1508,14 +1508,14 @@
                 </Grid>
             </Grid>
             <!--Body account setting-->
-            
+
             <Grid
                 
                 x:Name="grdBody_AccountSetting"
                  DataContext="{StaticResource AccountVM}" Margin="-4,73,-2.4,7"
                 Visibility="Visible" HorizontalAlignment="Left" Width="1140" Grid.RowSpan="2"
                   >
-                
+
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="59*"/>
                     <ColumnDefinition Width="131*"/>
@@ -1585,7 +1585,7 @@
                 Fill="#86E3FF"
                 Height="40"
                 Width="40"
-                StrokeDashArray="4 2" Margin="349,37,751,623" Grid.ColumnSpan="2" >
+                StrokeDashArray="4 2" Margin="349,37,751,615" Grid.ColumnSpan="2" >
                 </Ellipse>
 
                 <materialDesign:PackIcon Kind="CogSyncOutline"
@@ -1600,7 +1600,7 @@
                 Fill="#FCF17B"
                 Height="40"
                 Width="40"
-                StrokeDashArray="4 2" Margin="349,110,751,550" Grid.ColumnSpan="2" >
+                StrokeDashArray="4 2" Margin="349,110,751,542" Grid.ColumnSpan="2" >
                 </Ellipse>
                 <materialDesign:PackIcon Kind="MapMarker"
                                  Height="30"
@@ -1614,7 +1614,7 @@
                 Fill="#F5C3D1"
                 Height="40"
                 Width="40"
-                StrokeDashArray="4 2 " Margin="351,184,749,476" Grid.ColumnSpan="2" >
+                StrokeDashArray="4 2 " Margin="351,184,749,468" Grid.ColumnSpan="2" >
                 </Ellipse>
                 <materialDesign:PackIcon Kind="Phone"
                                  Height="30"
@@ -1628,7 +1628,7 @@
                 Fill="#C1F793"
                 Height="40"
                 Width="40"
-                StrokeDashArray="4 2" Margin="349,270,751,390" Grid.ColumnSpan="2" >
+                StrokeDashArray="4 2" Margin="349,270,751,382" Grid.ColumnSpan="2" >
                 </Ellipse>
                 <materialDesign:PackIcon Kind="Sync"
                                  Height="34"
@@ -1684,16 +1684,16 @@
                 <TextBox x:Name="txtName"
                   
                  Height="36"
-                 Width="408" 
+                 Width="298" 
                  Margin="307.6,35,0,0"
                  materialDesign:ValidationAssist.UsePopup="True"
                  HorizontalAlignment="Left"
                  VerticalAlignment="Top"
-                 TextAlignment="Left"                 
+                 TextAlignment="Center"                 
                  FontSize="22"
                  FontFamily="Segoe UI"
                  FontWeight="Bold"
-                 Foreground="#504D85" TextChanged="txtLocation_TextChanged" Grid.Column="1"></TextBox>
+                 Foreground="#504D85" Grid.Column="1"/>
 
 
                 <TextBox x:Name="txtLocation"
@@ -1704,11 +1704,11 @@
                  materialDesign:ValidationAssist.UsePopup="True"
                  HorizontalAlignment="Left"
                  VerticalAlignment="Top"
-                 TextAlignment="Left"                 
+                 TextAlignment="Center"                 
                  FontSize="22"
                  FontFamily="Segoe UI"
                  FontWeight="Bold"
-                 Foreground="#504D85" TextChanged="txtLocation_TextChanged" Grid.Column="1"></TextBox>
+                 Foreground="#504D85" Grid.Column="1"/>
 
                 <TextBox 
                     x:Name="txtPhoneNumber"
@@ -1719,7 +1719,7 @@
                  materialDesign:ValidationAssist.UsePopup="True"
                  HorizontalAlignment="Left"
                  VerticalAlignment="Top"
-                 TextAlignment="Left"
+                 TextAlignment="Center"
                  FontSize="22"
                  FontFamily="Segoe UI"
                  FontWeight="Bold"
@@ -1731,13 +1731,13 @@
                  Width="450" 
                  Background="#F5C3D1" 
                  materialDesign:TextFieldAssist.TextFieldCornerRadius="20"
-                 Margin="300.6,309,0,0" HorizontalContentAlignment="Center"
+                 Margin="300.6,270,0,0" HorizontalContentAlignment="Center"
                  VerticalAlignment="Top" 
                  HorizontalAlignment="Left"
                  VerticalContentAlignment="Center"
                  FontFamily="Segoe UI"
                  FontSize="22" 
-                 materialDesign:HintAssist.Hint=" Password"
+                 materialDesign:HintAssist.Hint="Current password"
                  Foreground="White" Grid.Column="1"></TextBox>
                 <TextBox x:Name="txtNewPassword"
                  Style="{StaticResource MaterialDesignTextBox}"
@@ -1759,22 +1759,22 @@
                  Width="450" 
                  Background="#F5C3D1" 
                  materialDesign:TextFieldAssist.TextFieldCornerRadius="20"
-                 Margin="300.6,469,0,0" HorizontalContentAlignment="Center"
+                 Margin="300.6,456,0,0" HorizontalContentAlignment="Center"
                  VerticalAlignment="Top" 
                  HorizontalAlignment="Left"
                  VerticalContentAlignment="Center"
                  FontFamily="Segoe UI"
                  FontSize="22" 
-                 materialDesign:HintAssist.Hint="New password again"
+                 materialDesign:HintAssist.Hint="Retype new password"
                  Foreground="White" Grid.Column="1"></TextBox>
                 <Button x:Name="btLogin" 
                 Style="{StaticResource MaterialDesignRaisedButton}"
-                Height="40" 
+                Height="42" 
                 Width="200" 
                 Background="#F79BB5"
                 materialDesign:ButtonAssist.CornerRadius="24"
                 ToolTip="MaterialDesignRaisedButton with Round Corners" 
-                Margin="425.6,553,0,0" 
+                Margin="425.6,531,0,0" 
                 HorizontalContentAlignment="Center" 
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top"
@@ -1791,6 +1791,32 @@
                        FontSize="22" 
                        Width="65" 
                        Height="40"
+                                />
+                </Button>
+                <Button x:Name="btNameChecker" 
+                    Style="{StaticResource MaterialDesignRaisedButton}"
+                    Height="40" 
+                    Width="120" 
+                    Background="#FFB4F79B"
+                    materialDesign:ButtonAssist.CornerRadius="24"
+                    ToolTip="MaterialDesignRaisedButton with Round Corners" 
+                    Margin="630.6,31,0,0" 
+                    HorizontalContentAlignment="Center" 
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"
+                    Command="{Binding UsernameChecker}"
+                    CommandParameter="{Binding ElementName=wdHome}" Grid.Column="1">
+                    <!-- <Button.Background>
+                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                            <GradientStop Color="#FFEC74E7" Offset="0"/>
+                            <GradientStop Color="#EAF97298" Offset="1"/>
+                        </LinearGradientBrush>
+                    </Button.Background>-->
+                    <TextBlock Text="Check" 
+                        FontFamily="Segoe UI" 
+                        FontSize="22" 
+                        Width="65" 
+                        Height="40" Foreground="#FF202520"
                                 />
                 </Button>
             </Grid>
