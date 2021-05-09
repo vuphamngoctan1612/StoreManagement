@@ -88,15 +88,7 @@
                      FontSize="22" 
                      VerticalContentAlignment="Center"
                       Text="{Binding Username}">
-                <!--<TextBox.Text>
-                    <Binding Path="UserName" UpdateSourceTrigger="PropertyChanged" >
-                        <Binding.ValidationRules>
-                            <vdTextBoxValidation ErrorMessage="Chỉ sử dụng các chữ cái (a -> z, A->Z) hoặc chữ số (0 -> 9)" 
-                                                      ErrorMessageNull="Vui lòng nhập tên đăng nhập!"/>
-                            <vd:ExistValidation ErrorMessage="Tên đăng nhập đãn tồn tại!" ElementName="UserName"/>
-                        </Binding.ValidationRules>
-                    </Binding>
-                </TextBox.Text>-->
+                
 
             </TextBox>
             <TextBox  x:Name="pwbPassword"
@@ -112,13 +104,9 @@
                      FontSize="22" 
                  
                      VerticalContentAlignment="Center" 
+                       Text ="{Binding pwbPassword}"
                       >
-                <i:Interaction.Triggers>
-                    <i:EventTrigger EventName="PasswordChanged">
-                        <i:InvokeCommandAction Command="{Binding PasswordChangedCommand}" 
-                                                   CommandParameter="{Binding ElementName=pwbPassword}"/>
-                    </i:EventTrigger>
-                </i:Interaction.Triggers>
+               
             </TextBox>
             <TextBox  x:Name="pwbPasswordConfirm"
                     materialDesign:HintAssist.Hint="Enter your password again" 
@@ -134,19 +122,17 @@
                      FontFamily="Segoe UI" 
                      FontSize="22" 
                  
-                     VerticalContentAlignment="Center" >
-                <i:Interaction.Triggers>
-                    <i:EventTrigger EventName="PasswordChanged">
-                        <i:InvokeCommandAction Command="{Binding PasswordConfirmChangedCommand}" 
-                                                   CommandParameter="{Binding ElementName=pwbPasswordConfirm}"/>
-                    </i:EventTrigger>
-                </i:Interaction.Triggers>
+                     VerticalContentAlignment="Center" 
+                      Text ="{Binding pwbPasswordConfirm}">
+                
             </TextBox>
 
             <Button x:Name="btSignUp" 
                     Style="{StaticResource MaterialDesignRaisedButton}"
                     Height="66" 
                     Width="500" 
+                    Foreground="#57548B"
+                    Background="#F79BB5"
                     materialDesign:ButtonAssist.CornerRadius="38"
                     ToolTip="MaterialDesignRaisedButton with Round Corners"
                     Margin="215,568,0,66" 
@@ -155,15 +141,7 @@
                     VerticalAlignment="Stretch"
                      Command="{Binding SignUpCommand}"
             CommandParameter="{Binding ElementName=wdSignUp}" Click="btSignUp_Click">
-                <Button.Background>
-                    <LinearGradientBrush EndPoint="0.5,1"
-                                         StartPoint="0.5,0">
-                        <GradientStop Color="#FFEC74E7"
-                                      Offset="0"/>
-                        <GradientStop Color="#EAF97298"
-                                      Offset="1"/>
-                    </LinearGradientBrush>
-                </Button.Background>
+                
                 <TextBlock Text="Get started" 
                            FontFamily="Segoe UI" 
                            FontSize="22"
@@ -240,8 +218,10 @@
                     Margin="35,35,0,0" 
                     HorizontalAlignment="Left" 
                     VerticalAlignment="Top" 
+                     Foreground="#57548B"
                      Command="{Binding CloseCommand}"
                     CommandParameter="{Binding ElementName=wdSignUp}">
+                
                 <materialDesign:PackIcon Kind="ArrowLeft"  />
             </Button>
             <TextBlock Style="{StaticResource MaterialDesignHeadline4TextBlock}" 
@@ -296,6 +276,7 @@
                 HorizontalAlignment="Left"
                 FontFamily="Segoe UI" 
                 FontSize="22" 
+                
                
                 VerticalContentAlignment="Center" >
                

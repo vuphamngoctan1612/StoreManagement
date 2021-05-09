@@ -25,13 +25,13 @@ namespace StoreManagement.ViewModels
         private string imageFileName;
         public ICommand SelectImageCommand { get; set; }
         public ICommand SignUpCommand { get; set; }
-        public ICommand LoadCommand { get; set; }
+       
         public ICommand CloseCommand { get; set; }
 
 
-        public ICommand OpenHomeWinDowCommand { get; set; }
+      
         private bool isSignUp;
-        private bool isExisted;
+       
         public bool IsSignUp { get => isSignUp; set => isSignUp = value; }
 
         private string passwordConfirm;
@@ -69,7 +69,7 @@ namespace StoreManagement.ViewModels
        
         public void SignUp(SignUpWindow parameter)
         {
-            isExisted = false;
+            //isExisted = false;
             isSignUp = false;
             if (parameter == null)
             {
@@ -108,34 +108,20 @@ namespace StoreManagement.ViewModels
                 MessageBox.Show("Mật khẩu không trùng khớp!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
-            if (imageFileName == null)
-            {
-                MessageBox.Show("Vui lòng thêm hình ảnh", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
-                return;
-            }
            
-            string queryAccount = "select* from account";
-            List<Account> accounts = DataProvider.Instance.DB.Accounts.SqlQuery(queryAccount).ToList();
-            foreach (Account acc in accounts)
-            {
-                if (parameter.txtUsername.Text == acc.Username)
-                {
-                    isExisted = true;
-                    break;
-                }
-            }
-            if (isExisted)
-            {
-                MessageBox.Show("Tài khoản đã tồn tại! Vui lòng nhập tài khoản khác", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
-                return;
-            }
-
             try
             {
 
-               
+
                 byte[] imgByteArr;
-                imgByteArr = Converter.Instance.ConvertImageToBytes(imageFileName);                
+                if (imageFileName == null)
+                {
+                    imgByteArr = Converter.Instance.ConvertImageToBytes(@"..\..\Resources\Images\default.jpg");
+                }
+                else
+                {
+                    imgByteArr = Converter.Instance.ConvertImageToBytes(imageFileName);
+                }
 
                 Account acc = new Account();
                 acc.Username = parameter.txtUsername.Text;
@@ -145,13 +131,19 @@ namespace StoreManagement.ViewModels
                 DataProvider.Instance.DB.Accounts.Add(acc);
                 DataProvider.Instance.DB.SaveChanges();
             }
-            catch 
+            catch (Exception ex)
             {
-               
+                MessageBox.Show("Tài khoản đã tồn tại! Vui lòng nhập tài khoản khác", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
+                parameter.txtUsername.Focus();
+                return;
             }
             finally
             {
-                parameter.Close();
+                    isSignUp = true;
+                    parameter.Close();
+
+                
+                
             }
 
 

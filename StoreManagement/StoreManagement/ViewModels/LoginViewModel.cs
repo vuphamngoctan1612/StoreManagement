@@ -23,7 +23,7 @@ namespace StoreManagement.ViewModels
         public ICommand LoginCommand { get; set; }
        
         public ICommand OpenSignUpWindowCommand { get; set; }
-        public ICommand OpenHomeWindowCommand { get; set; }
+      
 
         public LoginViewModel()
         {
@@ -31,7 +31,7 @@ namespace StoreManagement.ViewModels
            
           
             OpenSignUpWindowCommand = new RelayCommand<LoginWindow>((parameter) => true, (parameter) => OpenSignUpWindow(parameter));
-            OpenHomeWindowCommand = new RelayCommand<LoginWindow>((parameter) => true, (parameter) => OpenHomeWindow(parameter));
+            
         }
        
         public void OpenSignUpWindow(LoginWindow parameter)
@@ -41,11 +41,7 @@ namespace StoreManagement.ViewModels
             signUp.ShowDialog();
             
         }
-        private void OpenHomeWindow(LoginWindow parameter)
-        {
-            HomeWindow homeWindow = new HomeWindow();
-            homeWindow.ShowDialog();
-        }
+       
         void Login(LoginWindow parameter)
         {
             IsLogin = false;
@@ -84,8 +80,10 @@ namespace StoreManagement.ViewModels
             }
             if (IsLogin)
             {
+                HomeWindow homeWindow = new HomeWindow();
                 parameter.Hide();
-                OpenHomeWindow(parameter);
+                homeWindow.ShowDialog();
+               
             }
             else
             {
