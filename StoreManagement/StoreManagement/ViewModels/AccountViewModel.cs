@@ -31,14 +31,12 @@ namespace StoreManagement.ViewModels
         public ICommand UpdateAccountCommand { get; set; }
         public ICommand LoadAccountOnWindowCommand { get; set; }
         public ICommand UsernameChecker { get; set; } //Check xem tên sắp đổi có bị trùng không
-
         public ICommand SaveCommand { get; set; }
         public ICommand ChooseImgAccountCommand { get; set; }
 
 
         public AccountViewModel()
         {
-
             UpdateAccountCommand = new RelayCommand<HomeWindow>((para) => true, (para) => UpdateAccount(para));
             UsernameChecker = new RelayCommand<HomeWindow>((para) => true, para => NameChecker(para));
             LoadAccountOnWindowCommand = new RelayCommand<HomeWindow>((para) => true, (para) => LoadAccount(para));
@@ -163,7 +161,7 @@ namespace StoreManagement.ViewModels
             try
             {
                 Account acc = new Account();
-                acc = DataProvider.Instance.DB.Accounts.Where(x => x.Username == /*"zz2zz22"*/ this.username).First(); //Test bằng username trong SQL db
+                acc = DataProvider.Instance.DB.Accounts.Where(x => x.Username == this.username).First();
 
                 if (para.txtNewPassword.Text == acc.Password && para.txtName.Text == acc.DisplayName)
                 {
@@ -198,7 +196,7 @@ namespace StoreManagement.ViewModels
             //this.HomeWindow.Main.Children.Clear();
             //string query = "SELECT " + username + " FROM Acount;
            
-            Account account = DataProvider.Instance.DB.Accounts.FirstOrDefault(x => x.Username == /*"zz2zz22"*/ this.username); //Test bằng username trong SQL db
+            Account account = DataProvider.Instance.DB.Accounts.FirstOrDefault(x => x.Username == this.username);
             ImageBrush imageBrush = new ImageBrush();
             imageBrush.ImageSource = Converter.Instance.ConvertByteToBitmapImage(account.Image);
 

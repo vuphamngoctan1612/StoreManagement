@@ -1681,7 +1681,7 @@
                    FontFamily="Segoe UI"
                    FontWeight="Bold"
                    Foreground="#504D85" Grid.Column="1"></TextBlock>
-                <TextBox x:Name="txtName"
+                <TextBox x:Name="txt_Account_Name"
                   
                  Height="36"
                  Width="298" 
@@ -1696,7 +1696,7 @@
                  Foreground="#504D85" Grid.Column="1"/>
 
 
-                <TextBox x:Name="txtLocation"
+                <TextBox x:Name="txt_Account_Location"
                   
                  Height="36"
                  Width="408" 
@@ -1711,7 +1711,7 @@
                  Foreground="#504D85" Grid.Column="1"/>
 
                 <TextBox 
-                    x:Name="txtPhoneNumber"
+                    x:Name="txt_Account_PhoneNumber"
                   
                  Height="36"
                  Width="408" 
@@ -1725,7 +1725,7 @@
                  FontWeight="Bold"
                  Foreground="#504D85" Grid.Column="1"></TextBox>
 
-                <TextBox x:Name="txtPassword"
+                <TextBox x:Name="txt_Account_Password"
                  Style="{StaticResource MaterialDesignTextBox}"
                  Height="40" 
                  Width="450" 
@@ -1739,7 +1739,7 @@
                  FontSize="22" 
                  materialDesign:HintAssist.Hint="Current password"
                  Foreground="White" Grid.Column="1"></TextBox>
-                <TextBox x:Name="txtNewPassword"
+                <TextBox x:Name="txt_Account_NewPassword"
                  Style="{StaticResource MaterialDesignTextBox}"
                  Height="40" 
                  Width="450" 
@@ -1753,7 +1753,7 @@
                  FontSize="22" 
                  materialDesign:HintAssist.Hint="New password"
                  Foreground="White" Grid.Column="1"></TextBox>
-                <TextBox x:Name="txtNewPasswordAgain"
+                <TextBox x:Name="txt_Account_RetypeNewPassword"
                  Style="{StaticResource MaterialDesignTextBox}"
                  Height="40" 
                  Width="450" 
@@ -1767,7 +1767,7 @@
                  FontSize="22" 
                  materialDesign:HintAssist.Hint="Retype new password"
                  Foreground="White" Grid.Column="1"></TextBox>
-                <Button x:Name="btLogin" 
+                <Button x:Name="bt_Account_Done" 
                 Style="{StaticResource MaterialDesignRaisedButton}"
                 Height="42" 
                 Width="200" 
@@ -1793,7 +1793,7 @@
                        Height="40"
                                 />
                 </Button>
-                <Button x:Name="btNameChecker" 
+                <Button x:Name="bt_Account_NameChecker" 
                     Style="{StaticResource MaterialDesignRaisedButton}"
                     Height="40" 
                     Width="120" 
