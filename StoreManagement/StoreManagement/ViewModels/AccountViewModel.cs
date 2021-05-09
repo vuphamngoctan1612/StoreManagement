@@ -161,7 +161,7 @@ namespace StoreManagement.ViewModels
             try
             {
                 Account acc = new Account();
-                acc = DataProvider.Instance.DB.Accounts.Where(x => x.Username == this.username).First();
+                acc = DataProvider.Instance.DB.Accounts.Where(x => x.Username == "zz2zz22"/*this.username*/).First();
 
                 if (para.txt_Account_NewPassword.Text == acc.Password && para.txt_Account_Name.Text == acc.DisplayName)
                 {
@@ -192,11 +192,9 @@ namespace StoreManagement.ViewModels
         private void LoadAccount(HomeWindow para)
         {
             this.HomeWindow = para;
-
-            //this.HomeWindow.Main.Children.Clear();
             //string query = "SELECT " + username + " FROM Acount;
            
-            Account account = DataProvider.Instance.DB.Accounts.FirstOrDefault(x => x.Username == this.username);
+            Account account = DataProvider.Instance.DB.Accounts.FirstOrDefault(x => x.Username == "zz2zz22"/*this.username*/);
             ImageBrush imageBrush = new ImageBrush();
             imageBrush.ImageSource = Converter.Instance.ConvertByteToBitmapImage(account.Image);
 
@@ -204,7 +202,12 @@ namespace StoreManagement.ViewModels
             //para.txtPassword.Text = account.Password;  ////Khi load thông tin không nên load luôn mật khẩu
             //para.txtLocation.Text = account.Location;
             //para.txtPhoneNumber.Text = account.PhoneNumber;
-
+            
+            if (para.grdImageAccount.Children.Count > 1)
+            {
+                para.grdImageAccount.Children.Remove(para.grdImageAccount.Children[0]);
+                para.grdImageAccount.Children.Remove(para.grdImageAccount.Children[1]);
+            }
             para.grdImageAccount.Background = imageBrush;
         }
 
