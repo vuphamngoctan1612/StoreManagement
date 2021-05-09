@@ -44,9 +44,9 @@ namespace StoreManagement.ViewModels
         }
         private void NameChecker(HomeWindow para)
         {
-            if (string.IsNullOrEmpty(para.txtName.Text))
+            if (string.IsNullOrEmpty(para.txt_Account_Name.Text))
             {
-                para.txtName.Focus();
+                para.txt_Account_Name.Focus();
                 MessageBox.Show("Vui lòng nhập tên để kiểm tra!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
@@ -54,7 +54,7 @@ namespace StoreManagement.ViewModels
             List<Account> accounts = DataProvider.Instance.DB.Accounts.SqlQuery(queryAccount).ToList();
             foreach (Account acc in accounts)
             {
-                if (para.txtName.Text == acc.DisplayName)//Username không đổi chỉ được đổi displayname
+                if (para.txt_Account_Name.Text == acc.Username)
                 {
                     isExisted = true;
                     break;
@@ -65,8 +65,8 @@ namespace StoreManagement.ViewModels
             {
                 MessageBox.Show("Tên này đã tồn tại, vui lòng nhập tên khác", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
                 isExisted = false; //trả về false để kiếm tra tên nhập kế tiếp
-                para.txtName.Clear();//Clear data txtName để user nhập tên mới
-                para.txtName.Focus();
+                para.txt_Account_Name.Clear();//Clear data txtName để user nhập tên mới
+                para.txt_Account_Name.Focus();
                 return;
             }
             else
@@ -100,38 +100,38 @@ namespace StoreManagement.ViewModels
 
         private void UpdateAccount(HomeWindow para)
         {
-            if (string.IsNullOrEmpty(para.txtName.Text))
+            if (string.IsNullOrEmpty(para.txt_Account_Name.Text))
             {
-                para.txtName.Focus();
+                para.txt_Account_Name.Focus();
                 return;
             }
-            if (string.IsNullOrEmpty(para.txtLocation.Text))
+            if (string.IsNullOrEmpty(para.txt_Account_Location.Text))
             {
-                para.txtLocation.Focus();
+                para.txt_Account_Location.Focus();
                 return;
             }
-            if (string.IsNullOrEmpty(para.txtPhoneNumber.Text))
+            if (string.IsNullOrEmpty(para.txt_Account_PhoneNumber.Text))
             {
-                para.txtPhoneNumber.Focus();
-                return;
-            }
-
-
-
-            if (string.IsNullOrEmpty(para.txtNewPassword.Text))
-            {
-                para.txtNewPassword.Focus();
-                return;
-            }
-            if (string.IsNullOrEmpty(para.txtNewPasswordAgain.Text))
-            {
-                para.txtNewPasswordAgain.Focus();
+                para.txt_Account_PhoneNumber.Focus();
                 return;
             }
 
-            if (para.txtNewPassword.Text != para.txtNewPasswordAgain.Text)
+
+
+            if (string.IsNullOrEmpty(para.txt_Account_NewPassword.Text))
             {
-                para.txtNewPassword.Focus();
+                para.txt_Account_NewPassword.Focus();
+                return;
+            }
+            if (string.IsNullOrEmpty(para.txt_Account_RetypeNewPassword.Text))
+            {
+                para.txt_Account_RetypeNewPassword.Focus();
+                return;
+            }
+
+            if (para.txt_Account_NewPassword.Text != para.txt_Account_RetypeNewPassword.Text)
+            {
+                para.txt_Account_NewPassword.Focus();
                 return;
             }
 
@@ -163,15 +163,15 @@ namespace StoreManagement.ViewModels
                 Account acc = new Account();
                 acc = DataProvider.Instance.DB.Accounts.Where(x => x.Username == this.username).First();
 
-                if (para.txtNewPassword.Text == acc.Password && para.txtName.Text == acc.DisplayName)
+                if (para.txt_Account_NewPassword.Text == acc.Password && para.txt_Account_Name.Text == acc.DisplayName)
                 {
                     MessageBox.Show("Thông tin không thay đổi");
                     return;
                 }else
                 {
 
-                    acc.DisplayName = para.txtName.Text;
-                    acc.Password = para.txtNewPassword.Text;
+                    acc.DisplayName = para.txt_Account_Name.Text;
+                    acc.Password = para.txt_Account_NewPassword.Text;
                     acc.Image = imgByteArr;
                     // acc.Location = para.txtLocation.Text;
                     //acc.PhoneNumber = para.txtPhoneNumber.Text;
@@ -200,7 +200,7 @@ namespace StoreManagement.ViewModels
             ImageBrush imageBrush = new ImageBrush();
             imageBrush.ImageSource = Converter.Instance.ConvertByteToBitmapImage(account.Image);
 
-            para.txtName.Text = account.DisplayName;
+            para.txt_Account_Name.Text = account.DisplayName;
             //para.txtPassword.Text = account.Password;  ////Khi load thông tin không nên load luôn mật khẩu
             //para.txtLocation.Text = account.Location;
             //para.txtPhoneNumber.Text = account.PhoneNumber;
