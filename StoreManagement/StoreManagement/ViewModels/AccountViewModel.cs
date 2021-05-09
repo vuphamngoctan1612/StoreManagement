@@ -161,7 +161,7 @@ namespace StoreManagement.ViewModels
             try
             {
                 Account acc = new Account();
-                acc = DataProvider.Instance.DB.Accounts.Where(x => x.Username == "zz2zz22"/*this.username*/).First();
+                acc = DataProvider.Instance.DB.Accounts.Where(x => x.Username == this.username).First();
 
                 if (para.txt_Account_NewPassword.Text == acc.Password && para.txt_Account_Name.Text == acc.DisplayName)
                 {
@@ -194,7 +194,7 @@ namespace StoreManagement.ViewModels
             this.HomeWindow = para;
             //string query = "SELECT " + username + " FROM Acount;
            
-            Account account = DataProvider.Instance.DB.Accounts.FirstOrDefault(x => x.Username == "zz2zz22"/*this.username*/);
+            Account account = DataProvider.Instance.DB.Accounts.FirstOrDefault(x => x.Username == *this.username);
             ImageBrush imageBrush = new ImageBrush();
             imageBrush.ImageSource = Converter.Instance.ConvertByteToBitmapImage(account.Image);
 
