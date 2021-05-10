@@ -10,7 +10,7 @@ create table Account
 	DisplayName nvarchar(100),
 	Image image,
 	Location nvarchar(100),
-	PhoneNumber nvarchar(100),
+	PhoneNumber nvarchar(10),
 
 	constraint PK_Account primary key(Username)
 )
