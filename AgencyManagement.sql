@@ -9,6 +9,8 @@ create table Account
 	Password varchar(1000),
 	DisplayName nvarchar(100),
 	Image image,
+	Location nvarchar(100),
+	PhoneNumber nvarchar(100),
 
 	constraint PK_Account primary key(Username)
 )
