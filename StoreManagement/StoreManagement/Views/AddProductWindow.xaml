@@ -9,7 +9,7 @@
         mc:Ignorable="d"
         DataContext="{StaticResource ProductVM}"
         Background="White"
-        Title="Thêm sản phẩm" 
+        Title="addproduct" 
         Height="750" 
         Width="1000"
         ResizeMode="CanMinimize"
@@ -30,7 +30,7 @@
                     Width="70"
                     Height="70"
                     Foreground="#57548B"
-                    Margin="100 0 0 0">                    
+                    Margin="100 0 0 0">
                 </materialDesign:PackIcon>
                 <TextBlock
                     HorizontalAlignment="Left"

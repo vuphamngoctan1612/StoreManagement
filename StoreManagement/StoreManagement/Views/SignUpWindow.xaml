@@ -7,47 +7,81 @@
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:local="clr-namespace:StoreManagement.Views"
         mc:Ignorable="d"
-         DataContext="{StaticResource SignUpVM}"
+        DataContext="{StaticResource SignUpVM}"
         Title="SignUp" 
-        Height="700" 
-        Width="920 " 
-            x:Name="wdSignUp"
-        WindowStyle="None" 
-        AllowsTransparency="True" 
-        Background="Transparent" 
+        Height="750" 
+        Width="1000"
+        ResizeMode="CanMinimize"
+        x:Name="wdSignUp"
         WindowStartupLocation="CenterScreen">
-    <Border CornerRadius="30" 
-            Background="#FCE5EC"
-            BorderThickness="0" Margin="0,0,0,0">
-        <Border.Effect>
-            <DropShadowEffect 
-                BlurRadius="20"
-                Opacity="0.4"/>
-        </Border.Effect>
-        <Border.BorderBrush>
-            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                <GradientStop Color="#FFEC74E7" Offset="1"/>
-                <GradientStop Color="#EAF97298" Offset="1"/>
-            </LinearGradientBrush>
-        </Border.BorderBrush>
-        <Grid Margin="0,0,0,0" >
-            
-            <Grid 
-            x:Name="grdImage"
-            HorizontalAlignment="Left" 
-            VerticalAlignment="Top"
-            Height="220"
-            Width="220"
-            Margin="78,236,0,0">
-                <Rectangle
-                
-                Stroke="#57548B"
-         
-                Opacity="0.53"
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="120"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <Button x:Name="btBack"
+                    Style="{StaticResource MaterialDesignIconButton}"
+                    ToolTip="MaterialDesignIconButton"
+                    Background="#F79BB5" 
+                    Margin="28,28,0,0" 
+                    HorizontalAlignment="Left" 
+                    VerticalAlignment="Top" 
+                    Foreground="#57548B"
+                    Command="{Binding CloseCommand}"
+                    CommandParameter="{Binding ElementName=wdSignUp}" Grid.ColumnSpan="2">
+
+            <materialDesign:PackIcon Kind="ArrowLeft"  />
+        </Button>
+        <Grid Grid.Row="0" Margin="0,0,-0.4,567.8" Grid.RowSpan="2">
+            <Grid
+                Height="90"
+                Width="900">
+
+                <TextBlock
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"
+                    Text="SIGN UP "
+                    FontSize="55"
+                    FontWeight="Bold"
+                    Foreground="#F97299"
+                    Margin="228,5,0,0" RenderTransformOrigin="0.355,0.425">
+                </TextBlock>
+                <TextBlock
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"
+                    Text="ACCOUNT "
+                    FontSize="55"
+                    FontWeight="Bold"
+                    Foreground="#57548B"
+                    Margin="468,5,0,0">
+                </TextBlock>
+            </Grid>
+        </Grid>
+        <Grid Grid.Row="1" Margin="0,0,-0.4,-0.2" Height="568" VerticalAlignment="Bottom">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Column="0"
+                x:Name="grdImage"
+                HorizontalAlignment="Left" 
+                VerticalAlignment="Top"
+                Height="220"
+                Width="220"
+                Margin="70">
+                <!--<Rectangle
+                Stroke="#FCE5EC"
                 StrokeDashArray="4 2"
                 StrokeThickness="4" 
                 RadiusX="5"
-                RadiusY="5" Margin="-2,0,2,0"/>
+                RadiusY="5"/>-->
+                <Ellipse
+                Stroke="#FCE5EC"
+                Fill="#FCE5EC"
+                Height="220"
+                Width="220"
+                StrokeDashArray="4 2" >
+                </Ellipse>
                 <Button 
                 HorizontalAlignment="Center"
                 VerticalAlignment="Bottom"
@@ -59,102 +93,269 @@
                 FocusVisualStyle="{x:Null}"
                 FontWeight="SemiBold"
                 FontSize="18"
-                Margin="40,0,40,13"
+                Margin="44,0,36,-80"
                 Command="{Binding SelectImageCommand}"
-                CommandParameter="{Binding ElementName=grdImage}"/>
+                CommandParameter="{Binding ElementName=grdImage}">
+                </Button>
                 <materialDesign:PackIcon 
                 Kind="ImageEdit" 
                 HorizontalAlignment="Center"
-                VerticalAlignment="Top" 
+                VerticalAlignment="Center" 
                 Width="80"
                 Height="80"
-                Margin="68,60,72,0"
-                Foreground="#57548B"
-                Opacity="0.75"/>
+                Margin="60"
+                Foreground="#F97299">
+                </materialDesign:PackIcon>
+            </Grid>
+            <Grid Grid.Column="1"
+                HorizontalAlignment="Left"
+                Margin="20,10,-0.4,0" Height="546" VerticalAlignment="Top" Width="614">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="90"></RowDefinition>
+                    <RowDefinition Height="90"></RowDefinition>
+                    <RowDefinition Height="90"></RowDefinition>
+                    <RowDefinition Height="90"></RowDefinition>
+                    <RowDefinition Height="185.6"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0"
+                    Width="550" 
+                    VerticalAlignment="Top"
+                    Margin="20">
+                    <Label
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"
+                    Content="Username"
+                    FontSize="22"
+                    FontWeight="SemiBold"
+                    Margin="22,2,0,0"
+                    Foreground="#57548B">
+                    </Label>
+                    <Rectangle
+                    HorizontalAlignment="Right"
+                    Width="300"
+                    Margin="0 0 30 0"
+                    StrokeThickness="2"
+                    RadiusX="10"
+                    RadiusY="10"
+                    Stroke="#E2D2DA"/>
+                    <TextBox
+                    x:Name="txtUsername"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Center"
+                    Width="280"
+                    Margin="0 0 40 0"
+                    BorderThickness="0"
+                    materialDesign:HintAssist.Hint="Enter your username"
+                    MaxLines="1"
+                    Height="45"
+                    FontSize="17"
+                    FontWeight="SemiBold"
+                    Padding="0"
+                    HorizontalContentAlignment="Left"
+                    VerticalContentAlignment="Center" 
+                    Cursor="Arrow" Text="{Binding Username}">
+
+                    </TextBox>
+                </Grid>
+                <Grid Grid.Row="1"
+                Width="550" 
+                VerticalAlignment="Top"
+                Margin="20">
+                    <Label
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Content="Displayname"
+                    FontSize="22"
+                    FontWeight="SemiBold"
+                    Margin="22,2,0,5.6"
+                    Foreground="#57548B">
+                    </Label>
+                    <Rectangle
+                    HorizontalAlignment="Right"
+                    Width="300"
+                    Margin="0 0 30 0"
+                    StrokeThickness="2"
+                    RadiusX="10"
+                    RadiusY="10"
+                    Stroke="#E2D2DA"/>
+                    <TextBox
+                    x:Name="displayname"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Center"
+                    Width="280"
+                    Margin="0 0 40 0"
+                    BorderThickness="0"
+                    materialDesign:HintAssist.Hint="Enter your displayname"
+                    MaxLines="1"
+                    Height="45"
+                    FontSize="17"
+                    FontWeight="SemiBold"
+                    Padding="0"
+                    HorizontalContentAlignment="Left"
+                    VerticalContentAlignment="Center" 
+                    Cursor="Arrow">
+
+                    </TextBox>
+                </Grid>
+                <Grid Grid.Row="2"
+                Width="550" 
+                VerticalAlignment="Top"
+                Margin="20">
+                    <Label
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"
+                    Content="Password"
+                    FontSize="22"
+                    FontWeight="SemiBold"
+                    Margin="22,4,0,0"
+                    Foreground="#57548B">
+                    </Label>
+                    <Rectangle
+                    HorizontalAlignment="Right"
+                    Width="300"
+                    Margin="0 0 30 0"
+                    StrokeThickness="2"
+                    RadiusX="10"
+                    RadiusY="10"
+                    Stroke="#E2D2DA"/>
+                    <TextBox
+                    x:Name="pwbPassword"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Center"
+                    Width="280"
+                    Margin="0 0 40 0"
+                    BorderThickness="0"
+                     materialDesign:HintAssist.Hint="Enter your password"
+                    MaxLines="1"
+                    Height="45"
+                    FontSize="17"
+                    FontWeight="SemiBold"
+                    Padding="0"
+                    HorizontalContentAlignment="Left"
+                    VerticalContentAlignment="Center" 
+                    Cursor="Arrow" Text ="{Binding pwbPassword}" 
+                        >
+                    </TextBox>
+                    <!--<ComboBox
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Center"
+                    Width="280"
+                    Margin="0 0 40 0"
+                    BorderThickness="0"
+                    materialDesign:HintAssist.Hint="Units"
+                    Height="40"
+                    FontSize="17"
+                    FontWeight="SemiBold"
+                    Padding="0"
+                    Foreground="{x:Null}"
+                    HorizontalContentAlignment="Left"
+                    VerticalContentAlignment="Center" 
+                    Cursor="Arrow">
+                    <ComboBoxItem
+                        IsSelected="True"
+                        Content="Chai">
+                        
+                    </ComboBoxItem>
+                    
+                </ComboBox>-->
+                </Grid>
+                <Grid Grid.Row="3"
+                Width="550" 
+                VerticalAlignment="Top"
+                Margin="20">
+                    <Label
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Top"
+                        Content="Confirm Password"
+                        FontSize="22"
+                        FontWeight="SemiBold"
+                        Margin="20,3,0,0"
+                        Foreground="#57548B">
+                    </Label>
+                    <Rectangle
+                        HorizontalAlignment="Right"
+                        Width="300"
+                        Margin="0 0 30 0"
+                        StrokeThickness="2"
+                        RadiusX="10"
+                        RadiusY="10"
+                        Stroke="#E2D2DA"/>
+                    <TextBox
+                        
+                        x:Name="pwbPasswordConfirm"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Center"
+                        Width="280"
+                        Margin="0 0 40 0"
+                        BorderThickness="0"
+                        materialDesign:HintAssist.Hint="Enter your password again"
+                        MaxLines="1"
+                        Height="45"
+                        FontSize="17"
+                        FontWeight="SemiBold"
+                        Padding="0"
+                        HorizontalContentAlignment="Left"
+                        VerticalContentAlignment="Center" 
+                        Cursor="Arrow" Text ="{Binding pwbPasswordConfirm}">
+
+                    </TextBox>
+
+                </Grid>
+                <TextBlock Style="{StaticResource MaterialDesignHeadline4TextBlock}" 
+                    Text="I have read" 
+                    Width="118" 
+                    Margin="142,10,0,142.6" 
+                    VerticalAlignment="Stretch" 
+                    HorizontalAlignment="Left" 
+                    TextAlignment="Left"
+                    FontFamily="Segoe UI" 
+                    FontSize="20" 
+                    FontWeight="Bold" 
+                    Foreground="#7D78A2"
+                    TextDecorations="{x:Null}" RenderTransformOrigin="0.516,-1.784" Grid.Row="4"/>
+                <TextBlock Style="{StaticResource MaterialDesignHeadline4TextBlock}" 
+                    Text="The Privacy Policy" 
+                    Width="170" 
+                    Margin="265,10,0,142.6" 
+                    VerticalAlignment="Stretch" 
+                    HorizontalAlignment="Left" 
+                    TextAlignment="Left"
+                    FontFamily="Segoe UI" 
+                    FontSize="20" 
+                    FontWeight="Bold" 
+                    TextDecorations="Underline"
+                    Foreground="#7D78A2" Grid.Row="4"/>
 
             </Grid>
-            <TextBox  x:Name="txtUsername"
-                    materialDesign:HintAssist.Hint="Username" 
-                     Style="{StaticResource MaterialDesignTextBox}" 
-                     Height="52" 
-                     Width="500" 
-                     Background="White" 
-                     materialDesign:TextFieldAssist.TextFieldCornerRadius="38" 
-                     Margin="335,277,0,0" 
-                     HorizontalContentAlignment="Center" 
-                     VerticalAlignment="Top" 
-                     HorizontalAlignment="Left"
-                     FontFamily="Segoe UI" 
-                     FontSize="22" 
-                     VerticalContentAlignment="Center"
-                      Text="{Binding Username}">
-                
-
-            </TextBox>
-            <TextBox  x:Name="pwbPassword"
-                    materialDesign:HintAssist.Hint="Password" 
-                     Style="{StaticResource MaterialDesignTextBox}" 
-                     Height="52" Width="500" Background="White" 
-                     materialDesign:TextFieldAssist.TextFieldCornerRadius="38" 
-                     Margin="335,358,0,0" 
-                     HorizontalContentAlignment="Center" 
-                     VerticalAlignment="Top" 
-                     HorizontalAlignment="Left"
-                     FontFamily="Segoe UI" 
-                     FontSize="22" 
-                 
-                     VerticalContentAlignment="Center" 
-                       Text ="{Binding pwbPassword}"
-                      >
-               
-            </TextBox>
-            <TextBox  x:Name="pwbPasswordConfirm"
-                    materialDesign:HintAssist.Hint="Enter your password again" 
-                     Style="{StaticResource MaterialDesignTextBox}"
-                     Height="52" 
-                     Width="500" 
-                     Background="White" 
-                     materialDesign:TextFieldAssist.TextFieldCornerRadius="38" 
-                     Margin="335,440,0,0"
-                     HorizontalContentAlignment="Center" 
-                     VerticalAlignment="Top" 
-                     HorizontalAlignment="Left"
-                     FontFamily="Segoe UI" 
-                     FontSize="22" 
-                 
-                     VerticalContentAlignment="Center" 
-                      Text ="{Binding pwbPasswordConfirm}">
-                
-            </TextBox>
 
             <Button x:Name="btSignUp" 
-                    Style="{StaticResource MaterialDesignRaisedButton}"
-                    Height="66" 
-                    Width="500" 
-                    Foreground="#57548B"
-                    Background="#F79BB5"
-                    materialDesign:ButtonAssist.CornerRadius="38"
-                    ToolTip="MaterialDesignRaisedButton with Round Corners"
-                    Margin="215,568,0,66" 
-                    HorizontalContentAlignment="Center" 
-                    HorizontalAlignment="Left" 
-                    VerticalAlignment="Stretch"
-                     Command="{Binding SignUpCommand}"
-            CommandParameter="{Binding ElementName=wdSignUp}" Click="btSignUp_Click">
-                
+                Style="{StaticResource MaterialDesignRaisedButton}"
+                Height="Auto" 
+                Width="500" 
+                Foreground="#57548B"
+                Background="#F79BB5"
+                materialDesign:ButtonAssist.CornerRadius="38"
+                ToolTip="MaterialDesignRaisedButton with Round Corners"
+                Margin="70,427,0,75" 
+                HorizontalContentAlignment="Center" 
+                HorizontalAlignment="Left" 
+                VerticalAlignment="Stretch"
+                Command="{Binding SignUpCommand}"
+                CommandParameter="{Binding ElementName=wdSignUp}" Click="btSignUp_Click" Grid.Column="1">
+
                 <TextBlock Text="Get started" 
-                           FontFamily="Segoe UI" 
-                           FontSize="22"
-                           Width="110" 
-                           Height="40"/>
+                    FontFamily="Segoe UI" 
+                    FontSize="22"
+                    Width="110" 
+                    Height="40"/>
             </Button>
             <CheckBox x:Name="cbRemember" 
-                      Margin ="692,525,0,0" 
-                      HorizontalAlignment="Left" 
-                      VerticalAlignment="Top"
-                      VerticalContentAlignment="Center"
-                      HorizontalContentAlignment="Center" 
-                      RenderTransformOrigin="1.602,0.053">
+                Margin ="474,385,0,0" 
+                HorizontalAlignment="Left" 
+                VerticalAlignment="Top"
+                VerticalContentAlignment="Center"
+                HorizontalContentAlignment="Center" 
+                RenderTransformOrigin="1.602,0.053" Grid.Column="1" Height="18" Width="18">
                 <CheckBox.RenderTransform>
                     <TransformGroup>
                         <ScaleTransform ScaleY="2" ScaleX="2"/>
@@ -165,125 +366,13 @@
                 </CheckBox.RenderTransform>
                 <CheckBox.Background>
                     <LinearGradientBrush EndPoint="0.5,1" 
-                                             StartPoint="0.5,0">
+                        StartPoint="0.5,0">
                         <GradientStop Color="White"/>
                     </LinearGradientBrush>
                 </CheckBox.Background>
             </CheckBox>
-            <TextBlock Style="{StaticResource MaterialDesignHeadline4TextBlock}" 
-                       Text="I have read" 
-                       Height="33" 
-                       Width="118" 
-                       Margin="378,522,0,145" 
-                       VerticalAlignment="Stretch" 
-                       HorizontalAlignment="Left" 
-                       TextAlignment="Left"
-                       FontFamily="Segoe UI" 
-                       FontSize="20" 
-                       FontWeight="Bold" 
-                       TextDecorations="{x:Null}" RenderTransformOrigin="0.516,-1.784">
-                <TextBlock.Foreground>
-                    <LinearGradientBrush EndPoint="0.5,1" 
-                                         MappingMode="RelativeToBoundingBox" 
-                                         StartPoint="0.5,0">
-                        <GradientStop Color="#7D78A2"/>
-                    </LinearGradientBrush>
-                </TextBlock.Foreground>
-            </TextBlock>
-            <TextBlock Style="{StaticResource MaterialDesignHeadline4TextBlock}" 
-                       Text="The Privacy Policy" 
-                       Height="33" 
-                       Width="170" 
-                       Margin="496,522,0,145" 
-                       VerticalAlignment="Stretch" 
-                       HorizontalAlignment="Left" 
-                       TextAlignment="Left"
-                       FontFamily="Segoe UI" 
-                       FontSize="20" 
-                       FontWeight="Bold" 
-                       TextDecorations="Underline"
-                   >
-                <TextBlock.Foreground>
-                    <LinearGradientBrush EndPoint="0.5,1" 
-                                         MappingMode="RelativeToBoundingBox" 
-                                         StartPoint="0.5,0">
-                        <GradientStop Color="#7D78A2"/>
-                    </LinearGradientBrush>
-                </TextBlock.Foreground>
-            </TextBlock>
-            <Button x:Name="btBack"
-                    Style="{StaticResource MaterialDesignIconButton}"
-                    ToolTip="MaterialDesignIconButton"
-                    Background="White" 
-                    Margin="35,35,0,0" 
-                    HorizontalAlignment="Left" 
-                    VerticalAlignment="Top" 
-                     Foreground="#57548B"
-                     Command="{Binding CloseCommand}"
-                    CommandParameter="{Binding ElementName=wdSignUp}">
-                
-                <materialDesign:PackIcon Kind="ArrowLeft"  />
-            </Button>
-            <TextBlock Style="{StaticResource MaterialDesignHeadline4TextBlock}" 
-                       Text="SIGN UP!" 
-                       Height="90" 
-                       Width="310" 
-                       Margin="310,80,0,0"
-                       VerticalAlignment="Top" 
-                       HorizontalAlignment="Left" 
-                       TextAlignment="Center"
-                       FontFamily="Segoe UI" 
-                       FontSize="65" 
-                       FontWeight="Bold">
-                <TextBlock.Foreground>
-                    <LinearGradientBrush EndPoint="0.5,1" 
-                                         MappingMode="RelativeToBoundingBox" 
-                                         StartPoint="0.1,0">
-                        <GradientStop Color="#F97299"/>
-                    </LinearGradientBrush>
-                </TextBlock.Foreground>
-            </TextBlock>
-            <TextBlock Style="{StaticResource MaterialDesignHeadline4TextBlock}" 
-                       Text="NOW" 
-                       Height="30" 
-                       Width="56" 
-                       Margin="610
-                       ,80,0,0" 
-                       VerticalAlignment="Top"
-                       HorizontalAlignment="Left" 
-                       TextAlignment="Center"
-                       FontFamily="Segoe UI" 
-                       FontSize="20" 
-                       FontWeight="Bold">
-                <TextBlock.Foreground>
-                    <LinearGradientBrush EndPoint="0.5,1"
-                                         MappingMode="RelativeToBoundingBox" 
-                                         StartPoint="0.5,0">
-                        <GradientStop Color="#F97299"/>
-                    </LinearGradientBrush>
-                </TextBlock.Foreground>
-            </TextBlock>
-            <TextBox x:Name="displayname"
-                    materialDesign:HintAssist.Hint="Displayname" 
-                Style="{StaticResource MaterialDesignTextBox}"
-                Height="52" 
-                Width="500" 
-                Background="White" 
-                materialDesign:TextFieldAssist.TextFieldCornerRadius="38" 
-                Margin="335,201,0,0"
-                HorizontalContentAlignment="Center" 
-                VerticalAlignment="Top" 
-                HorizontalAlignment="Left"
-                FontFamily="Segoe UI" 
-                FontSize="22" 
-                
-               
-                VerticalContentAlignment="Center" >
-               
 
-            </TextBox> 
-            
+
         </Grid>
-        
-    </Border>
+    </Grid>
 </Window>

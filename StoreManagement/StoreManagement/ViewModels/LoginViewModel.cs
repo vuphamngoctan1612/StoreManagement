@@ -17,34 +17,33 @@ namespace StoreManagement.ViewModels
 {
     class LoginViewModel : BaseViewModel
     {
-        public bool IsLogin { get; set; }
        
-      
+
         public ICommand LoginCommand { get; set; }
-       
+
         public ICommand OpenSignUpWindowCommand { get; set; }
-      
+
 
         public LoginViewModel()
         {
             LoginCommand = new RelayCommand<LoginWindow>((p) => { return true; }, (p) => { Login(p); });
-           
-          
+
+
             OpenSignUpWindowCommand = new RelayCommand<LoginWindow>((parameter) => true, (parameter) => OpenSignUpWindow(parameter));
-            
+
         }
-       
+
         public void OpenSignUpWindow(LoginWindow parameter)
         {
-          SignUpWindow signUp = new SignUpWindow();
-           
-            signUp.ShowDialog();
-            
+            SignUpWindow SignUp = new SignUpWindow();
+
+            SignUp.Show();
+
         }
-       
+
         void Login(LoginWindow parameter)
         {
-            IsLogin = false;
+            
             if (parameter == null)
             {
                 return;
@@ -66,31 +65,19 @@ namespace StoreManagement.ViewModels
                 parameter.txtPassword.Focus();
                 return;
             }
-            foreach (Account acc in accounts)
-            {
-                if (parameter.txtUser.Text == acc.Username)
-                {
-                    string codedPassword = MD5Hash(parameter.txtPassword.Text);
-                    if (codedPassword == acc.Password)
-                    {
-                        IsLogin = true;
-                    }
-                    break;
-                }
-            }
-            if (IsLogin)
+
+            string codedPassword = MD5Hash(parameter.txtPassword.Text);
+            var checkACC = DataProvider.Instance.DB.Accounts.Where(x => x.Username == parameter.txtUser.Text && x.Password == codedPassword).Count();
+            if (checkACC > 0)
             {
                 HomeWindow homeWindow = new HomeWindow();
                 parameter.Hide();
                 homeWindow.ShowDialog();
-               
             }
             else
             {
-                MessageBox.Show("Sai tên đăng nhập hoặc mật khẩu!");
+                MessageBox.Show("Sai tên đăng nhập hoặc mật khẩu!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
-            
-
 
         }
 

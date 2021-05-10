@@ -25,24 +25,18 @@ namespace StoreManagement.ViewModels
         private string imageFileName;
         public ICommand SelectImageCommand { get; set; }
         public ICommand SignUpCommand { get; set; }
-       
         public ICommand CloseCommand { get; set; }
-
-
-      
-        private bool isSignUp;
-       
-        public bool IsSignUp { get => isSignUp; set => isSignUp = value; }
 
         private string passwordConfirm;
         public string PasswordConfirm { get => passwordConfirm; set { passwordConfirm = value; OnPropertyChanged(); } }
+
         public SignUpViewModel()
         {
             SignUpCommand = new RelayCommand<SignUpWindow>((parameter) => true, (parameter) => SignUp(parameter));
             SelectImageCommand = new RelayCommand<Grid>((para) => true, (para) => ChooseImage(para));
             CloseCommand = new RelayCommand<SignUpWindow>((p) => { return true; }, (p) => { p.Close(); });
         }
-       
+
         private void ChooseImage(Grid para)
         {
             OpenFileDialog op = new OpenFileDialog();
@@ -66,11 +60,11 @@ namespace StoreManagement.ViewModels
                 }
             }
         }
-       
+
         public void SignUp(SignUpWindow parameter)
         {
             //isExisted = false;
-            isSignUp = false;
+            //isSignUp = false;
             if (parameter == null)
             {
                 return;
@@ -79,14 +73,14 @@ namespace StoreManagement.ViewModels
             if (String.IsNullOrEmpty(parameter.txtUsername.Text))
             {
                 MessageBox.Show("Vui lòng nhập tên đăng nhập", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
-                parameter.pwbPassword.Focus();
+                parameter.txtUsername.Focus();
                 return;
             }
             //check displayname
             if (String.IsNullOrEmpty(parameter.displayname.Text))
             {
                 MessageBox.Show("Vui lòng nhập tên ", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
-                parameter.pwbPassword.Focus();
+                parameter.displayname.Focus();
                 return;
             }
 
@@ -108,7 +102,7 @@ namespace StoreManagement.ViewModels
                 MessageBox.Show("Mật khẩu không trùng khớp!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
-           
+
             try
             {
 
@@ -139,18 +133,11 @@ namespace StoreManagement.ViewModels
             }
             finally
             {
-                    isSignUp = true;
-                    parameter.Close();
-
-                
-                
+                parameter.Close();
             }
 
 
-            
-        }
+
         }
     }
-
-//}
-//}
+}
