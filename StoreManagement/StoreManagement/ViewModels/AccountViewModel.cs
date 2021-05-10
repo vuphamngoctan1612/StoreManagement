@@ -26,7 +26,6 @@ namespace StoreManagement.ViewModels
         public HomeWindow HomeWindow { get; set; }
         private string imageFileName;
         private string username;
-
         public ICommand DeleteAccountCommand { get; set; }
         public ICommand UpdateAccountCommand { get; set; }
         public ICommand LoadAccountOnWindowCommand { get; set; }
@@ -34,8 +33,6 @@ namespace StoreManagement.ViewModels
         public ICommand ChangePasswordCommand { get; set; }
         public ICommand SaveCommand { get; set; }
         public ICommand ChooseImgAccountCommand { get; set; }
-
-
         public AccountViewModel()
         {
             UpdateAccountCommand = new RelayCommand<HomeWindow>((para) => true, (para) => UpdateAccount(para));
@@ -101,7 +98,7 @@ namespace StoreManagement.ViewModels
                 try
                 {
                     Account acc = new Account();
-                    acc = DataProvider.Instance.DB.Accounts.Where(x => x.Username == this.username).First();
+                    acc = DataProvider.Instance.DB.Accounts.Where(x => x.Username == "na1").First();
                     acc.Image = Converter.Instance.ConvertImageToBytes(imageFileName);
                     DataProvider.Instance.DB.Accounts.AddOrUpdate(acc);
                     DataProvider.Instance.DB.SaveChanges();
@@ -145,7 +142,7 @@ namespace StoreManagement.ViewModels
             try
             {
                 Account acc = new Account();
-                acc = DataProvider.Instance.DB.Accounts.Where(x => x.Username == this.username).First();
+                acc = DataProvider.Instance.DB.Accounts.Where(x => x.Username == "na1").First();
 
                 if (para.txt_Account_Password.Text != acc.Password)
                 {
@@ -211,7 +208,7 @@ namespace StoreManagement.ViewModels
             try
             {
                 Account acc = new Account();
-                acc = DataProvider.Instance.DB.Accounts.Where(x => x.Username == this.username).First();
+                acc = DataProvider.Instance.DB.Accounts.Where(x => x.Username == "na1").First();
 
                 if (para.txt_Account_Name.Text == acc.DisplayName && para.txt_Account_Location.Text == acc.Location && para.txt_Account_PhoneNumber.Text == acc.PhoneNumber)
                 {
@@ -239,7 +236,7 @@ namespace StoreManagement.ViewModels
             this.HomeWindow = para;
             //string query = "SELECT " + username + " FROM Acount;
 
-            Account account = DataProvider.Instance.DB.Accounts.FirstOrDefault(x => x.Username == this.username);
+            Account account = DataProvider.Instance.DB.Accounts.FirstOrDefault(x => x.Username == "na1");
             ImageBrush imageBrush = new ImageBrush();
             imageBrush.ImageSource = Converter.Instance.ConvertByteToBitmapImage(account.Image);
 

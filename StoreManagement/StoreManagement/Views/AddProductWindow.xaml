@@ -142,9 +142,9 @@
                     </TextBox>
                 </Grid>
                 <Grid Grid.Row="1"
-                Width="550" 
-                VerticalAlignment="Top"
-                Margin="20">
+                    Width="550" 
+                    VerticalAlignment="Top"
+                    Margin="20">
                     <Label
                     HorizontalAlignment="Left"
                     VerticalAlignment="Center"
@@ -182,9 +182,9 @@
                     </TextBox>
                 </Grid>
                 <Grid Grid.Row="2"
-                Width="550" 
-                VerticalAlignment="Top"
-                Margin="20">
+                    Width="550" 
+                    VerticalAlignment="Top"
+                    Margin="20">
                     <Label
                     HorizontalAlignment="Left"
                     VerticalAlignment="Center"
