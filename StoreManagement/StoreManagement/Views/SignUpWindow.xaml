@@ -19,20 +19,7 @@
             <RowDefinition Height="120"></RowDefinition>
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
-        <Button x:Name="btBack"
-                    Style="{StaticResource MaterialDesignIconButton}"
-                    ToolTip="MaterialDesignIconButton"
-                    Background="#F79BB5" 
-                    Margin="28,28,0,0" 
-                    HorizontalAlignment="Left" 
-                    VerticalAlignment="Top" 
-                    Foreground="#57548B"
-                    Command="{Binding CloseCommand}"
-                    CommandParameter="{Binding ElementName=wdSignUp}" Grid.ColumnSpan="2">
-
-            <materialDesign:PackIcon Kind="ArrowLeft"  />
-        </Button>
-        <Grid Grid.Row="0" Margin="0,0,-0.4,567.8" Grid.RowSpan="2">
+        <Grid Grid.Row="0" >
             <Grid
                 Height="90"
                 Width="900">
@@ -44,7 +31,7 @@
                     FontSize="55"
                     FontWeight="Bold"
                     Foreground="#F97299"
-                    Margin="228,5,0,0" RenderTransformOrigin="0.355,0.425">
+                    Margin="218,5,0,0" RenderTransformOrigin="0.355,0.425">
                 </TextBlock>
                 <TextBlock
                     HorizontalAlignment="Left"
@@ -53,11 +40,11 @@
                     FontSize="55"
                     FontWeight="Bold"
                     Foreground="#57548B"
-                    Margin="468,5,0,0">
+                    Margin="464,5,0,0">
                 </TextBlock>
             </Grid>
         </Grid>
-        <Grid Grid.Row="1" Margin="0,0,-0.4,-0.2" Height="568" VerticalAlignment="Bottom">
+        <Grid Grid.Row="1"  Height="600" VerticalAlignment="Bottom">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
@@ -69,12 +56,7 @@
                 Height="220"
                 Width="220"
                 Margin="70">
-                <!--<Rectangle
-                Stroke="#FCE5EC"
-                StrokeDashArray="4 2"
-                StrokeThickness="4" 
-                RadiusX="5"
-                RadiusY="5"/>-->
+
                 <Ellipse
                 Stroke="#FCE5EC"
                 Fill="#FCE5EC"
@@ -107,15 +89,15 @@
                 Foreground="#F97299">
                 </materialDesign:PackIcon>
             </Grid>
-            <Grid Grid.Column="1"
+            <Grid
                 HorizontalAlignment="Left"
-                Margin="20,10,-0.4,0" Height="546" VerticalAlignment="Top" Width="614">
+                VerticalAlignment="Center"  Grid.Column="1">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="90"></RowDefinition>
                     <RowDefinition Height="90"></RowDefinition>
                     <RowDefinition Height="90"></RowDefinition>
                     <RowDefinition Height="90"></RowDefinition>
-                    <RowDefinition Height="185.6"></RowDefinition>
+                    <RowDefinition Height="190"></RowDefinition>
                 </Grid.RowDefinitions>
                 <Grid Grid.Row="0"
                     Width="550" 
@@ -158,9 +140,9 @@
                     </TextBox>
                 </Grid>
                 <Grid Grid.Row="1"
-                Width="550" 
-                VerticalAlignment="Top"
-                Margin="20">
+                    Width="550" 
+                    VerticalAlignment="Top"
+                    Margin="20">
                     <Label
                     HorizontalAlignment="Left"
                     VerticalAlignment="Center"
@@ -198,9 +180,9 @@
                     </TextBox>
                 </Grid>
                 <Grid Grid.Row="2"
-                Width="550" 
-                VerticalAlignment="Top"
-                Margin="20">
+                    Width="550" 
+                    VerticalAlignment="Top"
+                    Margin="20">
                     <Label
                     HorizontalAlignment="Left"
                     VerticalAlignment="Top"
@@ -225,7 +207,7 @@
                     Width="280"
                     Margin="0 0 40 0"
                     BorderThickness="0"
-                     materialDesign:HintAssist.Hint="Enter your password"
+                    materialDesign:HintAssist.Hint="Enter your password"
                     MaxLines="1"
                     Height="45"
                     FontSize="17"
@@ -233,36 +215,14 @@
                     Padding="0"
                     HorizontalContentAlignment="Left"
                     VerticalContentAlignment="Center" 
-                    Cursor="Arrow" Text ="{Binding pwbPassword}" 
-                        >
+                    Cursor="Arrow" >
                     </TextBox>
-                    <!--<ComboBox
-                    HorizontalAlignment="Right"
-                    VerticalAlignment="Center"
-                    Width="280"
-                    Margin="0 0 40 0"
-                    BorderThickness="0"
-                    materialDesign:HintAssist.Hint="Units"
-                    Height="40"
-                    FontSize="17"
-                    FontWeight="SemiBold"
-                    Padding="0"
-                    Foreground="{x:Null}"
-                    HorizontalContentAlignment="Left"
-                    VerticalContentAlignment="Center" 
-                    Cursor="Arrow">
-                    <ComboBoxItem
-                        IsSelected="True"
-                        Content="Chai">
-                        
-                    </ComboBoxItem>
-                    
-                </ComboBox>-->
+
                 </Grid>
                 <Grid Grid.Row="3"
-                Width="550" 
-                VerticalAlignment="Top"
-                Margin="20">
+                    Width="550" 
+                    VerticalAlignment="Top"
+                    Margin="20">
                     <Label
                         HorizontalAlignment="Left"
                         VerticalAlignment="Top"
@@ -296,83 +256,78 @@
                         Padding="0"
                         HorizontalContentAlignment="Left"
                         VerticalContentAlignment="Center" 
-                        Cursor="Arrow" Text ="{Binding pwbPasswordConfirm}">
+                        Cursor="Arrow" >
 
                     </TextBox>
-
                 </Grid>
-                <TextBlock Style="{StaticResource MaterialDesignHeadline4TextBlock}" 
-                    Text="I have read" 
-                    Width="118" 
-                    Margin="142,10,0,142.6" 
-                    VerticalAlignment="Stretch" 
-                    HorizontalAlignment="Left" 
-                    TextAlignment="Left"
-                    FontFamily="Segoe UI" 
-                    FontSize="20" 
-                    FontWeight="Bold" 
-                    Foreground="#7D78A2"
-                    TextDecorations="{x:Null}" RenderTransformOrigin="0.516,-1.784" Grid.Row="4"/>
-                <TextBlock Style="{StaticResource MaterialDesignHeadline4TextBlock}" 
-                    Text="The Privacy Policy" 
-                    Width="170" 
-                    Margin="265,10,0,142.6" 
-                    VerticalAlignment="Stretch" 
-                    HorizontalAlignment="Left" 
-                    TextAlignment="Left"
-                    FontFamily="Segoe UI" 
-                    FontSize="20" 
-                    FontWeight="Bold" 
-                    TextDecorations="Underline"
-                    Foreground="#7D78A2" Grid.Row="4"/>
+                <Grid Grid.Row="5"
+                        Width="550" 
+                        VerticalAlignment="Top"
+                        Margin="0">
+                    <TextBlock Style="{StaticResource MaterialDesignHeadline4TextBlock}" 
+                        Text="I have read" 
+                        Width="118" 
+                        Margin="142,10,0,142.6" 
+                        VerticalAlignment="Stretch" 
+                        HorizontalAlignment="Left" 
+                        TextAlignment="Left"
+                        FontFamily="Segoe UI" 
+                        FontSize="20" 
+                        FontWeight="Bold" 
+                        Foreground="#7D78A2"
+                        TextDecorations="{x:Null}" RenderTransformOrigin="0.516,-1.784" Grid.Row="4"/>
+                    <TextBlock Style="{StaticResource MaterialDesignHeadline4TextBlock}" 
+                        Text="The Privacy Policy" 
+                        Width="170" 
+                        Margin="265,10,0,142.6" 
+                        VerticalAlignment="Stretch" 
+                        HorizontalAlignment="Left" 
+                        TextAlignment="Left"
+                        FontFamily="Segoe UI" 
+                        FontSize="20" 
+                        FontWeight="Bold" 
+                        TextDecorations="Underline"
+                        Foreground="#7D78A2" Grid.Row="4"/>
+                    <CheckBox x:Name="cbRemember" 
+                        Margin ="464,15,0,0" 
+                        HorizontalAlignment="Left" 
+                        VerticalAlignment="Top"
+                        VerticalContentAlignment="Center"
+                        HorizontalContentAlignment="Center" 
+                        RenderTransformOrigin="1.602,0.053" Height="18" Width="18" Grid.Row="4">
+                                <CheckBox.RenderTransform>
+                                    <TransformGroup>
+                                        <ScaleTransform ScaleY="2" ScaleX="2"/>
+                                        <SkewTransform/>
+                                        <RotateTransform/>
+                                        <TranslateTransform X="19.396" Y="-7.867"/>
+                                    </TransformGroup>
+                                </CheckBox.RenderTransform>
+                            <CheckBox.Background>
+                            <LinearGradientBrush EndPoint="0.5,1" 
+                                StartPoint="0.5,0">
+                                <GradientStop Color="#7D78A2"/>
+                            </LinearGradientBrush>
+                    </CheckBox.Background>
+                    </CheckBox>
+                    <Button 
+                        x:Name="btSignUp"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Bottom"
+                        BorderThickness="0"
+                        Width="300"
+                        Content="GET STARTED"
+                        Background="#F79BB5"
+                        Foreground="#57548B"
+                        FocusVisualStyle="{x:Null}"
+                        FontWeight="Bold"
+                        FontSize="22"
+                        Margin="135,0,115,52.2"
+                        Command="{Binding SignUpCommand}"
+                        CommandParameter="{Binding ElementName=wdSignUp}"  Height="67"/>
 
+                 </Grid>
+             </Grid>
             </Grid>
-
-            <Button x:Name="btSignUp" 
-                Style="{StaticResource MaterialDesignRaisedButton}"
-                Height="Auto" 
-                Width="500" 
-                Foreground="#57548B"
-                Background="#F79BB5"
-                materialDesign:ButtonAssist.CornerRadius="38"
-                ToolTip="MaterialDesignRaisedButton with Round Corners"
-                Margin="70,427,0,75" 
-                HorizontalContentAlignment="Center" 
-                HorizontalAlignment="Left" 
-                VerticalAlignment="Stretch"
-                Command="{Binding SignUpCommand}"
-                CommandParameter="{Binding ElementName=wdSignUp}" Click="btSignUp_Click" Grid.Column="1">
-
-                <TextBlock Text="Get started" 
-                    FontFamily="Segoe UI" 
-                    FontSize="22"
-                    Width="110" 
-                    Height="40"/>
-            </Button>
-            <CheckBox x:Name="cbRemember" 
-                Margin ="474,385,0,0" 
-                HorizontalAlignment="Left" 
-                VerticalAlignment="Top"
-                VerticalContentAlignment="Center"
-                HorizontalContentAlignment="Center" 
-                RenderTransformOrigin="1.602,0.053" Grid.Column="1" Height="18" Width="18">
-                <CheckBox.RenderTransform>
-                    <TransformGroup>
-                        <ScaleTransform ScaleY="2" ScaleX="2"/>
-                        <SkewTransform/>
-                        <RotateTransform/>
-                        <TranslateTransform X="19.396" Y="-7.867"/>
-                    </TransformGroup>
-                </CheckBox.RenderTransform>
-                <CheckBox.Background>
-                    <LinearGradientBrush EndPoint="0.5,1" 
-                        StartPoint="0.5,0">
-                        <GradientStop Color="White"/>
-                    </LinearGradientBrush>
-                </CheckBox.Background>
-            </CheckBox>
-
-
-        </Grid>
-    </Grid>
+     </Grid>
 </Window>

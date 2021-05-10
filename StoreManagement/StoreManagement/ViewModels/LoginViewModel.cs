@@ -17,7 +17,7 @@ namespace StoreManagement.ViewModels
 {
     class LoginViewModel : BaseViewModel
     {
-       
+
 
         public ICommand LoginCommand { get; set; }
 
@@ -43,7 +43,7 @@ namespace StoreManagement.ViewModels
 
         void Login(LoginWindow parameter)
         {
-            
+
             if (parameter == null)
             {
                 return;
@@ -73,6 +73,8 @@ namespace StoreManagement.ViewModels
                 HomeWindow homeWindow = new HomeWindow();
                 parameter.Hide();
                 homeWindow.ShowDialog();
+                parameter.Close();
+
             }
             else
             {

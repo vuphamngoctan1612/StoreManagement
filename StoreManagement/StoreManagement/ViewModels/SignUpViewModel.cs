@@ -25,16 +25,10 @@ namespace StoreManagement.ViewModels
         private string imageFileName;
         public ICommand SelectImageCommand { get; set; }
         public ICommand SignUpCommand { get; set; }
-        public ICommand CloseCommand { get; set; }
-
-        private string passwordConfirm;
-        public string PasswordConfirm { get => passwordConfirm; set { passwordConfirm = value; OnPropertyChanged(); } }
-
         public SignUpViewModel()
         {
             SignUpCommand = new RelayCommand<SignUpWindow>((parameter) => true, (parameter) => SignUp(parameter));
             SelectImageCommand = new RelayCommand<Grid>((para) => true, (para) => ChooseImage(para));
-            CloseCommand = new RelayCommand<SignUpWindow>((p) => { return true; }, (p) => { p.Close(); });
         }
 
         private void ChooseImage(Grid para)
@@ -63,8 +57,6 @@ namespace StoreManagement.ViewModels
 
         public void SignUp(SignUpWindow parameter)
         {
-            //isExisted = false;
-            //isSignUp = false;
             if (parameter == null)
             {
                 return;
@@ -105,8 +97,6 @@ namespace StoreManagement.ViewModels
 
             try
             {
-
-
                 byte[] imgByteArr;
                 if (imageFileName == null)
                 {
@@ -133,7 +123,7 @@ namespace StoreManagement.ViewModels
             }
             finally
             {
-                parameter.Close();
+                //parameter.Close();
             }
 
 
