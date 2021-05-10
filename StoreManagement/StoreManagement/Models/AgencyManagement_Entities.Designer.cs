@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'C:\Users\Asus\Desktop\official\StoreManagement\StoreManagement\Models\AgencyManagement_Entities.edmx'. 
+﻿// T4 code generation is enabled for model 'D:\Codes\StoreManagement\StoreManagement\StoreManagement\Models\AgencyManagement_Entities.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.

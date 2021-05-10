@@ -22,15 +22,16 @@ namespace StoreManagement.ViewModels
 {
     public class AccountViewModel : BaseViewModel
     {
-        private bool isExisted;
+        //private bool isExisted;
         public HomeWindow HomeWindow { get; set; }
         private string imageFileName;
         private string username;
-      
+
         public ICommand DeleteAccountCommand { get; set; }
         public ICommand UpdateAccountCommand { get; set; }
         public ICommand LoadAccountOnWindowCommand { get; set; }
-        public ICommand UsernameChecker { get; set; } //Check xem tên sắp đổi có bị trùng không
+        //public ICommand DisplaynameCheckerCommand { get; set; }
+        public ICommand ChangePasswordCommand { get; set; }
         public ICommand SaveCommand { get; set; }
         public ICommand ChooseImgAccountCommand { get; set; }
 
@@ -38,42 +39,44 @@ namespace StoreManagement.ViewModels
         public AccountViewModel()
         {
             UpdateAccountCommand = new RelayCommand<HomeWindow>((para) => true, (para) => UpdateAccount(para));
-            UsernameChecker = new RelayCommand<HomeWindow>((para) => true, para => NameChecker(para));
+            //DisplaynameCheckerCommand = new RelayCommand<HomeWindow>((para) => true, para => NameChecker(para));
+            ChangePasswordCommand = new RelayCommand<HomeWindow>((para) => true, para => Account_ChangePassword(para));
             LoadAccountOnWindowCommand = new RelayCommand<HomeWindow>((para) => true, (para) => LoadAccount(para));
             ChooseImgAccountCommand = new RelayCommand<Grid>(para => true, para => ChooseImg(para));
         }
-        private void NameChecker(HomeWindow para)
-        {
-            if (string.IsNullOrEmpty(para.txt_Account_Name.Text))
-            {
-                para.txt_Account_Name.Focus();
-                MessageBox.Show("Vui lòng nhập tên để kiểm tra!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
-                return;
-            }
-            string queryAccount = "select* from account";
-            List<Account> accounts = DataProvider.Instance.DB.Accounts.SqlQuery(queryAccount).ToList();
-            foreach (Account acc in accounts)
-            {
-                if (para.txt_Account_Name.Text == acc.Username)
-                {
-                    isExisted = true;
-                    break;
-                }
-            }
+        #region Commands_Logic
+        //private void NameChecker(HomeWindow para)
+        //{
+        //    if (string.IsNullOrEmpty(para.txt_Account_Name.Text))
+        //    {
+        //        para.txt_Account_Name.Focus();
+        //        MessageBox.Show("Vui lòng nhập tên để kiểm tra!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
+        //        return;
+        //    }
+        //    string queryAccount = "select* from account";
+        //    List<Account> accounts = DataProvider.Instance.DB.Accounts.SqlQuery(queryAccount).ToList();
+        //    foreach (Account acc in accounts)
+        //    {
+        //        if (para.txt_Account_Name.Text == acc.Username)
+        //        {
+        //            isExisted = true;
+        //            break;
+        //        }
+        //    }
 
-            if (isExisted)
-            {
-                MessageBox.Show("Tên này đã tồn tại, vui lòng nhập tên khác", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
-                isExisted = false; //trả về false để kiếm tra tên nhập kế tiếp
-                para.txt_Account_Name.Clear();//Clear data txtName để user nhập tên mới
-                para.txt_Account_Name.Focus();
-                return;
-            }
-            else
-            {
-                MessageBox.Show("Tên hợp lệ", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
-            }
-        }
+        //    if (isExisted)
+        //    {
+        //        MessageBox.Show("Tên này đã tồn tại, vui lòng nhập tên khác", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
+        //        isExisted = false; //trả về false để kiếm tra tên nhập kế tiếp
+        //        para.txt_Account_Name.Clear();//Clear data txtName để user nhập tên mới
+        //        para.txt_Account_Name.Focus();
+        //        return;
+        //    }
+        //    else
+        //    {
+        //        MessageBox.Show("Tên hợp lệ", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
+        //    }
+        //}
         private void ChooseImg(Grid para)
         {
             OpenFileDialog op = new OpenFileDialog();
@@ -95,9 +98,76 @@ namespace StoreManagement.ViewModels
                     para.Children.Remove(para.Children[0]);
                     para.Children.Remove(para.Children[1]);
                 }
+                try
+                {
+                    Account acc = new Account();
+                    acc = DataProvider.Instance.DB.Accounts.Where(x => x.Username == this.username).First();
+                    acc.Image = Converter.Instance.ConvertImageToBytes(imageFileName);
+                    DataProvider.Instance.DB.Accounts.AddOrUpdate(acc);
+                    DataProvider.Instance.DB.SaveChanges();
+                    MessageBox.Show("Cập nhật avatar thành công.");
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
             }
         }
+        private void Account_ChangePassword(HomeWindow para)
+        {
+            if (string.IsNullOrEmpty(para.txt_Account_Password.Text))
+            {
+                para.txt_Account_Password.Focus();
+                return;
+            }
+            if (string.IsNullOrEmpty(para.txt_Account_NewPassword.Text))
+            {
+                para.txt_Account_NewPassword.Focus();
+                return;
+            }
+            if (string.IsNullOrEmpty(para.txt_Account_RetypeNewPassword.Text))
+            {
+                para.txt_Account_RetypeNewPassword.Focus();
+                return;
+            }
+            if (para.txt_Account_NewPassword.Text == para.txt_Account_Password.Text)
+            {
+                para.txt_Account_NewPassword.Focus();
+                MessageBox.Show("Vui lòng nhập mật khẩu khác với mật khẩu hiện tại.");
+                return;
+            }
+            if (para.txt_Account_NewPassword.Text != para.txt_Account_RetypeNewPassword.Text)
+            {
+                para.txt_Account_NewPassword.Focus();
+                MessageBox.Show("Nhập lại mật khẩu chưa trùng khớp vui lòng nhập lại.");
+                return;
+            }
+            try
+            {
+                Account acc = new Account();
+                acc = DataProvider.Instance.DB.Accounts.Where(x => x.Username == this.username).First();
 
+                if (para.txt_Account_Password.Text != acc.Password)
+                {
+                    MessageBox.Show("Mật khẩu hiện tại chưa đúng vui lòng nhập lại.");
+                    return;
+                }
+                else
+                {
+                    acc.Password = para.txt_Account_RetypeNewPassword.Text;
+                    DataProvider.Instance.DB.Accounts.AddOrUpdate(acc);
+                    DataProvider.Instance.DB.SaveChanges();
+                    MessageBox.Show("Thay đổi mật khẩu thành công.");
+                    para.txt_Account_Password.Clear();
+                    para.txt_Account_NewPassword.Clear();
+                    para.txt_Account_RetypeNewPassword.Clear();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
         private void UpdateAccount(HomeWindow para)
         {
             if (string.IsNullOrEmpty(para.txt_Account_Name.Text))
@@ -116,25 +186,6 @@ namespace StoreManagement.ViewModels
                 return;
             }
 
-
-
-            if (string.IsNullOrEmpty(para.txt_Account_NewPassword.Text))
-            {
-                para.txt_Account_NewPassword.Focus();
-                return;
-            }
-            if (string.IsNullOrEmpty(para.txt_Account_RetypeNewPassword.Text))
-            {
-                para.txt_Account_RetypeNewPassword.Focus();
-                return;
-            }
-
-            if (para.txt_Account_NewPassword.Text != para.txt_Account_RetypeNewPassword.Text)
-            {
-                para.txt_Account_NewPassword.Focus();
-                return;
-            }
-
             para.Title = "Update info account";
             //delete image
             /* para..Background = imageBrush;
@@ -146,39 +197,35 @@ namespace StoreManagement.ViewModels
             */
             //para.ShowDialog();
 
-            
 
-            byte[] imgByteArr;
-            if (imageFileName == null)
-            {
-                imgByteArr = Converter.Instance.ConvertImageToBytes(@"..\..\Resources\Images\default.jpg");
-            }
-            else
-            {
-                imgByteArr = Converter.Instance.ConvertImageToBytes(imageFileName);
-            }
+            //byte[] imgByteArr;
+            //if (imageFileName != null)
+            //{
+            //    imgByteArr = Converter.Instance.ConvertImageToBytes(@"..\..\Resources\Images\default.jpg");
+            //}
+            //else
+            //{
+            //    imgByteArr = Converter.Instance.ConvertImageToBytes(imageFileName);
+            //}
 
             try
             {
                 Account acc = new Account();
                 acc = DataProvider.Instance.DB.Accounts.Where(x => x.Username == this.username).First();
 
-                if (para.txt_Account_NewPassword.Text == acc.Password && para.txt_Account_Name.Text == acc.DisplayName)
+                if (para.txt_Account_Name.Text == acc.DisplayName && para.txt_Account_Location.Text == acc.Location && para.txt_Account_PhoneNumber.Text == acc.PhoneNumber)
                 {
                     MessageBox.Show("Thông tin không thay đổi");
                     return;
-                }else
+                }
+                else
                 {
-
                     acc.DisplayName = para.txt_Account_Name.Text;
-                    acc.Password = para.txt_Account_NewPassword.Text;
-                    acc.Image = imgByteArr;
-                    // acc.Location = para.txtLocation.Text;
-                    //acc.PhoneNumber = para.txtPhoneNumber.Text;
-
+                    acc.Location = para.txt_Account_Location.Text;
+                    acc.PhoneNumber = para.txt_Account_PhoneNumber.Text;
                     DataProvider.Instance.DB.Accounts.AddOrUpdate(acc);
                     DataProvider.Instance.DB.SaveChanges();
-                    MessageBox.Show("Cập nhật thành công.");
+                    MessageBox.Show("Cập nhật thông tin thành công.");
                 }
             }
             catch (Exception ex)
@@ -187,22 +234,19 @@ namespace StoreManagement.ViewModels
             }
 
         }
-
-
         private void LoadAccount(HomeWindow para)
         {
             this.HomeWindow = para;
             //string query = "SELECT " + username + " FROM Acount;
-           
-            Account account = DataProvider.Instance.DB.Accounts.FirstOrDefault(x => x.Username == *this.username);
+
+            Account account = DataProvider.Instance.DB.Accounts.FirstOrDefault(x => x.Username == this.username);
             ImageBrush imageBrush = new ImageBrush();
             imageBrush.ImageSource = Converter.Instance.ConvertByteToBitmapImage(account.Image);
 
             para.txt_Account_Name.Text = account.DisplayName;
-            //para.txtPassword.Text = account.Password;  ////Khi load thông tin không nên load luôn mật khẩu
-            //para.txtLocation.Text = account.Location;
-            //para.txtPhoneNumber.Text = account.PhoneNumber;
-            
+            para.txt_Account_Location.Text = account.Location;
+            para.txt_Account_PhoneNumber.Text = account.PhoneNumber;
+
             if (para.grdImageAccount.Children.Count > 1)
             {
                 para.grdImageAccount.Children.Remove(para.grdImageAccount.Children[0]);
@@ -210,12 +254,6 @@ namespace StoreManagement.ViewModels
             }
             para.grdImageAccount.Background = imageBrush;
         }
-
+        #endregion
     }
 }
-
-
-
-    
-
-       
