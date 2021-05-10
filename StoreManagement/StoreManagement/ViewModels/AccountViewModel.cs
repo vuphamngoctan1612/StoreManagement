@@ -98,7 +98,7 @@ namespace StoreManagement.ViewModels
                 try
                 {
                     Account acc = new Account();
-                    acc = DataProvider.Instance.DB.Accounts.Where(x => x.Username == "na1").First();
+                    acc = DataProvider.Instance.DB.Accounts.Where(x => x.Username == this.username).First();
                     acc.Image = Converter.Instance.ConvertImageToBytes(imageFileName);
                     DataProvider.Instance.DB.Accounts.AddOrUpdate(acc);
                     DataProvider.Instance.DB.SaveChanges();
