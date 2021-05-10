@@ -182,7 +182,6 @@ namespace StoreManagement.ViewModels
                 para.txt_Account_PhoneNumber.Focus();
                 return;
             }
-
             para.Title = "Update info account";
             //delete image
             /* para..Background = imageBrush;
@@ -204,7 +203,6 @@ namespace StoreManagement.ViewModels
             //{
             //    imgByteArr = Converter.Instance.ConvertImageToBytes(imageFileName);
             //}
-
             try
             {
                 Account acc = new Account();
@@ -229,7 +227,6 @@ namespace StoreManagement.ViewModels
             {
                 MessageBox.Show(ex.Message);
             }
-
         }
         private void LoadAccount(HomeWindow para)
         {
