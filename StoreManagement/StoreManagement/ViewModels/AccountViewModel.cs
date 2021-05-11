@@ -25,6 +25,7 @@ namespace StoreManagement.ViewModels
         //private bool isExisted;
         public HomeWindow HomeWindow { get; set; }
         private string imageFileName;
+        private string tempUsername;
         private string username;
         public ICommand DeleteAccountCommand { get; set; }
         public ICommand UpdateAccountCommand { get; set; }
@@ -45,6 +46,7 @@ namespace StoreManagement.ViewModels
      
         private void ChooseImg(Grid para)
         {
+            //this.HomeWindow = parameter;
             OpenFileDialog op = new OpenFileDialog();
             op.Title = "Chọn ảnh";
             op.Filter = "All supported graphics|*.jpg;*.jpeg;*.png|" + "JPEG (*.jpg;*.jpeg)|*.jpg;*.jpeg|" + "Portable Network Graphic (*.png)|*.png";
@@ -66,7 +68,7 @@ namespace StoreManagement.ViewModels
                 try
                 {
                     Account acc = new Account();
-                    acc = DataProvider.Instance.DB.Accounts.Where(x => x.Username == this.username).First();
+                    acc = DataProvider.Instance.DB.Accounts.Where(x => x.Username == tempUsername).First();
                     acc.Image = Converter.Instance.ConvertImageToBytes(imageFileName);
                     DataProvider.Instance.DB.Accounts.AddOrUpdate(acc);
                     DataProvider.Instance.DB.SaveChanges();
@@ -110,7 +112,7 @@ namespace StoreManagement.ViewModels
             try
             {
                 Account acc = new Account();
-                acc = DataProvider.Instance.DB.Accounts.Where(x => x.Username == this.username).First();
+                acc = DataProvider.Instance.DB.Accounts.Where(x => x.Username == tempUsername).First();
 
                 if (para.txt_Account_Password.Text != acc.Password)
                 {
@@ -154,7 +156,7 @@ namespace StoreManagement.ViewModels
             try
             {
                 Account acc = new Account();
-                acc = DataProvider.Instance.DB.Accounts.Where(x => x.Username == this.username).First();
+                acc = DataProvider.Instance.DB.Accounts.Where(x => x.Username == tempUsername).First();
 
                 if (para.txt_Account_Name.Text == acc.DisplayName && para.txt_Account_Location.Text == acc.Location && para.txt_Account_PhoneNumber.Text == acc.PhoneNumber)
                 {
@@ -179,10 +181,10 @@ namespace StoreManagement.ViewModels
         private void LoadAccount(HomeWindow para)
         {
             this.HomeWindow = para;
-            this.username = para.txbUsername.Text;
+            tempUsername = para.txt_Account_Username.Text;
             //string query = "SELECT " + username + " FROM Acount;
 
-            Account account = DataProvider.Instance.DB.Accounts.FirstOrDefault(x => x.Username == this.username);
+            Account account = DataProvider.Instance.DB.Accounts.FirstOrDefault(x => x.Username == tempUsername);
 
             para.txt_Account_Name.Text = account.DisplayName;
             para.txt_Account_Location.Text = account.Location;

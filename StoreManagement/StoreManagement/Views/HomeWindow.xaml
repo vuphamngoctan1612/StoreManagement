@@ -533,7 +533,7 @@
                         </Border>
                         <TextBlock x:Name="txbUsername"
                                    Visibility="Hidden"
-                                   Text="na1"/>
+                                   />
                         <TextBlock x:Name="testTxtUserName"
                             HorizontalAlignment="Left"
                             VerticalAlignment="Center"
@@ -1586,8 +1586,61 @@
                             <RowDefinition Height="1*"></RowDefinition>
                             <RowDefinition Height="1*"></RowDefinition>
                             <RowDefinition Height="1*"></RowDefinition>
+                            <RowDefinition Height="1*"></RowDefinition>
                         </Grid.RowDefinitions>
                         <Grid Grid.Row="0"
+                            Width="730"
+                            VerticalAlignment="Center">
+                            <!--<Ellipse
+                                Stroke="#86E3FF"
+                                Fill="#86E3FF"
+                                Width="40"
+                                Height="40"
+                                StrokeDashArray="4 2"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"/>
+                            <materialDesign:PackIcon 
+                                Kind="CogSyncOutline"
+                                Height="30"
+                                Width="30"
+                                Margin="5 0 0 0"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                Foreground="#504D85"/>-->
+                            <TextBlock 
+                                Text="Username"
+                                Margin="60 0 0 0"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                TextAlignment="Left"
+                                FontSize="22"
+                                FontFamily="Segoe UI"
+                                FontWeight="SemiBold"
+                                Foreground="#504D85"/>
+                            <Rectangle
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Center"
+                                Height="40"
+                                Width="450"
+                                Margin="0,0,20,0"
+                                StrokeThickness="2"
+                                RadiusX="10"
+                                RadiusY="10"
+                                Stroke="#E2D2DA"/>
+                            <TextBox
+                                x:Name="txt_Account_Username"
+                                Height="40" 
+                                Width="430"
+                                Margin="0 0 30 0"
+                                BorderThickness="0"
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Center"
+                                TextAlignment="Left"                 
+                                FontSize="22"
+                                FontFamily="Segoe UI"
+                                FontWeight="SemiBold" IsEnabled="False"/>
+                        </Grid>
+                        <Grid Grid.Row="1"
                             Width="730"
                             VerticalAlignment="Center">
                             <!--<Ellipse
@@ -1639,7 +1692,7 @@
                                 FontFamily="Segoe UI"
                                 FontWeight="SemiBold"/>
                         </Grid>
-                        <Grid Grid.Row="1"
+                        <Grid Grid.Row="2"
                             Width="730"
                             VerticalAlignment="Center">
                             <!--<Ellipse
@@ -1693,7 +1746,7 @@
                                 FontFamily="Segoe UI"
                                 FontWeight="SemiBold"/>
                         </Grid>
-                        <Grid Grid.Row="2"
+                        <Grid Grid.Row="3"
                              Width="730"
                              VerticalAlignment="Center">
                             <!--<Ellipse
@@ -1747,7 +1800,7 @@
                                 FontWeight="SemiBold">
                             </TextBox>
                         </Grid>
-                        <Grid Grid.Row="3">
+                        <Grid Grid.Row="4">
                             <Button 
                                 x:Name="bt_Account_InfChange" 
                                 Content="Change infomation"
@@ -1767,7 +1820,7 @@
                                 CommandParameter="{Binding ElementName=wdHome}">
                             </Button>
                         </Grid>
-                        <Grid Grid.Row="4"
+                        <Grid Grid.Row="5"
                             Width="730"
                             VerticalAlignment="Center">
                             <!--<Ellipse
@@ -1816,7 +1869,7 @@
                                 materialDesign:HintAssist.Hint="Current password">
                             </TextBox>
                         </Grid>
-                        <Grid Grid.Row="5"
+                        <Grid Grid.Row="6"
                             Width="730"
                             VerticalAlignment="Center">
                             <!--<Ellipse
@@ -1864,7 +1917,7 @@
                                 materialDesign:HintAssist.Hint="New password">
                             </TextBox>
                         </Grid>
-                        <Grid Grid.Row="6"
+                        <Grid Grid.Row="7"
                             Width="730"
                             VerticalAlignment="Center">
                             <!--<Ellipse
@@ -1912,7 +1965,7 @@
                              materialDesign:HintAssist.Hint="Confirm password">
                             </TextBox>
                         </Grid>
-                        <Grid Grid.Row="7">
+                        <Grid Grid.Row="8">
                         <Button 
                             x:Name="bt_Account_PassChange" 
                             Content="Change password"
