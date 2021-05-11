@@ -179,16 +179,17 @@ namespace StoreManagement.ViewModels
         private void LoadAccount(HomeWindow para)
         {
             this.HomeWindow = para;
+            this.username = para.txbUsername.Text;
             //string query = "SELECT " + username + " FROM Acount;
 
             Account account = DataProvider.Instance.DB.Accounts.FirstOrDefault(x => x.Username == this.username);
-            ImageBrush imageBrush = new ImageBrush();
-            imageBrush.ImageSource = Converter.Instance.ConvertByteToBitmapImage(account.Image);
 
             para.txt_Account_Name.Text = account.DisplayName;
             para.txt_Account_Location.Text = account.Location;
             para.txt_Account_PhoneNumber.Text = account.PhoneNumber;
 
+            ImageBrush imageBrush = new ImageBrush();
+            imageBrush.ImageSource = Converter.Instance.ConvertByteToBitmapImage(account.Image);
             if (para.grdImageAccount.Children.Count > 1)
             {
                 para.grdImageAccount.Children.Remove(para.grdImageAccount.Children[0]);

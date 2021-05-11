@@ -531,6 +531,9 @@
 
                             </Image>
                         </Border>
+                        <TextBlock x:Name="txbUsername"
+                                   Visibility="Hidden"
+                                   Text="na1"/>
                         <TextBlock x:Name="testTxtUserName"
                             HorizontalAlignment="Left"
                             VerticalAlignment="Center"
