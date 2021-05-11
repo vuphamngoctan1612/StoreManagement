@@ -57,26 +57,26 @@
                 Width="220"
                 Margin="70">
                 <Ellipse
-                Stroke="#FCE5EC"
-                Fill="#FCE5EC"
-                Height="220"
-                Width="220"
-                StrokeDashArray="4 2" >
+                    Stroke="#FCE5EC"
+                    Fill="#FCE5EC"
+                    Height="220"
+                    Width="220"
+                    StrokeDashArray="4 2" >
                 </Ellipse>
                 <Button 
-                HorizontalAlignment="Center"
-                VerticalAlignment="Bottom"
-                BorderThickness="0"
-                Width="140"
-                Content="Select image"
-                Background="#F79BB5"
-                Foreground="#57548B"
-                FocusVisualStyle="{x:Null}"
-                FontWeight="SemiBold"
-                FontSize="18"
-                Margin="44,0,36,-80"
-                Command="{Binding SelectImageCommand}"
-                CommandParameter="{Binding ElementName=grdImage}">
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Bottom"
+                    BorderThickness="0"
+                    Width="140"
+                    Content="Select image"
+                    Background="#F79BB5"
+                    Foreground="#57548B"
+                    FocusVisualStyle="{x:Null}"
+                    FontWeight="SemiBold"
+                    FontSize="18"
+                    Margin="44,0,36,-80"
+                    Command="{Binding SelectImageCommand}"
+                    CommandParameter="{Binding ElementName=grdImage}">
                 </Button>
                 <materialDesign:PackIcon 
                 Kind="ImageEdit" 
@@ -102,7 +102,7 @@
                 </Grid.RowDefinitions>
                 <Grid Grid.Row="0"
                     Width="550" 
-                    VerticalAlignment="Top"
+                    VerticalAlignment="Center"
                     Margin="20">
                     <Label
                     HorizontalAlignment="Left"
