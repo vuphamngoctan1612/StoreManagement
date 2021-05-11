@@ -42,38 +42,7 @@ namespace StoreManagement.ViewModels
             ChooseImgAccountCommand = new RelayCommand<Grid>(para => true, para => ChooseImg(para));
         }
         #region Commands_Logic
-        //private void NameChecker(HomeWindow para)
-        //{
-        //    if (string.IsNullOrEmpty(para.txt_Account_Name.Text))
-        //    {
-        //        para.txt_Account_Name.Focus();
-        //        MessageBox.Show("Vui lòng nhập tên để kiểm tra!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
-        //        return;
-        //    }
-        //    string queryAccount = "select* from account";
-        //    List<Account> accounts = DataProvider.Instance.DB.Accounts.SqlQuery(queryAccount).ToList();
-        //    foreach (Account acc in accounts)
-        //    {
-        //        if (para.txt_Account_Name.Text == acc.Username)
-        //        {
-        //            isExisted = true;
-        //            break;
-        //        }
-        //    }
-
-        //    if (isExisted)
-        //    {
-        //        MessageBox.Show("Tên này đã tồn tại, vui lòng nhập tên khác", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
-        //        isExisted = false; //trả về false để kiếm tra tên nhập kế tiếp
-        //        para.txt_Account_Name.Clear();//Clear data txtName để user nhập tên mới
-        //        para.txt_Account_Name.Focus();
-        //        return;
-        //    }
-        //    else
-        //    {
-        //        MessageBox.Show("Tên hợp lệ", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
-        //    }
-        //}
+     
         private void ChooseImg(Grid para)
         {
             OpenFileDialog op = new OpenFileDialog();
@@ -93,7 +62,6 @@ namespace StoreManagement.ViewModels
                 if (para.Children.Count > 1)
                 {
                     para.Children.Remove(para.Children[0]);
-                    para.Children.Remove(para.Children[1]);
                 }
                 try
                 {
@@ -183,26 +151,6 @@ namespace StoreManagement.ViewModels
                 return;
             }
             para.Title = "Update info account";
-            //delete image
-            /* para..Background = imageBrush;
-             if (para.grdImage.Children.Count > 1)
-             {
-                 para.grdImage.Children.Remove(para.grdImage.Children[0]);
-                 para.grdImage.Children.Remove(para.grdImage.Children[1]);
-             }
-            */
-            //para.ShowDialog();
-
-
-            //byte[] imgByteArr;
-            //if (imageFileName != null)
-            //{
-            //    imgByteArr = Converter.Instance.ConvertImageToBytes(@"..\..\Resources\Images\default.jpg");
-            //}
-            //else
-            //{
-            //    imgByteArr = Converter.Instance.ConvertImageToBytes(imageFileName);
-            //}
             try
             {
                 Account acc = new Account();
@@ -244,7 +192,7 @@ namespace StoreManagement.ViewModels
             if (para.grdImageAccount.Children.Count > 1)
             {
                 para.grdImageAccount.Children.Remove(para.grdImageAccount.Children[0]);
-                para.grdImageAccount.Children.Remove(para.grdImageAccount.Children[1]);
+                para.grdImageAccount.Children.Remove(para.icoImageAccount);
             }
             para.grdImageAccount.Background = imageBrush;
         }

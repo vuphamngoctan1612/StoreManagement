@@ -1544,6 +1544,7 @@
                             StrokeDashArray="4 2">
                         </Ellipse>
                         <materialDesign:PackIcon 
+                            x:Name="icoImageAccount"
                             Kind="ImageEdit" 
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center" 
