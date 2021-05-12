@@ -17,6 +17,7 @@ namespace StoreManagement.ViewModels
         public ICommand LoadDebtsReportCommand { get; set; }
         public ICommand SwitchCommand { get; set; }
         public ICommand GetUidCommand { get; set; }
+        public ICommand SearchAgencyCommand { get; set; }
         public string CustomFormat { get; set; }
 
         public AgencyReportViewModel()
@@ -25,8 +26,35 @@ namespace StoreManagement.ViewModels
             LoadDebtsReportCommand = new RelayCommand<HomeWindow>((para) => true, (para) => LoadDebtsReport(para));
             GetUidCommand = new RelayCommand<Button>((para) => true, (para) => uid = para.Uid);
             SwitchCommand = new RelayCommand<HomeWindow>((para) => true, (para) => Switch(para));
+            SearchAgencyCommand = new RelayCommand<HomeWindow>((para) => true, (para) => Search(para));
         }
 
+        private void Search(HomeWindow para)
+        {
+            this.HomeWindow = para;
+            foreach (SalesReportUC control in this.HomeWindow.stkSalesReport.Children)
+            {
+                if (!control.txtAgency.Text.ToLower().Contains(this.HomeWindow.txtSearchReport.Text))
+                {
+                    control.Visibility = Visibility.Collapsed;
+                }
+                else
+                {
+                    control.Visibility = Visibility.Visible;
+                }
+            }
+            foreach (DebtReportUC control in this.HomeWindow.stkDebtReport.Children)
+            {
+                if (!control.txtAgency.Text.ToLower().Contains(this.HomeWindow.txtSearchReport.Text))
+                {
+                    control.Visibility = Visibility.Collapsed;
+                }
+                else
+                {
+                    control.Visibility = Visibility.Visible;
+                }
+            }
+        }
         private void Switch(HomeWindow para)
         {
             int index = int.Parse(uid);
