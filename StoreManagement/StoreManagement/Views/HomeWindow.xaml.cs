@@ -23,5 +23,10 @@ namespace StoreManagement.Views
         {
             InitializeComponent();
         }
+
+        private void Date_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
     }
 }

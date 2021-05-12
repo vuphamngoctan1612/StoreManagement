@@ -275,6 +275,7 @@
                 </TextBox>
                 <DatePicker
                     x:Name="dateCheckout"
+                    IsEnabled="False"
                      Width="300"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Top"

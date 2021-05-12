@@ -8,11 +8,15 @@
             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              x:Name="displayReceiptBill"
              mc:Ignorable="d" 
-             d:DesignHeight="50" d:DesignWidth="960"
-             Background="#FAAEC4"
+             d:DesignHeight="45" d:DesignWidth="1070"
+             Background="#FFFFFF"
              Padding="1"
              DataContext="{StaticResource BillVM}">
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="1"></RowDefinition>
+        </Grid.RowDefinitions>
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="100"></ColumnDefinition>
@@ -41,7 +45,7 @@
                 FontSize="22"></TextBlock>
             </Grid>
             <Grid
-            Grid.Column="2">
+                Grid.Column="2">
                 <TextBlock
                 x:Name="CheckOut"
                 Foreground="#504D85"
@@ -51,7 +55,7 @@
                 FontSize="22"></TextBlock>
             </Grid>
             <Grid
-            Grid.Column="3">
+                Grid.Column="3">
                 <TextBlock
                 x:Name="Amount"
                 Foreground="#504D85"
@@ -64,20 +68,25 @@
                 <Button
                     x:Name="btOpen"
                     x:Uid="1"
-                    Background="#FAAEC4"
+                    Background="{x:Null}"
+                    BorderBrush="{x:Null}"
                     Foreground="#504D85"
                     Width="60"
-                    Height="50"
+                    Height="45"
                     Command="{Binding OpenReceiptWindowCommand}"
                     CommandParameter="{Binding ElementName=displayReceiptBill}">
                     <materialDesign:PackIcon
                         Kind="BookOpenVariant"
-                        Width="60"
-                        Height="50"
+                        Width="24"
+                        Height="24"
                         VerticalAlignment="Center"
                         HorizontalAlignment="Center"/>
                 </Button>
             </Grid>
+        </Grid>
+        <Grid Grid.Row="1"
+            Width="1070"
+            Background="#F2F2F2">
         </Grid>
     </Grid>
 </UserControl>

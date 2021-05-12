@@ -5,8 +5,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:StoreManagement"
              mc:Ignorable="d" 
-             d:DesignHeight="50" d:DesignWidth="960"
-             Background="#FAAEC4"
+             d:DesignHeight="45" d:DesignWidth="1070"
+             Background="#FFFFFF"
              Padding="1">
     <Grid>
         <Grid.ColumnDefinitions>
