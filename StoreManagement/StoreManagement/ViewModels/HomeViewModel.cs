@@ -15,13 +15,39 @@ namespace StoreManagement.ViewModels
     public class HomeViewModel : BaseViewModel
     {
         private string uid;
-
+        public bool Isloaded = false;
+       
         public ICommand SwitchTabCommand { get; set; }
         public ICommand GetUidCommand { get; set; }
 
         public HomeViewModel()
         {
-            GetUidCommand = new RelayCommand<Button>((para) => true, (para) => uid = para.Uid);
+            //LoadedWindowCommand = new RelayCommand<LoginWindow>((p) => { return true; }, (p) =>
+            //{
+            //    Isloaded = true;
+            //    if (p == null)
+            //        return;
+            //    p.Hide();
+            //    LoginWindow loginWindow = new LoginWindow();
+            //    loginWindow.ShowDialog();
+
+            //    if (loginWindow.DataContext == null)
+            //        return;
+            //    var loginVM = loginWindow.DataContext as LoginViewModel;
+
+            //    if (loginVM.IsLogin)
+            //    {roi
+            //        p.Show();
+            //    }
+            //    else
+            //    { 
+            //        p.Close();
+            //    }
+            //});// là đống trên hả
+            ////coi kteam là để m hiểu thôi chứ kh phải copy code trên đó
+            ////
+
+           GetUidCommand = new RelayCommand<Button>((para) => true, (para) => uid = para.Uid);
             SwitchTabCommand = new RelayCommand<HomeWindow>((para) => true, (para) => SwitchTab(para));
         }
 

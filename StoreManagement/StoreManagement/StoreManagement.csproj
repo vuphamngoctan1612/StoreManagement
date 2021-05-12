@@ -126,6 +126,9 @@
     <Compile Include="Models\Receipt.cs">
       <DependentUpon>AgencyManagement_Entities.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\sysdiagram.cs">
+      <DependentUpon>AgencyManagement_Entities.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\TypeOfAgency.cs">
       <DependentUpon>AgencyManagement_Entities.tt</DependentUpon>
     </Compile>
@@ -153,6 +156,8 @@
     <Compile Include="ViewModels\BillViewModel.cs" />
     <Compile Include="ViewModels\ProductViewModel.cs" />
     <Compile Include="ViewModels\ReportViewModel.cs" />
+    <Compile Include="ViewModels\SignUpViewModel.cs" />
+    <Compile Include="ViewModels\SQLConnection.cs" />
     <Compile Include="ViewModels\StoreViewModel.cs" />
     <Compile Include="Views\AddProductWindow.xaml.cs">
       <DependentUpon>AddProductWindow.xaml</DependentUpon>
@@ -165,6 +170,9 @@
     </Compile>
     <Compile Include="Views\InvoiceWindow.xaml.cs">
       <DependentUpon>InvoiceWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\LoginWindow.xaml.cs">
+      <DependentUpon>LoginWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\SignUpWindow.xaml.cs">
       <DependentUpon>SignUpWindow.xaml</DependentUpon>
@@ -262,6 +270,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\InvoiceWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\LoginWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

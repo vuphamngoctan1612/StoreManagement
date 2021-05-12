@@ -17,14 +17,14 @@ namespace StoreManagement.Views
     /// <summary>
     /// Interaction logic for LoginWindow.xaml
     /// </summary>
-    public partial class SignUpWindow : Window
+    public partial class LoginWindow : Window
     {
-        public SignUpWindow()
+        public LoginWindow()
         {
             InitializeComponent();
         }
 
-        private void btSignUp_Click(object sender, RoutedEventArgs e)
+        private void btClose_Click(object sender, RoutedEventArgs e)
         {
 
         }
