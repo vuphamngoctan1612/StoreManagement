@@ -556,7 +556,7 @@
             <Grid Grid.Row="1"
                 x:Name="grdBody_Main"
                 DataContext="{StaticResource ReportVM}"
-                Visibility="Visible">
+                Visibility="Hidden">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="2"></RowDefinition>
                     <RowDefinition Height="70"></RowDefinition>
@@ -1482,7 +1482,7 @@
                 HorizontalAlignment="Left"
                 VerticalAlignment="Bottom"
                 Margin="0 0 0 0"
-                Visibility="Hidden">
+                Visibility="Visible">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="Loaded">
                         <i:InvokeCommandAction 
@@ -1674,11 +1674,11 @@
                         Grid.Row="1"
                         Background="#FF9CB9"
                         Height="45"
-                        Width="1070"
+                        Width="1060"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Top"
                         Margin="0 50 0 0"
-                        Visibility="Hidden">
+                        Visibility="Visible">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="100"/>
                             <ColumnDefinition Width="220"/>
