@@ -44,6 +44,7 @@ namespace StoreManagement.ViewModels
             para.rec_btn_Menu_Main.Fill = transparent;
             para.rec_btn_Menu_Store.Fill = transparent;
             para.rec_btn_Menu_Product.Fill = transparent;
+            para.rec_btn_Menu_Business.Fill = transparent;
             para.rec_btn_Menu_Bill.Fill = transparent;
             para.rec_btn_Menu_Report.Fill = transparent;
             para.rec_btn_Menu_Setting.Fill = transparent;

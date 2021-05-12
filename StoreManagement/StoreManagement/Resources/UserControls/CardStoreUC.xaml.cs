@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace StoreManagement.Views
+namespace StoreManagement.Resources.UserControls
 {
     /// <summary>
-    /// Interaction logic for usReport.xaml
+    /// Interaction logic for CardStoreUC.xaml
     /// </summary>
-    public partial class usReport : UserControl
+    public partial class CardStoreUC : UserControl
     {
-        public usReport()
+        public CardStoreUC()
         {
             InitializeComponent();
         }

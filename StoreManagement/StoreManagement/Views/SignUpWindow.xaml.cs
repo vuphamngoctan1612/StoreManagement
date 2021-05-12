@@ -17,9 +17,9 @@ namespace StoreManagement.Views
     /// <summary>
     /// Interaction logic for fSignUp.xaml
     /// </summary>
-    public partial class fSignUp : Window
+    public partial class SignUpWindow : Window
     {
-        public fSignUp()
+        public SignUpWindow()
         {
             InitializeComponent();
         }

@@ -130,23 +130,11 @@
     <Compile Include="Models\TypeOfAgency.cs">
       <DependentUpon>AgencyManagement_Entities.tt</DependentUpon>
     </Compile>
-    <Compile Include="Resources\UserControls\AccountSettingUC.xaml.cs">
-      <DependentUpon>AccountSettingUC.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Resources\UserControls\AgencyControlUC.xaml.cs">
-      <DependentUpon>AgencyControlUC.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Resources\UserControls\BillHomeUC.xaml.cs">
-      <DependentUpon>BillHomeUC.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Resources\UserControls\BillUC.xaml.cs">
       <DependentUpon>BillUC.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Resources\UserControls\BusinessProductChosenUC.xaml.cs">
-      <DependentUpon>BusinessProductChosenUC.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Resources\UserControls\BusinessProductUC.xaml.cs">
-      <DependentUpon>BusinessProductUC.xaml</DependentUpon>
+    <Compile Include="Resources\UserControls\CardStoreUC.xaml.cs">
+      <DependentUpon>CardStoreUC.xaml</DependentUpon>
     </Compile>
     <Compile Include="Resources\UserControls\DebtReportUC.xaml.cs">
       <DependentUpon>DebtReportUC.xaml</DependentUpon>
@@ -157,20 +145,11 @@
     <Compile Include="Resources\UserControls\ProductControlUC.xaml.cs">
       <DependentUpon>ProductControlUC.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Resources\UserControls\ReportUC.xaml.cs">
-      <DependentUpon>ReportUC.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Resources\UserControls\SalesReportUC.xaml.cs">
       <DependentUpon>SalesReportUC.xaml</DependentUpon>
     </Compile>
     <Compile Include="Resources\UserControls\StoreControlUC.xaml.cs">
       <DependentUpon>StoreControlUC.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Resources\UserControls\StoresHomeUC.xaml.cs">
-      <DependentUpon>StoresHomeUC.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Resources\UserControls\StoresUC.xaml.cs">
-      <DependentUpon>StoresUC.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -256,10 +235,11 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Resources\UserControls\BillHomeUC.xaml">
+    <Page Include="Resources\UserControls\BillUC.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Resources\UserControls\BillUC.xaml">
+    <Page Include="Resources\UserControls\CardStoreUC.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -291,10 +271,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Resources\UserControls\StoresHomeUC.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Views\AddProductWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -315,18 +291,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Resources\UserControls\AccountSettingUC.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Resources\UserControls\ReportUC.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Resources\UserControls\StoresUC.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
@@ -342,6 +306,7 @@
       <DependentUpon>AgencyManagement_Entities.edmx</DependentUpon>
       <LastGenOutput>AgencyManagement_Entities.cs</LastGenOutput>
     </Content>
+    <Resource Include="Resources\Images\default.jpg" />
     <Resource Include="Resources\Images\logo.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

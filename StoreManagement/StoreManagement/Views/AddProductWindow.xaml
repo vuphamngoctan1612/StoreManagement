@@ -5,32 +5,65 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:StoreManagement.Views" 
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
         DataContext="{StaticResource ProductVM}"
         Background="White"
         Title="Thêm sản phẩm" 
-        Height="680" 
-        Width="990"
+        Height="750" 
+        Width="1000"
         ResizeMode="CanMinimize"
         x:Name="wdAddProduct"
         WindowStartupLocation="CenterScreen">
-    <Grid Margin="0">
-        <Grid 
-            x:Name="grdImage"
-            HorizontalAlignment="Left" 
-            VerticalAlignment="Top"
-            Height="220"
-            Width="220"
-            Margin="70">
-            <Rectangle
-                Stroke="#F79BB5" 
-                Opacity="0.53"
-                StrokeDashArray="4 2"
-                StrokeThickness="4" 
-                RadiusX="5"
-                RadiusY="5"/>
-            <Button 
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="120"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Grid
+                Height="90"
+                Width="900">
+                <materialDesign:PackIcon
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Width="70"
+                    Height="70"
+                    Foreground="#57548B"
+                    Margin="100 0 0 0">                    
+                </materialDesign:PackIcon>
+                <TextBlock
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Text="Infomation's product"
+                    FontSize="45"
+                    FontWeight="Bold"
+                    Foreground="#57548B"
+                    Margin="250 0 0 0">
+                </TextBlock>
+            </Grid>
+        </Grid>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="400"></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Column="0"
+                x:Name="grdImage"
+                HorizontalAlignment="Left" 
+                VerticalAlignment="Top"
+                Height="220"
+                Width="220"
+                Margin="70">
+                <Ellipse
+                Stroke="#FCE5EC"
+                Fill="#FCE5EC"
+                Height="220"
+                Width="220"
+                StrokeDashArray="4 2" >
+                </Ellipse>
+                <Button 
                 HorizontalAlignment="Center"
                 VerticalAlignment="Bottom"
                 BorderThickness="0"
@@ -41,39 +74,37 @@
                 FocusVisualStyle="{x:Null}"
                 FontWeight="SemiBold"
                 FontSize="18"
-                Margin="15"
+                Margin="44,0,36,-80"
                 Command="{Binding SelectImageCommand}"
-                CommandParameter="{Binding ElementName=grdImage}"/>
-            <materialDesign:PackIcon 
+                CommandParameter="{Binding ElementName=grdImage}">
+                </Button>
+                <materialDesign:PackIcon 
                 Kind="ImageEdit" 
                 HorizontalAlignment="Center"
-                VerticalAlignment="Top" 
+                VerticalAlignment="Center" 
                 Width="80"
                 Height="80"
                 Margin="60"
-                Foreground="#F97299"
-                Opacity="0.75"/>
-
-        </Grid>
-        <Grid
-            Width="580"
-            Height="580" 
-            HorizontalAlignment="Right"
-            Margin="40">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="80"></RowDefinition>
-                <RowDefinition Height="80"></RowDefinition>
-                <RowDefinition Height="80"></RowDefinition>
-                <RowDefinition Height="80"></RowDefinition>
-                <RowDefinition Height="80"></RowDefinition>
-                <RowDefinition Height="80"></RowDefinition>
-                <RowDefinition></RowDefinition>
-            </Grid.RowDefinitions>
-            <Grid Grid.Row="0"
-                Width="550" 
-                VerticalAlignment="Top"
-                Margin="20">
-                <Label
+                Foreground="#F97299">
+                </materialDesign:PackIcon>
+            </Grid>
+            <Grid Grid.Column="1"
+                HorizontalAlignment="Left"
+                Margin="0 35 0 0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="80"></RowDefinition>
+                    <RowDefinition Height="80"></RowDefinition>
+                    <RowDefinition Height="80"></RowDefinition>
+                    <RowDefinition Height="80"></RowDefinition>
+                    <RowDefinition Height="80"></RowDefinition>
+                    <RowDefinition Height="80"></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0"
+                    Width="550" 
+                    VerticalAlignment="Top"
+                    Margin="20">
+                    <Label
                     HorizontalAlignment="Left"
                     VerticalAlignment="Center"
                     Content="ID"
@@ -81,8 +112,8 @@
                     FontWeight="SemiBold"
                     Margin="40 0 0 0"
                     Foreground="#57548B">
-                </Label>
-                <Rectangle
+                    </Label>
+                    <Rectangle
                     HorizontalAlignment="Right"
                     Width="300"
                     Margin="0 0 30 0"
@@ -90,7 +121,7 @@
                     RadiusX="10"
                     RadiusY="10"
                     Stroke="#E2D2DA"/>
-                <TextBox
+                    <TextBox
                     Name="txtID"
                     IsEnabled="False"
                     HorizontalAlignment="Right"
@@ -107,14 +138,14 @@
                     HorizontalContentAlignment="Left"
                     VerticalContentAlignment="Center" 
                     Cursor="Arrow">
-                    
-                </TextBox>
-            </Grid>
-            <Grid Grid.Row="1"
+
+                    </TextBox>
+                </Grid>
+                <Grid Grid.Row="1"
                 Width="550" 
                 VerticalAlignment="Top"
                 Margin="20">
-                <Label
+                    <Label
                     HorizontalAlignment="Left"
                     VerticalAlignment="Center"
                     Content="Name"
@@ -122,8 +153,8 @@
                     FontWeight="SemiBold"
                     Margin="40 0 0 0"
                     Foreground="#57548B">
-                </Label>
-                <Rectangle
+                    </Label>
+                    <Rectangle
                     HorizontalAlignment="Right"
                     Width="300"
                     Margin="0 0 30 0"
@@ -131,7 +162,7 @@
                     RadiusX="10"
                     RadiusY="10"
                     Stroke="#E2D2DA"/>
-                <TextBox
+                    <TextBox
                     Name="txtName"
                     HorizontalAlignment="Right"
                     VerticalAlignment="Center"
@@ -148,13 +179,13 @@
                     VerticalContentAlignment="Center" 
                     Cursor="Arrow">
 
-                </TextBox>
-            </Grid>
-            <Grid Grid.Row="2"
+                    </TextBox>
+                </Grid>
+                <Grid Grid.Row="2"
                 Width="550" 
                 VerticalAlignment="Top"
                 Margin="20">
-                <Label
+                    <Label
                     HorizontalAlignment="Left"
                     VerticalAlignment="Center"
                     Content="Units"
@@ -162,8 +193,8 @@
                     FontWeight="SemiBold"
                     Margin="40 0 0 0"
                     Foreground="#57548B">
-                </Label>
-                <Rectangle
+                    </Label>
+                    <Rectangle
                     HorizontalAlignment="Right"
                     Width="300"
                     Margin="0 0 30 0"
@@ -171,7 +202,7 @@
                     RadiusX="10"
                     RadiusY="10"
                     Stroke="#E2D2DA"/>
-                <TextBox
+                    <TextBox
                     Name="txtUnit"
                     HorizontalAlignment="Right"
                     VerticalAlignment="Center"
@@ -187,8 +218,8 @@
                     HorizontalContentAlignment="Left"
                     VerticalContentAlignment="Center" 
                     Cursor="Arrow">
-                </TextBox>
-                <!--<ComboBox
+                    </TextBox>
+                    <!--<ComboBox
                     HorizontalAlignment="Right"
                     VerticalAlignment="Center"
                     Width="280"
@@ -210,142 +241,181 @@
                     </ComboBoxItem>
                     
                 </ComboBox>-->
-            </Grid>
-            <Grid Grid.Row="3"
+                </Grid>
+                <Grid Grid.Row="3"
                 Width="550" 
                 VerticalAlignment="Top"
                 Margin="20">
-                <Label
-                    HorizontalAlignment="Left"
-                    VerticalAlignment="Center"
-                    Content="Import price"
-                    FontSize="22"
-                    FontWeight="SemiBold"
-                    Margin="40 0 0 0"
-                    Foreground="#57548B">
-                </Label>
-                <Rectangle
-                    HorizontalAlignment="Right"
-                    Width="300"
-                    Margin="0 0 30 0"
-                    StrokeThickness="2"
-                    RadiusX="10"
-                    RadiusY="10"
-                    Stroke="#E2D2DA"/>
-                <TextBox
-                    Name="txtImportPrice"
-                    HorizontalAlignment="Right"
-                    VerticalAlignment="Center"
-                    Width="280"
-                    Margin="0 0 40 0"
-                    BorderThickness="0"
-                    materialDesign:HintAssist.Hint="Giá nhập kho"
-                    MaxLines="1"
-                    Height="40"
-                    FontSize="17"
-                    FontWeight="SemiBold"
-                    Padding="0"
-                    HorizontalContentAlignment="Left"
-                    VerticalContentAlignment="Center" 
-                    Cursor="Arrow">
-                    <i:Interaction.Triggers>
-                        <i:EventTrigger EventName="TextChanged">
-                            <i:InvokeCommandAction Command="{Binding SeparateThousandsCommand}" CommandParameter="{Binding ElementName=txtImportPrice}"/>
-                        </i:EventTrigger>
-                    </i:Interaction.Triggers>
-                </TextBox>
-            </Grid>
-            <Grid Grid.Row="4"
+                    <Label
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Content="Import price"
+                        FontSize="22"
+                        FontWeight="SemiBold"
+                        Margin="40 0 0 0"
+                        Foreground="#57548B">
+                    </Label>
+                    <Rectangle
+                        HorizontalAlignment="Right"
+                        Width="300"
+                        Margin="0 0 30 0"
+                        StrokeThickness="2"
+                        RadiusX="10"
+                        RadiusY="10"
+                        Stroke="#E2D2DA"/>
+                    <TextBox
+                        MaxLength="15"
+                        Name="txtImportPrice"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Center"
+                        Width="280"
+                        Margin="0 0 40 0"
+                        BorderThickness="0"
+                        materialDesign:HintAssist.Hint="Giá nhập kho"
+                        MaxLines="1"
+                        Height="40"
+                        FontSize="17"
+                        FontWeight="SemiBold"
+                        Padding="0"
+                        HorizontalContentAlignment="Left"
+                        VerticalContentAlignment="Center" 
+                        Cursor="Arrow">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="TextChanged">
+                                <i:InvokeCommandAction 
+                                    Command="{Binding SeparateThousandsCommand}" 
+                                    CommandParameter="{Binding ElementName=txtImportPrice}">
+                                </i:InvokeCommandAction>
+                            </i:EventTrigger>
+                            <i:EventTrigger EventName="PreviewTextInput">
+                                <ei:CallMethodAction 
+                                    TargetObject="{Binding }" 
+                                    MethodName="NumberValidationTextBox" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </TextBox>
+                </Grid>
+                <Grid Grid.Row="4"
                 Width="550" 
                 VerticalAlignment="Top"
                 Margin="20">
-                <Label
-                    HorizontalAlignment="Left"
-                    VerticalAlignment="Center"
-                    Content="Export price"
-                    FontSize="22"
-                    FontWeight="SemiBold"
-                    Margin="40 0 0 0"
-                    Foreground="#57548B">
-                </Label>
-                <Rectangle
-                    HorizontalAlignment="Right"
-                    Width="300"
-                    Margin="0 0 30 0"
-                    StrokeThickness="2"
-                    RadiusX="10"
-                    RadiusY="10"
-                    Stroke="#E2D2DA"/>
-                <TextBox
-                    Name="txtExportPrice"
-                    HorizontalAlignment="Right"
-                    VerticalAlignment="Center"
-                    Width="280"
-                    Margin="0 0 40 0"
-                    BorderThickness="0"
-                    materialDesign:HintAssist.Hint="Giá bán"
-                    MaxLines="1"
-                    Height="40"
-                    FontSize="17"
-                    FontWeight="SemiBold"
-                    Padding="0"
-                    HorizontalContentAlignment="Left"
-                    VerticalContentAlignment="Center" 
-                    Cursor="Arrow">
-                    <i:Interaction.Triggers>
-                        <i:EventTrigger EventName="TextChanged">
-                            <i:InvokeCommandAction Command="{Binding SeparateThousandsCommand}" CommandParameter="{Binding ElementName=txtExportPrice}"/>
-                        </i:EventTrigger>
-                    </i:Interaction.Triggers>
-                </TextBox>
-            </Grid>
-            <Grid Grid.Row="5"
-                Width="550" 
-                VerticalAlignment="Top"
-                Margin="20">
-                <Label
-                    HorizontalAlignment="Left"
-                    VerticalAlignment="Center"
-                    Content="Amount"
-                    FontSize="22"
-                    FontWeight="SemiBold"
-                    Margin="40 0 0 0"
-                    Foreground="#57548B">
-                </Label>
-                <Rectangle
-                    HorizontalAlignment="Right"
-                    Width="300"
-                    Margin="0 0 30 0"
-                    StrokeThickness="2"
-                    RadiusX="10"
-                    RadiusY="10"
-                    Stroke="#E2D2DA"/>
-                <TextBox
-                    x:Name="txtAmount"
-                    HorizontalAlignment="Right"
-                    VerticalAlignment="Center"
-                    Width="280"
-                    Margin="0 0 40 0"
-                    BorderThickness="0"
-                    materialDesign:HintAssist.Hint="Số lượng"
-                    MaxLines="1"
-                    Height="40"
-                    FontSize="17"
-                    FontWeight="SemiBold"
-                    Padding="0"
-                    HorizontalContentAlignment="Left"
-                    VerticalContentAlignment="Center" 
-                    Cursor="Arrow">
-                    <i:Interaction.Triggers>
-                        <i:EventTrigger EventName="TextChanged">
-                            <i:InvokeCommandAction Command="{Binding SeparateThousandsCommand}" CommandParameter="{Binding ElementName=txtAmount}"/>
-                        </i:EventTrigger>
-                    </i:Interaction.Triggers>
-                </TextBox>
-            </Grid>
-            <Grid Grid.Row="6">
-                <Button 
-                    x:Name="btnSave"
+                    <Label
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Content="Export price"
+                        FontSize="22"
+                        FontWeight="SemiBold"
+                        Margin="40 0 0 0"
+                        Foreground="#57548B">
+                    </Label>
+                    <Rectangle
+                        HorizontalAlignment="Right"
+                        Width="300"
+                        Margin="0 0 30 0"
+                        StrokeThickness="2"
+                        RadiusX="10"
+                        RadiusY="10"
+                        Stroke="#E2D2DA"/>
+                    <TextBox
+                        MaxLength="15"
+                        Name="txtExportPrice"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Center"
+                        Width="280"
+                        Margin="0 0 40 0"
+                        BorderThickness="0"
+                        materialDesign:HintAssist.Hint="Giá bán"
+                        MaxLines="1"
+                        Height="40"
+                        FontSize="17"
+                        FontWeight="SemiBold"
+                        Padding="0"
+                        HorizontalContentAlignment="Left"
+                        VerticalContentAlignment="Center" 
+                        Cursor="Arrow">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="TextChanged">
+                                <i:InvokeCommandAction Command="{Binding SeparateThousandsCommand}" CommandParameter="{Binding ElementName=txtExportPrice}"/>
+                            </i:EventTrigger>
+                            <i:EventTrigger EventName="PreviewTextInput">
+                                <ei:CallMethodAction 
+                                    TargetObject="{Binding }" 
+                                    MethodName="NumberValidationTextBox" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </TextBox>
+                </Grid>
+                <Grid Grid.Row="5"
+                    Width="550" 
+                    VerticalAlignment="Top"
+                    Margin="20">
+                    <Label
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Content="Amount"
+                        FontSize="22"
+                        FontWeight="SemiBold"
+                        Margin="40 0 0 0"
+                        Foreground="#57548B">
+                    </Label>
+                    <Rectangle
+                        HorizontalAlignment="Right"
+                        Width="300"
+                        Margin="0 0 30 0"
+                        StrokeThickness="2"
+                        RadiusX="10"
+                        RadiusY="10"
+                        Stroke="#E2D2DA"/>
+                    <TextBox
+                        MaxLength="7"
+                        x:Name="txtAmount"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Center"
+                        Width="280"
+                        Margin="0 0 40 0"
+                        BorderThickness="0"
+                        materialDesign:HintAssist.Hint="Số lượng"
+                        MaxLines="1"
+                        Height="40"
+                        FontSize="17"
+                        FontWeight="SemiBold"
+                        Padding="0"
+                        HorizontalContentAlignment="Left"
+                        VerticalContentAlignment="Center" 
+                        Cursor="Arrow">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="TextChanged">
+                                <i:InvokeCommandAction Command="{Binding SeparateThousandsCommand}" CommandParameter="{Binding ElementName=txtAmount}"/>
+                            </i:EventTrigger>
+                            <i:EventTrigger EventName="PreviewTextInput">
+                                <ei:CallMethodAction 
+                                    TargetObject="{Binding }" 
+                                    MethodName="NumberValidationTextBox" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </TextBox>
+                </Grid>
+                <Grid Grid.Row="6">
+                    <Button 
+                        x:Name="btnSave"
+                        HorizontalAlignment="Left"
+                        Width="110"
+                        Height="38"
+                        Margin="250 -10 0 0"
+                        Content="Save"
+                        BorderThickness="0"
+                        Foreground="#57548B"
+                        Background="#F79BB5"
+                        FontSize="22"
+                        Cursor="Hand"
+                        FocusVisualStyle="{x:Null}"
+                        FontWeight="SemiBold"
+                        Visibility="Visible"
+                        Command="{Binding SaveCommand}"
+                        CommandParameter="{Binding ElementName=wdAddProduct}">
+                    </Button>
+                    <!--<Button 
+                    x:Name="btnEdit"
                     HorizontalAlignment="Left"
                     Width="110"
                     Height="38"
@@ -358,26 +428,28 @@
                     Cursor="Hand"
                     FocusVisualStyle="{x:Null}"
                     FontWeight="SemiBold"
-                    Command="{Binding SaveCommand}"
+                    Visibility="Visible"
+                    Command="{Binding SaveChangeCommand}"
                     CommandParameter="{Binding ElementName=wdAddProduct}">
-                </Button>
-                <Button 
-                    x:Name="btnClose"
-                    HorizontalAlignment="Right"
-                    Width="110"
-                    Height="38"
-                    Margin="0 -10 70 0"
-                    Content="Close"
-                    BorderThickness="0"
-                    Cursor="Hand"
-                    Background="#F0F0F0"
-                    FocusVisualStyle="{x:Null}"
-                    Foreground="#57548B"
-                    FontSize="22"
-                    FontWeight="SemiBold"
-                    Command="{Binding CloseWindowCommand}"
-                    CommandParameter="{Binding ElementName=wdAddProduct}">
-                </Button>
+                </Button>-->
+                    <Button 
+                        x:Name="btnClose"
+                        HorizontalAlignment="Right"
+                        Width="110"
+                        Height="38"
+                        Margin="0 -10 70 0"
+                        Content="Close"
+                        BorderThickness="0"
+                        Cursor="Hand"
+                        Background="#F0F0F0"
+                        FocusVisualStyle="{x:Null}"
+                        Foreground="#57548B"
+                        FontSize="22"
+                        FontWeight="SemiBold"
+                        Command="{Binding CloseWindowCommand}"
+                        CommandParameter="{Binding ElementName=wdAddProduct}">
+                    </Button>
+                </Grid>
             </Grid>
         </Grid>
     </Grid>
