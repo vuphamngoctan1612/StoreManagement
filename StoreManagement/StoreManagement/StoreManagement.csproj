@@ -126,6 +126,12 @@
     <Compile Include="Models\Receipt.cs">
       <DependentUpon>AgencyManagement_Entities.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\StockReceipt.cs">
+      <DependentUpon>AgencyManagement_Entities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\StockReceiptInfo.cs">
+      <DependentUpon>AgencyManagement_Entities.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\sysdiagram.cs">
       <DependentUpon>AgencyManagement_Entities.tt</DependentUpon>
     </Compile>

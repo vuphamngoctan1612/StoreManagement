@@ -72,6 +72,24 @@
           <Property Name="Amount" Type="bigint" />
           <Property Name="Message" Type="nvarchar" MaxLength="1000" />
         </EntityType>
+        <EntityType Name="StockReceipt">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="CheckIn" Type="date" />
+          <Property Name="Total" Type="bigint" />
+        </EntityType>
+        <EntityType Name="StockReceiptInfo">
+          <Key>
+            <PropertyRef Name="StockReceiptID" />
+            <PropertyRef Name="ProductID" />
+          </Key>
+          <Property Name="StockReceiptID" Type="int" Nullable="false" />
+          <Property Name="ProductID" Type="int" Nullable="false" />
+          <Property Name="Amount" Type="bigint" />
+          <Property Name="Price" Type="bigint" />
+        </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
             <PropertyRef Name="diagram_id" />
@@ -114,6 +132,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Product">
+          <End Role="Product" Type="Self.Product" Multiplicity="1" />
+          <End Role="StockReceiptInfo" Type="Self.StockReceiptInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="StockReceiptInfo">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_ProductID">
           <End Role="Product" Type="Self.Product" Multiplicity="1" />
           <End Role="InvoiceInfo" Type="Self.InvoiceInfo" Multiplicity="*" />
@@ -138,6 +168,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_StockReceipt">
+          <End Role="StockReceipt" Type="Self.StockReceipt" Multiplicity="1" />
+          <End Role="StockReceiptInfo" Type="Self.StockReceiptInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StockReceipt">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="StockReceiptInfo">
+              <PropertyRef Name="StockReceiptID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Type">
           <End Role="TypeOfAgency" Type="Self.TypeOfAgency" Multiplicity="0..1" />
           <End Role="Agency" Type="Self.Agency" Multiplicity="*" />
@@ -157,6 +199,8 @@
           <EntitySet Name="InvoiceInfo" EntityType="Self.InvoiceInfo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Receipt" EntityType="Self.Receipt" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="StockReceipt" EntityType="Self.StockReceipt" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="StockReceiptInfo" EntityType="Self.StockReceiptInfo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TypeOfAgency" EntityType="Self.TypeOfAgency" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Invoice_AgencyID" Association="Self.FK_Invoice_AgencyID">
@@ -167,6 +211,10 @@
             <End Role="Invoice" EntitySet="Invoice" />
             <End Role="InvoiceInfo" EntitySet="InvoiceInfo" />
           </AssociationSet>
+          <AssociationSet Name="FK_Product" Association="Self.FK_Product">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="StockReceiptInfo" EntitySet="StockReceiptInfo" />
+          </AssociationSet>
           <AssociationSet Name="FK_ProductID" Association="Self.FK_ProductID">
             <End Role="Product" EntitySet="Product" />
             <End Role="InvoiceInfo" EntitySet="InvoiceInfo" />
@@ -174,6 +222,10 @@
           <AssociationSet Name="FK_Receipt_AgencyID" Association="Self.FK_Receipt_AgencyID">
             <End Role="Agency" EntitySet="Agency" />
             <End Role="Receipt" EntitySet="Receipt" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StockReceipt" Association="Self.FK_StockReceipt">
+            <End Role="StockReceipt" EntitySet="StockReceipt" />
+            <End Role="StockReceiptInfo" EntitySet="StockReceiptInfo" />
           </AssociationSet>
           <AssociationSet Name="FK_Type" Association="Self.FK_Type">
             <End Role="TypeOfAgency" EntitySet="TypeOfAgency" />
@@ -185,13 +237,15 @@
     <edmx:ConceptualModels>
       <Schema Namespace="AgencyManagementModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="AgencyManagementEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="sysdiagrams" EntityType="AgencyManagementModel.sysdiagram" />
           <EntitySet Name="Accounts" EntityType="AgencyManagementModel.Account" />
           <EntitySet Name="Agencies" EntityType="AgencyManagementModel.Agency" />
           <EntitySet Name="Invoices" EntityType="AgencyManagementModel.Invoice" />
           <EntitySet Name="InvoiceInfoes" EntityType="AgencyManagementModel.InvoiceInfo" />
           <EntitySet Name="Products" EntityType="AgencyManagementModel.Product" />
           <EntitySet Name="Receipts" EntityType="AgencyManagementModel.Receipt" />
-          <EntitySet Name="sysdiagrams" EntityType="AgencyManagementModel.sysdiagram" />
+          <EntitySet Name="StockReceipts" EntityType="AgencyManagementModel.StockReceipt" />
+          <EntitySet Name="StockReceiptInfoes" EntityType="AgencyManagementModel.StockReceiptInfo" />
           <EntitySet Name="TypeOfAgencies" EntityType="AgencyManagementModel.TypeOfAgency" />
           <AssociationSet Name="FK_Invoice_AgencyID" Association="AgencyManagementModel.FK_Invoice_AgencyID">
             <End Role="Agency" EntitySet="Agencies" />
@@ -213,7 +267,25 @@
             <End Role="Product" EntitySet="Products" />
             <End Role="InvoiceInfo" EntitySet="InvoiceInfoes" />
           </AssociationSet>
-        </EntityContainer>
+          <AssociationSet Name="FK_Product" Association="AgencyManagementModel.FK_Product">
+            <End Role="Product" EntitySet="Products" />
+            <End Role="StockReceiptInfo" EntitySet="StockReceiptInfoes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StockReceipt" Association="AgencyManagementModel.FK_StockReceipt">
+            <End Role="StockReceipt" EntitySet="StockReceipts" />
+            <End Role="StockReceiptInfo" EntitySet="StockReceiptInfoes" />
+          </AssociationSet>
+          </EntityContainer>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
         <EntityType Name="Account">
           <Key>
             <PropertyRef Name="Username" />
@@ -278,6 +350,7 @@
           <Property Name="Count" Type="Int64" />
           <Property Name="IsDelete" Type="Boolean" />
           <NavigationProperty Name="InvoiceInfoes" Relationship="AgencyManagementModel.FK_ProductID" FromRole="Product" ToRole="InvoiceInfo" />
+          <NavigationProperty Name="StockReceiptInfoes" Relationship="AgencyManagementModel.FK_Product" FromRole="Product" ToRole="StockReceiptInfo" />
         </EntityType>
         <EntityType Name="Receipt">
           <Key>
@@ -290,15 +363,26 @@
           <Property Name="Message" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Agency" Relationship="AgencyManagementModel.FK_Receipt_AgencyID" FromRole="Receipt" ToRole="Agency" />
         </EntityType>
-        <EntityType Name="sysdiagram">
+        <EntityType Name="StockReceipt">
           <Key>
-            <PropertyRef Name="diagram_id" />
+            <PropertyRef Name="ID" />
           </Key>
-          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="principal_id" Type="Int32" Nullable="false" />
-          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="version" Type="Int32" />
-          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="CheckIn" Type="DateTime" Precision="0" />
+          <Property Name="Total" Type="Int64" />
+          <NavigationProperty Name="StockReceiptInfoes" Relationship="AgencyManagementModel.FK_StockReceipt" FromRole="StockReceipt" ToRole="StockReceiptInfo" />
+        </EntityType>
+        <EntityType Name="StockReceiptInfo">
+          <Key>
+            <PropertyRef Name="StockReceiptID" />
+            <PropertyRef Name="ProductID" />
+          </Key>
+          <Property Name="StockReceiptID" Type="Int32" Nullable="false" />
+          <Property Name="ProductID" Type="Int32" Nullable="false" />
+          <Property Name="Amount" Type="Int64" />
+          <Property Name="Price" Type="Int64" />
+          <NavigationProperty Name="Product" Relationship="AgencyManagementModel.FK_Product" FromRole="StockReceiptInfo" ToRole="Product" />
+          <NavigationProperty Name="StockReceipt" Relationship="AgencyManagementModel.FK_StockReceipt" FromRole="StockReceiptInfo" ToRole="StockReceipt" />
         </EntityType>
         <EntityType Name="TypeOfAgency">
           <Key>
@@ -369,12 +453,47 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Product">
+          <End Type="AgencyManagementModel.Product" Role="Product" Multiplicity="1" />
+          <End Type="AgencyManagementModel.StockReceiptInfo" Role="StockReceiptInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="StockReceiptInfo">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StockReceipt">
+          <End Type="AgencyManagementModel.StockReceipt" Role="StockReceipt" Multiplicity="1" />
+          <End Type="AgencyManagementModel.StockReceiptInfo" Role="StockReceiptInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StockReceipt">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="StockReceiptInfo">
+              <PropertyRef Name="StockReceiptID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="AgencyManagementModelStoreContainer" CdmEntityContainer="AgencyManagementEntities">
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="AgencyManagementModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="definition" ColumnName="definition" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Accounts">
             <EntityTypeMapping TypeName="AgencyManagementModel.Account">
               <MappingFragment StoreEntitySet="Account">
@@ -447,14 +566,22 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="sysdiagrams">
-            <EntityTypeMapping TypeName="AgencyManagementModel.sysdiagram">
-              <MappingFragment StoreEntitySet="sysdiagrams">
-                <ScalarProperty Name="definition" ColumnName="definition" />
-                <ScalarProperty Name="version" ColumnName="version" />
-                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
-                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
-                <ScalarProperty Name="name" ColumnName="name" />
+          <EntitySetMapping Name="StockReceipts">
+            <EntityTypeMapping TypeName="AgencyManagementModel.StockReceipt">
+              <MappingFragment StoreEntitySet="StockReceipt">
+                <ScalarProperty Name="Total" ColumnName="Total" />
+                <ScalarProperty Name="CheckIn" ColumnName="CheckIn" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="StockReceiptInfoes">
+            <EntityTypeMapping TypeName="AgencyManagementModel.StockReceiptInfo">
+              <MappingFragment StoreEntitySet="StockReceiptInfo">
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+                <ScalarProperty Name="StockReceiptID" ColumnName="StockReceiptID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

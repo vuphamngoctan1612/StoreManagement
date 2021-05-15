@@ -58,7 +58,7 @@ namespace StoreManagement.ViewModels
             // import product window
             AddImportProductWindowCommand = new RelayCommand<HomeWindow>((para) => true, (para) => OpenImportProductwindow(para));
             CloseImportWindowCommand = new RelayCommand<ImportProductWindow>((para) => true, (para) => CloseImportWindow(para));
-            ImportProductCommand = new RelayCommand<ProductControlUC>((para) => true, (para) => ImportProduct(para));
+            ImportProductCommand = new RelayCommand<ProductControlUC>((para) => true, (para) => ImportProduct(para));   //open import product window to update
             ImportProduct_SaveCommand = new RelayCommand<ImportProductWindow>((para) => true, (para) => Import_SaveProduct(para));
         }
 
@@ -66,8 +66,18 @@ namespace StoreManagement.ViewModels
         private void ImportProduct(ProductControlUC para)
         {
             Product product = new Product();
-            int id = int.Parse(para.txbID.Text);
-            product = (Product)DataProvider.Instance.DB.Products.Where(x => x.ID == id).First();
+            int productID = int.Parse(para.txbID.Text);
+            int stockReceiptID;
+            product = DataProvider.Instance.DB.Products.Where(x => x.ID == productID).First();
+
+            try
+            {
+                stockReceiptID = DataProvider.Instance.DB.StockReceipts.Max(p => p.ID) + 1;
+            }
+            catch
+            {
+                stockReceiptID = 1;
+            }
 
             ImageBrush imageBrush = new ImageBrush();
             imageBrush.ImageSource = Converter.Instance.ConvertByteToBitmapImage(product.Image);
@@ -75,6 +85,7 @@ namespace StoreManagement.ViewModels
             ImportProductWindow window = new ImportProductWindow();
 
             window.txtID.Text = product.ID.ToString();
+            window.txtStockReceiptID.Text = stockReceiptID.ToString();
 
             window.txtProductName.Text = product.Name;
             window.txtProductName.SelectionStart = window.txtProductName.Text.Length;
@@ -95,6 +106,7 @@ namespace StoreManagement.ViewModels
                 window.grdImage.Children.Remove(window.grdImage.Children[0]);
             }
 
+            window.Title = "Import exits product";
             window.ShowDialog();
         }
 
@@ -123,8 +135,8 @@ namespace StoreManagement.ViewModels
 
             try
             {
-                int id = int.Parse(para.txtID.Text);
-                int invoiceID = int.Parse(para.txtInvoiceID.Text);
+                int productID = int.Parse(para.txtID.Text);
+                int stockReceiptID = int.Parse(para.txtStockReceiptID.Text);
                 string productName = para.txtProductName.Text;
                 string units = para.txtUnit.Text;
                 long importPrice = ConvertToNumber(para.txtImportPrice.Text);
@@ -140,25 +152,47 @@ namespace StoreManagement.ViewModels
                     imgByteArr = Converter.Instance.ConvertImageToBytes(imageFileName);
                 }
 
-                Product product = new Product();
-                product.ID = id;
-                product.Name = productName;
-                product.Unit = units;
-                product.ImportPrice = importPrice;
-                product.ExportPrice = 0;
-                product.Count = amount;
-                product.Image = imgByteArr;
-                product.IsDelete = false;
+                Product product;
+                //exits product
+                if (para.Title == "Import exits product")
+                {
+                    product = DataProvider.Instance.DB.Products.Where(p => p.ID == productID).First();
+                    product.ID = productID;
+                    product.Name = productName;
+                    product.Unit = units;
+                    product.ImportPrice = importPrice;
+                    product.Count = amount;
+                    product.Image = imgByteArr;
+                    product.IsDelete = false;
+                }
+                //import new product
+                else
+                {
+                    product = new Product();
+                    product.ID = productID;
+                    product.Name = productName;
+                    product.Unit = units;
+                    product.ImportPrice = importPrice;
+                    product.ExportPrice = 0;
+                    product.Count = amount;
+                    product.Image = imgByteArr;
+                    product.IsDelete = false;
+                }
 
-                Invoice invoice = new Invoice();
-                invoice.ID = invoiceID;
-                invoice.Agency = null;
-                invoice.Checkout = DateTime.Now;
-                invoice.Debt = 0;
-                invoice.Total = -(product.ImportPrice * product.Count);
+                StockReceiptInfo stockReceiptInfo = new StockReceiptInfo();
+                stockReceiptInfo.StockReceiptID = stockReceiptID;
+                stockReceiptInfo.ProductID = productID;
+                stockReceiptInfo.Amount = amount;
+                stockReceiptInfo.Price = importPrice;
+
+                StockReceipt stockReceipt = new StockReceipt();
+                stockReceipt.ID = stockReceiptID;
+                stockReceipt.CheckIn = DateTime.Now;
+                stockReceipt.Total = product.Count * product.ImportPrice;
 
                 DataProvider.Instance.DB.Products.AddOrUpdate(product);
-                DataProvider.Instance.DB.Invoices.AddOrUpdate(invoice);
+                DataProvider.Instance.DB.StockReceipts.AddOrUpdate(stockReceipt);
+                DataProvider.Instance.DB.StockReceiptInfoes.AddOrUpdate(stockReceiptInfo);
                 DataProvider.Instance.DB.SaveChanges();
             }
             catch (Exception ex)
@@ -171,7 +205,7 @@ namespace StoreManagement.ViewModels
                 para.Close();
             }
         }
-         
+
         private void AddProduct(AddProductWindow para)
         {
             if (string.IsNullOrEmpty(para.txtName.Text))
@@ -366,17 +400,17 @@ namespace StoreManagement.ViewModels
             {
                 string query = "SELECT MAX(ID) FROM Product " +
                             "UNION " +
-                            "SELECT MAX(ID) FROM Invoice";
+                            "SELECT MAX(ID) FROM StockReceipt";
 
                 List<Int32> temp = DataProvider.Instance.DB.Database.SqlQuery<Int32>(query).ToList();
 
                 window.txtID.Text = (temp[0] + 1).ToString();
-                window.txtInvoiceID.Text = (temp[1] + 1).ToString();
+                window.txtStockReceiptID.Text = (temp[1] + 1).ToString();
             }
             catch
             {
                 window.txtID.Text = "1";
-                window.txtInvoiceID.Text = "1";
+                window.txtStockReceiptID.Text = "1";
             }
             finally
             {

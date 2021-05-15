@@ -126,7 +126,7 @@
                 <Label
                     HorizontalAlignment="Left"
                     VerticalAlignment="Center"
-                    Content="Invoice ID"
+                    Content="Stock receipt ID"
                     FontSize="22"
                     FontWeight="SemiBold"
                     Foreground="#57548B">
@@ -141,7 +141,7 @@
                     Stroke="#E2D2DA">
                 </Rectangle>
                 <TextBox
-                    x:Name="txtInvoiceID"
+                    x:Name="txtStockReceiptID"
                     IsEnabled="False"
                     materialDesign:HintAssist.Hint="Automatic"
                     HorizontalAlignment="Left"

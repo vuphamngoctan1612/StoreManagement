@@ -94,6 +94,26 @@ create table Receipt
 )
 go
 
+create table StockReceipt
+(
+	ID int,
+	CheckIn date,
+	Total bigint,
+
+	constraint PK_StockReceipt primary key(ID)
+)
+go
+
+create table StockReceiptInfo
+(
+	StockReceiptID int,
+	ProductID int,
+	Amount bigint,
+	Price bigint,
+
+	constraint PK_StockReceiptInfo primary key(StockReceiptID, ProductID)
+)
+go
 
 alter table InvoiceInfo add constraint FK_InvoiceID foreign key (InvoiceID) references Invoice(ID)
 go
@@ -107,6 +127,12 @@ alter table Receipt add constraint FK_Receipt_AgencyID foreign key (AgencyID) re
 go
 
 alter table Agency add constraint FK_Type foreign key (TypeOfAgency) references TypeOfAgency(ID)
+go
+
+alter table StockReceiptInfo add constraint FK_StockReceipt foreign key(StockReceiptID) references StockReceipt(ID)
+go
+
+alter table StockReceiptInfo add constraint FK_Product foreign key(ProductID) references Product(ID)
 go
 
 -- insert
@@ -140,12 +166,12 @@ insert into Invoice values (16,4,'2021-1-25', 290000, 2900000)
 
 
 -- đống này kh insert được do thiếu product
-INSERT INTO InvoiceInfo VALUES (1, 1,3, 600000)
-INSERT INTO InvoiceInfo VALUES (1, 2,3, 450000)
-INSERT INTO InvoiceInfo VALUES (1, 3,3, 600000)
-INSERT INTO InvoiceInfo VALUES (1, 4,3, 240000)
+--INSERT INTO InvoiceInfo VALUES (1, 1,3, 600000)
+--INSERT INTO InvoiceInfo VALUES (1, 2,3, 450000)
+--INSERT INTO InvoiceInfo VALUES (1, 3,3, 600000)
+--INSERT INTO InvoiceInfo VALUES (1, 4,3, 240000)
 
-INSERT INTO InvoiceInfo VALUES (2, 1,3, 600000)
-INSERT INTO InvoiceInfo VALUES (2, 2,3, 450000)
-INSERT INTO InvoiceInfo VALUES (2, 3,3, 600000)
-INSERT INTO InvoiceInfo VALUES (2, 4,3, 1000000)
+--INSERT INTO InvoiceInfo VALUES (2, 1,3, 600000)
+--INSERT INTO InvoiceInfo VALUES (2, 2,3, 450000)
+--INSERT INTO InvoiceInfo VALUES (2, 3,3, 600000)
+--INSERT INTO InvoiceInfo VALUES (2, 4,3, 1000000)
