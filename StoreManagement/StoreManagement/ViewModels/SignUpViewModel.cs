@@ -115,7 +115,7 @@ namespace StoreManagement.ViewModels
                 DataProvider.Instance.DB.Accounts.Add(acc);
                 DataProvider.Instance.DB.SaveChanges();
             }
-            catch (Exception ex)
+            catch
             {
                 MessageBox.Show("Tài khoản đã tồn tại! Vui lòng nhập tài khoản khác", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
                 parameter.txtUsername.Focus();

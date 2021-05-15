@@ -12,20 +12,11 @@
         Height="810"
         Width="1440"
         WindowStartupLocation="CenterScreen"
-        x:Name="wdHome"
-    
-        
-    DataContext="{StaticResource HomeVM}"
+        x:Name="wdHome"        
+        DataContext="{StaticResource HomeVM}"
         ResizeMode="CanMinimize">
-    <i:Interaction.Triggers>
-        <i:EventTrigger EventName="Loaded">
-            <i:InvokeCommandAction Command="{Binding LoadedWindowCommand}" 
-                                   CommandParameter="{Binding ElementName=wdHome}"/>
-        </i:EventTrigger>
-    </i:Interaction.Triggers>
     <Grid
         x:Name="grdWindow">
-
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="300"></ColumnDefinition>
             <ColumnDefinition Width="*"></ColumnDefinition>
@@ -564,7 +555,7 @@
             <Grid Grid.Row="1"
                 x:Name="grdBody_Main"
                 DataContext="{StaticResource ReportVM}"
-                Visibility="Visible">                
+                Visibility="Hidden">                
                 <Grid.RowDefinitions>
                     <RowDefinition Height="2"></RowDefinition>
                     <RowDefinition Height="70"></RowDefinition>
@@ -847,7 +838,7 @@
             <Grid Grid.Row="1"                 
                 DataContext="{StaticResource ProductVM}"
                 x:Name="grdBody_Product"
-                Visibility="Hidden">
+                Visibility="Visible">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="Loaded">
                         <i:InvokeCommandAction 
@@ -856,7 +847,7 @@
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="3"></RowDefinition>
+                    <RowDefinition Height="2"></RowDefinition>
                     <RowDefinition Height="60"></RowDefinition>
                     <RowDefinition></RowDefinition>
                 </Grid.RowDefinitions>
@@ -907,24 +898,44 @@
                     </Grid>
                     <Grid Grid.Column="1">
                         <StackPanel 
+                            Height="50"
                             Orientation="Horizontal"
-                            HorizontalAlignment="Center"
-                            VerticalAlignment="Center">
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Center"
+                            Margin="0 0 30 0">
                             <Button
                                 x:Name="btnAddProduct"
-                                Background="#F79BB5"
-                                Uid="0"
-                                Margin="390 10 0 0"
+                                Margin="0 10 15 0"
                                 FocusVisualStyle="{x:Null}"
                                 BorderBrush="{x:Null}"
                                 Cursor="Hand"
+                                Background="#F79BB5"
                                 Foreground="#504D85"
                                 Content="Add product"
                                 FontFamily="Segoe UI"
                                 ToolTip="Thêm sản phẩm"
                                 Style="{StaticResource MaterialDesignRaisedButton}"
-                                Command="{Binding AddWindowProductCommand}"
-                                CommandParameter="{Binding ElementName=wdHome}"/>
+                                Command="{Binding AddProductWindowCommand}"
+                                CommandParameter="{Binding ElementName=wdHome}">
+                            </Button>
+                            <Button
+                                x:Name="btnImportProduct"
+                                Margin="15 10 0 0"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                FocusVisualStyle="{x:Null}"
+                                BorderBrush="{x:Null}"
+                                Cursor="Hand"
+                                Background="#F79BB5"
+                                Foreground="#504D85"
+                                Content="Import product"
+                                FontFamily="Segoe UI"
+                                ToolTip="Thêm sản phẩm"
+                                Command="{Binding AddImportProductWindowCommand}"
+                                CommandParameter="{Binding ElementName=wdHome}"
+                                Style="{StaticResource MaterialDesignRaisedButton}">
+                                
+                            </Button>
                         </StackPanel>
                     </Grid>
                 </Grid>
@@ -941,67 +952,66 @@
                     <Grid Grid.Row="0"
                           Background="#FF9CB9">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="85"></ColumnDefinition>
-                            <ColumnDefinition Width="220"></ColumnDefinition>
-                            <ColumnDefinition Width="130"></ColumnDefinition>
-                            <ColumnDefinition Width="190"></ColumnDefinition>
-                            <ColumnDefinition Width="190"></ColumnDefinition>
-                            <ColumnDefinition Width="150"></ColumnDefinition>
-                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition Width="0.65*"></ColumnDefinition>
+                            <ColumnDefinition Width="2*"></ColumnDefinition>
+                            <ColumnDefinition Width="1.1*"></ColumnDefinition>
+                            <ColumnDefinition Width="1.7*"></ColumnDefinition>
+                            <ColumnDefinition Width="1.7*"></ColumnDefinition>
+                            <ColumnDefinition Width="1*"></ColumnDefinition>
+                            <ColumnDefinition Width="1.2*"></ColumnDefinition>
                         </Grid.ColumnDefinitions>
                         <TextBlock Grid.Column="0"
-                            Text="ID" 
-                            HorizontalAlignment="Left"
-                            FontFamily="Poppins"
+                            Text="ID"
                             FontStyle="Normal"
                             FontSize="22" 
-                            Margin="30,15,30,10"
                             FontWeight="SemiBold"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
                             Foreground="#504D85"/>
                         <TextBlock Grid.Column="1"
                             Text="Items" 
                             HorizontalAlignment="Left"
-                            FontFamily="Poppins"
+                            VerticalAlignment="Center"
+                            Margin="20 0 0 0"
                             FontStyle="Normal"
                             FontSize="22"
                             FontWeight="SemiBold"
-                            Margin="30,15,30,10"
                             Foreground="#504D85"/>
                         <TextBlock Grid.Column="2"
                             Text="Units" 
                             HorizontalAlignment="Left"
-                            FontFamily="Poppins"
+                            VerticalAlignment="Center"
+                            Margin="10 0 0 0"
                             FontStyle="Normal"
                             FontSize="22"
                             FontWeight="SemiBold"
-                            Margin="30,15,30,10"
                             Foreground="#504D85"/>
                         <TextBlock Grid.Column="3"
                             Text="Import Price" 
                             HorizontalAlignment="Left"
+                            VerticalAlignment="Center"
+                            Margin="10 0 0 0"
                             FontWeight="SemiBold"
-                            FontFamily="Poppins"
                             FontStyle="Normal"
                             FontSize="22"
-                            Margin="30,15,30,10"
                             Foreground="#504D85"/>
                         <TextBlock Grid.Column="4"
-                            Text="Price" 
+                            Text="Export price" 
                             HorizontalAlignment="Left"
+                            VerticalAlignment="Center"
+                            Margin="10 0 0 0"
                             FontWeight="SemiBold"
-                            FontFamily="Poppins"
                             FontStyle="Normal"
                             FontSize="22"
-                            Margin="30,15,30,10"
                             Foreground="#504D85"/>
                         <TextBlock Grid.Column="5"
                             Text="Count" 
                             HorizontalAlignment="Left"
-                            FontFamily="Poppins"
+                            VerticalAlignment="Center"
+                            Margin="10 0 0 0"
                             FontStyle="Normal"
                             FontSize="22"
                             FontWeight="SemiBold"
-                            Margin="20,15,40,10"
                             Foreground="#504D85"/>
                     </Grid>
                     <Grid 

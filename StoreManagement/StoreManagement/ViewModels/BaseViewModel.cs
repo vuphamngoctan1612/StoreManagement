@@ -8,7 +8,6 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace StoreManagement.ViewModels
@@ -53,6 +52,15 @@ namespace StoreManagement.ViewModels
 
             return res;
         }
+        public string ConvertToString(double? input)
+        {
+            string res;
+            System.Globalization.CultureInfo culture = new System.Globalization.CultureInfo("en-US");
+            res = String.Format(culture, "{0:N0}", input);
+
+            return res;
+        }
+
 
         //Chuyển sang dạng 0,000,000
         public void SeparateThousands(TextBox txt)

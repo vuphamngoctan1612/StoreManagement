@@ -23,15 +23,5 @@ namespace StoreManagement.Views
         {
             InitializeComponent();
         }
-
-        private void btnSave_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void txtID_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
-        }
     }
 }

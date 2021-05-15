@@ -21,52 +21,295 @@ namespace StoreManagement.ViewModels
         private string imageFileName;
 
         public HomeWindow HomeWindow { get; set; }
-        public ICommand AddWindowProductCommand { get; set; }
-        public ICommand CloseWindowCommand { get; set; }
-        public ICommand SaveCommand { get; set; }
-        public ICommand SelectImageCommand { get; set; }
-        public ICommand SeparateThousandsCommand { get; set; }
-        public ICommand EditProductCommand { get; set; }
-        public ICommand DeleteProductCommand { get; set; }
+
         public ICommand LoadProductOnWindowCommand { get; set; }
         public ICommand SearchProductCommand { get; set; }
-        //public ICommand PreviewKeyDownCommand { get; set; }
+
+        public ICommand SeparateThousandsCommand { get; set; }
+        // product control
+        public ICommand EditProductCommand { get; set; }
+        public ICommand DeleteProductCommand { get; set; }
+        // add product window
+        public ICommand AddProductWindowCommand { get; set; }
+        public ICommand CloseWindowCommand { get; set; }
+        public ICommand AddProduct_SaveCommand { get; set; }
+        public ICommand SelectImageCommand { get; set; }
+        // import product window
+        public ICommand AddImportProductWindowCommand { get; set; }
+        public ICommand CloseImportWindowCommand { get; set; }
+        public ICommand ImportProductCommand { get; set; }
+        public ICommand ImportProduct_SaveCommand { get; set; }
 
         public ProductViewModel()
         {
-            AddWindowProductCommand = new RelayCommand<HomeWindow>((para) => true, (para) => OpenAddProductWindow(para));
-            CloseWindowCommand = new RelayCommand<AddProductWindow>((para) => true, (para) => CloseWindow(para));
-            SaveCommand = new RelayCommand<AddProductWindow>((para) => true, (para) => AddProduct(para));
-            SelectImageCommand = new RelayCommand<Grid>((para) => true, (para) => ChooseImage(para));
-            SeparateThousandsCommand = new RelayCommand<TextBox>((para) => true, (para) => SeparateThousands(para));
-            EditProductCommand = new RelayCommand<ProductControlUC>((para) => true, (para) => EditProduct(para));
-            DeleteProductCommand = new RelayCommand<ProductControlUC>((para) => true, (para) => DeleteProduct(para));
             LoadProductOnWindowCommand = new RelayCommand<HomeWindow>((para) => true, (para) => LoadProduct(para));
             SearchProductCommand = new RelayCommand<HomeWindow>((para) => true, (para) => SearchProduct(para));
-            //PreviewKeyDownCommand = new RelayCommand<TextBox>((para) => true, (para) => PreviewKeyDown(para));
+
+            SeparateThousandsCommand = new RelayCommand<TextBox>((para) => true, (para) => SeparateThousands(para));
+
+            EditProductCommand = new RelayCommand<ProductControlUC>((para) => true, (para) => EditProduct(para));
+            DeleteProductCommand = new RelayCommand<ProductControlUC>((para) => true, (para) => DeleteProduct(para));
+
+            // add product window
+            AddProductWindowCommand = new RelayCommand<HomeWindow>((para) => true, (para) => OpenAddProductWindow(para));
+            CloseWindowCommand = new RelayCommand<AddProductWindow>((para) => true, (para) => CloseWindow(para));
+            AddProduct_SaveCommand = new RelayCommand<AddProductWindow>((para) => true, (para) => AddProduct(para));
+            SelectImageCommand = new RelayCommand<Grid>((para) => true, (para) => ChooseImage(para));
+            // import product window
+            AddImportProductWindowCommand = new RelayCommand<HomeWindow>((para) => true, (para) => OpenImportProductwindow(para));
+            CloseImportWindowCommand = new RelayCommand<ImportProductWindow>((para) => true, (para) => CloseImportWindow(para));
+            ImportProductCommand = new RelayCommand<ProductControlUC>((para) => true, (para) => ImportProduct(para));
+            ImportProduct_SaveCommand = new RelayCommand<ImportProductWindow>((para) => true, (para) => Import_SaveProduct(para));
         }
 
-        //private void PreviewKeyDown(TextBox para)
-        //{
-        //    if (!Char.IsDigit((char)KeyInterop.VirtualKeyFromKey(e.Key)) && !Char.IsControl((char)KeyInterop.VirtualKeyFromKey(e.Key)))
-        //    {
-        //        e.Handled = true;
-        //    }
-        //}
-
-        private void SearchProduct(HomeWindow para)
+        #region Command
+        private void ImportProduct(ProductControlUC para)
         {
-            this.HomeWindow = para;
+            Product product = new Product();
+            int id = int.Parse(para.txbID.Text);
+            product = (Product)DataProvider.Instance.DB.Products.Where(x => x.ID == id).First();
 
-            foreach (ProductControlUC control in HomeWindow.stkProducts.Children)
+            ImageBrush imageBrush = new ImageBrush();
+            imageBrush.ImageSource = Converter.Instance.ConvertByteToBitmapImage(product.Image);
+
+            ImportProductWindow window = new ImportProductWindow();
+
+            window.txtID.Text = product.ID.ToString();
+
+            window.txtProductName.Text = product.Name;
+            window.txtProductName.SelectionStart = window.txtProductName.Text.Length;
+
+            window.txtUnit.Text = product.Unit;
+            window.txtUnit.SelectionStart = window.txtUnit.Text.Length;
+
+            window.txtImportPrice.Text = ConvertToString(product.ImportPrice);
+            window.txtImportPrice.SelectionStart = window.txtImportPrice.Text.Length;
+
+            window.txtAmount.Text = ConvertToString(product.Count);
+            window.txtAmount.SelectionStart = window.txtAmount.Text.Length;
+
+            window.grdImage.Background = imageBrush;
+            if (window.grdImage.Children.Count != 0)
             {
-                if (!control.txbName.Text.ToLower().Contains(this.HomeWindow.txtSeachProduct.Text))
+                window.grdImage.Children.Remove(window.grdImage.Children[0]);
+                window.grdImage.Children.Remove(window.grdImage.Children[0]);
+            }
+
+            window.ShowDialog();
+        }
+
+        private void Import_SaveProduct(ImportProductWindow para)
+        {
+            if (string.IsNullOrEmpty(para.txtProductName.Text))
+            {
+                para.txtProductName.Focus();
+                return;
+            }
+            if (string.IsNullOrEmpty(para.txtUnit.Text))
+            {
+                para.txtUnit.Focus();
+                return;
+            }
+            if (string.IsNullOrEmpty(para.txtImportPrice.Text))
+            {
+                para.txtImportPrice.Focus();
+                return;
+            }
+            if (string.IsNullOrEmpty(para.txtAmount.Text))
+            {
+                para.txtAmount.Focus();
+                return;
+            }
+
+            try
+            {
+                int id = int.Parse(para.txtID.Text);
+                int invoiceID = int.Parse(para.txtInvoiceID.Text);
+                string productName = para.txtProductName.Text;
+                string units = para.txtUnit.Text;
+                long importPrice = ConvertToNumber(para.txtImportPrice.Text);
+                long amount = ConvertToNumber(para.txtAmount.Text);
+                byte[] imgByteArr;
+
+                if (imageFileName == null)
                 {
-                    control.Visibility = Visibility.Collapsed;
+                    imgByteArr = Converter.Instance.ConvertImageToBytes(@"..\..\Resources\Images\default.jpg");
                 }
                 else
                 {
-                    control.Visibility = Visibility.Visible;
+                    imgByteArr = Converter.Instance.ConvertImageToBytes(imageFileName);
+                }
+
+                Product product = new Product();
+                product.ID = id;
+                product.Name = productName;
+                product.Unit = units;
+                product.ImportPrice = importPrice;
+                product.ExportPrice = 0;
+                product.Count = amount;
+                product.Image = imgByteArr;
+                product.IsDelete = false;
+
+                Invoice invoice = new Invoice();
+                invoice.ID = invoiceID;
+                invoice.Agency = null;
+                invoice.Checkout = DateTime.Now;
+                invoice.Debt = 0;
+                invoice.Total = -(product.ImportPrice * product.Count);
+
+                DataProvider.Instance.DB.Products.AddOrUpdate(product);
+                DataProvider.Instance.DB.Invoices.AddOrUpdate(invoice);
+                DataProvider.Instance.DB.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            finally
+            {
+                this.LoadProduct(this.HomeWindow);
+                para.Close();
+            }
+        }
+         
+        private void AddProduct(AddProductWindow para)
+        {
+            if (string.IsNullOrEmpty(para.txtName.Text))
+            {
+                para.txtName.Focus();
+                return;
+            }
+            if (string.IsNullOrEmpty(para.txtUnit.Text))
+            {
+                para.txtUnit.Focus();
+                return;
+            }
+            if (string.IsNullOrEmpty(para.txtPrice.Text))
+            {
+                para.txtUnit.Focus();
+                return;
+            }
+
+            try
+            {
+                int id = int.Parse(para.txtID.Text);
+                string name = para.txtName.Text;
+                string unit = para.txtUnit.Text;
+                long price = ConvertToNumber(para.txtPrice.Text);
+                
+                byte[] imgByteArr;
+                if (imageFileName == null)
+                {
+                    imgByteArr = Converter.Instance.ConvertImageToBytes(@"..\..\Resources\Images\default.jpg");
+                }
+                else
+                {
+                    imgByteArr = Converter.Instance.ConvertImageToBytes(imageFileName);
+                }
+
+                Product product;
+                //update product
+                if (para.Title == "Update info product")    
+                {
+                    product = DataProvider.Instance.DB.Products.Where(x => x.ID == id).First();
+                    product.ID = id;
+                    product.Name = name;
+                    product.Unit = unit;
+                    product.ExportPrice = price;
+                    product.Image = imgByteArr;
+                }
+                //add product                
+                else
+                {
+                    product = new Product();
+                    product.ID = id;
+                    product.Name = name;
+                    product.Unit = unit;
+                    product.ImportPrice = 0;
+                    product.ExportPrice = price;
+                    product.Count = 0;
+                    product.Image = imgByteArr;
+                    product.IsDelete = false;
+                }
+                this.AddOrUpdateProduct(product);
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            finally
+            {
+                LoadProduct(this.HomeWindow);
+                para.Close();
+            }
+        }
+
+        private void EditProduct(ProductControlUC para)
+        {
+            Product product = new Product();
+            int id = int.Parse(para.txbID.Text);
+            product = (Product)DataProvider.Instance.DB.Products.Where(x => x.ID == id).First();
+
+            ImageBrush imageBrush = new ImageBrush();
+            imageBrush.ImageSource = Converter.Instance.ConvertByteToBitmapImage(product.Image);
+
+            AddProductWindow window = new AddProductWindow();
+
+            window.txtID.Text = product.ID.ToString();
+
+            window.txtName.Text = product.Name;
+            window.txtName.SelectionStart = window.txtName.Text.Length;
+
+            window.txtUnit.Text = product.Unit;
+            window.txtUnit.SelectionStart = window.txtUnit.Text.Length;
+
+            window.txtPrice.Text = ConvertToString(product.ExportPrice);
+            window.txtPrice.SelectionStart = window.txtPrice.Text.Length;
+
+            window.Title = "Update info product";
+            window.grdImage.Background = imageBrush;
+            if (window.grdImage.Children.Count != 0)
+            {
+                window.grdImage.Children.Remove(window.grdImage.Children[0]);
+                window.grdImage.Children.Remove(window.grdImage.Children[0]);
+            }
+
+            window.ShowDialog();
+        }
+
+        private void DeleteProduct(ProductControlUC para)
+        {
+            Product product = new Product();
+            int id = int.Parse(para.txbID.Text);
+            product = (Product)DataProvider.Instance.DB.Products.Where(x => x.ID == id).First();
+
+            product.IsDelete = true;
+            DataProvider.Instance.DB.Products.AddOrUpdate(product);
+            DataProvider.Instance.DB.SaveChanges();
+
+            this.HomeWindow.stkProducts.Children.Remove(para);
+        }
+
+        private void ChooseImage(Grid para)
+        {
+            OpenFileDialog op = new OpenFileDialog();
+            op.Title = "Chọn ảnh";
+            op.Filter = "All supported graphics|*.jpg;*.jpeg;*.png|" + "JPEG (*.jpg;*.jpeg)|*.jpg;*.jpeg|" + "Portable Network Graphic (*.png)|*.png";
+            if (op.ShowDialog() == true)
+            {
+                imageFileName = op.FileName;
+                ImageBrush imageBrush = new ImageBrush();
+                BitmapImage bitmap = new BitmapImage();
+                bitmap.BeginInit();
+                bitmap.CacheOption = BitmapCacheOption.OnLoad;
+                bitmap.UriSource = new Uri(imageFileName);
+                bitmap.EndInit();
+                imageBrush.ImageSource = bitmap;
+                para.Background = imageBrush;
+                if (para.Children.Count != 0)
+                {
+                    para.Children.Remove(para.Children[0]);
+                    para.Children.Remove(para.Children[0]);
                 }
             }
         }
@@ -97,150 +340,47 @@ namespace StoreManagement.ViewModels
             }
         }
 
-        private void DeleteProduct(ProductControlUC para)
+        private void SearchProduct(HomeWindow para)
         {
-            Product product = new Product();
-            int id = int.Parse(para.txbID.Text);
-            product = (Product)DataProvider.Instance.DB.Products.Where(x => x.ID == id).First();
+            this.HomeWindow = para;
 
-            product.IsDelete = true;
-            DataProvider.Instance.DB.Products.AddOrUpdate(product);
-            DataProvider.Instance.DB.SaveChanges();
-
-            this.HomeWindow.stkProducts.Children.Remove(para);
-        }
-
-        private void EditProduct(ProductControlUC para)
-        {
-            Product product = new Product();
-            int id = int.Parse(para.txbID.Text);
-            product = (Product)DataProvider.Instance.DB.Products.Where(x => x.ID == id).First();
-
-            ImageBrush imageBrush = new ImageBrush();
-            imageBrush.ImageSource = Converter.Instance.ConvertByteToBitmapImage(product.Image);
-
-            AddProductWindow window = new AddProductWindow();
-
-            window.txtID.Text = product.ID.ToString();
-
-            window.txtName.Text = product.Name;
-            window.txtName.SelectionStart = window.txtName.Text.Length;
-
-            window.txtUnit.Text = product.Unit;
-            window.txtUnit.SelectionStart = window.txtUnit.Text.Length;
-
-            window.txtImportPrice.Text = ConvertToString(product.ImportPrice);
-            window.txtImportPrice.SelectionStart = window.txtImportPrice.Text.Length;
-
-            window.txtExportPrice.Text = ConvertToString(product.ExportPrice);
-            window.txtExportPrice.SelectionStart = window.txtExportPrice.Text.Length;
-
-            window.txtAmount.Text = ConvertToString(product.Count);
-            window.txtAmount.SelectionStart = window.txtAmount.Text.Length;
-
-            window.Title = "Update info product";
-            window.grdImage.Background = imageBrush;
-            if (window.grdImage.Children.Count > 1)
+            foreach (ProductControlUC control in HomeWindow.stkProducts.Children)
             {
-                window.grdImage.Children.Remove(window.grdImage.Children[0]);
-                window.grdImage.Children.Remove(window.grdImage.Children[1]);
-            }
-
-            window.ShowDialog();
-        }
-
-        private void ChooseImage(Grid para)
-        {
-            OpenFileDialog op = new OpenFileDialog();
-            op.Title = "Chọn ảnh";
-            op.Filter = "All supported graphics|*.jpg;*.jpeg;*.png|" + "JPEG (*.jpg;*.jpeg)|*.jpg;*.jpeg|" + "Portable Network Graphic (*.png)|*.png";
-            if (op.ShowDialog() == true)
-            {
-                imageFileName = op.FileName;
-                ImageBrush imageBrush = new ImageBrush();
-                BitmapImage bitmap = new BitmapImage();
-                bitmap.BeginInit();
-                bitmap.CacheOption = BitmapCacheOption.OnLoad;
-                bitmap.UriSource = new Uri(imageFileName);
-                bitmap.EndInit();
-                imageBrush.ImageSource = bitmap;
-                para.Background = imageBrush;
-                if (para.Children.Count > 1)
+                if (!control.txbName.Text.ToLower().Contains(this.HomeWindow.txtSeachProduct.Text))
                 {
-                    para.Children.Remove(para.Children[0]);
-                    para.Children.Remove(para.Children[1]);
-                }
-            }
-        }
-
-        private void AddProduct(AddProductWindow para)
-        {
-            if (string.IsNullOrEmpty(para.txtName.Text))
-            {
-                para.txtName.Focus();
-                return;
-            }
-            if (string.IsNullOrEmpty(para.txtUnit.Text))
-            {
-                para.txtUnit.Focus();
-                return;
-            }
-            if (string.IsNullOrEmpty(para.txtImportPrice.Text))
-            {
-                para.txtImportPrice.Focus();
-                return;
-            }
-            if (string.IsNullOrEmpty(para.txtExportPrice.Text))
-            {
-                para.txtExportPrice.Focus();
-                return;
-            }
-            if (string.IsNullOrEmpty(para.txtAmount.Text))
-            {
-                para.txtAmount.Focus();
-                return;
-            }
-
-            try
-            {
-                string id = para.txtID.Text;
-                string name = para.txtName.Text;
-                string unit = para.txtUnit.Text;
-                long importPrice = ConvertToNumber(para.txtImportPrice.Text);
-                long exportPrice = ConvertToNumber(para.txtExportPrice.Text);
-                int amount = (int)ConvertToNumber(para.txtAmount.Text);
-                
-                byte[] imgByteArr;
-                if (imageFileName == null)
-                {
-                    imgByteArr = Converter.Instance.ConvertImageToBytes(@"..\..\Resources\Images\default.jpg");
+                    control.Visibility = Visibility.Collapsed;
                 }
                 else
                 {
-                    imgByteArr = Converter.Instance.ConvertImageToBytes(imageFileName);
+                    control.Visibility = Visibility.Visible;
                 }
-                                
-                Product product = new Product();
-                product.ID = int.Parse(id);
-                product.Name = name;
-                product.Unit = unit;
-                product.ImportPrice = importPrice;
-                product.ExportPrice = exportPrice;
-                product.Count = amount;
-                product.Image = imgByteArr;
-                product.IsDelete = false;
-
-                DataProvider.Instance.DB.Products.AddOrUpdate(product);
-                DataProvider.Instance.DB.SaveChanges();
             }
-            catch(Exception ex)
+        }
+
+        private void OpenImportProductwindow(HomeWindow para)
+        {
+            this.HomeWindow = para;
+            ImportProductWindow window = new ImportProductWindow();
+            this.imageFileName = null;
+            try
             {
-                MessageBox.Show(ex.Message);
+                string query = "SELECT MAX(ID) FROM Product " +
+                            "UNION " +
+                            "SELECT MAX(ID) FROM Invoice";
+
+                List<Int32> temp = DataProvider.Instance.DB.Database.SqlQuery<Int32>(query).ToList();
+
+                window.txtID.Text = (temp[0] + 1).ToString();
+                window.txtInvoiceID.Text = (temp[1] + 1).ToString();
+            }
+            catch
+            {
+                window.txtID.Text = "1";
+                window.txtInvoiceID.Text = "1";
             }
             finally
             {
-                LoadProduct(this.HomeWindow);
-                para.Close();
+                window.ShowDialog();
             }
         }
 
@@ -265,9 +405,23 @@ namespace StoreManagement.ViewModels
             }
         }
 
+        private void CloseImportWindow(ImportProductWindow para)
+        {
+            para.Close();
+        }
+
         private void CloseWindow(AddProductWindow para)
         {
             para.Close();
         }
+        #endregion
+
+        #region Method
+        private void AddOrUpdateProduct(Product product)
+        {
+            DataProvider.Instance.DB.Products.AddOrUpdate(product);
+            DataProvider.Instance.DB.SaveChanges();
+        }
+        #endregion
     }
 }
