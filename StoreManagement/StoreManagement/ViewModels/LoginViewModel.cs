@@ -71,6 +71,7 @@ namespace StoreManagement.ViewModels
             if (checkACC > 0)
             {
                 HomeWindow homeWindow = new HomeWindow();
+                CurrentAccount.Instance.ConvertAccToCurrentAcc(parameter.txtUser.Text);
                 parameter.Hide();
                 homeWindow.ShowDialog();
                 parameter.Close();

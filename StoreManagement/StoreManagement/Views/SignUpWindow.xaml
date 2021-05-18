@@ -9,7 +9,7 @@
         mc:Ignorable="d"
         DataContext="{StaticResource SignUpVM}"
         Title="SignUp" 
-        Height="750" 
+        Height="650" 
         Width="1000"
         ResizeMode="CanMinimize"
         x:Name="wdSignUp"
@@ -23,7 +23,6 @@
             <Grid
                 Height="90"
                 Width="900">
-
                 <TextBlock
                     HorizontalAlignment="Left"
                     VerticalAlignment="Top"
@@ -44,192 +43,185 @@
                 </TextBlock>
             </Grid>
         </Grid>
-        <Grid Grid.Row="1"  Height="600" VerticalAlignment="Bottom">
+        <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                <ColumnDefinition Width="0.5*"></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <Grid Grid.Column="0"
                 x:Name="grdImage"
-                HorizontalAlignment="Left" 
+                HorizontalAlignment="Center" 
                 VerticalAlignment="Top"
-                Height="220"
-                Width="220"
-                Margin="70">
-
+                Margin="0 50 0 0"
+                Height="200"
+                Width="200">
                 <Ellipse
-                Stroke="#FCE5EC"
-                Fill="#FCE5EC"
-                Height="220"
-                Width="220"
-                StrokeDashArray="4 2" >
+                    Stroke="#FCE5EC"
+                    Fill="#FCE5EC"
+                    Height="200"
+                    Width="200"
+                    StrokeDashArray="4 2" >
                 </Ellipse>
                 <Button 
-                HorizontalAlignment="Center"
-                VerticalAlignment="Bottom"
-                BorderThickness="0"
-                Width="140"
-                Content="Select image"
-                Background="#F79BB5"
-                Foreground="#57548B"
-                FocusVisualStyle="{x:Null}"
-                FontWeight="SemiBold"
-                FontSize="18"
-                Margin="44,0,36,-80"
-                Command="{Binding SelectImageCommand}"
-                CommandParameter="{Binding ElementName=grdImage}">
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Bottom"
+                    BorderThickness="0"
+                    Width="140"
+                    Height="35"
+                    Content="Select image"
+                    Background="#F79BB5"
+                    Foreground="#57548B"
+                    FocusVisualStyle="{x:Null}"
+                    FontWeight="SemiBold"
+                    FontSize="18"
+                    Margin="44,0,36,-80"
+                    Command="{Binding SelectImageCommand}"
+                    CommandParameter="{Binding ElementName=grdImage}">
                 </Button>
                 <materialDesign:PackIcon 
-                Kind="ImageEdit" 
-                HorizontalAlignment="Center"
-                VerticalAlignment="Center" 
-                Width="80"
-                Height="80"
-                Margin="60"
-                Foreground="#F97299">
+                    Kind="ImageEdit" 
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center" 
+                    Width="80"
+                    Height="80"
+                    Margin="60"
+                    Foreground="#F97299">
                 </materialDesign:PackIcon>
             </Grid>
-            <Grid
-                HorizontalAlignment="Left"
-                VerticalAlignment="Center"  Grid.Column="1">
+            <Grid Grid.Column="1"
+                  Margin="0 20 0 0">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="90"></RowDefinition>
                     <RowDefinition Height="90"></RowDefinition>
                     <RowDefinition Height="90"></RowDefinition>
                     <RowDefinition Height="90"></RowDefinition>
-                    <RowDefinition Height="190"></RowDefinition>
+                    <RowDefinition></RowDefinition>
                 </Grid.RowDefinitions>
                 <Grid Grid.Row="0"
                     Width="550" 
-                    VerticalAlignment="Top"
-                    Margin="20">
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center">
                     <Label
-                    HorizontalAlignment="Left"
-                    VerticalAlignment="Top"
-                    Content="Username"
-                    FontSize="22"
-                    FontWeight="SemiBold"
-                    Margin="22,2,0,0"
-                    Foreground="#57548B">
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Content="Username"
+                        FontSize="22"
+                        FontWeight="SemiBold"
+                        Foreground="#57548B">
                     </Label>
                     <Rectangle
-                    HorizontalAlignment="Right"
-                    Width="300"
-                    Margin="0 0 30 0"
-                    StrokeThickness="2"
-                    RadiusX="10"
-                    RadiusY="10"
-                    Stroke="#E2D2DA"/>
+                        HorizontalAlignment="Right"
+                        Width="300"
+                        Margin="0 0 30 0"
+                        StrokeThickness="2"
+                        RadiusX="10"
+                        RadiusY="10"
+                        Stroke="#E2D2DA"/>
                     <TextBox
-                    x:Name="txtUsername"
-                    HorizontalAlignment="Right"
-                    VerticalAlignment="Center"
-                    Width="280"
-                    Margin="0 0 40 0"
-                    BorderThickness="0"
-                    materialDesign:HintAssist.Hint="Enter your username"
-                    MaxLines="1"
-                    Height="45"
-                    FontSize="17"
-                    FontWeight="SemiBold"
-                    Padding="0"
-                    HorizontalContentAlignment="Left"
-                    VerticalContentAlignment="Center" 
-                    Cursor="Arrow" Text="{Binding Username}">
-
+                        x:Name="txtUsername"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Center"
+                        Width="280"
+                        Margin="0 0 40 0"
+                        BorderThickness="0"
+                        materialDesign:HintAssist.Hint="Enter your username"
+                        MaxLines="1"
+                        Height="45"
+                        FontSize="17"
+                        FontWeight="SemiBold"
+                        Padding="0"
+                        HorizontalContentAlignment="Left"
+                        VerticalContentAlignment="Center" 
+                        Cursor="Arrow"
+                        Text="{Binding Username}">
                     </TextBox>
                 </Grid>
                 <Grid Grid.Row="1"
                     Width="550" 
-                    VerticalAlignment="Top"
-                    Margin="20">
-                    <Label
-                    HorizontalAlignment="Left"
                     VerticalAlignment="Center"
-                    Content="Displayname"
-                    FontSize="22"
-                    FontWeight="SemiBold"
-                    Margin="22,2,0,5.6"
-                    Foreground="#57548B">
+                    HorizontalAlignment="Center">
+                    <Label
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Content="Displayname"
+                        FontSize="22"
+                        FontWeight="SemiBold"
+                        Foreground="#57548B">
                     </Label>
                     <Rectangle
-                    HorizontalAlignment="Right"
-                    Width="300"
-                    Margin="0 0 30 0"
-                    StrokeThickness="2"
-                    RadiusX="10"
-                    RadiusY="10"
-                    Stroke="#E2D2DA"/>
+                        HorizontalAlignment="Right"
+                        Width="300"
+                        Margin="0 0 30 0"
+                        StrokeThickness="2"
+                        RadiusX="10"
+                        RadiusY="10"
+                        Stroke="#E2D2DA"/>
                     <TextBox
-                    x:Name="displayname"
-                    HorizontalAlignment="Right"
-                    VerticalAlignment="Center"
-                    Width="280"
-                    Margin="0 0 40 0"
-                    BorderThickness="0"
-                    materialDesign:HintAssist.Hint="Enter your displayname"
-                    MaxLines="1"
-                    Height="45"
-                    FontSize="17"
-                    FontWeight="SemiBold"
-                    Padding="0"
-                    HorizontalContentAlignment="Left"
-                    VerticalContentAlignment="Center" 
-                    Cursor="Arrow">
-
+                        x:Name="displayname"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Center"
+                        Width="280"
+                        Margin="0 0 40 0"
+                        BorderThickness="0"
+                        materialDesign:HintAssist.Hint="Enter your displayname"
+                        MaxLines="1"
+                        Height="45"
+                        FontSize="17"
+                        FontWeight="SemiBold"
+                        Padding="0"
+                        HorizontalContentAlignment="Left"
+                        VerticalContentAlignment="Center" 
+                        Cursor="Arrow">
                     </TextBox>
                 </Grid>
                 <Grid Grid.Row="2"
                     Width="550" 
-                    VerticalAlignment="Top"
-                    Margin="20">
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center">
                     <Label
-                    HorizontalAlignment="Left"
-                    VerticalAlignment="Top"
-                    Content="Password"
-                    FontSize="22"
-                    FontWeight="SemiBold"
-                    Margin="22,4,0,0"
-                    Foreground="#57548B">
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Content="Password"
+                        FontSize="22"
+                        FontWeight="SemiBold"
+                        Foreground="#57548B">
                     </Label>
                     <Rectangle
-                    HorizontalAlignment="Right"
-                    Width="300"
-                    Margin="0 0 30 0"
-                    StrokeThickness="2"
-                    RadiusX="10"
-                    RadiusY="10"
-                    Stroke="#E2D2DA"/>
+                        HorizontalAlignment="Right"
+                        Width="300"
+                        Margin="0 0 30 0"
+                        StrokeThickness="2"
+                        RadiusX="10"
+                        RadiusY="10"
+                        Stroke="#E2D2DA"/>
                     <TextBox
-                    x:Name="pwbPassword"
-                    HorizontalAlignment="Right"
-                    VerticalAlignment="Center"
-                    Width="280"
-                    Margin="0 0 40 0"
-                    BorderThickness="0"
-                    materialDesign:HintAssist.Hint="Enter your password"
-                    MaxLines="1"
-                    Height="45"
-                    FontSize="17"
-                    FontWeight="SemiBold"
-                    Padding="0"
-                    HorizontalContentAlignment="Left"
-                    VerticalContentAlignment="Center" 
-                    Cursor="Arrow" >
+                        x:Name="pwbPassword"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Center"
+                        Width="280"
+                        Margin="0 0 40 0"
+                        BorderThickness="0"
+                        materialDesign:HintAssist.Hint="Enter your password"
+                        MaxLines="1"
+                        Height="45"
+                        FontSize="17"
+                        FontWeight="SemiBold"
+                        Padding="0"
+                        HorizontalContentAlignment="Left"
+                        VerticalContentAlignment="Center" 
+                        Cursor="Arrow" >
                     </TextBox>
-
                 </Grid>
                 <Grid Grid.Row="3"
                     Width="550" 
-                    VerticalAlignment="Top"
-                    Margin="20">
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center">
                     <Label
                         HorizontalAlignment="Left"
-                        VerticalAlignment="Top"
+                        VerticalAlignment="Center"
                         Content="Confirm Password"
                         FontSize="22"
                         FontWeight="SemiBold"
-                        Margin="20,3,0,0"
                         Foreground="#57548B">
                     </Label>
                     <Rectangle
@@ -261,72 +253,39 @@
                     </TextBox>
                 </Grid>
                 <Grid Grid.Row="5"
-                        Width="550" 
-                        VerticalAlignment="Top"
-                        Margin="0">
-                    <TextBlock Style="{StaticResource MaterialDesignHeadline4TextBlock}" 
-                        Text="I have read" 
-                        Width="118" 
-                        Margin="142,10,0,142.6" 
-                        VerticalAlignment="Stretch" 
-                        HorizontalAlignment="Left" 
-                        TextAlignment="Left"
-                        FontFamily="Segoe UI" 
-                        FontSize="20" 
-                        FontWeight="Bold" 
-                        Foreground="#7D78A2"
-                        TextDecorations="{x:Null}" RenderTransformOrigin="0.516,-1.784" Grid.Row="4"/>
-                    <TextBlock Style="{StaticResource MaterialDesignHeadline4TextBlock}" 
-                        Text="The Privacy Policy" 
-                        Width="170" 
-                        Margin="265,10,0,142.6" 
-                        VerticalAlignment="Stretch" 
-                        HorizontalAlignment="Left" 
-                        TextAlignment="Left"
-                        FontFamily="Segoe UI" 
-                        FontSize="20" 
-                        FontWeight="Bold" 
-                        TextDecorations="Underline"
-                        Foreground="#7D78A2" Grid.Row="4"/>
-                    <CheckBox x:Name="cbRemember" 
-                        Margin ="464,15,0,0" 
-                        HorizontalAlignment="Left" 
-                        VerticalAlignment="Top"
-                        VerticalContentAlignment="Center"
-                        HorizontalContentAlignment="Center" 
-                        RenderTransformOrigin="1.602,0.053" Height="18" Width="18" Grid.Row="4">
-                                <CheckBox.RenderTransform>
-                                    <TransformGroup>
-                                        <ScaleTransform ScaleY="2" ScaleX="2"/>
-                                        <SkewTransform/>
-                                        <RotateTransform/>
-                                        <TranslateTransform X="19.396" Y="-7.867"/>
-                                    </TransformGroup>
-                                </CheckBox.RenderTransform>
-                            <CheckBox.Background>
-                            <LinearGradientBrush EndPoint="0.5,1" 
-                                StartPoint="0.5,0">
-                                <GradientStop Color="#7D78A2"/>
-                            </LinearGradientBrush>
-                    </CheckBox.Background>
-                    </CheckBox>
+                    Width="550" 
+                    VerticalAlignment="Center"
+                    Margin="0 0 0 30">
                     <Button 
                         x:Name="btSignUp"
-                        HorizontalAlignment="Center"
-                        VerticalAlignment="Bottom"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Margin="240 0 0 0"
                         BorderThickness="0"
-                        Width="300"
-                        Content="GET STARTED"
+                        Height="40"
+                        Content="Get started"
                         Background="#F79BB5"
                         Foreground="#57548B"
                         FocusVisualStyle="{x:Null}"
-                        FontWeight="Bold"
+                        FontWeight="SemiBold"
                         FontSize="22"
-                        Margin="135,0,115,52.2"
                         Command="{Binding SignUpCommand}"
-                        CommandParameter="{Binding ElementName=wdSignUp}"  Height="67"/>
-
-                 </Grid>
+                        CommandParameter="{Binding ElementName=wdSignUp}">
+                    </Button>
+                    <Button
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Margin="415 0 0 0"
+                        BorderThickness="0"
+                        Height="40"
+                        Content="Close"
+                        Background="#F0F0F0"
+                        Foreground="#57548B"
+                        FocusVisualStyle="{x:Null}"
+                        FontWeight="SemiBold"
+                        FontSize="22">                        
+                    </Button>
+                </Grid>
              </Grid>
             </Grid>
      </Grid>

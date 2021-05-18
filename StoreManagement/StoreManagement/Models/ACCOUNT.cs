@@ -18,5 +18,7 @@ namespace StoreManagement.Models
         public string Password { get; set; }
         public string DisplayName { get; set; }
         public byte[] Image { get; set; }
+        public string Location { get; set; }
+        public string PhoneNumber { get; set; }
     }
 }

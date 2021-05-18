@@ -65,7 +65,7 @@
                 </Button>
             </Grid>
             <Grid Grid.Column="1"
-                Margin="0 50 0 0">
+                Margin="0 20 0 0">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="0.8*"></RowDefinition>
                     <RowDefinition Height="0.8*"></RowDefinition>
