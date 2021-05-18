@@ -6,16 +6,13 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:StoreManagement.Resources.UserControls"
              mc:Ignorable="d" 
-             d:DesignHeight="70" d:DesignWidth="950">
+             d:DesignHeight="45" d:DesignWidth="1070"
+             Background="#FFFFFF">
     <Grid>
-        <materialDesign:Card Height="70"
-                             Width="950"
-                             Margin="0,0,0,0"
-                             HorizontalAlignment="Left"
-                             VerticalAlignment="Top"
-                             Padding="8"
-                             UniformCornerRadius="0"
-                             Background="#FF9CB9">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="1"></RowDefinition>
+        </Grid.RowDefinitions>
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="80"></ColumnDefinition>
@@ -28,7 +25,7 @@
                     <TextBlock x:Name="txtNo"
                                Text="No."
                                FontFamily="Segoe UI"
-                               FontSize="25"
+                               FontSize="22"
                                FontWeight="Bold"
                                Foreground="#57548B"
                                HorizontalAlignment="Center" 
@@ -39,7 +36,7 @@
                     <TextBlock x:Name="txtAgency"
                                Text="Agency"
                                FontFamily="Segoe UI"
-                               FontSize="25"
+                               FontSize="22"
                                FontWeight="Bold"
                                Foreground="#57548B"
                                HorizontalAlignment="Center" 
@@ -50,7 +47,7 @@
                     <TextBlock x:Name="txtOriginalDebt"
                                Text="Original Debt"
                                FontFamily="Segoe UI"
-                               FontSize="25"
+                               FontSize="22"
                                FontWeight="Bold"
                                Foreground="#57548B"
                                Margin="0,0,0,0" 
@@ -62,7 +59,7 @@
                     <TextBlock x:Name="txtCostOverrun"
                                Text="Cost Overrun"
                                FontFamily="Segoe UI"
-                               FontSize="25"
+                               FontSize="22"
                                FontWeight="Bold"
                                Foreground="#57548B"
                                HorizontalAlignment="Center" 
@@ -73,7 +70,7 @@
                     <TextBlock x:Name="txtTotal"
                                Text="Total"
                                FontFamily="Segoe UI"
-                               FontSize="25"
+                               FontSize="22"
                                FontWeight="Bold"
                                Foreground="#57548B"
                                HorizontalAlignment="Center" 
@@ -81,34 +78,9 @@
                     </TextBlock>
                 </Grid>
             </Grid>
-        </materialDesign:Card>
-        <Rectangle Width="5"
-                   Height="70"
-                   Margin="80,0,0,0"
-                   VerticalAlignment="Top"
-                   HorizontalAlignment="Left"
-                   Fill="#57548B"
-                   Stroke="#F5C3D1"></Rectangle>
-        <Rectangle Width="5"
-                   Height="70"
-                   Margin="330,0,0,0"
-                   VerticalAlignment="Top"
-                   HorizontalAlignment="Left"
-                   Fill="#57548B"
-                   Stroke="#F5C3D1"></Rectangle>
-        <Rectangle Width="5"
-                   Height="70"
-                   Margin="580,0,0,0"
-                   VerticalAlignment="Top"
-                   HorizontalAlignment="Left"
-                   Fill="#57548B"
-                   Stroke="#F5C3D1"></Rectangle>
-        <Rectangle Width="5"
-                   Height="70"
-                   Margin="830,0,0,0"
-                   VerticalAlignment="Top"
-                   HorizontalAlignment="Left"
-                   Fill="#57548B"
-                   Stroke="#F5C3D1"></Rectangle>
+        <Grid Grid.Row="1"
+              Width="1070"
+              Background="#F2F2F2">
+        </Grid>
     </Grid>
 </UserControl>

@@ -1,0 +1,288 @@
+﻿<Window x:Class="StoreManagement.Views.ReceiptBillWindow"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:StoreManagement.Views"
+        mc:Ignorable="d"
+        Title="ReceiptBillWindow" Height="600" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="120"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <materialDesign:PackIcon Kind="FileDocumentOutline" 
+                                     Width="60"
+                                     Height="70"
+                                     HorizontalAlignment="Left"
+                                     VerticalAlignment="Top"
+                                     Margin="40 25 0 0"
+                                     Foreground="#FA83A6"/>
+            <TextBlock Style="{StaticResource MaterialDesignHeadline4TextBlock}" 
+                   Text="Receipt Bill" 
+                   Height="55" 
+                   Width="235" 
+                   Margin="90,40,0,0"
+                   VerticalAlignment="Top" 
+                   HorizontalAlignment="Left" 
+                   TextAlignment="Center"
+                   FontFamily="Segoe UI"
+                   FontSize="35" 
+                   FontWeight="Bold"
+                       Foreground="#504D85"/>
+        </Grid>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="310"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Row="0">
+                <TextBlock Style="{StaticResource MaterialDesignHeadline4TextBlock}" 
+                   Text="Agency's Name:" 
+                   Height="30" 
+                   Width="170" 
+                   Margin="80,0,0,0"
+                   VerticalAlignment="Top" 
+                   HorizontalAlignment="Left" 
+                   TextAlignment="Left"
+                   FontFamily="Segoe UI"
+                   FontSize="20" 
+                   FontWeight="Bold"
+                       Foreground="#504D85"/>
+                <TextBlock Style="{StaticResource MaterialDesignHeadline4TextBlock}" 
+                   Text="Phone Number:" 
+                   Height="30" 
+                   Width="170" 
+                   Margin="80,60,0,0"
+                   VerticalAlignment="Top" 
+                   HorizontalAlignment="Left" 
+                   TextAlignment="Left"
+                   FontFamily="Segoe UI"
+                   FontSize="20" 
+                   FontWeight="Bold"
+                       Foreground="#504D85"/>
+                <TextBlock Style="{StaticResource MaterialDesignHeadline4TextBlock}" 
+                   Text="Address:" 
+                   Height="30" 
+                   Width="170" 
+                   Margin="80,120,0,0"
+                   VerticalAlignment="Top" 
+                   HorizontalAlignment="Left" 
+                   TextAlignment="Left"
+                   FontFamily="Segoe UI"
+                   FontSize="20" 
+                   FontWeight="Bold"
+                       Foreground="#504D85"/>
+                <TextBlock Style="{StaticResource MaterialDesignHeadline4TextBlock}" 
+                   Text="Email:" 
+                   Height="30" 
+                   Width="170" 
+                   Margin="80,180,0,0"
+                   VerticalAlignment="Top" 
+                   HorizontalAlignment="Left" 
+                   TextAlignment="Left"
+                   FontFamily="Segoe UI"
+                   FontSize="20" 
+                   FontWeight="Bold"
+                       Foreground="#504D85"/>
+                <TextBlock Style="{StaticResource MaterialDesignHeadline4TextBlock}" 
+                   Text="Proceeds:" 
+                   Height="30" 
+                   Width="170" 
+                   Margin="80,240,0,0"
+                   VerticalAlignment="Top" 
+                   HorizontalAlignment="Left" 
+                   TextAlignment="Left"
+                   FontFamily="Segoe UI"
+                   FontSize="20" 
+                   FontWeight="Bold"
+                       Foreground="#504D85"/>
+                <TextBlock Style="{StaticResource MaterialDesignHeadline4TextBlock}" 
+                   Text="Date:" 
+                   Height="30" 
+                   Width="170" 
+                   Margin="80,300,0,0"
+                   VerticalAlignment="Top" 
+                   HorizontalAlignment="Left" 
+                   TextAlignment="Left"
+                   FontFamily="Segoe UI"
+                   FontSize="20" 
+                   FontWeight="Bold"
+                       Foreground="#504D85"/>
+            </Grid>
+            <Grid Grid.Column="1">
+                <Rectangle
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"
+                    Width="300"
+                    Height="40"
+                    Margin="0 0 0 0"
+                    StrokeThickness="2"
+                    RadiusX="10"
+                    RadiusY="10"
+                    Stroke="#E2D2DA"/>
+                <TextBox
+                    x:Name="txtAgencyName"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"
+                    Width="280"
+                    Margin="10 0 0 0"
+                    BorderThickness="0"
+                    materialDesign:HintAssist.Hint="Agency's Name"
+                    MaxLines="1"
+                    Height="40"
+                    FontSize="17"
+                    FontWeight="SemiBold"
+                    Padding="0"
+                    HorizontalContentAlignment="Left"
+                    VerticalContentAlignment="Center" 
+                    Cursor="Arrow">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="TextChanged">
+                            <i:InvokeCommandAction Command="{Binding SeparateThousandsCommand}" CommandParameter="{Binding ElementName=txtAmount}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </TextBox>
+                <Rectangle
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"
+                    Width="300"
+                    Height="40"
+                    Margin="0 60 0 0"
+                    StrokeThickness="2"
+                    RadiusX="10"
+                    RadiusY="10"
+                    Stroke="#E2D2DA"/>
+                <TextBox
+                    x:Name="txtPhoneNumber"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"
+                    Width="280"
+                    Margin="10 60 0 0"
+                    BorderThickness="0"
+                    materialDesign:HintAssist.Hint="Phone Number"
+                    MaxLines="1"
+                    Height="40"
+                    FontSize="17"
+                    FontWeight="SemiBold"
+                    Padding="0"
+                    HorizontalContentAlignment="Left"
+                    VerticalContentAlignment="Center" 
+                    Cursor="Arrow">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="TextChanged">
+                            <i:InvokeCommandAction Command="{Binding SeparateThousandsCommand}" CommandParameter="{Binding ElementName=txtAmount}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </TextBox>
+                <Rectangle
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"
+                    Width="300"
+                    Height="40"
+                    Margin="0 120 0 0"
+                    StrokeThickness="2"
+                    RadiusX="10"
+                    RadiusY="10"
+                    Stroke="#E2D2DA"/>
+                <TextBox
+                    x:Name="txtAddress"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"
+                    Width="280"
+                    Margin="10 120 0 0"
+                    BorderThickness="0"
+                    materialDesign:HintAssist.Hint="Address"
+                    MaxLines="1"
+                    Height="40"
+                    FontSize="17"
+                    FontWeight="SemiBold"
+                    Padding="0"
+                    HorizontalContentAlignment="Left"
+                    VerticalContentAlignment="Center" 
+                    Cursor="Arrow">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="TextChanged">
+                            <i:InvokeCommandAction Command="{Binding SeparateThousandsCommand}" CommandParameter="{Binding ElementName=txtAmount}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </TextBox>
+                <Rectangle
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"
+                    Width="300"
+                    Height="40"
+                    Margin="0 180 0 0"
+                    StrokeThickness="2"
+                    RadiusX="10"
+                    RadiusY="10"
+                    Stroke="#E2D2DA"/>
+                <TextBox
+                    x:Name="txtEmail"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"
+                    Width="280"
+                    Margin="10 180 0 0"
+                    BorderThickness="0"
+                    materialDesign:HintAssist.Hint="Email"
+                    MaxLines="1"
+                    Height="40"
+                    FontSize="17"
+                    FontWeight="SemiBold"
+                    Padding="0"
+                    HorizontalContentAlignment="Left"
+                    VerticalContentAlignment="Center" 
+                    Cursor="Arrow">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="TextChanged">
+                            <i:InvokeCommandAction Command="{Binding SeparateThousandsCommand}" CommandParameter="{Binding ElementName=txtAmount}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </TextBox>
+                <Rectangle
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"
+                    Width="300"
+                    Height="40"
+                    Margin="0 240 0 0"
+                    StrokeThickness="2"
+                    RadiusX="10"
+                    RadiusY="10"
+                    Stroke="#E2D2DA"/>
+                <TextBox
+                    x:Name="txtProceed"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"
+                    Width="280"
+                    Margin="10 240 0 0"
+                    BorderThickness="0"
+                    materialDesign:HintAssist.Hint="Proceed"
+                    Height="40"
+                    FontSize="17"
+                    FontWeight="SemiBold"
+                    Padding="0"
+                    HorizontalContentAlignment="Left"
+                    VerticalContentAlignment="Center" 
+                    Cursor="Arrow">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="TextChanged">
+                            <i:InvokeCommandAction Command="{Binding SeparateThousandsCommand}" CommandParameter="{Binding ElementName=txtAmount}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </TextBox>
+                <DatePicker
+                    x:Name="dateCheckout"
+                    IsEnabled="False"
+                     Width="300"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"
+                    Margin="0 300 0 0"
+                     materialDesign:HintAssist.Hint="Pick Date"
+                     Style="{StaticResource MaterialDesignOutlinedDatePicker}" />
+            </Grid>
+        </Grid>
+    </Grid>
+</Window>

@@ -619,7 +619,7 @@
             <Grid Grid.Row="1"
                 x:Name="grdBody_Main"
                 DataContext="{StaticResource ReportVM}"
-                Visibility="Visible">                
+                Visibility="Hidden">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="2"></RowDefinition>
                     <RowDefinition Height="70"></RowDefinition>
@@ -781,7 +781,7 @@
                                 </i:Interaction.Triggers>
                             </lvc:CartesianChart>
                         </Grid>
-                    </Border>                    
+                    </Border>
                 </Grid>
             </Grid>
             <!--Body stores-->
@@ -1558,27 +1558,665 @@
             <!--Body bills-->
             <Grid Grid.Row="1"
                 x:Name="grdBody_Bill"
-                Visibility="Hidden">
+                DataContext="{StaticResource BillVM}"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Bottom"
+                Margin="0 0 0 0"
+                Visibility="Visible">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="Loaded">
+                        <i:InvokeCommandAction 
+                                            Command="{Binding LoadBillCommand}"
+                                            CommandParameter="{Binding ElementName=wdHome}"/>
+                    </i:EventTrigger>
+                    <i:EventTrigger EventName="Loaded">
+                        <i:InvokeCommandAction 
+                                            Command="{Binding LoadReceiptBillCommand}"
+                                            CommandParameter="{Binding ElementName=wdHome}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="3"></RowDefinition>
+                    <RowDefinition Height="60"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0"
+                      Background="#FBA1BB" >
+                </Grid>
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="390"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="160"></ColumnDefinition>
+                        <ColumnDefinition Width="160"></ColumnDefinition>
+                        <ColumnDefinition Width="160"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="0">
+                        <Rectangle
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Top"
+                            Width="300"
+                            Height="40"
+                            Margin="30 10 0 0"
+                            StrokeThickness="2"
+                            RadiusX="10"
+                            RadiusY="10"
+                            Stroke="#E2D2DA"/>
+                        <TextBox
+                            x:Name="txtSearchAgency"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Top"
+                            Width="250"
+                            Margin="40 10 0 0"
+                            BorderThickness="0"
+                            materialDesign:HintAssist.Hint="Search Agency"
+                            MaxLines="1"
+                            Height="35"
+                            FontSize="22"
+                            FontWeight="SemiBold"
+                            Padding="0"
+                            HorizontalContentAlignment="Left"
+                            VerticalContentAlignment="Center" 
+                            Cursor="Arrow">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="TextChanged">
+                                    <i:InvokeCommandAction Command="{Binding SearchAgencyCommand}" 
+                                                       CommandParameter="{Binding ElementName=wdHome}"/>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </TextBox>
+                        <materialDesign:PackIcon Kind="Magnify"
+                                             Height="40"
+                                             Width="35"
+                                             HorizontalAlignment="Left"
+                                             VerticalAlignment="Top"
+                                             Margin="280 10 0 0"/>
+                    </Grid>
+                    <Grid Grid.Column="2">
+                        <Button x:Name="btReleasingBill" 
+                                x:Uid="1"
+                            Style="{StaticResource MaterialDesignRaisedButton}"
+                            Height="35" 
+                            Width="150" 
+                            HorizontalContentAlignment="Center" 
+                            HorizontalAlignment="Center" 
+                            VerticalAlignment="Center"
+                            Background="#FBCCDA"
+                            Content="Releasing Bill"
+                            FontSize="18"
+                            Foreground="#57548B"
+                            FontWeight="Bold" 
+                            FocusVisualStyle="{x:Null}"
+                            BorderBrush="{x:Null}">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="Click">
+                                    <i:InvokeCommandAction Command="{Binding SwitchCommand}"
+                                                       CommandParameter="{Binding ElementName = wdHome}"/>
+                                </i:EventTrigger>
+                                <i:EventTrigger EventName="MouseMove">
+                                    <i:InvokeCommandAction Command="{Binding GetUidCommand}"
+                                                       CommandParameter="{Binding ElementName=btReleasingBill}"/>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </Button>
+                    </Grid>
+                    <Grid Grid.Column="3">
+                        <Button x:Name="btReceiptBill" 
+                                x:Uid="2"
+                            Style="{StaticResource MaterialDesignRaisedButton}"
+                            Height="35" 
+                            Width="150" 
+                            HorizontalContentAlignment="Center" 
+                            HorizontalAlignment="Center" 
+                            VerticalAlignment="Center"
+                            Background="#FBCCDA"
+                            Content="Receipt Bill"
+                            FontSize="18"
+                            Foreground="#57548B"
+                            FocusVisualStyle="{x:Null}"
+                            BorderBrush="{x:Null}"
+                            FontWeight="Bold">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="Click">
+                                    <i:InvokeCommandAction Command="{Binding SwitchCommand}"
+                                                       CommandParameter="{Binding ElementName = wdHome}"/>
+                                </i:EventTrigger>
+                                <i:EventTrigger EventName="MouseMove">
+                                    <i:InvokeCommandAction Command="{Binding GetUidCommand}"
+                                                       CommandParameter="{Binding ElementName=btReceiptBill}"/>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </Button>
+                    </Grid>
+                    <Grid Grid.Column="4">
+                        <Button x:Name="btExcelBill" 
+                                x:Uid="3"
+                                Style="{StaticResource MaterialDesignRaisedButton}"
+                                Height="35" 
+                                Width="150" 
+                                HorizontalContentAlignment="Center" 
+                                HorizontalAlignment="Center" 
+                                VerticalAlignment="Center"
+                                Background="#FBCCDA"
+                                Content="Export Excel"
+                                FontSize="18"
+                                Foreground="#57548B"
+                                FontWeight="Bold"
+                                Visibility="Visible" 
+                                FocusVisualStyle="{x:Null}"
+                                BorderBrush="{x:Null}"
+                                Command="{Binding ExportExcelCommand}"
+                                CommandParameter="{Binding ElementName=wdHome}">
+                        </Button>
+                    </Grid>
+                </Grid>
+                <Grid Grid.Row="2"
+                      x:Name="InvoiceTable"
+                      Height="590"
+                      Width="1070"
+                      Margin="30 10 0 0"
+                      VerticalAlignment="Top"
+                      Visibility="Visible">
+                    <Grid 
+                        x:Name="cardTitle"
+                        Height="50"
+                        Width="1070"
+                        Margin="0,10,0,0"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Top"
+                        Background="White"
+                        Visibility="Visible">
+                        <Grid>
+                            <TextBlock 
+                                x:Name="textReleasingBill"
+                                Text="Releasing Bill"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                FontSize="25"
+                                FontFamily="Segoe UI"
+                                FontWeight="Bold"
+                                Foreground="#57548B"
+                                Visibility="Hidden"></TextBlock>
+                            <TextBlock 
+                                x:Name="textReceiptBill"
+                                Text="Receipt Bill"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                FontSize="25"
+                                FontFamily="Segoe UI"
+                                FontWeight="Bold"
+                                Foreground="#57548B"
+                                Visibility="Hidden"></TextBlock>
+                        </Grid>
+                    </Grid>
+                    <Grid
+                        x:Name="ColumnHeaderBill"
+                        Grid.Row="1"
+                        Background="#FF9CB9"
+                        Height="45"
+                        Width="1060"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Top"
+                        Margin="0 50 0 0"
+                        Visibility="Visible">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="220"/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="60"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid>
+                            <TextBlock
+                            Text="ID"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Center"
+                            FontSize="22"
+                            Foreground="#504D85"
+                            FontWeight="SemiBold"/>
+                        </Grid>
+                        <Grid
+                        Grid.Column="1">
+                            <TextBlock
+                            Text="Agency Name"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Center"
+                            FontSize="22"
+                            Foreground="#504D85"
+                            FontWeight="SemiBold"/>
+                        </Grid>
+                        <Grid
+                        Grid.Column="2">
+                            <TextBlock
+                            Text="Check Out(MM/DD/YYYY)"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Center"
+                            FontSize="22"
+                            Foreground="#504D85"
+                            FontWeight="SemiBold"/>
+                        </Grid>
+                        <Grid
+                        Grid.Column="3">
+                            <TextBlock
+                                x:Name="LastBlock"
+                            Text="Debt"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Center"
+                            FontSize="22"
+                            Foreground="#504D85"
+                            FontWeight="SemiBold"/>
+                        </Grid>
+                    </Grid>
+                    <ScrollViewer 
+                            x:Name="ScrollInvoice"
+                            Grid.Row="2"
+                            HorizontalScrollBarVisibility="Disabled" 
+                            Margin="0"
+                            HorizontalAlignment="Left" 
+                            Style="{StaticResource FavsScrollViewer}"
+                            VerticalScrollBarVisibility="Auto">
 
-                <Grid
-                    Width="1140"
-                    Height="3"
-                    Background="#FBA1BB" 
-                    HorizontalAlignment="Left"
-                    VerticalAlignment="Top">
+                        <StackPanel x:Name="stkBill"
+                                Width="1070"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Top"
+                                Margin="0 100 0 0" 
+                                Visibility="Hidden"/>
+                    </ScrollViewer>
+                    <ScrollViewer 
+                            x:Name="ScrollReceipt"
+                            Grid.Row="2"
+                            HorizontalScrollBarVisibility="Disabled" 
+                            Margin="0"
+                            HorizontalAlignment="Left" 
+                            Style="{StaticResource FavsScrollViewer}"
+                            VerticalScrollBarVisibility="Auto">
+                        <StackPanel x:Name="stkReceiptBill"
+                                Width="1070"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Top"
+                                Margin="0 100 0 0"
+                                Visibility="Hidden"/>
+                    </ScrollViewer>
+                    
 
                 </Grid>
+
             </Grid>
             <!--Body report-->
             <Grid Grid.Row="1"
                 x:Name="grdBody_Report"
-                Visibility="Hidden">
-                <Grid
+                Background="White"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Bottom"
+                Visibility="Hidden"
+                Margin="0 0 0 0"
+                Height="665"
+                DataContext="{StaticResource AgencyReportVM}">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="3"></RowDefinition>
+                    <RowDefinition Height="60"></RowDefinition>
+                    <RowDefinition Height="50"></RowDefinition>
+                    <RowDefinition Height="50"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0"
                     Width="1140"
                     Height="3"
                     Background="#FBA1BB" 
                     HorizontalAlignment="Left"
                     VerticalAlignment="Top">
+                </Grid>
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="390"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="160"></ColumnDefinition>
+                        <ColumnDefinition Width="160"></ColumnDefinition>
+                        <ColumnDefinition Width="160"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="0">
+                        <Rectangle
+                                HorizontalAlignment="Left"
+                            VerticalAlignment="Top"
+                            Width="300"
+                            Height="40"
+                            Margin="30 10 0 0"
+                            StrokeThickness="2"
+                            RadiusX="10"
+                            RadiusY="10"
+                            Stroke="#E2D2DA"/>
+                        <TextBox
+                                x:Name="txtSearchReport"
+                                HorizontalAlignment="Left"
+                            VerticalAlignment="Top"
+                            Width="250"
+                            Margin="40 10 0 0"
+                            BorderThickness="0"
+                            materialDesign:HintAssist.Hint="Search Agency"
+                            MaxLines="1"
+                            Height="35"
+                            FontSize="22"
+                            FontWeight="SemiBold"
+                            Padding="0"
+                            HorizontalContentAlignment="Left"
+                            VerticalContentAlignment="Center" 
+                            Cursor="Arrow">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="TextChanged">
+                                    <i:InvokeCommandAction Command="{Binding SearchAgencyCommand}" 
+                                                       CommandParameter="{Binding ElementName=wdHome}"/>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </TextBox>
+                        <materialDesign:PackIcon Kind="Magnify"
+                                             Height="40"
+                                             Width="35"
+                                             HorizontalAlignment="Left"
+                                             VerticalAlignment="Top"
+                                             Margin="280 10 0 0"/>
+                    </Grid>
+                    <Grid Grid.Column="2">
+                        <Button x:Name="btSalesReport" 
+                            x:Uid="1"
+                            Style="{StaticResource MaterialDesignRaisedButton}"
+                            Height="35" 
+                            Width="150" 
+                            HorizontalContentAlignment="Center" 
+                            HorizontalAlignment="Center" 
+                            VerticalAlignment="Center"
+                            Background="#FBCCDA"
+                            Content="Sales Report"
+                            FontSize="18"
+                            Foreground="#57548B"
+                            FontWeight="Bold" 
+                            FocusVisualStyle="{x:Null}"
+                            BorderBrush="{x:Null}">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="Click">
+                                    <i:InvokeCommandAction Command="{Binding SwitchCommand}"
+                                                       CommandParameter="{Binding ElementName = wdHome}"/>
+                                </i:EventTrigger>
+                                <i:EventTrigger EventName="MouseMove">
+                                    <i:InvokeCommandAction Command="{Binding GetUidCommand}"
+                                                       CommandParameter="{Binding ElementName=btSalesReport}"/>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </Button>
+                    </Grid>
+                    <Grid Grid.Column="3">
+                        <Button x:Name="btDebtReport" 
+                            x:Uid="2"
+                            Style="{StaticResource MaterialDesignRaisedButton}"
+                            Height="35" 
+                            Width="150" 
+                            HorizontalContentAlignment="Center" 
+                            HorizontalAlignment="Center" 
+                            VerticalAlignment="Center"
+                            Background="#FBCCDA"
+                            Content="Debts Report"
+                            FontSize="18"
+                            Foreground="#57548B"
+                            FontWeight="Bold" 
+                            FocusVisualStyle="{x:Null}"
+                            BorderBrush="{x:Null}">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="Click">
+                                    <i:InvokeCommandAction Command="{Binding SwitchCommand}"
+                                                       CommandParameter="{Binding ElementName = wdHome}"/>
+                                </i:EventTrigger>
+                                <i:EventTrigger EventName="MouseMove">
+                                    <i:InvokeCommandAction Command="{Binding GetUidCommand}"
+                                                       CommandParameter="{Binding ElementName=btDebtReport}"/>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </Button>
+                    </Grid>
+                </Grid>
+                <Grid Grid.Row="2">
+
+                    <materialDesign:Card x:Name="cardTitleSalesReport"
+                             Height="50"
+                             Width="1070"
+                             Margin="30,0,0,0"
+                             HorizontalAlignment="Left"
+                             VerticalAlignment="Top"
+                             Padding="0"
+                             UniformCornerRadius="0"
+                             Background="White"
+                             Visibility="Hidden">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                <ColumnDefinition Width="200"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+
+                            <Grid Grid.Column="0">
+                                <TextBlock x:Name="textSalesReport"
+                                    Text="Sales Report"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    FontSize="25"
+                                    FontFamily="Segoe UI"
+                                    FontWeight="Bold"
+                                    Foreground="#57548B"
+                                    Visibility="Hidden"></TextBlock>
+                                <TextBlock x:Name="textDebtReport"
+                                    Text="Receipt Bill"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    FontSize="25"
+                                    FontFamily="Segoe UI"
+                                    FontWeight="Bold"
+                                    Foreground="#57548B"
+                                           Visibility="Hidden"></TextBlock>
+                            </Grid>
+                            <Grid Grid.Column="1">
+                                <DatePicker
+                                    x:Name="Date"
+                                    Height="50"
+                                    Background="#FBCCDA"
+                                    Foreground="#57548B"
+                                    FontFamily="Segoe UI"
+                                    FontWeight="Bold"
+                                    FontSize="22"
+                                    SelectedDateChanged="Date_SelectedDateChanged">
+                                    <i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="SelectedDateChanged">
+                                            <i:InvokeCommandAction Command="{Binding LoadSalesReportCommand}"
+                                                                   CommandParameter="{Binding ElementName=wdHome}">
+                                                
+                                            </i:InvokeCommandAction>
+                                        </i:EventTrigger>
+                                        <i:EventTrigger EventName="SelectedDateChanged">
+                                            <i:InvokeCommandAction Command="{Binding LoadDebtsReportCommand}"
+                                                                   CommandParameter="{Binding ElementName=wdHome}">
+
+                                            </i:InvokeCommandAction>
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>
+                                    
+                                </DatePicker>
+                            </Grid>
+                        </Grid>
+                    </materialDesign:Card>
+                </Grid>
+                <Grid Grid.Row="3">
+                    <materialDesign:Card x:Name="cardSalesReport"
+                             Height="50"
+                             Width="1070"
+                             Margin="30,0,0,0"
+                             HorizontalAlignment="Left"
+                             VerticalAlignment="Top"
+                             Padding="8"
+                             UniformCornerRadius="0"
+                             Background="#FF9CB9"
+                             Visibility="Hidden">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="80"></ColumnDefinition>
+                                <ColumnDefinition Width="250"></ColumnDefinition>
+                                <ColumnDefinition Width="250"></ColumnDefinition>
+                                <ColumnDefinition Width="250"></ColumnDefinition>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid Grid.Column="0">
+                                <TextBlock Text="No."
+                               FontFamily="Segoe UI"
+                               FontSize="25"
+                               FontWeight="Bold"
+                               Foreground="#57548B"
+                               HorizontalAlignment="Center" 
+                               VerticalAlignment="Center">
+                                </TextBlock>
+                            </Grid>
+                            <Grid Grid.Column="1">
+                                <TextBlock Text="Agency"
+                               FontFamily="Segoe UI"
+                               FontSize="25"
+                               FontWeight="Bold"
+                               Foreground="#57548B"
+                               HorizontalAlignment="Center" 
+                               VerticalAlignment="Center">
+                                </TextBlock>
+                            </Grid>
+                            <Grid Grid.Column="2">
+                                <TextBlock Text="Number Of Bills"
+                               FontFamily="Segoe UI"
+                               FontSize="25"
+                               FontWeight="Bold"
+                               Foreground="#57548B"
+                               Margin="0,0,0,0" 
+                               HorizontalAlignment="Center" 
+                               VerticalAlignment="Center">
+                                </TextBlock>
+                            </Grid>
+                            <Grid Grid.Column="3">
+                                <TextBlock Text="Total"
+                               FontFamily="Segoe UI"
+                               FontSize="25"
+                               FontWeight="Bold"
+                               Foreground="#57548B"
+                               HorizontalAlignment="Center" 
+                               VerticalAlignment="Center">
+                                </TextBlock>
+                            </Grid>
+                            <Grid Grid.Column="4">
+                                <TextBlock Text="Ratio"
+                               FontFamily="Segoe UI"
+                               FontSize="25"
+                               FontWeight="Bold"
+                               Foreground="#57548B"
+                               HorizontalAlignment="Center" 
+                               VerticalAlignment="Center">
+                                </TextBlock>
+                            </Grid>
+                        </Grid>
+                    </materialDesign:Card>
+                    <materialDesign:Card x:Name="cardDebtAgencyReport"
+                             Height="50"
+                             Width="1070"
+                             Margin="30,0,0,0"
+                             HorizontalAlignment="Left"
+                             VerticalAlignment="Top"
+                             Padding="8"
+                             UniformCornerRadius="0"
+                             Background="#FF9CB9"
+                             Visibility="Hidden">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="80"></ColumnDefinition>
+                                <ColumnDefinition Width="250"></ColumnDefinition>
+                                <ColumnDefinition Width="250"></ColumnDefinition>
+                                <ColumnDefinition Width="250"></ColumnDefinition>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid Grid.Column="0">
+                                <TextBlock Text="No."
+                               FontFamily="Segoe UI"
+                               FontSize="25"
+                               FontWeight="Bold"
+                               Foreground="#57548B"
+                               HorizontalAlignment="Center" 
+                               VerticalAlignment="Center">
+                                </TextBlock>
+                            </Grid>
+                            <Grid Grid.Column="1">
+                                <TextBlock Text="Agency"
+                               FontFamily="Segoe UI"
+                               FontSize="25"
+                               FontWeight="Bold"
+                               Foreground="#57548B"
+                               HorizontalAlignment="Center" 
+                               VerticalAlignment="Center">
+                                </TextBlock>
+                            </Grid>
+                            <Grid Grid.Column="2">
+                                <TextBlock Text="Original Debt"
+                               FontFamily="Segoe UI"
+                               FontSize="25"
+                               FontWeight="Bold"
+                               Foreground="#57548B"
+                               Margin="0,0,0,0" 
+                               HorizontalAlignment="Center" 
+                               VerticalAlignment="Center">
+                                </TextBlock>
+                            </Grid>
+                            <Grid Grid.Column="3">
+                                <TextBlock Text="Cost Overrun"
+                               FontFamily="Segoe UI"
+                               FontSize="25"
+                               FontWeight="Bold"
+                               Foreground="#57548B"
+                               HorizontalAlignment="Center" 
+                               VerticalAlignment="Center">
+                                </TextBlock>
+                            </Grid>
+                            <Grid Grid.Column="4">
+                                <TextBlock Text="Total"
+                               FontFamily="Segoe UI"
+                               FontSize="25"
+                               FontWeight="Bold"
+                               Foreground="#57548B"
+                               HorizontalAlignment="Center" 
+                               VerticalAlignment="Center">
+                                </TextBlock>
+                            </Grid>
+                        </Grid>
+                    </materialDesign:Card>
+                </Grid>
+                <Grid Grid.Row="4">
+                    <ScrollViewer 
+                            x:Name="scrollSales"
+                            Grid.Row="4"
+                            HorizontalScrollBarVisibility="Disabled" 
+                            Margin="0"
+                            HorizontalAlignment="Left" 
+                            Style="{StaticResource FavsScrollViewer}"
+                            VerticalScrollBarVisibility="Auto"
+                            Visibility="Hidden">
+                        <StackPanel x:Name="stkSalesReport"
+                                Width="1070"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Top"
+                                Margin="30 0 0 0" Grid.ColumnSpan="2"></StackPanel>
+                    </ScrollViewer>
+                    <ScrollViewer 
+                            x:Name="scrollDebt"
+                            Grid.Row="4"
+                            HorizontalScrollBarVisibility="Disabled" 
+                            Margin="0"
+                            HorizontalAlignment="Left" 
+                            Style="{StaticResource FavsScrollViewer}"
+                            VerticalScrollBarVisibility="Auto"
+                            Visibility="Hidden">
+                        <StackPanel x:Name="stkDebtReport"
+                                Width="1070"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Top"
+                                Margin="30 0 0 0" Grid.ColumnSpan="2">
+                        </StackPanel>
+                    </ScrollViewer>
                 </Grid>
             </Grid>
             <!--Body account setting-->
