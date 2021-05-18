@@ -15,23 +15,13 @@ using System.Windows.Shapes;
 namespace StoreManagement.Views
 {
     /// <summary>
-    /// Interaction logic for LoginWindow.xaml
+    /// Interaction logic for InfoAccountWindow.xaml
     /// </summary>
-    public partial class LoginWindow : Window
+    public partial class InfoAccountWindow : Window
     {
-        public LoginWindow()
+        public InfoAccountWindow()
         {
             InitializeComponent();
-        }
-
-        private void btLogin_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void btClose_Click(object sender, RoutedEventArgs e)
-        {
-
         }
     }
 }

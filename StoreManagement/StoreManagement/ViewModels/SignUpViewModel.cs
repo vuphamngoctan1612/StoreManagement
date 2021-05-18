@@ -95,8 +95,8 @@ namespace StoreManagement.ViewModels
                 return;
             }
 
-            try
-            {
+            //try
+            //{
                 byte[] imgByteArr;
                 if (imageFileName == null)
                 {
@@ -114,17 +114,17 @@ namespace StoreManagement.ViewModels
                 acc.Image = imgByteArr;
                 DataProvider.Instance.DB.Accounts.Add(acc);
                 DataProvider.Instance.DB.SaveChanges();
-            }
-            catch
-            {
-                MessageBox.Show("Tài khoản đã tồn tại! Vui lòng nhập tài khoản khác", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
-                parameter.txtUsername.Focus();
-                return;
-            }
-            finally
-            {
-                //parameter.Close();
-            }
+            //}
+            //catch
+            //{
+            //    MessageBox.Show("Tài khoản đã tồn tại! Vui lòng nhập tài khoản khác", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
+            //    parameter.txtUsername.Focus();
+            //    return;
+            //}
+            //finally
+            //{
+            //    //parameter.Close();
+            //}
 
 
 

@@ -71,7 +71,18 @@ namespace StoreManagement.ViewModels
             if (checkACC > 0)
             {
                 HomeWindow homeWindow = new HomeWindow();
+                CurrentAccount.Instance.ConvertAccToCurrentAcc(parameter.txtUser.Text);
                 parameter.Hide();
+
+                ImageBrush imageBrush = new ImageBrush();
+                imageBrush.ImageSource = Converter.Instance.ConvertByteToBitmapImage(CurrentAccount.Image);
+                homeWindow.grdAcc_Image.Background = imageBrush;
+                homeWindow.menu_Acc_DisplayName.Header = CurrentAccount.DisplayName;
+                if (homeWindow.grdAcc_Image.Children.Count != 0)
+                {
+                    homeWindow.grdAcc_Image.Children.Remove(homeWindow.grdAcc_Image.Children[0]);
+                }
+
                 homeWindow.ShowDialog();
                 parameter.Close();
 
