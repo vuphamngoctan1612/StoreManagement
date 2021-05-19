@@ -250,7 +250,7 @@ namespace StoreManagement.ViewModels
                 var results = DataProvider.Instance.DB.Agencies.Where(x => x.IsDelete == false).Select(x => x.District).Distinct().ToList();
                 if (results.Count >= 20)
                 {
-                    MessageBox.Show("Exceed the number of districts limit");
+                    MessageBox.Show("Exceed the number of districts limit: 20");
                     return;
                 }
             }
