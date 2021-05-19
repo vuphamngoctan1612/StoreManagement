@@ -5,6 +5,7 @@ using StoreManagement.Views;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity.Migrations;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -121,6 +122,29 @@ namespace StoreManagement.ViewModels
             {
                 para.txtAmount.Focus();
                 return;
+            }
+
+            StreamReader sr = new StreamReader("../../cache.txt");
+            string cache = sr.ReadToEnd();
+            sr.Close();
+
+            string[] rulesSetting = cache.Split(' ');
+
+            var results = DataProvider.Instance.DB.Products.Where(x => x.IsDelete == false).Select(x => x.Unit).Distinct().ToList();
+
+            if (para.Title == "Thêm sản phẩm" && DataProvider.Instance.DB.Products.Where(x => x.IsDelete == false).ToList().Count >= int.Parse(rulesSetting[2]))
+            {
+                MessageBox.Show("Exceed the number of product limit");
+                return;
+            }
+
+            if (DataProvider.Instance.DB.Products.Where(x => x.IsDelete == false).Where(x => x.Unit == para.txtUnit.Text).ToList().Count < 1)
+            {
+                if (results.Count >= int.Parse(rulesSetting[3]))
+                {
+                    MessageBox.Show("Exceed the number of unit limit");
+                    return;
+                }
             }
 
             string id = para.txtID.Text;

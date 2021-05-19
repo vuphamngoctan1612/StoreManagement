@@ -30,13 +30,14 @@ namespace StoreManagement.ViewModels
         public ICommand PayBusinessCommand { get; set; }
         public ICommand SearchProductBusinessCommand { get; set; }
         public ICommand PrintInvoiceCommand { get; set; }
-        public ICommand LoadListBusinessWindowCommand { get; set; }
+        public ICommand ReloadBusinessTagCommand { get; set; }
 
         public BusinessViewModel()
         {
             string query = "SELECT * FROM AGENCY WHERE ISDELETE = 0";
             this.ListAgency = DataProvider.Instance.DB.Agencies.SqlQuery(query).ToList<Agency>();
-            this.ListProduct = DataProvider.Instance.DB.Products.ToList<Product>();
+            query = "SELECT * FROM PRODUCT WHERE ISDELETE = 0";
+            this.ListProduct = DataProvider.Instance.DB.Products.SqlQuery(query).ToList();
             this.ListProductChosen = new List<Product>();
             LoadBusinessWindowCommand = new RelayCommand<HomeWindow>((para) => true, (para) => LoadBusiness(para));
             ChosenProductCommand = new RelayCommand<BusinessProductUC>((para) => true, (para) => LoadListChosen(para));
@@ -49,16 +50,7 @@ namespace StoreManagement.ViewModels
             PayBusinessCommand = new RelayCommand<HomeWindow>((para) => true, (para) => PayBusiness(this.HomeWindow));
             SearchProductBusinessCommand = new RelayCommand<HomeWindow>((para) => true, (para) => SearchProductBusiness(para));
             PrintInvoiceCommand = new RelayCommand<InvoiceWindow>((para) => true, (para) => PrintInvoice(para));
-            LoadListBusinessWindowCommand = new RelayCommand<HomeWindow>((para) => true, (para) => LoadListBusiness(para));
-        }
-
-        private void LoadListBusiness(HomeWindow para)
-        {
-            this.HomeWindow = para;
-            this.ListAgency = DataProvider.Instance.DB.Agencies.ToList<Agency>();
-            this.ListProduct = DataProvider.Instance.DB.Products.ToList<Product>();
-
-            LoadBusiness(para);
+            ReloadBusinessTagCommand = new RelayCommand<HomeWindow>((para) => true, (para) => ReloadBusiness());
         }
 
         private void PrintInvoice(InvoiceWindow para)
@@ -183,7 +175,13 @@ namespace StoreManagement.ViewModels
 
         private void ReloadBusiness()
         {
+            string query = "SELECT * FROM AGENCY WHERE ISDELETE = 0";
+            this.ListAgency = DataProvider.Instance.DB.Agencies.SqlQuery(query).ToList<Agency>();
             this.HomeWindow.stkListProductChosenBusiness.Children.Clear();
+            string query1 = "SELECT * FROM PRODUCT WHERE ISDELETE = 0";
+            this.ListProduct = DataProvider.Instance.DB.Products.SqlQuery(query).ToList<Product>();
+            this.HomeWindow.stkListProductBusiness.Children.Clear();
+            LoadBusiness(this.HomeWindow);
             this.ListProductChosen.Clear();
             this.HomeWindow.txbIDAgencyPayment.Text = "-1";
             this.HomeWindow.txbAgencyinPayment.Text = "";
@@ -192,6 +190,10 @@ namespace StoreManagement.ViewModels
             this.HomeWindow.TotalFeeofProductChosenPayment.Text = "0";
             this.HomeWindow.txtRetainerPaymment.Text = "0";
             this.HomeWindow.txbChangePayment.Text = "0";
+            this.HomeWindow.cbSearchAgency.ItemsSource = this.ListAgency;
+            this.HomeWindow.cbSearchAgency.SelectedValuePath = "ID";
+            this.HomeWindow.cbSearchAgency.DisplayMemberPath = "Name";
+
         }
 
         private void AddAgencytoPayment(ComboBox para)

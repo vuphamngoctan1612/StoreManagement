@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity.Migrations;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -80,6 +81,7 @@ namespace StoreManagement.ViewModels
 
         private void LoadListAgency()
         {
+            this.HomeWindow.stkStore_Store.Children.Clear();
             string query = "SELECT * FROM AGENCY WHERE ISDELETE = 0";
             this.ListStores = DataProvider.Instance.DB.Agencies.SqlQuery(query).ToList();
 
@@ -93,7 +95,7 @@ namespace StoreManagement.ViewModels
                 item.txtSpecies.Text = agency.TypeOfAgency.ToString();
                 item.txtAddress.Text = agency.Address;
                 item.txtDistrict.Text = agency.District;
-                item.txtDebt.Text = agency.Debt.ToString();
+                item.txtDebt.Text = SeparateThousands(agency.Debt.ToString());
                 item.Height = 45;
 
                 this.HomeWindow.stkStore_Store.Children.Add(item);
@@ -196,6 +198,12 @@ namespace StoreManagement.ViewModels
 
         private void SaveStore(AddStoreWindow para)
         {
+            StreamReader sr = new StreamReader("../../cache.txt");
+            string cache = sr.ReadToEnd();
+            sr.Close();
+
+            string[] rulesSetting = cache.Split(' ');
+
             if (string.IsNullOrEmpty(para.txtName.Text))
             {
                 para.txtName.Focus();
@@ -234,6 +242,22 @@ namespace StoreManagement.ViewModels
             if (string.IsNullOrEmpty(para.txtSpecies.Text))
             {
                 para.txtSpecies.Focus();
+                return;
+            }
+
+            if (DataProvider.Instance.DB.Agencies.Where(x => x.IsDelete == false).Where(x => x.District == para.txtDistrict.Text).ToList().Count <= 0)
+            {
+                var results = DataProvider.Instance.DB.Agencies.Where(x => x.IsDelete == false).Select(x => x.District).Distinct().ToList();
+                if (results.Count >= 20)
+                {
+                    MessageBox.Show("Exceed the number of districts limit");
+                    return;
+                }
+            }
+
+            if (!CheckConditionNumberAgency(rulesSetting[1], para) && para.Title == "Thêm đại lý")
+            {
+                MessageBox.Show("Number of agency in this district is full");
                 return;
             }
 
@@ -306,7 +330,7 @@ namespace StoreManagement.ViewModels
             }
 
             wd.txtSpecies.SelectedIndex = pos;
-            wd.txtDebt.Text = store.Debt.ToString();
+            wd.txtDebt.Text = SeparateThousands(store.Debt.ToString());
             wd.Title = "Sửa thông tin đại lý";
             wd.txtDebt.IsEnabled = false;
             wd.txtCheckin.IsEnabled = false;
@@ -451,6 +475,30 @@ namespace StoreManagement.ViewModels
                 return pageNumber + 1;
             else
                 return pageNumber;
+        }
+
+        private bool CheckConditionNumberAgency(string rule, AddStoreWindow para)
+        {
+            int count = 0;
+            string district = para.txtDistrict.Text;
+
+            count = DataProvider.Instance.DB.Agencies.Where(x => x.District == district).Where(x => x.IsDelete == false).Count();
+
+            if (count >= int.Parse(rule))
+            {
+                return false;
+            }
+            return true;
+        }
+        private String SeparateThousands(String txt)
+        {
+            if (!string.IsNullOrEmpty(txt))
+            {
+                System.Globalization.CultureInfo culture = new System.Globalization.CultureInfo("en-US");
+                ulong valueBefore = ulong.Parse(ConvertToNumber(txt).ToString(), System.Globalization.NumberStyles.AllowThousands);
+                txt = String.Format(culture, "{0:N0}", valueBefore);
+            }
+            return txt;
         }
     }
 }

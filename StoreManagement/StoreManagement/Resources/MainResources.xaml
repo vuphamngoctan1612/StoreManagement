@@ -7,6 +7,7 @@
     <viewmodels:ReportViewModel x:Key="ReportVM"></viewmodels:ReportViewModel>
     <viewmodels:StoreViewModel x:Key="StoreVM"></viewmodels:StoreViewModel>
     <viewmodels:BusinessViewModel x:Key="BusinessVM"/>
+    <viewmodels:SettingViewModel x:Key="SettingVM"/>
     <ControlTemplate x:Key="textBoxErrorTemplate">
         <StackPanel>
             <AdornedElementPlaceholder x:Name="placeholder"/>
