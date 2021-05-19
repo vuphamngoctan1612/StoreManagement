@@ -1562,7 +1562,7 @@
                 HorizontalAlignment="Left"
                 VerticalAlignment="Bottom"
                 Margin="0 0 0 0"
-                Visibility="Hidden">
+                Visibility="Visible">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="Loaded">
                         <i:InvokeCommandAction 
@@ -1572,6 +1572,11 @@
                     <i:EventTrigger EventName="Loaded">
                         <i:InvokeCommandAction 
                                             Command="{Binding LoadReceiptBillCommand}"
+                                            CommandParameter="{Binding ElementName=wdHome}"/>
+                    </i:EventTrigger>
+                    <i:EventTrigger EventName="Loaded">
+                        <i:InvokeCommandAction 
+                                            Command="{Binding LoadStockReceiptCommnad}"
                                             CommandParameter="{Binding ElementName=wdHome}"/>
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
@@ -1585,8 +1590,8 @@
                 </Grid>
                 <Grid Grid.Row="1">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="390"></ColumnDefinition>
                         <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="160"></ColumnDefinition>
                         <ColumnDefinition Width="160"></ColumnDefinition>
                         <ColumnDefinition Width="160"></ColumnDefinition>
                         <ColumnDefinition Width="160"></ColumnDefinition>
@@ -1631,6 +1636,34 @@
                                              HorizontalAlignment="Left"
                                              VerticalAlignment="Top"
                                              Margin="280 10 0 0"/>
+                    </Grid>
+                    <Grid Grid.Column="1">
+                        <Button x:Name="btStockReceipt" 
+                                x:Uid="3"
+                            Style="{StaticResource MaterialDesignRaisedButton}"
+                            Height="35" 
+                            Width="150" 
+                            HorizontalContentAlignment="Center" 
+                            HorizontalAlignment="Center" 
+                            VerticalAlignment="Center"
+                            Background="#FBCCDA"
+                            Content="Stock Receipt"
+                            FontSize="18"
+                            Foreground="#57548B"
+                            FontWeight="Bold" 
+                            FocusVisualStyle="{x:Null}"
+                            BorderBrush="{x:Null}">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="Click">
+                                    <i:InvokeCommandAction Command="{Binding SwitchCommand}"
+                                                       CommandParameter="{Binding ElementName = wdHome}"/>
+                                </i:EventTrigger>
+                                <i:EventTrigger EventName="MouseMove">
+                                    <i:InvokeCommandAction Command="{Binding GetUidCommand}"
+                                                       CommandParameter="{Binding ElementName=btStockReceipt}"/>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </Button>
                     </Grid>
                     <Grid Grid.Column="2">
                         <Button x:Name="btReleasingBill" 
@@ -1716,7 +1749,7 @@
                       Width="1070"
                       Margin="30 10 0 0"
                       VerticalAlignment="Top"
-                      Visibility="Visible">
+                      Visibility="Hidden">
                     <Grid 
                         x:Name="cardTitle"
                         Height="50"
@@ -1726,7 +1759,12 @@
                         VerticalAlignment="Top"
                         Background="White"
                         Visibility="Visible">
-                        <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition Width="250"/>
+                            <ColumnDefinition Width="250"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid Grid.Column="0">
                             <TextBlock 
                                 x:Name="textReleasingBill"
                                 Text="Releasing Bill"
@@ -1736,17 +1774,31 @@
                                 FontFamily="Segoe UI"
                                 FontWeight="Bold"
                                 Foreground="#57548B"
-                                Visibility="Hidden"></TextBlock>
+                                Visibility="Visible"></TextBlock>
+                        </Grid>
+                        <Grid Grid.Column="1">
                             <TextBlock 
-                                x:Name="textReceiptBill"
-                                Text="Receipt Bill"
-                                HorizontalAlignment="Center"
+                                x:Name="textCollect"
+                                Text="Total"
+                                HorizontalAlignment="Left"
                                 VerticalAlignment="Center"
                                 FontSize="25"
                                 FontFamily="Segoe UI"
                                 FontWeight="Bold"
-                                Foreground="#57548B"
-                                Visibility="Hidden"></TextBlock>
+                                Foreground="Green"
+                                Visibility="Visible"></TextBlock>
+                        </Grid>
+                        <Grid Grid.Column="2">
+                            <TextBlock 
+                                x:Name="textPay"
+                                Text="Total"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                FontSize="25"
+                                FontFamily="Segoe UI"
+                                FontWeight="Bold"
+                                Foreground="Red"
+                                Visibility="Visible"></TextBlock>
                         </Grid>
                     </Grid>
                     <Grid
@@ -1817,7 +1869,7 @@
                             VerticalScrollBarVisibility="Auto">
 
                         <StackPanel x:Name="stkBill"
-                                Width="1070"
+                                Width="1060"
                                 HorizontalAlignment="Left"
                                 VerticalAlignment="Top"
                                 Margin="0 100 0 0" 
@@ -1832,13 +1884,27 @@
                             Style="{StaticResource FavsScrollViewer}"
                             VerticalScrollBarVisibility="Auto">
                         <StackPanel x:Name="stkReceiptBill"
-                                Width="1070"
+                                Width="1060"
                                 HorizontalAlignment="Left"
                                 VerticalAlignment="Top"
                                 Margin="0 100 0 0"
                                 Visibility="Hidden"/>
                     </ScrollViewer>
-                    
+                    <ScrollViewer 
+                            x:Name="ScrollStockReceipt"
+                            Grid.Row="2"
+                            HorizontalScrollBarVisibility="Disabled" 
+                            Margin="0"
+                            HorizontalAlignment="Left" 
+                            Style="{StaticResource FavsScrollViewer}"
+                            VerticalScrollBarVisibility="Auto">
+                        <StackPanel x:Name="stkStockReceipt"
+                                Width="1060"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Top"
+                                Margin="0 100 0 0"
+                                Visibility="Hidden"/>
+                    </ScrollViewer>
 
                 </Grid>
 
@@ -1849,7 +1915,7 @@
                 Background="White"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Bottom"
-                Visibility="Visible"
+                Visibility="Hidden"
                 Margin="0 0 0 0"
                 Height="665"
                 DataContext="{StaticResource AgencyReportVM}">

@@ -144,6 +144,7 @@
                 Margin="200,20"/>
             <TextBlock 
                 Text="Pre pay"
+                x:Name="textPre"
                 Width="80"
                 TextAlignment="Left"
                 Foreground="#263238"
@@ -154,6 +155,7 @@
                 Margin="200,45"/>
             <TextBlock 
                 Text="Rest"
+                x:Name="textRest"
                 Foreground="#263238"
                 Width="80"
                 TextAlignment="Left"
@@ -207,6 +209,7 @@
                 Margin="60,20"/>
             <TextBlock 
                 Text="VND"
+                x:Name="textPreVND"
                 Width="80"
                 TextAlignment="Right"
                 Foreground="#263238"
@@ -217,6 +220,7 @@
                 Margin="60,45"/>
             <TextBlock 
                 Text="VND"
+                x:Name="textRestVND"
                 Foreground="#263238"
                 Width="80"
                 TextAlignment="Right"
