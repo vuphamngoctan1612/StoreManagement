@@ -1562,7 +1562,7 @@
                 HorizontalAlignment="Left"
                 VerticalAlignment="Bottom"
                 Margin="0 0 0 0"
-                Visibility="Visible">
+                Visibility="Hidden">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="Loaded">
                         <i:InvokeCommandAction 
@@ -1849,7 +1849,7 @@
                 Background="White"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Bottom"
-                Visibility="Hidden"
+                Visibility="Visible"
                 Margin="0 0 0 0"
                 Height="665"
                 DataContext="{StaticResource AgencyReportVM}">
@@ -2019,8 +2019,7 @@
                                     Foreground="#57548B"
                                     FontFamily="Segoe UI"
                                     FontWeight="Bold"
-                                    FontSize="22"
-                                    SelectedDateChanged="Date_SelectedDateChanged">
+                                    FontSize="22">
                                     <i:Interaction.Triggers>
                                         <i:EventTrigger EventName="SelectedDateChanged">
                                             <i:InvokeCommandAction Command="{Binding LoadSalesReportCommand}"

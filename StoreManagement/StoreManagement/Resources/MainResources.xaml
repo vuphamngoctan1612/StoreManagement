@@ -1,9 +1,8 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:viewmodels ="clr-namespace:StoreManagement.ViewModels"
-                    xmlns:models ="clr-namespace:StoreManagement.Models">
+                    xmlns:viewmodels ="clr-namespace:StoreManagement.ViewModels">
     <viewmodels:LoginViewModel x:Key="LoginVM"></viewmodels:LoginViewModel>
-    <viewmodels:SignUpViewModel x:Key="SignUpVM"></viewmodels:SignUpViewModel>
+    <!--<viewmodels:SignUpViewModel x:Key="SignUpVM"></viewmodels:SignUpViewModel>-->
     <viewmodels:StoreViewModel x:Key="StoreVM"></viewmodels:StoreViewModel>
     <viewmodels:HomeViewModel x:Key="HomeVM"></viewmodels:HomeViewModel>
     <viewmodels:BillViewModel x:Key="BillVM"></viewmodels:BillViewModel>
@@ -11,5 +10,4 @@
     <viewmodels:ReportViewModel x:Key="ReportVM"></viewmodels:ReportViewModel>
     <viewmodels:AccountViewModel x:Key="AccountVM"></viewmodels:AccountViewModel>
     <viewmodels:AgencyReportViewModel x:Key="AgencyReportVM"></viewmodels:AgencyReportViewModel>
-    <viewmodels:StoreViewModel x:Key="StoreVM"></viewmodels:StoreViewModel>
 </ResourceDictionary>
