@@ -42,6 +42,7 @@ namespace StoreManagement.ViewModels
         //home window
         public ICommand ShowProfileCommand { get; set; }
         public ICommand ShowChangePasswordCommand { get; set; }
+        public ICommand LogOutCommand { get; set; }
 
         public AccountViewModel()
         {
@@ -59,9 +60,15 @@ namespace StoreManagement.ViewModels
             //home window
             ShowProfileCommand = new RelayCommand<HomeWindow>((para) => true, para => ShowProfileAccountWindow(para));
             ShowChangePasswordCommand = new RelayCommand<HomeWindow>((para) => true, para => ShowChangePasswordWindow(para));
+            LogOutCommand = new RelayCommand<HomeWindow>((para) => true, para => LogOut(para));
         }
 
         //home window
+        private void LogOut(HomeWindow para)
+        {
+            para.Close();
+        }
+
         private void ShowChangePasswordWindow(HomeWindow para)
         {
             this.HomeWindow = para;
