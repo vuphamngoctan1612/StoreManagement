@@ -181,9 +181,6 @@
     <Compile Include="Resources\UserControls\ReceiptBillUC.xaml.cs">
       <DependentUpon>ReceiptBillUC.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Resources\UserControls\ReportUC.xaml.cs">
-      <DependentUpon>ReportUC.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Resources\UserControls\SalesReportUC.xaml.cs">
       <DependentUpon>SalesReportUC.xaml</DependentUpon>
     </Compile>
@@ -223,6 +220,7 @@
     </Compile>
     <Compile Include="Views\LoginWindow.xaml.cs">
       <DependentUpon>LoginWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\ReceiptBillWindow.xaml.cs">
       <DependentUpon>ReceiptBillWindow.xaml</DependentUpon>
     </Compile>
@@ -267,7 +265,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <Page Include="Resources\ButtonStyle.xaml">
       <SubType>Designer</SubType>
