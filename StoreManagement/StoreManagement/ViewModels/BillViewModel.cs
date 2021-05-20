@@ -42,7 +42,7 @@ namespace StoreManagement.ViewModels
             LoadBillCommand = new RelayCommand<HomeWindow>((para) => true, (para) => LoadBill(para));
             LoadReceiptBillCommand = new RelayCommand<HomeWindow>((para) => true, (para) => LoadReceiptBill(para));
             LoadStockReceiptCommnad = new RelayCommand<HomeWindow>((para) => true, (para) => LoadStockReceipt(para));
-            GetUidCommand = new RelayCommand<Button>((para) => true, (para) => uid = para.Uid);
+            GetUidCommand = new RelayCommand<ComboBox>((para) => true, (para) => uid = para.Uid);
             SwitchCommand = new RelayCommand<HomeWindow>((para) => true, (para) => Switch(para));
             SearchAgencyCommand = new RelayCommand<HomeWindow>((para) => true, (para) => Search(para));
             OpenInvoiceWindowCommand = new RelayCommand<InvoiceUC>((para) => true, (para) => OpenInvoiceWindow(para));
@@ -55,7 +55,7 @@ namespace StoreManagement.ViewModels
         {
             if (status == 0)
             {
-                MessageBox.Show("Click Releasing Bill or Receipt Bill firt");
+                MessageBox.Show("Click Releasing Bill, Receipt Bill or Stock Receipt first");
                 return;
             }
             SaveFileDialog sfd = new SaveFileDialog() { Filter = "Excel Workbook|*.xlsx" };
@@ -232,7 +232,7 @@ namespace StoreManagement.ViewModels
                 total += invoice.Total;
                 this.HomeWindow.stkBill.Children.Add(invoiceUC);
             }
-            this.HomeWindow.textCollect.Text = "Get: + " + total.ToString();
+            this.HomeWindow.textCollect.Text = total.ToString();
         }
         private void LoadReceiptBill(HomeWindow para)
         {
@@ -266,53 +266,50 @@ namespace StoreManagement.ViewModels
                 pay += stockReceipt.Total;
                 this.HomeWindow.stkStockReceipt.Children.Add(invoiceUC);
             }
-            this.HomeWindow.textPay.Text = "Pay: - " + pay.ToString();
+            this.HomeWindow.textPay.Text = pay.ToString();
         }
         private void Switch(HomeWindow para)
         {
-            int index = int.Parse(uid);
-            switch (index)
+            if (para.comboBoxBill.SelectedIndex == 1)
             {
-                case 1:
-                    status = 1;
-                    para.InvoiceTable.Visibility = System.Windows.Visibility.Visible;
-                    para.textReleasingBill.Text = "Releasing Bill";
-                    para.stkBill.Visibility = System.Windows.Visibility.Visible;
-                    para.stkReceiptBill.Visibility = System.Windows.Visibility.Hidden;
-                    para.stkStockReceipt.Visibility = System.Windows.Visibility.Hidden;
-                    para.ColumnHeaderBill.Visibility = System.Windows.Visibility.Visible;
-                    para.ScrollInvoice.Visibility = System.Windows.Visibility.Visible;
-                    para.ScrollReceipt.Visibility = System.Windows.Visibility.Hidden;
-                    para.ScrollStockReceipt.Visibility = System.Windows.Visibility.Hidden;
-                    para.LastBlock.Text = "Debt";
-                    break;
-                case 2:
-                    status = 2;
-                    para.InvoiceTable.Visibility = System.Windows.Visibility.Visible;
-                    para.textReleasingBill.Text = "Receipt Bill";
-                    para.stkBill.Visibility = System.Windows.Visibility.Hidden;
-                    para.stkReceiptBill.Visibility = System.Windows.Visibility.Visible;
-                    para.stkStockReceipt.Visibility = System.Windows.Visibility.Hidden;
-                    para.ColumnHeaderBill.Visibility = System.Windows.Visibility.Visible;
-                    para.ScrollReceipt.Visibility = System.Windows.Visibility.Visible;
-                    para.ScrollInvoice.Visibility = System.Windows.Visibility.Hidden;
-                    para.ScrollStockReceipt.Visibility = System.Windows.Visibility.Hidden;
-                    para.LastBlock.Text = "Amount";
-                    break;
-                case 3:
-                    status = 3;
-                    para.InvoiceTable.Visibility = System.Windows.Visibility.Visible;
-                    para.textReleasingBill.Text = "Stock Receipt";
-                    para.stkBill.Visibility = System.Windows.Visibility.Hidden;
-                    para.stkReceiptBill.Visibility = System.Windows.Visibility.Hidden;
-                    para.stkStockReceipt.Visibility = System.Windows.Visibility.Visible;
-                    para.ColumnHeaderBill.Visibility = System.Windows.Visibility.Visible;
-                    para.ScrollInvoice.Visibility = System.Windows.Visibility.Hidden;
-                    para.ScrollReceipt.Visibility = System.Windows.Visibility.Hidden;
-                    para.ScrollStockReceipt.Visibility = System.Windows.Visibility.Visible;
-                    para.LastBlock.Text = "Total";
-                    break;
+                status = 1;
+                para.InvoiceTable.Visibility = System.Windows.Visibility.Visible;
+                para.stkBill.Visibility = System.Windows.Visibility.Visible;
+                para.stkReceiptBill.Visibility = System.Windows.Visibility.Hidden;
+                para.stkStockReceipt.Visibility = System.Windows.Visibility.Hidden;
+                para.ColumnHeaderBill.Visibility = System.Windows.Visibility.Visible;
+                para.ScrollInvoice.Visibility = System.Windows.Visibility.Visible;
+                para.ScrollReceipt.Visibility = System.Windows.Visibility.Hidden;
+                para.ScrollStockReceipt.Visibility = System.Windows.Visibility.Hidden;
+                para.LastBlock.Text = "Debt";
             }
+            if (para.comboBoxBill.SelectedIndex == 2)
+            {
+                status = 2;
+                para.InvoiceTable.Visibility = System.Windows.Visibility.Visible;
+                para.stkBill.Visibility = System.Windows.Visibility.Hidden;
+                para.stkReceiptBill.Visibility = System.Windows.Visibility.Visible;
+                para.stkStockReceipt.Visibility = System.Windows.Visibility.Hidden;
+                para.ColumnHeaderBill.Visibility = System.Windows.Visibility.Visible;
+                para.ScrollReceipt.Visibility = System.Windows.Visibility.Visible;
+                para.ScrollInvoice.Visibility = System.Windows.Visibility.Hidden;
+                para.ScrollStockReceipt.Visibility = System.Windows.Visibility.Hidden;
+                para.LastBlock.Text = "Amount";
+            }
+            if (para.comboBoxBill.SelectedIndex == 0)
+            {
+                status = 3;
+                para.InvoiceTable.Visibility = System.Windows.Visibility.Visible;
+                para.stkBill.Visibility = System.Windows.Visibility.Hidden;
+                para.stkReceiptBill.Visibility = System.Windows.Visibility.Hidden;
+                para.stkStockReceipt.Visibility = System.Windows.Visibility.Visible;
+                para.ColumnHeaderBill.Visibility = System.Windows.Visibility.Visible;
+                para.ScrollInvoice.Visibility = System.Windows.Visibility.Hidden;
+                para.ScrollReceipt.Visibility = System.Windows.Visibility.Hidden;
+                para.ScrollStockReceipt.Visibility = System.Windows.Visibility.Visible;
+                para.LastBlock.Text = "Total";
+            }
+            
         }
     }
 }

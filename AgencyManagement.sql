@@ -17,6 +17,9 @@ create table Account
 go
 insert into Account
 values ('dung', '625d45c587033e8970af8b4e3fdb575c', 'dung' , null)
+insert into Account
+values ('quang', 'c4ca4238a0b923820dcc509a6f75849b', 'quang' , null)
+select * from Account
 
 create table Agency
 (
@@ -116,6 +119,10 @@ create table StockReceiptInfo
 	constraint PK_StockReceiptInfo primary key(StockReceiptID, ProductID)
 )
 go
+update StockReceipt
+set Total = 50000
+where ID = 1
+
 
 alter table InvoiceInfo add constraint FK_InvoiceID foreign key (InvoiceID) references Invoice(ID)
 go

@@ -1638,88 +1638,10 @@
                                              Margin="280 10 0 0"/>
                     </Grid>
                     <Grid Grid.Column="1">
-                        <Button x:Name="btStockReceipt" 
-                                x:Uid="3"
-                            Style="{StaticResource MaterialDesignRaisedButton}"
-                            Height="35" 
-                            Width="150" 
-                            HorizontalContentAlignment="Center" 
-                            HorizontalAlignment="Center" 
-                            VerticalAlignment="Center"
-                            Background="#FBCCDA"
-                            Content="Stock Receipt"
-                            FontSize="18"
-                            Foreground="#57548B"
-                            FontWeight="Bold" 
-                            FocusVisualStyle="{x:Null}"
-                            BorderBrush="{x:Null}">
-                            <i:Interaction.Triggers>
-                                <i:EventTrigger EventName="Click">
-                                    <i:InvokeCommandAction Command="{Binding SwitchCommand}"
-                                                       CommandParameter="{Binding ElementName = wdHome}"/>
-                                </i:EventTrigger>
-                                <i:EventTrigger EventName="MouseMove">
-                                    <i:InvokeCommandAction Command="{Binding GetUidCommand}"
-                                                       CommandParameter="{Binding ElementName=btStockReceipt}"/>
-                                </i:EventTrigger>
-                            </i:Interaction.Triggers>
-                        </Button>
                     </Grid>
                     <Grid Grid.Column="2">
-                        <Button x:Name="btReleasingBill" 
-                                x:Uid="1"
-                            Style="{StaticResource MaterialDesignRaisedButton}"
-                            Height="35" 
-                            Width="150" 
-                            HorizontalContentAlignment="Center" 
-                            HorizontalAlignment="Center" 
-                            VerticalAlignment="Center"
-                            Background="#FBCCDA"
-                            Content="Releasing Bill"
-                            FontSize="18"
-                            Foreground="#57548B"
-                            FontWeight="Bold" 
-                            FocusVisualStyle="{x:Null}"
-                            BorderBrush="{x:Null}">
-                            <i:Interaction.Triggers>
-                                <i:EventTrigger EventName="Click">
-                                    <i:InvokeCommandAction Command="{Binding SwitchCommand}"
-                                                       CommandParameter="{Binding ElementName = wdHome}"/>
-                                </i:EventTrigger>
-                                <i:EventTrigger EventName="MouseMove">
-                                    <i:InvokeCommandAction Command="{Binding GetUidCommand}"
-                                                       CommandParameter="{Binding ElementName=btReleasingBill}"/>
-                                </i:EventTrigger>
-                            </i:Interaction.Triggers>
-                        </Button>
                     </Grid>
                     <Grid Grid.Column="3">
-                        <Button x:Name="btReceiptBill" 
-                                x:Uid="2"
-                            Style="{StaticResource MaterialDesignRaisedButton}"
-                            Height="35" 
-                            Width="150" 
-                            HorizontalContentAlignment="Center" 
-                            HorizontalAlignment="Center" 
-                            VerticalAlignment="Center"
-                            Background="#FBCCDA"
-                            Content="Receipt Bill"
-                            FontSize="18"
-                            Foreground="#57548B"
-                            FocusVisualStyle="{x:Null}"
-                            BorderBrush="{x:Null}"
-                            FontWeight="Bold">
-                            <i:Interaction.Triggers>
-                                <i:EventTrigger EventName="Click">
-                                    <i:InvokeCommandAction Command="{Binding SwitchCommand}"
-                                                       CommandParameter="{Binding ElementName = wdHome}"/>
-                                </i:EventTrigger>
-                                <i:EventTrigger EventName="MouseMove">
-                                    <i:InvokeCommandAction Command="{Binding GetUidCommand}"
-                                                       CommandParameter="{Binding ElementName=btReceiptBill}"/>
-                                </i:EventTrigger>
-                            </i:Interaction.Triggers>
-                        </Button>
                     </Grid>
                     <Grid Grid.Column="4">
                         <Button x:Name="btExcelBill" 
@@ -1749,10 +1671,10 @@
                       Width="1070"
                       Margin="30 10 0 0"
                       VerticalAlignment="Top"
-                      Visibility="Hidden">
+                      Visibility="Visible">
                     <Grid 
                         x:Name="cardTitle"
-                        Height="50"
+                        Height="60"
                         Width="1070"
                         Margin="0,10,0,0"
                         HorizontalAlignment="Left"
@@ -1761,44 +1683,92 @@
                         Visibility="Visible">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition></ColumnDefinition>
-                            <ColumnDefinition Width="250"/>
-                            <ColumnDefinition Width="250"/>
+                            <ColumnDefinition Width="200"/>
+                            <ColumnDefinition Width="200"/>
                         </Grid.ColumnDefinitions>
                         <Grid Grid.Column="0">
-                            <TextBlock 
-                                x:Name="textReleasingBill"
-                                Text="Releasing Bill"
-                                HorizontalAlignment="Center"
+                            <ComboBox
+                                x:Name="comboBoxBill"
+                                materialDesign:HintAssist.Hint="Choosing bill"
+                                HorizontalAlignment="Left"
                                 VerticalAlignment="Center"
-                                FontSize="25"
+                                FontSize="22"
                                 FontFamily="Segoe UI"
                                 FontWeight="Bold"
                                 Foreground="#57548B"
-                                Visibility="Visible"></TextBlock>
+                                Visibility="Visible">
+                                <ComboBoxItem
+                                    Content="Stock Receipt" />
+                                <ComboBoxItem
+                                    Content="Releasing Bill" />
+                                <ComboBoxItem
+                                    Content="Receipt Bill" />
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="SelectionChanged">
+                                        <i:InvokeCommandAction Command="{Binding SwitchCommand}"
+                                                               CommandParameter="{Binding ElementName=wdHome}"
+                                            />
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </ComboBox>
                         </Grid>
                         <Grid Grid.Column="1">
-                            <TextBlock 
-                                x:Name="textCollect"
-                                Text="Total"
-                                HorizontalAlignment="Left"
-                                VerticalAlignment="Center"
-                                FontSize="25"
-                                FontFamily="Segoe UI"
-                                FontWeight="Bold"
-                                Foreground="Green"
-                                Visibility="Visible"></TextBlock>
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <Grid Grid.Row="0">
+                                <TextBlock 
+                                    Text="Get money:"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Center"
+                                    FontSize="22"
+                                    FontFamily="Segoe UI"
+                                    FontWeight="Bold"
+                                    Foreground="#57548B"
+                                    Visibility="Visible"></TextBlock>
+                            </Grid>
+                            <Grid Grid.Row="1">
+                                <TextBlock 
+                                    x:Name="textCollect"
+                                    Text="Total"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Center"
+                                    FontSize="22"
+                                    FontFamily="Segoe UI"
+                                    FontWeight="Bold"
+                                    Foreground="Green"
+                                    Visibility="Visible"></TextBlock>
+                            </Grid>
                         </Grid>
                         <Grid Grid.Column="2">
-                            <TextBlock 
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <Grid Grid.Row="0">
+                                <TextBlock 
+                                    Text="Pay:"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Center"
+                                    FontSize="22"
+                                    FontFamily="Segoe UI"
+                                    FontWeight="Bold"
+                                    Foreground="#57548B"
+                                    Visibility="Visible"></TextBlock>
+                            </Grid>
+                            <Grid Grid.Row="1">
+                                <TextBlock 
                                 x:Name="textPay"
                                 Text="Total"
                                 HorizontalAlignment="Left"
                                 VerticalAlignment="Center"
-                                FontSize="25"
+                                FontSize="22"
                                 FontFamily="Segoe UI"
                                 FontWeight="Bold"
                                 Foreground="Red"
                                 Visibility="Visible"></TextBlock>
+                            </Grid>
                         </Grid>
                     </Grid>
                     <Grid
@@ -1809,7 +1779,7 @@
                         Width="1060"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Top"
-                        Margin="0 50 0 0"
+                        Margin="0 70 0 0"
                         Visibility="Visible">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="100"/>
@@ -1863,7 +1833,7 @@
                             x:Name="ScrollInvoice"
                             Grid.Row="2"
                             HorizontalScrollBarVisibility="Disabled" 
-                            Margin="0"
+                            Margin="0 70 0 0"
                             HorizontalAlignment="Left" 
                             Style="{StaticResource FavsScrollViewer}"
                             VerticalScrollBarVisibility="Auto">
@@ -1872,14 +1842,14 @@
                                 Width="1060"
                                 HorizontalAlignment="Left"
                                 VerticalAlignment="Top"
-                                Margin="0 100 0 0" 
+                                Margin="0 50 0 0" 
                                 Visibility="Hidden"/>
                     </ScrollViewer>
                     <ScrollViewer 
                             x:Name="ScrollReceipt"
                             Grid.Row="2"
                             HorizontalScrollBarVisibility="Disabled" 
-                            Margin="0"
+                            Margin="0 70 0 0"
                             HorizontalAlignment="Left" 
                             Style="{StaticResource FavsScrollViewer}"
                             VerticalScrollBarVisibility="Auto">
@@ -1887,14 +1857,14 @@
                                 Width="1060"
                                 HorizontalAlignment="Left"
                                 VerticalAlignment="Top"
-                                Margin="0 100 0 0"
+                                Margin="0 50 0 0"
                                 Visibility="Hidden"/>
                     </ScrollViewer>
                     <ScrollViewer 
                             x:Name="ScrollStockReceipt"
                             Grid.Row="2"
                             HorizontalScrollBarVisibility="Disabled" 
-                            Margin="0"
+                            Margin="0 70 0 0"
                             HorizontalAlignment="Left" 
                             Style="{StaticResource FavsScrollViewer}"
                             VerticalScrollBarVisibility="Auto">
@@ -1902,7 +1872,7 @@
                                 Width="1060"
                                 HorizontalAlignment="Left"
                                 VerticalAlignment="Top"
-                                Margin="0 100 0 0"
+                                Margin="0 50 0 0"
                                 Visibility="Hidden"/>
                     </ScrollViewer>
 
