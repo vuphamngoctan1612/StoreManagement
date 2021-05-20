@@ -179,7 +179,7 @@ namespace StoreManagement.ViewModels
             this.ListAgency = DataProvider.Instance.DB.Agencies.SqlQuery(query).ToList<Agency>();
             this.HomeWindow.stkListProductChosenBusiness.Children.Clear();
             string query1 = "SELECT * FROM PRODUCT WHERE ISDELETE = 0";
-            this.ListProduct = DataProvider.Instance.DB.Products.SqlQuery(query).ToList<Product>();
+            this.ListProduct = DataProvider.Instance.DB.Products.SqlQuery(query1).ToList();
             this.HomeWindow.stkListProductBusiness.Children.Clear();
             LoadBusiness(this.HomeWindow);
             this.ListProductChosen.Clear();

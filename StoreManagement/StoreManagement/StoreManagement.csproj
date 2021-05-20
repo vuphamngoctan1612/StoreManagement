@@ -140,9 +140,6 @@
     <Compile Include="Resources\UserControls\AgencyControlUC.xaml.cs">
       <DependentUpon>AgencyControlUC.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Resources\UserControls\BillHomeUC.xaml.cs">
-      <DependentUpon>BillHomeUC.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Models\TypeOfAgency.cs">
       <DependentUpon>AgencyManagement_Entities.tt</DependentUpon>
     </Compile>
@@ -277,14 +274,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Resources\UserControls\BillHomeUC.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Resources\UserControls\BillUC.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -329,9 +319,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\AddStoreWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -158,10 +158,10 @@ namespace StoreManagement.ViewModels
             }
 
             string id = para.txtID.Text;
-            string name = para.txtName.Text;
+            string name = para.txtProductName.Text;
             string unit = para.txtUnit.Text;
             long importPrice = ConvertToNumber(para.txtImportPrice.Text);
-            long exportPrice = ConvertToNumber(para.txtExportPrice.Text);
+            long exportPrice = ConvertToNumber(para.txtStockReceiptID.Text);
             int amount = (int)ConvertToNumber(para.txtAmount.Text);
 
             try
@@ -170,8 +170,8 @@ namespace StoreManagement.ViewModels
                 int stockReceiptID = int.Parse(para.txtStockReceiptID.Text);
                 string productName = para.txtProductName.Text;
                 string units = para.txtUnit.Text;
-                long importPrice = ConvertToNumber(para.txtImportPrice.Text);
-                long amount = ConvertToNumber(para.txtAmount.Text);
+                importPrice = ConvertToNumber(para.txtImportPrice.Text);
+                amount = (int)ConvertToNumber(para.txtAmount.Text);
                 byte[] imgByteArr;
 
                 if (imageFileName == null)

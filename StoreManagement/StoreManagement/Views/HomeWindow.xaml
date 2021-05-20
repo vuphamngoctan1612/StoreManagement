@@ -237,61 +237,6 @@
                         Fill="Transparent">
                     </Rectangle>
                     <materialDesign:PackIcon
-                        Kind="PageLayoutSidebarRight"
-                        Foreground="#504D85"
-                        Width="30" 
-                        Height="30" 
-                        VerticalAlignment="Center" 
-                        Cursor="Hand" 
-                        Margin="55 0 0 0" >
-                    </materialDesign:PackIcon>
-                    <Button 
-                        x:Name="btnBusiness" 
-                        Uid="3"
-                        Content="Business"
-                        Foreground="#504D85"
-                        HorizontalAlignment="Center" 
-                        Margin="0" 
-                        Height="45" 
-                        Width="260" 
-                        BorderThickness="10" 
-                        VerticalAlignment="Center"
-                        BorderBrush="{x:Null}"
-                        Background="{x:Null}" 
-                        FontSize="22" 
-                        VerticalContentAlignment="Center"
-                        HorizontalContentAlignment="Left" 
-                        FontWeight="SemiBold" 
-                        Padding="75,0,0,0" 
-                        Cursor="Hand" 
-                        FocusVisualStyle="{x:Null}">
-                        <i:Interaction.Triggers>
-                            <i:EventTrigger EventName="Click">
-                                <i:InvokeCommandAction Command="{Binding SwitchTabCommand}"
-                                                       CommandParameter="{Binding ElementName = wdHome}"/>
-                            </i:EventTrigger>
-                            <i:EventTrigger EventName="MouseMove">
-                                <i:InvokeCommandAction Command="{Binding GetUidCommand}"
-                                                       CommandParameter="{Binding ElementName=btnBusiness}"/>
-                            </i:EventTrigger>
-                        </i:Interaction.Triggers>
-                    </Button>
-                </Grid>
-                <Grid
-                    x:Name="grdMenu_Business"
-                    HorizontalAlignment="Center"
-                    Height="60" 
-                    Margin="0" 
-                    Width="300">
-                    <Rectangle
-                        Name="rec_btn_Menu_Business"
-                        Height="45"
-                        Width="260"
-                        RadiusX="10"
-                        RadiusY="10"
-                        Fill="Transparent">
-                    </Rectangle>
-                    <materialDesign:PackIcon
                         x:Name="icnBusiness"
                         Kind="BusinessOutline"
                         Foreground="#504D85"
@@ -818,6 +763,7 @@
             </Grid>
             <!--Body stores-->
             <Grid
+                Grid.Row="1"
                 DataContext="{StaticResource StoreVM}"
                 x:Name="grdBody_Store"
                 Height="665"
@@ -1297,6 +1243,7 @@
             </Grid>
             <!--Body Business-->
             <Grid
+                Grid.Row="1"
                 DataContext="{StaticResource BusinessVM}"
                 x:Name="grdBody_Business"
                 Background="White"
@@ -1877,6 +1824,7 @@
             </Grid>
             <!--Body setting-->
             <Grid
+                Grid.Row="1"
                 x:Name="grdBody_AccountSetting"
                 Height="710"
                 Width="1140"
@@ -1884,7 +1832,7 @@
                 HorizontalAlignment="Left"
                 DataContext="{StaticResource SettingVM}"
                 VerticalAlignment="Bottom"
-                Visibility="Visible">
+                Visibility="Hidden">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="Loaded">
                         <i:InvokeCommandAction Command="{Binding LoadSettingWindowCommand}" 
