@@ -1,5 +1,4 @@
-﻿using StoreManagement.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,11 +15,11 @@ using System.Windows.Shapes;
 namespace StoreManagement.Views
 {
     /// <summary>
-    /// Interaction logic for InvoiceWindow.xaml
+    /// Interaction logic for AddTypeOfAgencyWindow.xaml
     /// </summary>
-    public partial class InvoiceWindow : Window
+    public partial class AddTypeOfAgencyWindow : Window
     {
-        public InvoiceWindow()
+        public AddTypeOfAgencyWindow()
         {
             InitializeComponent();
         }

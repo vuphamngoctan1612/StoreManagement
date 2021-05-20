@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:StoreManagement.Views" 
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
         mc:Ignorable="d"
        
         Background="White"
@@ -15,430 +16,449 @@
         ResizeMode="CanMinimize"
         x:Name="wdAddstore"
         WindowStartupLocation="CenterScreen">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="100"></RowDefinition>
-            <RowDefinition Height="60"></RowDefinition>
-            <RowDefinition Height="60"></RowDefinition>
-            <RowDefinition Height="60"></RowDefinition>
-            <RowDefinition Height="60"></RowDefinition>
-            <RowDefinition Height="60"></RowDefinition>
-            <RowDefinition Height="60"></RowDefinition>
-            <RowDefinition Height="60"></RowDefinition>
-            <RowDefinition Height="60"></RowDefinition>
-            <RowDefinition Height="60"></RowDefinition>
-            <RowDefinition></RowDefinition>
-        </Grid.RowDefinitions>
-        <Grid Grid.Row="0">
-            <materialDesign:PackIcon 
-                Kind="NoteText" 
-                Foreground="#FA83A6"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Center"
-                Height="90"
-                Width="80"
-                Margin="40 0 0 0"/>
-            <TextBlock
-                Text="Infomation's Agency"
-                FontSize="45"
-                Foreground="#57548B"
-                FontWeight="SemiBold"
-                VerticalAlignment="Center"
-                HorizontalAlignment="Right"
-                Margin="60,5"/>
-        </Grid>
-        <Grid Grid.Row="1">
-            <Label
-                HorizontalAlignment="Left"
-                VerticalAlignment="Center"
-                Content="ID"
-                FontSize="22"
-                FontWeight="SemiBold"
-                Margin="100 0 0 0"
-                Foreground="#57548B">
-            </Label>
-            <Rectangle
-                HorizontalAlignment="Right"
-                VerticalAlignment="Center"
-                Height="40"
-                Width="350"
-                Margin="0 0 50 0"
-                StrokeThickness="2"
-                RadiusX="10"
-                RadiusY="10"
-                Stroke="#E2D2DA"/>
-            <TextBox
-                Name="txtID"
-                IsEnabled="False"
-                HorizontalAlignment="Right"
-                VerticalAlignment="Center"
-                Width="340"
-                Margin="0 0 55 0"
-                BorderThickness="0"
-                materialDesign:HintAssist.Hint="Mã tự động"
-                MaxLines="1"
-                Height="40"
-                FontSize="17"
-                FontWeight="SemiBold"
-                Padding="0"
-                HorizontalContentAlignment="Left"
-                VerticalContentAlignment="Center" 
-                Cursor="Arrow">
-            </TextBox>
-        </Grid>
-        <Grid Grid.Row="2">
-            <Label
-                HorizontalAlignment="Left"
-                VerticalAlignment="Center"
-                Content="Name"
-                FontSize="22"
-                FontWeight="SemiBold"
-                Margin="100 0 0 0"
-                Foreground="#57548B">
-            </Label>
-            <Rectangle
-                HorizontalAlignment="Right"
-                VerticalAlignment="Center"
-                Height="40"
-                Width="350"
-                Margin="0 0 50 0"
-                StrokeThickness="2"
-                RadiusX="10"
-                RadiusY="10"
-                Stroke="#E2D2DA"/>
-            <TextBox
-                Name="txtName"
-                HorizontalAlignment="Right"
-                VerticalAlignment="Center"
-                Width="340"
-                Margin="0 0 55 0"
-                BorderThickness="0"
-                materialDesign:HintAssist.Hint="Tên đại lý"
-                MaxLines="1"
-                Height="40"
-                FontSize="17"
-                FontWeight="SemiBold"
-                Padding="0"
-                HorizontalContentAlignment="Left"
-                VerticalContentAlignment="Center" 
-                Cursor="Arrow">
+    <Grid Margin="0">
+        <Grid
+            Width="580"
+            Height="700" 
+            HorizontalAlignment="Right"
+            Margin="0,30,40,37">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="90"></RowDefinition>
+                <RowDefinition Height="60"></RowDefinition>
+                <RowDefinition Height="60"></RowDefinition>
+                <RowDefinition Height="60"></RowDefinition>
+                <RowDefinition Height="60"></RowDefinition>
+                <RowDefinition Height="60"></RowDefinition>
+                <RowDefinition Height="60"></RowDefinition>
+                <RowDefinition Height="60"></RowDefinition>
+                <RowDefinition Height="60"></RowDefinition>
+                <RowDefinition Height="60"></RowDefinition>
+                <RowDefinition ></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0">
+                <materialDesign:PackIcon 
+                    Kind="NoteText" 
+                    Foreground="#FA83A6"
+                    Height="90"
+                    Width="80"
+                    Margin="5"/>
+                <TextBlock
+                    Text="Infomation's Agency"
+                    FontSize="45"
+                    Foreground="#57548B"
+                    FontWeight="SemiBold"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Right"
+                    Margin="60,5"/>
+            </Grid>
+            <Grid Grid.Row="1"
+                Width="550" 
+                VerticalAlignment="Top"
+                Margin="10">
+                <Label
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Content="ID"
+                    FontSize="22"
+                    FontWeight="SemiBold"
+                    Margin="40 0 0 0"
+                    Foreground="#57548B">
+                </Label>
+                <Rectangle
+                    HorizontalAlignment="Right"
+                    Width="300"
+                    Margin="0 0 30 0"
+                    StrokeThickness="2"
+                    RadiusX="10"
+                    RadiusY="10"
+                    Stroke="#E2D2DA"/>
+                <TextBox
+                    Name="txtID"
+                    IsEnabled="False"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Center"
+                    Width="280"
+                    Margin="0 0 40 0"
+                    BorderThickness="0"
+                    materialDesign:HintAssist.Hint="Mã tự động"
+                    MaxLines="1"
+                    Height="40"
+                    FontSize="17"
+                    FontWeight="SemiBold"
+                    Padding="0"
+                    HorizontalContentAlignment="Left"
+                    VerticalContentAlignment="Center" 
+                    Cursor="Arrow">
 
-            </TextBox>
-        </Grid>
-        <Grid Grid.Row="3">
-            <Label
-                HorizontalAlignment="Left"
-                VerticalAlignment="Center"
-                Content="Species"
-                FontSize="22"
-                FontWeight="SemiBold"
-                Margin="100 0 0 0"
-                Foreground="#57548B">
-            </Label>
-            <Rectangle
-                HorizontalAlignment="Right"
-                VerticalAlignment="Center"
-                Height="40"
-                Width="350"
-                Margin="0 0 50 0"
-                StrokeThickness="2"
-                RadiusX="10"
-                RadiusY="10"
-                Stroke="#E2D2DA"/>
-            <ComboBox
-                Name="cbbSpecies"
-                HorizontalAlignment="Right"
-                VerticalAlignment="Center"
-                Width="330"
-                Margin="0 0 60 0"
-                BorderThickness="0"
-                materialDesign:HintAssist.Hint="Loại đại lý"
-                ItemsSource="{Binding Path= ListType}"
-                SelectedValuePath="ID"
-                DisplayMemberPath="Name"
-                Height="40"
-                FontSize="17"
-                FontWeight="SemiBold"
-                Padding="0"
-                HorizontalContentAlignment="Left"
-                VerticalContentAlignment="Center" 
-                Cursor="Arrow">
-            </ComboBox>
-        </Grid>
-        <Grid Grid.Row="4">
-            <Label
-                HorizontalAlignment="Left"
-                VerticalAlignment="Center"
-                Content="District"
-                FontSize="22"
-                FontWeight="SemiBold"
-                Margin="100 0 0 0"
-                Foreground="#57548B">
-            </Label>
-            <Rectangle
-                HorizontalAlignment="Right"
-                VerticalAlignment="Center"
-                Height="40"
-                Width="350"
-                Margin="0 0 50 0"
-                StrokeThickness="2"
-                RadiusX="10"
-                RadiusY="10"
-                Stroke="#E2D2DA"/>
-            <TextBox
-                Name="txtDistrict"
-                HorizontalAlignment="Right"
-                VerticalAlignment="Center"
-                Width="340"
-                Margin="0 0 55 0"
-                BorderThickness="0"
-                materialDesign:HintAssist.Hint="Quận"
-                MaxLines="1"
-                Height="40"
-                FontSize="17"
-                FontWeight="SemiBold"
-                Padding="0"
-                HorizontalContentAlignment="Left"
-                VerticalContentAlignment="Center" 
-                Cursor="Arrow">
-            </TextBox>
-        </Grid>
-        <Grid Grid.Row="5">
-            <Label
-                HorizontalAlignment="Left"
-                VerticalAlignment="Center"
-                Content="Address"
-                FontSize="22"
-                FontWeight="SemiBold"
-                Margin="100 0 0 0"
-                Foreground="#57548B">
-            </Label>
-            <Rectangle
-                HorizontalAlignment="Right"
-                VerticalAlignment="Center"
-                Height="40"
-                Width="350"
-                Margin="0 0 50 0"
-                StrokeThickness="2"
-                RadiusX="10"
-                RadiusY="10"
-                Stroke="#E2D2DA"/>
-            <TextBox
-                Name="txtAddress"
-                HorizontalAlignment="Right"
-                VerticalAlignment="Center"
-                Width="340"
-                Margin="0 0 55 0"
-                BorderThickness="0"
-                materialDesign:HintAssist.Hint="Địa chỉ"
-                MaxLines="1"
-                Height="40"
-                FontSize="17"
-                FontWeight="SemiBold"
-                Padding="0"
-                HorizontalContentAlignment="Left"
-                VerticalContentAlignment="Center" 
-                Cursor="Arrow">
-            </TextBox>
-        </Grid>
-        <Grid Grid.Row="6">
-            <Label
-                HorizontalAlignment="Left"
-                VerticalAlignment="Center"
-                Content="Phone"
-                FontSize="22"
-                FontWeight="SemiBold"
-                Margin="100 0 0 0"
-                Foreground="#57548B">
-            </Label>
-            <Rectangle
-                HorizontalAlignment="Right"
-                VerticalAlignment="Center"
-                Height="40"
-                Width="350"
-                Margin="0 0 50 0"
-                StrokeThickness="2"
-                RadiusX="10"
-                RadiusY="10"
-                Stroke="#E2D2DA"/>
-            <TextBox
-                x:Name="txtPhone"
-                HorizontalAlignment="Right"
-                VerticalAlignment="Center"
-                Width="340"
-                Margin="0 0 55 0"
-                BorderThickness="0"
-                materialDesign:HintAssist.Hint="Số điện thoại"
-                MaxLines="1"
-                Height="40"
-                FontSize="17"
-                FontWeight="SemiBold"
-                Padding="0"
-                HorizontalContentAlignment="Left"
-                VerticalContentAlignment="Center" 
-                Cursor="Arrow">
-            </TextBox>
-        </Grid>
-        <Grid Grid.Row="8">
-            <Label
-                HorizontalAlignment="Left"
-                VerticalAlignment="Center"
-                Content="Checkin"
-                FontSize="22"
-                FontWeight="SemiBold"
-                Margin="100 0 0 0"
-                Foreground="#57548B">
-            </Label>
-            <DatePicker
-                x:Name="dtCheckin"
-                HorizontalAlignment="Right"
-                VerticalAlignment="Center"
-                Width="330"
-                Margin="0 0 60 0"
-                materialDesign:HintAssist.Hint="Ngày đăng ký"
-                Height="40"
-                FontSize="17"
-                BorderThickness="0"
-                FontWeight="SemiBold"
-                Padding="0"
-                HorizontalContentAlignment="Left"
-                VerticalContentAlignment="Center" 
-                Cursor="Arrow">
-            </DatePicker>
-            <Rectangle
-                HorizontalAlignment="Right"
-                VerticalAlignment="Center"
-                Height="40"
-                Width="350"
-                Margin="0 0 50 0"
-                StrokeThickness="2"
-                RadiusX="10"
-                RadiusY="10"
-                Stroke="#E2D2DA"/>
-        </Grid>
-        <Grid Grid.Row="9">
-            <Label
-                HorizontalAlignment="Left"
-                VerticalAlignment="Center"
-                Content="Debt"
-                FontSize="22"
-                FontWeight="SemiBold"
-                Margin="100 0 0 0"
-                Foreground="#57548B">
-            </Label>
-            <Rectangle
-                HorizontalAlignment="Right"
-                VerticalAlignment="Center"
-                Height="40"
-                Width="350"
-                Margin="0 0 50 0"
-                StrokeThickness="2"
-                RadiusX="10"
-                RadiusY="10"
-                Stroke="#E2D2DA"/>
-            <TextBox
-                x:Name="txtDebt"
-                HorizontalAlignment="Right"
-                VerticalAlignment="Center"
-                Width="340"
-                Margin="0 0 55 0"
-                BorderThickness="0"
-                materialDesign:HintAssist.Hint="Khoản nợ"
-                MaxLines="1"
-                Height="40"
-                FontSize="17"
-                FontWeight="SemiBold"
-                Padding="0"
-                HorizontalContentAlignment="Left"
-                VerticalContentAlignment="Center" 
-                Cursor="Arrow">
-                <i:Interaction.Triggers>
-                    <i:EventTrigger EventName="TextChanged">
-                        <i:InvokeCommandAction Command="{Binding SeparateThousandsCommand}"
-                                                CommandParameter="{Binding ElementName=txtAmount}"/>
-                    </i:EventTrigger>
-                </i:Interaction.Triggers>
-            </TextBox>
-        </Grid>
-        <Grid Grid.Row="7">
-            <Label
-                HorizontalAlignment="Left"
-                VerticalAlignment="Center"
-                Content="Mail"
-                FontSize="22"
-                FontWeight="SemiBold"
-                Margin="100 0 0 0"
-                Foreground="#57548B">
-            </Label>
-            <Rectangle
-                HorizontalAlignment="Right"
-                VerticalAlignment="Center"
-                Height="40"
-                Width="350"
-                Margin="0 0 50 0"
-                StrokeThickness="2"
-                RadiusX="10"
-                RadiusY="10"
-                Stroke="#E2D2DA"/>
-            <TextBox
-                x:Name="txtEmail"
-                HorizontalAlignment="Right"
-                VerticalAlignment="Center"
-                Width="340"
-                Margin="0 0 55 0"
-                BorderThickness="0"
-                materialDesign:HintAssist.Hint="Mail"
-                MaxLines="1"
-                Height="40"
-                FontSize="17"
-                FontWeight="SemiBold"
-                Padding="0"
-                HorizontalContentAlignment="Left"
-                VerticalContentAlignment="Center" 
-                Cursor="Arrow">
-                <i:Interaction.Triggers>
-                    <i:EventTrigger EventName="TextChanged">
-                        <i:InvokeCommandAction Command="{Binding SeparateThousandsCommand}"
-                                                CommandParameter="{Binding ElementName=txtAmount}"/>
-                    </i:EventTrigger>
-                </i:Interaction.Triggers>
-            </TextBox>
-        </Grid>
-        <Grid Grid.Row="10">
-            <Button 
-                x:Name="btnSave"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Center"
-                Margin="350 0 0 0"
-                Width="110"
-                Height="40"
-                Content="Save"
-                BorderThickness="0"
-                Foreground="#57548B"
-                Background="#F79BB5"
-                FontSize="22"
-                Cursor="Hand"
-                FontWeight="SemiBold"
-                Command="{Binding SaveStoreCommand}"
-                CommandParameter="{Binding ElementName=wdAddstore}">
-            </Button>
-            <Button 
-                x:Name="btnClose"
-                HorizontalAlignment="Right"
-                VerticalAlignment="Center"
-                Margin="0 0 50 0"
-                Width="110"
-                Height="40"
-                Content="Close"
-                BorderThickness="0"
-                Cursor="Hand"
-                Background="#F0F0F0"
-                Foreground="#57548B"
-                FontSize="22"
-                FontWeight="SemiBold"
-                Command="{Binding CloseStoreWindowCommand}"
-                CommandParameter="{Binding ElementName=wdAddstore}">
-            </Button>
+                </TextBox>
+            </Grid>
+            <Grid Grid.Row="2"
+                Width="550" 
+                VerticalAlignment="Top"
+                Margin="10">
+                <Label
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Content="Name"
+                    FontSize="22"
+                    FontWeight="SemiBold"
+                    Margin="40 0 0 0"
+                    Foreground="#57548B">
+                </Label>
+                <Rectangle
+                    HorizontalAlignment="Right"
+                    Width="300"
+                    Margin="0 0 30 0"
+                    StrokeThickness="2"
+                    RadiusX="10"
+                    RadiusY="10"
+                    Stroke="#E2D2DA"/>
+                <TextBox
+                    Name="txtName"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Center"
+                    Width="280"
+                    Margin="0 0 40 0"
+                    BorderThickness="0"
+                    materialDesign:HintAssist.Hint="Tên đại lý"
+                    MaxLines="1"
+                    Height="40"
+                    FontSize="17"
+                    FontWeight="SemiBold"
+                    Padding="0"
+                    HorizontalContentAlignment="Left"
+                    VerticalContentAlignment="Center" 
+                    Cursor="Arrow">
+
+                </TextBox>
+            </Grid>
+            <Grid Grid.Row="3"
+                Width="550" 
+                VerticalAlignment="Top"
+                Margin="10">
+                <Label
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Content="Species"
+                    FontSize="22"
+                    FontWeight="SemiBold"
+                    Margin="40 0 0 0"
+                    Foreground="#57548B">
+                </Label>
+                <Rectangle
+                    HorizontalAlignment="Right"
+                    Width="300"
+                    Margin="0 0 30 0"
+                    StrokeThickness="2"
+                    RadiusX="10"
+                    RadiusY="10"
+                    Stroke="#E2D2DA"/>
+                <ComboBox
+                    Name="txtSpecies"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Center"
+                    Width="280"
+                    Margin="0 0 40 0"
+                    BorderThickness="0"
+                    materialDesign:HintAssist.Hint="Loại đại lý"
+                    ItemsSource="{Binding Path= ListType}"
+                    SelectedValuePath="ID"
+                    DisplayMemberPath="Name"
+                    Height="40"
+                    FontSize="17"
+                    FontWeight="SemiBold"
+                    Padding="0"
+                    HorizontalContentAlignment="Left"
+                    VerticalContentAlignment="Center" 
+                    Cursor="Arrow">
+                </ComboBox>
+            </Grid>
+            <Grid Grid.Row="4"
+                Width="550" 
+                VerticalAlignment="Top"
+                Margin="10">
+                <Label
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Content="District"
+                    FontSize="22"
+                    FontWeight="SemiBold"
+                    Margin="40 0 0 0"
+                    Foreground="#57548B">
+                </Label>
+                <Rectangle
+                    HorizontalAlignment="Right"
+                    Width="300"
+                    Margin="0 0 30 0"
+                    StrokeThickness="2"
+                    RadiusX="10"
+                    RadiusY="10"
+                    Stroke="#E2D2DA"/>
+                <TextBox
+                    Name="txtDistrict"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Center"
+                    Width="280"
+                    Margin="0 0 40 0"
+                    BorderThickness="0"
+                    materialDesign:HintAssist.Hint="Quận"
+                    MaxLines="1"
+                    Height="40"
+                    FontSize="17"
+                    FontWeight="SemiBold"
+                    Padding="0"
+                    HorizontalContentAlignment="Left"
+                    VerticalContentAlignment="Center" 
+                    Cursor="Arrow">
+                </TextBox>
+            </Grid>
+            <Grid Grid.Row="5"
+                Width="550" 
+                VerticalAlignment="Top"
+                Margin="10">
+                <Label
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Content="Address"
+                    FontSize="22"
+                    FontWeight="SemiBold"
+                    Margin="40 0 0 0"
+                    Foreground="#57548B">
+                </Label>
+                <Rectangle
+                    HorizontalAlignment="Right"
+                    Width="300"
+                    Margin="0 0 30 0"
+                    StrokeThickness="2"
+                    RadiusX="10"
+                    RadiusY="10"
+                    Stroke="#E2D2DA"/>
+                <TextBox
+                    Name="txtAddress"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Center"
+                    Width="280"
+                    Margin="0 0 40 0"
+                    BorderThickness="0"
+                    materialDesign:HintAssist.Hint="Địa chỉ"
+                    MaxLines="1"
+                    Height="40"
+                    FontSize="17"
+                    FontWeight="SemiBold"
+                    Padding="0"
+                    HorizontalContentAlignment="Left"
+                    VerticalContentAlignment="Center" 
+                    Cursor="Arrow">
+                </TextBox>
+            </Grid>
+            <Grid Grid.Row="6"
+                Width="550" 
+                VerticalAlignment="Top"
+                Margin="10">
+                <Label
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Content="Phone"
+                    FontSize="22"
+                    FontWeight="SemiBold"
+                    Margin="40 0 0 0"
+                    Foreground="#57548B">
+                </Label>
+                <Rectangle
+                    HorizontalAlignment="Right"
+                    Width="300"
+                    Margin="0 0 30 0"
+                    StrokeThickness="2"
+                    RadiusX="10"
+                    RadiusY="10"
+                    Stroke="#E2D2DA"/>
+                <TextBox
+                    x:Name="txtPhone"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Center"
+                    Width="280"
+                    Margin="0 0 40 0"
+                    BorderThickness="0"
+                    materialDesign:HintAssist.Hint="Số điện thoại"
+                    MaxLines="1"
+                    Height="40"
+                    FontSize="17"
+                    MaxLength="10"
+                    FontWeight="SemiBold"
+                    Padding="0"
+                    HorizontalContentAlignment="Left"
+                    VerticalContentAlignment="Center" 
+                    Cursor="Arrow">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="PreviewTextInput" >
+                            <ei:CallMethodAction TargetObject="{Binding }"
+                                                 MethodName="NumberValidationTextBox" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </TextBox>
+            </Grid>
+            <Grid Grid.Row="8"
+                Width="550" 
+                VerticalAlignment="Top"
+                Margin="10">
+                <Label
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Content="Checkin"
+                    FontSize="22"
+                    FontWeight="SemiBold"
+                    Margin="40 0 0 0"
+                    Foreground="#57548B">
+                </Label>
+                <DatePicker
+                    x:Name="txtCheckin"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Center"
+                    Width="280"
+                    Margin="0 0 40 0"
+                    materialDesign:HintAssist.Hint="Ngày đăng ký"
+                    Height="40"
+                    BorderThickness="0"
+                    FontSize="17"
+                    FontWeight="SemiBold"
+                    Padding="0"
+                    HorizontalContentAlignment="Left"
+                    VerticalContentAlignment="Center" 
+                    Cursor="Arrow">
+                </DatePicker>
+                <Rectangle
+                    HorizontalAlignment="Right"
+                    Width="300"
+                    Margin="0 0 30 0"
+                    StrokeThickness="2"
+                    RadiusX="10"
+                    RadiusY="10"
+                    Stroke="#E2D2DA"/>
+            </Grid>
+            <Grid Grid.Row="9"
+                Width="550" 
+                VerticalAlignment="Top"
+                Margin="10">
+                <Label
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Content="Debt"
+                    FontSize="22"
+                    FontWeight="SemiBold"
+                    Margin="40 0 0 0"
+                    Foreground="#57548B">
+                </Label>
+                <Rectangle
+                    HorizontalAlignment="Right"
+                    Width="300"
+                    Margin="0 0 30 0"
+                    StrokeThickness="2"
+                    RadiusX="10"
+                    RadiusY="10"
+                    Stroke="#E2D2DA"/>
+                <TextBox
+                    x:Name="txtDebt"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Center"
+                    Width="280"
+                    Margin="0 0 40 0"
+                    BorderThickness="0"
+                    materialDesign:HintAssist.Hint="Khoản nợ"
+                    MaxLines="1"
+                    Height="40"
+                    FontSize="17"
+                    FontWeight="SemiBold"
+                    Padding="0"
+                    HorizontalContentAlignment="Left"
+                    VerticalContentAlignment="Center" 
+                    Cursor="Arrow">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="PreviewTextInput" >
+                            <ei:CallMethodAction TargetObject="{Binding }"
+                                                 MethodName="NumberValidationTextBox" />
+                        </i:EventTrigger>
+                        <i:EventTrigger EventName="TextChanged">
+                            <i:InvokeCommandAction Command="{Binding SeparateThousandsCommand}" 
+                                                   CommandParameter="{Binding ElementName=txtDebt}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </TextBox>
+            </Grid>
+            <Grid Grid.Row="7"
+                Width="550" 
+                VerticalAlignment="Top"
+                Margin="10">
+                <Label
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Content="Mail"
+                    FontSize="22"
+                    FontWeight="SemiBold"
+                    Margin="40 0 0 0"
+                    Foreground="#57548B">
+                </Label>
+                <Rectangle
+                    HorizontalAlignment="Right"
+                    Width="300"
+                    Margin="0 0 30 0"
+                    StrokeThickness="2"
+                    RadiusX="10"
+                    RadiusY="10"
+                    Stroke="#E2D2DA"/>
+                <TextBox
+                    x:Name="txtEmail"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Center"
+                    Width="280"
+                    Margin="0 0 40 0"
+                    BorderThickness="0"
+                    materialDesign:HintAssist.Hint="Mail"
+                    MaxLines="1"
+                    Height="40"
+                    FontSize="17"
+                    FontWeight="SemiBold"
+                    Padding="0"
+                    HorizontalContentAlignment="Left"
+                    VerticalContentAlignment="Center" 
+                    Cursor="Arrow">
+                </TextBox>
+            </Grid>
+            <Grid Grid.Row="10" 
+                    VerticalAlignment="Top"
+                  Margin="0,0">
+                <Button 
+                    x:Name="btnSave"
+                    HorizontalAlignment="Left"
+                    Width="110"
+                    Height="38"
+                    Content="Save"
+                    BorderThickness="0"
+                    Foreground="#57548B"
+                    Background="#F79BB5"
+                    FontSize="22"
+                    Cursor="Hand"
+                    FontWeight="SemiBold"
+                    Command="{Binding SaveStoreCommand}"
+                    CommandParameter="{Binding ElementName=wdAddstore}"
+                    Margin="284,0,0,0">
+                </Button>
+                <Button 
+                    x:Name="btnClose"
+                    HorizontalAlignment="Right"
+                    Width="110"
+                    Height="38"
+                    Content="Close"
+                    BorderThickness="0"
+                    Cursor="Hand"
+                    Background="#F0F0F0"
+                    Foreground="#57548B"
+                    FontSize="22"
+                    FontWeight="SemiBold"
+                    Command="{Binding CloseStoreWindowCommand}"
+                    CommandParameter="{Binding ElementName=wdAddstore}" 
+                    Margin="0,0,44,0">
+                </Button>
+            </Grid>
         </Grid>
     </Grid>
 </Window>

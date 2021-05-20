@@ -1,5 +1,4 @@
-﻿using StoreManagement.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,16 +10,17 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace StoreManagement.Views
+namespace StoreManagement.Resources.UserControls
 {
     /// <summary>
-    /// Interaction logic for InvoiceWindow.xaml
+    /// Interaction logic for AgencyControlUC.xaml
     /// </summary>
-    public partial class InvoiceWindow : Window
+    public partial class AgencyControlUC : UserControl
     {
-        public InvoiceWindow()
+        public AgencyControlUC()
         {
             InitializeComponent();
         }

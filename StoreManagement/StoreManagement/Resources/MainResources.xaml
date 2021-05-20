@@ -8,5 +8,7 @@
     <viewmodels:HomeViewModel x:Key="HomeVM"></viewmodels:HomeViewModel>
     <viewmodels:ProductViewModel x:Key="ProductVM"></viewmodels:ProductViewModel>
     <viewmodels:ReportViewModel x:Key="ReportVM"></viewmodels:ReportViewModel>
+    <viewmodels:BusinessViewModel x:Key="BusinessVM"/>
+    <viewmodels:SettingViewModel x:Key="SettingVM"/>
     <viewmodels:AccountViewModel x:Key="AccountVM"></viewmodels:AccountViewModel>
 </ResourceDictionary>
