@@ -12,13 +12,14 @@ namespace StoreManagement.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Account
+    public partial class StockReceiptInfo
     {
-        public string Username { get; set; }
-        public string Password { get; set; }
-        public string DisplayName { get; set; }
-        public byte[] Image { get; set; }
-        public string Location { get; set; }
-        public string PhoneNumber { get; set; }
+        public int StockReceiptID { get; set; }
+        public int ProductID { get; set; }
+        public Nullable<long> Amount { get; set; }
+        public Nullable<long> Price { get; set; }
+    
+        public virtual Product Product { get; set; }
+        public virtual StockReceipt StockReceipt { get; set; }
     }
 }

@@ -10,17 +10,16 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace StoreManagement.Views
 {
     /// <summary>
-    /// Interaction logic for usAccountSetting.xaml
+    /// Interaction logic for ImportProductWindow.xaml
     /// </summary>
-    public partial class usAccountSetting : UserControl
+    public partial class ImportProductWindow : Window
     {
-        public usAccountSetting()
+        public ImportProductWindow()
         {
             InitializeComponent();
         }

@@ -172,7 +172,7 @@ namespace StoreManagement.ViewModels
             {
                 new ColumnSeries
                 {
-                    Title = "Revenue",
+                    Title = "Total",
                     Values = this.GetTotalByMonth(month, year)
                 },
                 new ColumnSeries
@@ -182,7 +182,7 @@ namespace StoreManagement.ViewModels
                 }
             };
             Labels = this.GetDayInMonth(month, year);
-            Formatter = value => string.Format("{0:N0}", value);
+            Formatter = value => ConvertToString(value);
         }
 
         private void LoadTop3Agency(HomeWindow para)
@@ -226,7 +226,7 @@ namespace StoreManagement.ViewModels
             {
                 new ColumnSeries
                 {
-                    Title = "Revenue",
+                    Title = "Total",
                     Values = this.GetTotalByMonth(month, year)
                 },
                 new ColumnSeries
@@ -236,7 +236,7 @@ namespace StoreManagement.ViewModels
                 }
             };
             Labels = this.GetDayInMonth(month, year);
-            Formatter = value => string.Format("{0:N0}", value);
+            Formatter = value => ConvertToString(value);
         }
         private void LoadChartByYear(string year)
         {
@@ -245,7 +245,7 @@ namespace StoreManagement.ViewModels
             {
                 new ColumnSeries
                 {
-                    Title = "Revenue",
+                    Title = "Total",
                     Values = this.GetTotalByYear(year)
                 },
                 new ColumnSeries
@@ -255,7 +255,7 @@ namespace StoreManagement.ViewModels
                 }
             };
             Labels = this.GetMonthInYear(year);
-            Formatter = value => string.Format("{0:N0}", value);
+            Formatter = value => ConvertToString(value);
         }
         private void LoadChartByQuarter(string year)
         {
@@ -264,7 +264,7 @@ namespace StoreManagement.ViewModels
             {
                 new ColumnSeries
                 {
-                    Title = "Revenue",
+                    Title = "Total",
                     Values = this.GetTotalByQuarter(year)
                 },
                 new ColumnSeries
@@ -274,7 +274,7 @@ namespace StoreManagement.ViewModels
                 }
             };
             Labels = this.GetQuarterInYear(year);
-            Formatter = value => string.Format("{0:N0}", value);
+            Formatter = value => ConvertToString(value);
         }
         #endregion
         #region For Live Chart
@@ -448,9 +448,8 @@ namespace StoreManagement.ViewModels
 
             try
             {
-                string query = string.Format("SELECT SUM(Total) FROM InvoiceInfo " +
-                    "JOIN Invoice ON InvoiceInfo.InvoiceID = Invoice.ID " +
-                    "WHERE MONTH(Checkout) = {0} AND YEAR(CHECKOUT) = {1} " +
+                string query = string.Format("SELECT SUM(Total) AS TOTAL FROM Invoice " +
+                    "WHERE MONTH(CHECKOUT) = {0} AND YEAR(CHECKOUT) = {1} AND TOTAL > 0 " +
                     "GROUP BY DAY(CHECKOUT)", month, year);
 
                 temp = DataProvider.Instance.DB.Database.SqlQuery<Int64>(query).ToList();
@@ -473,10 +472,9 @@ namespace StoreManagement.ViewModels
 
             try
             {
-                string query = string.Format("SELECT SUM(Total) FROM InvoiceInfo " +
-                    "JOIN Invoice ON InvoiceInfo.InvoiceID = Invoice.ID " +
-                    "WHERE YEAR(CHECKOUT) = {0} " +
-                    "GROUP BY MONTH(Checkout)", year);
+                string query = string.Format("SELECT SUM(Total) AS TOTAL FROM Invoice " +
+                    "WHERE YEAR(CHECKOUT) = {0} AND TOTAL > 0 " +
+                    "GROUP BY MONTH(CHECKOUT)", year);
 
                 temp = DataProvider.Instance.DB.Database.SqlQuery<Int64>(query).ToList();
 
@@ -498,9 +496,8 @@ namespace StoreManagement.ViewModels
 
             try
             {
-                string query = string.Format("SELECT SUM(Total) FROM InvoiceInfo " +
-                    "JOIN Invoice ON InvoiceInfo.InvoiceID = Invoice.ID " +
-                    "WHERE YEAR(CHECKOUT) = {0} " +
+                string query = string.Format("SELECT SUM(Total) AS TOTAL FROM Invoice " +
+                    "WHERE YEAR(CHECKOUT) = {0} AND TOTAL > 0 " +
                     "GROUP BY DATEPART(QUARTER, CHECKOUT)", year);
                 temp = DataProvider.Instance.DB.Database.SqlQuery<Int64>(query).ToList();
 

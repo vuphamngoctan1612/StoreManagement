@@ -25,28 +25,12 @@ namespace StoreManagement.ViewModels
         private string imageFileName;
         public ICommand SelectImageCommand { get; set; }
         public ICommand SignUpCommand { get; set; }
-        public ICommand LoadCommand { get; set; }
-        public ICommand PasswordChangedCommand { get; set; }
-        public ICommand PasswordConfirmChangedCommand { get; set; }
-        public ICommand KeyCommand { get; set; }
-        public ICommand OpenHomeWinDowCommand { get; set; }
-        private bool isSignUp;
-        private bool isExisted;
-        public bool IsSignUp { get => isSignUp; set => isSignUp = value; }
-        private string password;
-        public string Password { get => password; set { password = value; OnPropertyChanged(); } }
-        private string userName;
-        public string UserName { get => userName; set { userName = value; OnPropertyChanged(); } }
-        private string passwordConfirm;
-        public string PasswordConfirm { get => passwordConfirm; set { passwordConfirm = value; OnPropertyChanged(); } }
         public SignUpViewModel()
         {
             SignUpCommand = new RelayCommand<SignUpWindow>((parameter) => true, (parameter) => SignUp(parameter));
             SelectImageCommand = new RelayCommand<Grid>((para) => true, (para) => ChooseImage(para));
-            PasswordChangedCommand = new RelayCommand<PasswordBox>((parameter) => true, (parameter) => EncodingPassword(parameter));
-            PasswordConfirmChangedCommand = new RelayCommand<PasswordBox>((parameter) => true, (parameter) => EncodingConfirmPassword(parameter));
         }
-       
+
         private void ChooseImage(Grid para)
         {
             OpenFileDialog op = new OpenFileDialog();
@@ -70,33 +54,28 @@ namespace StoreManagement.ViewModels
                 }
             }
         }
-        public void EncodingPassword(PasswordBox parameter)
-        {
-            this.password = parameter.Password;
-            this.password = MD5Hash(this.password);
-        }
-        public void EncodingConfirmPassword(PasswordBox parameter)
-        {
-            this.passwordConfirm = parameter.Password;
-            this.passwordConfirm = MD5Hash(this.passwordConfirm);
-        }
-       
+
         public void SignUp(SignUpWindow parameter)
         {
-            isExisted = false;
-            isSignUp = false;
             if (parameter == null)
             {
                 return;
             }
-           
-            //// Check username
-            //if (string.IsNullOrEmpty(parameter.txtUsername.Text) || Account.Instance.(parameter.txtUsername.Text))
-            //{
-            //    parameter.txtUsername.Focus();
-            //    parameter.txtUsername.Text = "";
-            //    return;
-            //}
+            //check username
+            if (String.IsNullOrEmpty(parameter.txtUsername.Text))
+            {
+                MessageBox.Show("Vui lòng nhập tên đăng nhập", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
+                parameter.txtUsername.Focus();
+                return;
+            }
+            //check displayname
+            if (String.IsNullOrEmpty(parameter.displayname.Text))
+            {
+                MessageBox.Show("Vui lòng nhập tên ", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
+                parameter.displayname.Focus();
+                return;
+            }
+
             //Check password
             if (String.IsNullOrEmpty(parameter.pwbPassword.Text))
             {
@@ -115,97 +94,40 @@ namespace StoreManagement.ViewModels
                 MessageBox.Show("Mật khẩu không trùng khớp!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
-            if (imageFileName == null)
-            {
-                MessageBox.Show("Vui lòng thêm hình ảnh", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
-                return;
-            }
-            //SQLConnection connection = new SQLConnection();
-            //if (!Regex.IsMatch(parameter.txtUsername.Text, @"^[a-zA-Z0-9_]+$"))
+
+            //try
             //{
-            //    parameter.txtUsername.Focus();
-            //    return;
-            //}
-            string queryAccount = "select* from account";
-            List<Account> accounts = DataProvider.Instance.DB.Accounts.SqlQuery(queryAccount).ToList();
-            foreach (Account acc in accounts)
-            {
-                if (parameter.txtUsername.Text == acc.Username)
-                {
-                    isExisted = true;
-                    break;
-                }
-            }
-            if (isExisted)
-            {
-                MessageBox.Show("Tài khoản đã tồn tại! Vui lòng nhập tài khoản khác", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
-                return;
-            }
-
-            try
-            {
-
-               
                 byte[] imgByteArr;
-                imgByteArr = Converter.Instance.ConvertImageToBytes(imageFileName);                
+                if (imageFileName == null)
+                {
+                    imgByteArr = Converter.Instance.ConvertImageToBytes(@"..\..\Resources\Images\default.jpg");
+                }
+                else
+                {
+                    imgByteArr = Converter.Instance.ConvertImageToBytes(imageFileName);
+                }
 
                 Account acc = new Account();
                 acc.Username = parameter.txtUsername.Text;
                 acc.Password = MD5Hash(parameter.pwbPassword.Text);
                 acc.DisplayName = parameter.displayname.Text;
                 acc.Image = imgByteArr;
-               
-
                 DataProvider.Instance.DB.Accounts.Add(acc);
                 DataProvider.Instance.DB.SaveChanges();
-            }
-            catch 
-            {
-               
-            }
-            finally
-            {
-                parameter.Close();
-            }
-
-
-            //int idAccount = Account.Instance.SetNewID();
-            //if (idAccount != -1)
-            //{
-            //    Account newAccount = new Account(idAccount, parameter.txtUsername.Text.ToString(), password, imageFileName);
-            //    AccountDAL.Instance.AddIntoDB(newAccount);
-            //    selectedEmployee.IdAccount = idAccount;
-            //    if (EmployeeDAL.Instance.UpdateIdAccount(selectedEmployee))
-            //    {
-            //        MessageBox.Show("Đăng ký thành công!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Asterisk);
-            //        isSignUp = true;
-            //        parameter.cboSelectEmployee.Text = "";
-            //        parameter.txtUsername.Text = null;
-            //        parameter.pwbPassword.Password = "";
-            //        parameter.pwbPasswordConfirm.Password = "";
-            //    }
             //}
-            //Account newAccount = new Account(idAccount, parameter.txtUsername.Text.ToString(), password);
-            //AccountDAL.Instance.AddIntoDB(newAccount);
-            //selectedEmployee.IdAccount = idAccount;
-            //if (EmployeeDAL.Instance.UpdateIdAccount(selectedEmployee))
-
+            //catch
             //{
-            //    MessageBox.Show("Đăng ký thành công!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Asterisk);
-            //    isSignUp = true;
-
-            //    parameter.txtUsername.Text = null;
-            //    parameter.pwbPassword.Text = "";
-            //    parameter.pwbPasswordConfirm.Text = "";
-            //    parameter.displayname.Text = "";
-
-
+            //    MessageBox.Show("Tài khoản đã tồn tại! Vui lòng nhập tài khoản khác", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
+            //    parameter.txtUsername.Focus();
+            //    return;
             //}
-            //HomeWindow HoMe = new HomeWindow();
-            //HoMe.ShowDialog();
-        }
+            //finally
+            //{
+            //    //parameter.Close();
+            //}
+
+
+
         }
     }
-
-//}
-//}
+}

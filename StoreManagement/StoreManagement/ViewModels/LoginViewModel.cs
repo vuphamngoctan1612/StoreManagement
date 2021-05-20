@@ -17,55 +17,28 @@ namespace StoreManagement.ViewModels
 {
     class LoginViewModel : BaseViewModel
     {
-        public bool IsLogin { get; set; }
-        private string _UserName;
-        public string UserName { get => _UserName; set { _UserName = value; OnPropertyChanged(); } }
-        private string _Password;
-        public string Password { get => _Password; set { _Password = value; OnPropertyChanged(); } }
-
-        public ICommand CloseCommand { get; set; }
         public ICommand LoginCommand { get; set; }
-        public ICommand PasswordChangedCommand { get; set; }
         public ICommand OpenSignUpWindowCommand { get; set; }
-        public ICommand OpenHomeWindowCommand { get; set; }
-
+        
         public LoginViewModel()
         {
             LoginCommand = new RelayCommand<LoginWindow>((p) => { return true; }, (p) => { Login(p); });
-            CloseCommand = new RelayCommand<LoginWindow>((p) => { return true; }, (p) => { p.Close(); });
-            PasswordChangedCommand = new RelayCommand<PasswordBox>((p) => { return true; }, (p) => { Password = p.Password; });
             OpenSignUpWindowCommand = new RelayCommand<LoginWindow>((parameter) => true, (parameter) => OpenSignUpWindow(parameter));
-            OpenHomeWindowCommand = new RelayCommand<LoginWindow>((parameter) => true, (parameter) => OpenHomeWindow(parameter));
         }
-        //public void OpenSignUpWindow(Window parameter)
-        //{
-        //    SignUpWindow signUp = new SignUpWindow();
-        //    parameter.Show();
-        //}
+
         public void OpenSignUpWindow(LoginWindow parameter)
         {
-          SignUpWindow signUp = new SignUpWindow();
-            //parameter.WindowStyle = WindowStyle.None;
-            signUp.ShowDialog();
-            //parameter.WindowStyle = WindowStyle.SingleBorderWindow;
-            //parameter.Opacity = 1;
-            //parameter.Show();
+            SignUpWindow SignUp = new SignUpWindow();
+
+            SignUp.Show();
         }
-        private void OpenHomeWindow(LoginWindow parameter)
-        {
-            HomeWindow homeWindow = new HomeWindow();
-            homeWindow.ShowDialog();
-        }
+
         void Login(LoginWindow parameter)
         {
-            IsLogin = false;
             if (parameter == null)
             {
                 return;
             }
-            string queryAccount = "select* from account";
-
-            List<Account> accounts = DataProvider.Instance.DB.Accounts.SqlQuery(queryAccount).ToList();
             //check username
             if (String.IsNullOrEmpty(parameter.txtUser.Text))
             {
@@ -80,49 +53,34 @@ namespace StoreManagement.ViewModels
                 parameter.txtPassword.Focus();
                 return;
             }
-            foreach (Account acc in accounts)
+
+            string codedPassword = MD5Hash(parameter.txtPassword.Text);
+            var checkACC = DataProvider.Instance.DB.Accounts.Where(x => x.Username == parameter.txtUser.Text && x.Password == codedPassword).Count();
+            if (checkACC > 0)
             {
-                if (parameter.txtUser.Text == acc.Username)
-                {
-                    string codedPassword = MD5Hash(parameter.txtPassword.Text);
-                    if (codedPassword == acc.Password)
-                    {
-                        IsLogin = true;
-                    }
-                    break;
-                }
-            }
-            if (IsLogin)
-            {
+                HomeWindow homeWindow = new HomeWindow();
+                CurrentAccount.Instance.ConvertAccToCurrentAcc(parameter.txtUser.Text);
                 parameter.Hide();
-                OpenHomeWindow(parameter);
+
+                ImageBrush imageBrush = new ImageBrush();
+                imageBrush.ImageSource = Converter.Instance.ConvertByteToBitmapImage(CurrentAccount.Image);
+                homeWindow.grdAcc_Image.Background = imageBrush;
+                homeWindow.menu_Acc_DisplayName.Header = CurrentAccount.DisplayName;
+
+                if (homeWindow.grdAcc_Image.Children.Count != 0)
+                {
+                    homeWindow.grdAcc_Image.Children.Remove(homeWindow.grdAcc_Image.Children[0]);
+                }
+
+                homeWindow.ShowDialog();
+                parameter.txtPassword.Text = "";
+                parameter.Show();
             }
             else
             {
-                MessageBox.Show("Đăng nhập thất bại");
+                MessageBox.Show("Sai tên đăng nhập hoặc mật khẩu!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
-            //var accCount = DataProvider.Instance.DB.Accounts.Where(x => x.Username == UserName && x.Password == passEncode).Count();
-
-            //if (accCount > 0)
-            //{
-            //    IsLogin = true;
-
-            //    parameter.Close();
-            //}
-            //else
-            //{
-            //    IsLogin = false;
-            //    MessageBox.Show("Sai tài khoản hoặc mật khẩu!");
-            //}
-
-
-
         }
 
     }
-
-
-
-
-
 }

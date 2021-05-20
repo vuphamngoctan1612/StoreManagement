@@ -18,7 +18,7 @@
             Foreground="#504D85"
             VerticalAlignment="Center"
             HorizontalAlignment="Left"
-            Margin="30,10"/>
+            Margin="100,10"/>
         <TextBlock
             x:Name="txbUnit"
             Text="UNIT"
@@ -27,16 +27,7 @@
             Foreground="#504D85"
             VerticalAlignment="Center"
             HorizontalAlignment="Left"
-            Margin="150,10"/>
-        <TextBlock
-            x:Name="txbCost"
-            Text="COST"
-            FontSize="14"
-            FontWeight="SemiBold"
-            Foreground="#504D85"
-            VerticalAlignment="Center"
-            HorizontalAlignment="Left"
-            Margin="300,10"/>
+            Margin="250,10"/>
         <TextBlock
             x:Name="txbPrice"
             Text="PRICE"
@@ -45,16 +36,18 @@
             Foreground="#504D85"
             VerticalAlignment="Center"
             HorizontalAlignment="Right"
-            Margin="300,10"/>
+            Margin="170,10"/>
         <TextBlock
+            x:Name="txbAmount"
             Text="AMOUNT"
             FontSize="14"
             FontWeight="SemiBold"
             Foreground="#504D85"
             VerticalAlignment="Center"
             HorizontalAlignment="Right"
-            Margin="140,10"/>
+            Margin="330,10"/>
         <TextBlock
+            x:Name="txbTotal"
             Text="TOTAL"
             FontSize="14"
             FontWeight="SemiBold"
@@ -62,18 +55,12 @@
             VerticalAlignment="Center"
             HorizontalAlignment="Right"
             Margin="50,10"/>
-        <Button
-            x:Name="btnDelete"
-            Height="15"
-            Width="15"
-            HorizontalAlignment="Right"
-            Background="{x:Null}"
-            Padding="0"
-            BorderThickness="0"
-            Margin="10,8">
-            <materialDesign:PackIcon
-                Kind="Delete"
-                Foreground="Gray"/>
-        </Button>
+        <TextBlock
+            x:Name="txbID"
+            Visibility="Hidden"/>
+        <Grid
+            Background="LightGray"
+            Height="1"
+            VerticalAlignment="Bottom"></Grid>
     </Grid>
 </UserControl>

@@ -9,10 +9,14 @@ create table Account
 	Password varchar(1000),
 	DisplayName nvarchar(100),
 	Image image,
+	Location nvarchar(100),
+	PhoneNumber nvarchar(10),
 
 	constraint PK_Account primary key(Username)
 )
 go
+insert into Account
+values ('dung', '625d45c587033e8970af8b4e3fdb575c', 'dung' , null)
 
 create table Agency
 (
@@ -92,6 +96,26 @@ create table Receipt
 )
 go
 
+create table StockReceipt
+(
+	ID int,
+	CheckIn date,
+	Total bigint,
+
+	constraint PK_StockReceipt primary key(ID)
+)
+go
+
+create table StockReceiptInfo
+(
+	StockReceiptID int,
+	ProductID int,
+	Amount bigint,
+	Price bigint,
+
+	constraint PK_StockReceiptInfo primary key(StockReceiptID, ProductID)
+)
+go
 
 alter table InvoiceInfo add constraint FK_InvoiceID foreign key (InvoiceID) references Invoice(ID)
 go
@@ -105,6 +129,12 @@ alter table Receipt add constraint FK_Receipt_AgencyID foreign key (AgencyID) re
 go
 
 alter table Agency add constraint FK_Type foreign key (TypeOfAgency) references TypeOfAgency(ID)
+go
+
+alter table StockReceiptInfo add constraint FK_StockReceipt foreign key(StockReceiptID) references StockReceipt(ID)
+go
+
+alter table StockReceiptInfo add constraint FK_Product foreign key(ProductID) references Product(ID)
 go
 
 -- insert
@@ -136,72 +166,14 @@ insert into Invoice values (14,4,GETDATE(), 500000, 5200000)
 insert into Invoice values (15,4,GETDATE(), 200000, 4000000)
 insert into Invoice values (16,4,'2021-1-25', 290000, 2900000)
 
-INSERT INTO InvoiceInfo VALUES (1, 1,3, 600000)
-INSERT INTO InvoiceInfo VALUES (1, 2,3, 450000)
-INSERT INTO InvoiceInfo VALUES (1, 3,3, 600000)
-INSERT INTO InvoiceInfo VALUES (1, 4,3, 240000)
 
-INSERT INTO InvoiceInfo VALUES (2, 1,3, 600000)
-INSERT INTO InvoiceInfo VALUES (2, 2,3, 450000)
-INSERT INTO InvoiceInfo VALUES (2, 3,3, 600000)
-INSERT INTO InvoiceInfo VALUES (2, 4,3, 1000000)
+-- đống này kh insert được do thiếu product
+--INSERT INTO InvoiceInfo VALUES (1, 1,3, 600000)
+--INSERT INTO InvoiceInfo VALUES (1, 2,3, 450000)
+--INSERT INTO InvoiceInfo VALUES (1, 3,3, 600000)
+--INSERT INTO InvoiceInfo VALUES (1, 4,3, 240000)
 
-
---GET DAYS IN MONTH
-SELECT DAY(CHECKOUT) AS DAY FROM Invoice
-WHERE MONTH(CHECKOUT) = 4 AND YEAR(CHECKOUT) = 2021
-GROUP BY DAY(CHECKOUT)
--- GET MONTH IN YEAR
-SELECT MONTH(CHECKOUT) AS MONTH FROM Invoice
-WHERE YEAR(CHECKOUT) = 2021
-GROUP BY MONTH(CHECKOUT)
---GET QUARTER IN YEAR
-SELECT DATEPART(QUARTER, CHECKOUT) AS QUARTER FROM Invoice
-WHERE YEAR(CHECKOUT) = 2021
-GROUP BY DATEPART(QUARTER, CHECKOUT)
-
-
--- GET DEBT BY YEAR
-SELECT SUM(DEBT) AS TOTAL FROM Invoice
-WHERE YEAR(CHECKOUT) = 2021
-GROUP BY MONTH(CHECKOUT)
--- GET DEBT BY QUARTER
-SELECT SUM(Debt) AS TOTAL FROM Invoice 
-WHERE YEAR(CHECKOUT) = 2021
-GROUP BY DATEPART(QUARTER, CHECKOUT)
--- GET DEBT BY DAYS
-SELECT DAY(CHECKOUT) AS DAY, SUM(Debt) AS TOTAL FROM Invoice
-WHERE MONTH(CHECKOUT) = 2 AND YEAR(CHECKOUT) = 2021
-GROUP BY DAY(CHECKOUT)
-
-SELECT * FROM InvoiceInfo
-SELECT * FROM Agency
-SELECT * FROM Invoice
-SELECT * FROM Product
-
-SELECT TOP 3 Agency.ID FROM Agency
-JOIN Invoice ON Agency.ID = Invoice.AgencyID
-WHERE MONTH(CHECKOUT) = 4
-GROUP BY Agency.ID
-ORDER BY SUM(INVOICE.TOTAL) DESC
-
-SELECT TOP 3 Agency.ID, SUM(INVOICE.TOTAL) AS TOTAL FROM Agency
-JOIN Invoice ON Agency.ID = Invoice.AgencyID
-WHERE MONTH(CHECKOUT) = 2
-GROUP BY Agency.ID, Agency.Name
-ORDER BY SUM(INVOICE.TOTAL) DESC
-
-SELECT SUM(Total) FROM InvoiceInfo
-JOIN Invoice ON InvoiceInfo.InvoiceID = Invoice.ID
-WHERE MONTH(Checkout) = 4 AND YEAR(CHECKOUT) = 2021
-GROUP BY DAY(CHECKOUT)
-
-SELECT SUM(Total) FROM InvoiceInfo
-JOIN Invoice ON InvoiceInfo.InvoiceID = Invoice.ID
-WHERE YEAR(CHECKOUT) = 2021
-GROUP BY MONTH(Checkout)
-
-SELECT SUM(Total) FROM InvoiceInfo
-JOIN Invoice ON InvoiceInfo.InvoiceID = Invoice.ID
-WHERE YEAR(CHECKOUT) = 2021
-GROUP BY DATEPART(QUARTER, CHECKOUT)
+--INSERT INTO InvoiceInfo VALUES (2, 1,3, 600000)
+--INSERT INTO InvoiceInfo VALUES (2, 2,3, 450000)
+--INSERT INTO InvoiceInfo VALUES (2, 3,3, 600000)
+--INSERT INTO InvoiceInfo VALUES (2, 4,3, 1000000)

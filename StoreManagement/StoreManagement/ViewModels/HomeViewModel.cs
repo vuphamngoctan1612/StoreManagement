@@ -9,6 +9,7 @@ using System.Windows.Input;
 using StoreManagement.Views;
 using System.Windows.Controls;
 using System.Windows.Media;
+using System.Windows;
 
 namespace StoreManagement.ViewModels
 {
@@ -22,32 +23,7 @@ namespace StoreManagement.ViewModels
 
         public HomeViewModel()
         {
-            //LoadedWindowCommand = new RelayCommand<LoginWindow>((p) => { return true; }, (p) =>
-            //{
-            //    Isloaded = true;
-            //    if (p == null)
-            //        return;
-            //    p.Hide();
-            //    LoginWindow loginWindow = new LoginWindow();
-            //    loginWindow.ShowDialog();
-
-            //    if (loginWindow.DataContext == null)
-            //        return;
-            //    var loginVM = loginWindow.DataContext as LoginViewModel;
-
-            //    if (loginVM.IsLogin)
-            //    {roi
-            //        p.Show();
-            //    }
-            //    else
-            //    { 
-            //        p.Close();
-            //    }
-            //});// là đống trên hả
-            ////coi kteam là để m hiểu thôi chứ kh phải copy code trên đó
-            ////
-
-           GetUidCommand = new RelayCommand<Button>((para) => true, (para) => uid = para.Uid);
+            GetUidCommand = new RelayCommand<Button>((para) => true, (para) => uid = para.Uid);
             SwitchTabCommand = new RelayCommand<HomeWindow>((para) => true, (para) => SwitchTab(para));
         }
 
@@ -73,6 +49,7 @@ namespace StoreManagement.ViewModels
             para.rec_btn_Menu_Bill.Fill = transparent;
             para.rec_btn_Menu_Report.Fill = transparent;
             para.rec_btn_Menu_Setting.Fill = transparent;
+            para.rec_btn_Menu_Business.Fill = transparent;
 
             switch (index)
             {

@@ -5,10 +5,14 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:StoreManagement.Views"
+             DataContext="{StaticResource HomeVM}"
              mc:Ignorable="d" 
              d:DesignHeight="628" 
              d:DesignWidth="1140">
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
         <Grid.Background>
             <LinearGradientBrush>
                 <GradientStop Color="White"/>
@@ -35,7 +39,7 @@
                                  VerticalAlignment="Top"
                                  Foreground="#504D85"></materialDesign:PackIcon>
         <TextBlock x:Name="tbName"
-                   Text="Tên dài"
+                   Text="Thêm ảnh"
                    Height="30"
                    Width="320"
                    Margin="0,321,0,0"
@@ -84,7 +88,7 @@
                    FontSize="22"
                    FontFamily="Segoe UI"
                    FontWeight="Bold"
-                   Foreground="#504D85"></TextBlock>
+                   Foreground="#504D85"/>
         <TextBlock Text="Location:"
                    Height="30"
                    Width="210"
@@ -95,7 +99,7 @@
                    FontSize="22"
                    FontFamily="Segoe UI"
                    FontWeight="Bold"
-                   Foreground="#504D85"></TextBlock>
+                   Foreground="#504D85"/>
         <TextBlock Text="Phone Number:"
                    Height="30"
                    Width="210"
@@ -106,7 +110,7 @@
                    FontSize="22"
                    FontFamily="Segoe UI"
                    FontWeight="Bold"
-                   Foreground="#504D85"></TextBlock>
+                   Foreground="#504D85"/>
         <TextBlock Text="Change Password:"
                    Height="30"
                    Width="210"
@@ -117,8 +121,10 @@
                    FontSize="22"
                    FontFamily="Segoe UI"
                    FontWeight="Bold"
-                   Foreground="#504D85"></TextBlock>
+                   Foreground="#504D85"/>
         <TextBox x:Name="txtName"
+                
+            
                  Height="30"
                  Width="450" 
                  Margin="655,31,0,0"
@@ -129,7 +135,7 @@
                  FontSize="22"
                  FontFamily="Segoe UI"
                  FontWeight="Bold"
-                 Foreground="#504D85"></TextBox>
+                 Foreground="#504D85"/>
         <TextBox x:Name="txtLocation"
                  Height="30"
                  Width="450" 
@@ -141,7 +147,7 @@
                  FontSize="22"
                  FontFamily="Segoe UI"
                  FontWeight="Bold"
-                 Foreground="#504D85"></TextBox>
+                 Foreground="#504D85"/>
         <TextBox x:Name="txtPhoneNumber"
                  Height="30"
                  Width="450" 
@@ -153,8 +159,9 @@
                  FontSize="22"
                  FontFamily="Segoe UI"
                  FontWeight="Bold"
-                 Foreground="#504D85"></TextBox>
+                 Foreground="#504D85"/>
         <TextBox x:Name="txtPassword"
+                 materialDesign:HintAssist.Hint="Password"
                  Style="{StaticResource MaterialDesignTextBox}"
                  Height="40" 
                  Width="450" 
@@ -166,9 +173,10 @@
                  VerticalContentAlignment="Center"
                  FontFamily="Segoe UI"
                  FontSize="22" 
-                 Text="Password"
-                 Foreground="White"></TextBox>
+                
+                 Foreground="White"/>
         <TextBox x:Name="txtNewPassword"
+                   materialDesign:HintAssist.Hint="New Password"
                  Style="{StaticResource MaterialDesignTextBox}"
                  Height="40" 
                  Width="450" 
@@ -180,8 +188,8 @@
                  VerticalContentAlignment="Center"
                  FontFamily="Segoe UI"
                  FontSize="22" 
-                 Text="New Password"
-                 Foreground="White"></TextBox>
+               
+                 Foreground="White"/>
         <TextBox x:Name="txtNewPasswordAgain"
                  Style="{StaticResource MaterialDesignTextBox}"
                  Height="40" 
@@ -194,18 +202,21 @@
                  VerticalContentAlignment="Center"
                  FontFamily="Segoe UI"
                  FontSize="22" 
-                 Text="New Password Again"
-                 Foreground="White"></TextBox>
+                 materialDesign:HintAssist.Hint="New Password Again "
+                 Foreground="White"/>
         <Button x:Name="btLogin" 
                 Style="{StaticResource MaterialDesignRaisedButton}"
                 Height="40" 
                 Width="200" 
+                
                 materialDesign:ButtonAssist.CornerRadius="24"
                 ToolTip="MaterialDesignRaisedButton with Round Corners" 
                 Margin="780,531,0,0" 
                 HorizontalContentAlignment="Center" 
                 HorizontalAlignment="Left"
-                VerticalAlignment="Top">
+                VerticalAlignment="Top"
+                Command="{Binding LoadAccountCommand}">
+
             <Button.Background>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <GradientStop Color="#FFEC74E7" Offset="0"/>
@@ -216,7 +227,8 @@
                        FontFamily="Segoe UI" 
                        FontSize="22" 
                        Width="50" 
-                       Height="40" />
+                       Height="40" 
+                          />
         </Button>
     </Grid>
 </UserControl>

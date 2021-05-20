@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:StoreManagement"
              mc:Ignorable="d" 
              d:DesignHeight="50" d:DesignWidth="960"
-             Background="#FAAEC4"
+             Background="Transparent"
              Padding="1">
     <Grid>
         <Grid.ColumnDefinitions>

@@ -13,7 +13,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:StoreManagement.Views" xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         mc:Ignorable="d"
-         DataContext="{StaticResource LoginVM}"
+        WindowStyle="SingleBorderWindow"
+        DataContext="{StaticResource LoginVM}"
         Title="Login" 
         Height="810" 
         Width="1440" 
@@ -47,31 +48,28 @@
                 </RadialGradientBrush>
             </Ellipse.Stroke>
         </Ellipse>
-        <Grid Margin="0,0,0,0" >
+        <Grid Margin="0,0,-0.4,0" >
             <TextBlock Style="{StaticResource MaterialDesignHeadline4TextBlock}"
                    Text="Hi There!"
                    Height="90"
-                   Width="209" 
-                   Margin="1041,134,0,0"
+                   Width="400" 
+                   Margin="939,84,0,0"
                    VerticalAlignment="Top"
                    HorizontalAlignment="Left"
                    TextAlignment="Center"
                    FontFamily="Segoe UI"
-                   FontSize="45" 
+                   FontSize="70" 
                    FontWeight="Bold"
+                   Foreground="#F97299"
                    >
-            <TextBlock.Foreground>
-                <LinearGradientBrush EndPoint="0.5,1"
-                                     MappingMode="RelativeToBoundingBox" 
-                                     StartPoint="0.5,0">
-                    <GradientStop Color="#F97299"/>
-                </LinearGradientBrush>
-            </TextBlock.Foreground>
+           
         </TextBlock>
             <Button x:Name="btLogin" 
                 Style="{StaticResource MaterialDesignRaisedButton}"
                 Height="100" 
                 Width="400" 
+                   
+                    Background="#F79BB5"
                 materialDesign:ButtonAssist.CornerRadius="24"
                 ToolTip="MaterialDesignRaisedButton with Round Corners" 
                 Margin="942,457,0,0" 
@@ -80,17 +78,13 @@
                 VerticalAlignment="Top"
                     Command="{Binding LoginCommand}"
                     CommandParameter="{Binding ElementName=wdLogin}">
-                <Button.Background>
-                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                        <GradientStop Color="#FFEC74E7" Offset="0"/>
-                        <GradientStop Color="#EAF97298" Offset="1"/>
-                    </LinearGradientBrush>
-                </Button.Background>
+                
                 <TextBlock Text="Ready to sign in" 
                        FontFamily="Segoe UI" 
                        FontSize="30" 
                        Width="216" 
-                       Height="45" />
+                       Height="45" 
+                            Foreground="#57548B"/>
             </Button>
             <TextBox x:Name="txtUser"
                      
@@ -123,14 +117,9 @@
                  VerticalContentAlignment="Center"
                  FontFamily="Segoe UI"
                  FontSize="30" 
-                
+                Text="{Binding txtPassword}"
                       materialDesign:HintAssist.Hint="Password">
-                <i:Interaction.Triggers>
-                <i:EventTrigger EventName="PasswordChanged">
-                    <i:InvokeCommandAction Command="{Binding PasswordChangedCommand}" 
-                                                   CommandParameter="{Binding ElementName=txtPassword}"/>
-                </i:EventTrigger>
-                </i:Interaction.Triggers> 
+                
                 
              
             </TextBox>
@@ -145,14 +134,9 @@
                    FontFamily="Segoe UI"
                    FontSize="22"
                    FontWeight="Bold"
+                   Foreground="#6F6C99"
                    >
-            <TextBlock.Foreground>
-                <LinearGradientBrush EndPoint="0.5,1"
-                                     MappingMode="RelativeToBoundingBox"
-                                     StartPoint="0.5,0">
-                    <GradientStop Color="#7D78A2"/>
-                </LinearGradientBrush>
-            </TextBlock.Foreground>
+           
         </TextBlock>
             <TextBlock Style="{StaticResource MaterialDesignHeadline4TextBlock}"
                    Text="New around here ?" 
@@ -164,30 +148,28 @@
                    TextAlignment="Left"
                    FontFamily="Segoe UI"
                    FontSize="25"
+                   Foreground="Gray"
                    >
-            <TextBlock.Foreground>
-                <LinearGradientBrush EndPoint="0.5,1"
-                                     MappingMode="RelativeToBoundingBox"
-                                     StartPoint="0.5,0">
-                    <GradientStop Color="Black"/>
-                </LinearGradientBrush>
-            </TextBlock.Foreground>
+            
         </TextBlock>
             <Button x:Name="btSignUp"
                 Style="{StaticResource MaterialDesignFlatButton}"
-                Height="38" 
+                Height="56" 
                 Width="150"
                 ToolTip="MaterialDesignFlatButton"
-                Margin="1225,625,0,0" 
+                Margin="1209,610,0,0" 
                 HorizontalContentAlignment="Left"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top"
                 Content="Sign Up" 
                 FontSize="25"
                 FontFamily="Segoe UI"
+                Foreground="#F97299"
+               
                  Command="{Binding OpenSignUpWindowCommand}"
-                    CommandParameter="{Binding ElementName=wdLogin}">
-        </Button>
+                    CommandParameter="{Binding ElementName=SignUp}">
+                
+            </Button>
         <CheckBox x:Name="cbRemember" 
                   Margin ="950,589,0,0"
                   HorizontalAlignment="Left"
@@ -204,29 +186,12 @@
             <CheckBox.Background>
                 <LinearGradientBrush EndPoint="0.5,1"
                                      StartPoint="0.5,0">
-                    <GradientStop Color="White"/>
+                        <GradientStop Color="#57548B"/>
                 </LinearGradientBrush>
             </CheckBox.Background>
         </CheckBox>
-            <Button x:Name="btClose"
-                Style="{StaticResource MaterialDesignIconButton}"
-                ToolTip="MaterialDesignIconButton" 
-                Margin="1380.25,28,0,0"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Top" 
-                 Command="{Binding CloseCommand}"
-                    CommandParameter="{Binding ElementName=btClose}" >
-            
-            <materialDesign:PackIcon Kind="CloseOutline"  />
-        </Button>
-        <Button x:Name="btMinimize"
-                Style="{StaticResource MaterialDesignIconButton}"
-                ToolTip="MaterialDesignIconButton"
-                Margin="1300,28,0,0" 
-                HorizontalAlignment="Left"
-                VerticalAlignment="Top" >
-            <materialDesign:PackIcon Kind="WindowMinimize" />
-        </Button>
+           
+       
         </Grid>
         <TextBlock Style="{StaticResource MaterialDesignHeadline4TextBlock}" 
                    Text="AGENCY MANAGEMENT" 
@@ -238,15 +203,10 @@
                    TextAlignment="Center"
                    FontFamily="Segoe UI" 
                    FontSize="70" 
-                   FontWeight="Bold" 
+                   FontWeight="Bold"
+                   Foreground="#6F6C99"
                    >
-            <TextBlock.Foreground>
-                <LinearGradientBrush EndPoint="0.5,1" 
-                                     MappingMode="RelativeToBoundingBox"
-                                     StartPoint="0.5,0">
-                    <GradientStop Color="#6F6C99"/>
-                </LinearGradientBrush>
-            </TextBlock.Foreground>
+           
         </TextBlock>
         <TextBlock Style="{StaticResource MaterialDesignHeadline4TextBlock}" 
                    Text="AGENCY MANAGEMENT" 
@@ -258,15 +218,10 @@
                    TextAlignment="Center"
                    FontFamily="Segoe UI"
                    FontSize="70" 
-                   FontWeight="Bold" >
-            <TextBlock.Foreground>
-                <LinearGradientBrush EndPoint="0.5,1" 
-                                     MappingMode="RelativeToBoundingBox"
-                                     StartPoint="0.5,0">
-                    <GradientStop Color="#E2E2E8"/>
-                </LinearGradientBrush>
-            </TextBlock.Foreground>
-        </TextBlock>
+                   FontWeight="Bold"
+                   Foreground="#E2E2E8"
+                   >
+         </TextBlock>
        
     </Grid>
 </Window>
