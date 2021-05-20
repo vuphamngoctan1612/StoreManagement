@@ -543,7 +543,7 @@
                         Foreground="#504D85"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Center"
-                        Margin="20 0 0 0">                        
+                        Margin="20 0 0 0">
                     </TextBlock>
                     <Grid
                         HorizontalAlignment="Right"
@@ -565,7 +565,7 @@
                             Foreground="#504D85">
                         </materialDesign:PackIcon>
                     </Grid>
-                    
+
                     <!--<Expander
                         Header="Display name"
                         Background="Transparent"
@@ -614,7 +614,7 @@
                     </Expander>-->
                 </Grid>
             </Grid>
-            
+
             <!--Body main-->
             <Grid Grid.Row="1"
                 x:Name="grdBody_Main"
@@ -998,7 +998,7 @@
                                 Command="{Binding AddImportProductWindowCommand}"
                                 CommandParameter="{Binding ElementName=wdHome}"
                                 Style="{StaticResource MaterialDesignRaisedButton}">
-                                
+
                             </Button>
                         </StackPanel>
                     </Grid>
@@ -1652,7 +1652,7 @@
                                 HorizontalContentAlignment="Center" 
                                 HorizontalAlignment="Center" 
                                 VerticalAlignment="Center"
-                                Background="#FBCCDA"
+                                Background="#F79BB5"
                                 Content="Export Excel"
                                 FontSize="18"
                                 Foreground="#57548B"
@@ -1683,20 +1683,24 @@
                         Visibility="Visible">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition></ColumnDefinition>
-                            <ColumnDefinition Width="200"/>
-                            <ColumnDefinition Width="200"/>
+                            <ColumnDefinition Width="150"/>
+                            <ColumnDefinition Width="150"/>
                         </Grid.ColumnDefinitions>
                         <Grid Grid.Column="0">
                             <ComboBox
                                 x:Name="comboBoxBill"
+                                materialDesign:ComboBoxAssist.ClassicMode="true"
+                                FontSize="20"
+                                FontWeight="Medium" 
+                                Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+                                Margin="0 0 0 0"
                                 materialDesign:HintAssist.Hint="Choosing bill"
                                 HorizontalAlignment="Left"
-                                VerticalAlignment="Center"
-                                FontSize="22"
+                                VerticalAlignment="Top"
                                 FontFamily="Segoe UI"
-                                FontWeight="Bold"
                                 Foreground="#57548B"
-                                Visibility="Visible">
+                                Visibility="Visible"
+                                Height="55">
                                 <ComboBoxItem
                                     Content="Stock Receipt" />
                                 <ComboBoxItem
@@ -1722,7 +1726,7 @@
                                     Text="Get money:"
                                     HorizontalAlignment="Left"
                                     VerticalAlignment="Center"
-                                    FontSize="22"
+                                    FontSize="16"
                                     FontFamily="Segoe UI"
                                     FontWeight="Bold"
                                     Foreground="#57548B"
@@ -1734,10 +1738,10 @@
                                     Text="Total"
                                     HorizontalAlignment="Left"
                                     VerticalAlignment="Center"
-                                    FontSize="22"
+                                    FontSize="16"
                                     FontFamily="Segoe UI"
                                     FontWeight="Bold"
-                                    Foreground="Green"
+                                    Foreground="#00FF00"
                                     Visibility="Visible"></TextBlock>
                             </Grid>
                         </Grid>
@@ -1750,12 +1754,12 @@
                                 <TextBlock 
                                     Text="Pay:"
                                     HorizontalAlignment="Left"
-                                    VerticalAlignment="Center"
-                                    FontSize="22"
+                                    VerticalAlignment="Top"
+                                    FontSize="16"
                                     FontFamily="Segoe UI"
                                     FontWeight="Bold"
                                     Foreground="#57548B"
-                                    Visibility="Visible"></TextBlock>
+                                    Visibility="Visible" Margin="0,2,0,0"></TextBlock>
                             </Grid>
                             <Grid Grid.Row="1">
                                 <TextBlock 
@@ -1763,10 +1767,10 @@
                                 Text="Total"
                                 HorizontalAlignment="Left"
                                 VerticalAlignment="Center"
-                                FontSize="22"
+                                FontSize="16"
                                 FontFamily="Segoe UI"
                                 FontWeight="Bold"
-                                Foreground="Red"
+                                Foreground="#FF0033"
                                 Visibility="Visible"></TextBlock>
                             </Grid>
                         </Grid>
@@ -2060,7 +2064,7 @@
                                         <i:EventTrigger EventName="SelectedDateChanged">
                                             <i:InvokeCommandAction Command="{Binding LoadSalesReportCommand}"
                                                                    CommandParameter="{Binding ElementName=wdHome}">
-                                                
+
                                             </i:InvokeCommandAction>
                                         </i:EventTrigger>
                                         <i:EventTrigger EventName="SelectedDateChanged">
@@ -2070,7 +2074,7 @@
                                             </i:InvokeCommandAction>
                                         </i:EventTrigger>
                                     </i:Interaction.Triggers>
-                                    
+
                                 </DatePicker>
                             </Grid>
                         </Grid>
@@ -2271,7 +2275,7 @@
                     <RowDefinition></RowDefinition>
                 </Grid.RowDefinitions>
                 <Grid Grid.Row="0"
-                      Background="#FBA1BB">                    
+                      Background="#FBA1BB">
                 </Grid>
                 <Grid Grid.Row="1">
                     <Grid.ColumnDefinitions>
@@ -2321,7 +2325,7 @@
                         </Button>
                     </Grid>
                     <Grid Grid.Column="1"
-                          Background="#FBA1BB">                    
+                          Background="#FBA1BB">
                     </Grid>
                     <Grid Grid.Column="2">
                         <Grid.RowDefinitions>
@@ -2713,7 +2717,7 @@
                             </TextBox>
                         </Grid>
                         <Grid Grid.Row="8">
-                        <Button 
+                            <Button 
                             x:Name="bt_Account_PassChange" 
                             Content="Change password"
                             FontSize="22"
@@ -2731,9 +2735,9 @@
                             Foreground="#57548B"
                             Command="{Binding ChangePasswordCommand}"
                             CommandParameter="{Binding ElementName=wdHome}">
-                        </Button>
+                            </Button>
+                        </Grid>
                     </Grid>
-                    </Grid>                    
                 </Grid>
             </Grid>
         </Grid>
