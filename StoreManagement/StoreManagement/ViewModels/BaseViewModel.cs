@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Windows.Controls;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -7,7 +8,6 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace StoreManagement.ViewModels
@@ -15,7 +15,6 @@ namespace StoreManagement.ViewModels
     public class BaseViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
-
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
@@ -45,6 +44,24 @@ namespace StoreManagement.ViewModels
             return long.Parse(tmp);
         }
 
+        public string ConvertToString(long? input)
+        {
+            string res;
+            System.Globalization.CultureInfo culture = new System.Globalization.CultureInfo("en-US");
+            res = String.Format(culture, "{0:N0}", input);
+
+            return res;
+        }
+        public string ConvertToString(double? input)
+        {
+            string res;
+            System.Globalization.CultureInfo culture = new System.Globalization.CultureInfo("en-US");
+            res = String.Format(culture, "{0:N0}", input);
+
+            return res;
+        }
+
+
         //Chuyển sang dạng 0,000,000
         public void SeparateThousands(TextBox txt)
         {
@@ -56,15 +73,13 @@ namespace StoreManagement.ViewModels
                 txt.Select(txt.Text.Length, 0);
             }
         }
-
         //Chỉ cho nhập số
         public void NumberValidationTextBox(object sender, TextCompositionEventArgs e)
         {
             Regex regex = new Regex("[^0-9]+");
-
             if (regex.IsMatch(e.Text) && e.Text.Any(c => !char.IsDigit(c)))
             {
-                e.Handled = regex.IsMatch(e.Text);
+                e.Handled = true;
             }
         }
     }

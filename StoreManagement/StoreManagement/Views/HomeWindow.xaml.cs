@@ -23,5 +23,10 @@ namespace StoreManagement.Views
         {
             InitializeComponent();
         }
+
+        private void txt_Account_Password_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
     }
 }

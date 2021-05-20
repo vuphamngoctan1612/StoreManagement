@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace StoreManagement.Views
+namespace StoreManagement.Resources.UserControls
 {
     /// <summary>
-    /// Interaction logic for usAccountSetting.xaml
+    /// Interaction logic for CardStoreUC.xaml
     /// </summary>
-    public partial class usAccountSetting : UserControl
+    public partial class CardStoreUC : UserControl
     {
-        public usAccountSetting()
+        public CardStoreUC()
         {
             InitializeComponent();
         }

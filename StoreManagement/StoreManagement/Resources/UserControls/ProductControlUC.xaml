@@ -8,6 +8,7 @@
              mc:Ignorable="d" 
              Foreground="{DynamicResource Gray1}"
              DataContext="{StaticResource ProductVM}"
+             x:Name="DisplayProductUC"
              d:DesignHeight="45" 
              d:DesignWidth="1070">
     <Grid 
@@ -19,115 +20,145 @@
         </Grid.RowDefinitions>
         <Grid Grid.Row="0">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="85"></ColumnDefinition>
-                <ColumnDefinition Width="220"></ColumnDefinition>
-                <ColumnDefinition Width="130"></ColumnDefinition>
-                <ColumnDefinition Width="190"></ColumnDefinition>
-                <ColumnDefinition Width="190"></ColumnDefinition>
-                <ColumnDefinition Width="150"></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition Width="0.65*"></ColumnDefinition>
+                <ColumnDefinition Width="2*"></ColumnDefinition>
+                <ColumnDefinition Width="1.1*"></ColumnDefinition>
+                <ColumnDefinition Width="1.7*"></ColumnDefinition>
+                <ColumnDefinition Width="1.7*"></ColumnDefinition>
+                <ColumnDefinition Width="1*"></ColumnDefinition>
+                <ColumnDefinition Width="1.2*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <TextBlock 
-            x:Name="txbID"
-            Text="No"
-            Grid.Column="0" 
-            Margin="30,10,30,10"
-            TextWrapping="Wrap" 
-            FontSize="18" 
-            FontWeight="SemiBold" 
-            HorizontalAlignment="Left" 
-            VerticalAlignment="Top"/>
-            <TextBlock 
-            x:Name="txbName"
-            Text="Tên mặt hàng" 
-            Grid.Column="1"
-            HorizontalAlignment="Left" 
-            Margin="30,10,30,10"
-            TextWrapping="Wrap" 
-            FontSize="18" 
-            FontWeight="SemiBold" VerticalAlignment="Top" />
-            <TextBlock 
-            x:Name="txbUnit"
-            Text="Đơn vị tính" 
-            Grid.Column="2"
-            HorizontalAlignment="Left" 
-            Margin="30,10,30,10"
-            TextWrapping="Wrap" 
-            FontSize="18" 
-            FontWeight="SemiBold"/>
-            <TextBlock 
-            x:Name="txbImportPrice"
-            Text="Giá nhập" 
-            Grid.Column="3"
-            HorizontalAlignment="Left" 
-            Margin="30,10,30,10"
-            TextWrapping="Wrap" 
-            FontSize="18" 
-            FontWeight="SemiBold" VerticalAlignment="Top"/>
-            <TextBlock 
-            x:Name="txbPrice"
-            Text="Giá bán" 
-            Grid.Column="4"
-            HorizontalAlignment="Left" 
-            Margin="30,10,30,10"
-            TextWrapping="Wrap" 
-            FontSize="18" 
-            FontWeight="SemiBold" VerticalAlignment="Top"/>
-            <TextBlock 
-            x:Name="txbCount"
-            Text="Số lượng" 
-            Grid.Column="5"
-            HorizontalAlignment="Left" 
-            Margin="20,10,40,10"
-            TextWrapping="Wrap" 
-            FontSize="18" 
-            FontWeight="SemiBold" VerticalAlignment="Top"/>
-            <Button
-            x:Name="btnEditProduct"
-            Grid.Column="6"
-            ToolTip="Sửa thông tin sản phẩm"
-            Height="30"
-            Width="40"
-            HorizontalAlignment="Left"
-            VerticalAlignment="Center"
-            Margin="0 0 0 5"
-            FontSize="16"
-            Padding="0"
-            FontWeight="SemiBold"
-            Background="{x:Null}" 
-            BorderBrush="{x:Null}" 
-            Foreground="#57548B" 
-            Command="{Binding EditProductCommand}"
-            CommandParameter="{Binding ElementName=txbID}">
-                <materialDesign:PackIcon
-                Kind="SquareEditOutline"
-                Height="24"
-                Width="24">
-                </materialDesign:PackIcon>
-            </Button>
-            <Button 
-            Grid.Column="6"
-            x:Name="btnDeleteProduct"
-            Command="{Binding DeleteProductCommand}"
-            CommandParameter="{Binding ElementName=txbId}"
-            ToolTip="Xóa sản phẩm" 
-            Height="30"
-            Margin="0,0,20,5" 
-            FontSize="16" 
-            VerticalAlignment="Center" 
-            FocusVisualStyle="{x:Null}"
-            Width="40"
-            Foreground="#FFF44336" 
-            HorizontalAlignment="Right" 
-            Background="{x:Null}" 
-            BorderBrush="{x:Null}"
-            FontWeight="SemiBold" 
-            Padding="0" >
-                <materialDesign:PackIcon 
-                Kind="DeleteOutline" 
-                Height="24"
-                Width="24"/>
-            </Button>
+            <TextBlock Grid.Column="0" 
+                x:Name="txbID"
+                Text="No"
+                TextWrapping="Wrap" 
+                FontSize="18" 
+                FontWeight="SemiBold" 
+                Margin="0 0 0 5"
+                HorizontalAlignment="Center" 
+                VerticalAlignment="Center"/>
+            <TextBlock Grid.Column="1"
+                x:Name="txbName"
+                Text="Tên mặt hàng"
+                HorizontalAlignment="Left" 
+                VerticalAlignment="Center"
+                Margin="20 0 0 5"
+                TextWrapping="Wrap" 
+                FontSize="18" 
+                FontWeight="SemiBold" />
+            <TextBlock Grid.Column="2"
+                x:Name="txbUnit"
+                Text="Đơn vị tính" 
+                HorizontalAlignment="Left" 
+                VerticalAlignment="Center"
+                Margin="10 0 0 5"
+                TextWrapping="Wrap" 
+                FontSize="18" 
+                FontWeight="SemiBold"/>
+            <TextBlock Grid.Column="3"
+                x:Name="txbImportPrice"
+                Text="Giá nhập" 
+                HorizontalAlignment="Left" 
+                VerticalAlignment="Center"
+                Margin="10 0 0 5"
+                TextWrapping="Wrap" 
+                FontSize="18" 
+                FontWeight="SemiBold"/>
+            <TextBlock Grid.Column="4"
+                x:Name="txbPrice"
+                Text="Giá bán" 
+                HorizontalAlignment="Left" 
+                VerticalAlignment="Center"
+                Margin="10 0 0 5"
+                TextWrapping="Wrap" 
+                FontSize="18" 
+                FontWeight="SemiBold"/>
+            <TextBlock Grid.Column="5"
+                x:Name="txbCount"
+                Text="Số lượng" 
+                HorizontalAlignment="Left" 
+                VerticalAlignment="Center"
+                Margin="10 0 0 5"
+                TextWrapping="Wrap" 
+                FontSize="18" 
+                FontWeight="SemiBold"/>
+            <Grid Grid.Column="6">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Button Grid.Column="0"
+                    x:Name="btnEditProduct"
+                    ToolTip="Edit product"
+                    Height="30"
+                    Width="30"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Margin="0 0 0 5"
+                    FontSize="16"
+                    Padding="0"
+                    FontWeight="SemiBold"
+                    Background="{x:Null}" 
+                    BorderBrush="{x:Null}" 
+                    Foreground="#57548B" 
+                    Cursor="Hand"
+                    Command="{Binding EditProductCommand}"
+                    CommandParameter="{Binding ElementName=DisplayProductUC}">
+                    <materialDesign:PackIcon
+                        Kind="SquareEditOutline"
+                        Height="24"
+                        Width="24">
+                    </materialDesign:PackIcon>
+                </Button>
+                <Button Grid.Column="1"
+                    x:Name="btnImportProduct"
+                    Height="30"
+                    Width="30"
+                    ToolTip="Import"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Margin="0 0 0 5"
+                    FontSize="16"
+                    Padding="0"
+                    FontWeight="SemiBold"
+                    Background="{x:Null}" 
+                    BorderBrush="{x:Null}" 
+                    Foreground="#FF27AE60" 
+                    Cursor="Hand"
+                    Command="{Binding ImportProductCommand}"
+                    CommandParameter="{Binding ElementName=DisplayProductUC}">
+                    <materialDesign:PackIcon 
+                        Kind="ArchiveArrowDownOutline"
+                        Width="24"
+                        Height="24">
+                    </materialDesign:PackIcon>
+                </Button>
+                <Button Grid.Column="2"
+                    x:Name="btnDeleteProduct"
+                    ToolTip="Delete product" 
+                    Height="30"
+                    Width="30"
+                    HorizontalAlignment="Center" 
+                    VerticalAlignment="Center" 
+                    Margin="0 0 0 5"
+                    Foreground="#FFF44336" 
+                    FocusVisualStyle="{x:Null}"
+                    Background="{x:Null}" 
+                    BorderBrush="{x:Null}"
+                    FontWeight="SemiBold" 
+                    FontSize="16" 
+                    Padding="0"
+                    Cursor="Hand"
+                    Command="{Binding DeleteProductCommand}"
+                    CommandParameter="{Binding ElementName=DisplayProductUC}">
+                    <materialDesign:PackIcon 
+                        Kind="DeleteOutline" 
+                        Height="24"
+                        Width="24">
+                    </materialDesign:PackIcon>
+                </Button>
+            </Grid>
         </Grid>
         <Grid Grid.Row="1"
             Width="1070"

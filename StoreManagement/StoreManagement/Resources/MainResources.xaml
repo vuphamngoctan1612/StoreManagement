@@ -2,22 +2,13 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:viewmodels ="clr-namespace:StoreManagement.ViewModels"
                     xmlns:models ="clr-namespace:StoreManagement.Models">
+    <viewmodels:LoginViewModel x:Key="LoginVM"></viewmodels:LoginViewModel>
+    <viewmodels:SignUpViewModel x:Key="SignUpVM"></viewmodels:SignUpViewModel>
+    <viewmodels:StoreViewModel x:Key="StoreVM"></viewmodels:StoreViewModel>
     <viewmodels:HomeViewModel x:Key="HomeVM"></viewmodels:HomeViewModel>
     <viewmodels:ProductViewModel x:Key="ProductVM"></viewmodels:ProductViewModel>
     <viewmodels:ReportViewModel x:Key="ReportVM"></viewmodels:ReportViewModel>
-    <viewmodels:StoreViewModel x:Key="StoreVM"></viewmodels:StoreViewModel>
     <viewmodels:BusinessViewModel x:Key="BusinessVM"/>
     <viewmodels:SettingViewModel x:Key="SettingVM"/>
-    <ControlTemplate x:Key="textBoxErrorTemplate">
-        <StackPanel>
-            <AdornedElementPlaceholder x:Name="placeholder"/>
-            <TextBlock 
-                DockPanel.Dock="Bottom" 
-                Foreground="#FFF44336"
-                MaxWidth="220"
-                Text="{Binding ElementName=placeholder, Path=AdornedElement.(Validation.Errors)[0].ErrorContent}"
-                TextWrapping="Wrap" 
-                HorizontalAlignment="Left"/>
-        </StackPanel>
-    </ControlTemplate>
+    <viewmodels:AccountViewModel x:Key="AccountVM"></viewmodels:AccountViewModel>
 </ResourceDictionary>

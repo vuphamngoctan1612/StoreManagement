@@ -10,19 +10,28 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace StoreManagement.Resources.UserControls
+namespace StoreManagement.Views
 {
     /// <summary>
-    /// Interaction logic for StoresHomeUC.xaml
+    /// Interaction logic for LoginWindow.xaml
     /// </summary>
-    public partial class StoresHomeUC : UserControl
+    public partial class LoginWindow : Window
     {
-        public StoresHomeUC()
+        public LoginWindow()
         {
             InitializeComponent();
+        }
+
+        private void btLogin_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btClose_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

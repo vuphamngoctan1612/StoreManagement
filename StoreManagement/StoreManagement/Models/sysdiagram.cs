@@ -12,13 +12,12 @@ namespace StoreManagement.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Account
+    public partial class sysdiagram
     {
-        public string Username { get; set; }
-        public string Password { get; set; }
-        public string DisplayName { get; set; }
-        public byte[] Image { get; set; }
-        public string Location { get; set; }
-        public string PhoneNumber { get; set; }
+        public string name { get; set; }
+        public int principal_id { get; set; }
+        public int diagram_id { get; set; }
+        public Nullable<int> version { get; set; }
+        public byte[] definition { get; set; }
     }
 }

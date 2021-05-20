@@ -94,6 +94,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Converter.cs" />
+    <Compile Include="CurrentAccount.cs" />
     <Compile Include="Models\Account.cs">
       <DependentUpon>AgencyManagement_Entities.tt</DependentUpon>
     </Compile>
@@ -127,17 +128,23 @@
     <Compile Include="Models\Receipt.cs">
       <DependentUpon>AgencyManagement_Entities.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\TypeOfAgency.cs">
+    <Compile Include="Models\StockReceipt.cs">
       <DependentUpon>AgencyManagement_Entities.tt</DependentUpon>
     </Compile>
-    <Compile Include="Resources\UserControls\AccountSettingUC.xaml.cs">
-      <DependentUpon>AccountSettingUC.xaml</DependentUpon>
+    <Compile Include="Models\StockReceiptInfo.cs">
+      <DependentUpon>AgencyManagement_Entities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sysdiagram.cs">
+      <DependentUpon>AgencyManagement_Entities.tt</DependentUpon>
     </Compile>
     <Compile Include="Resources\UserControls\AgencyControlUC.xaml.cs">
       <DependentUpon>AgencyControlUC.xaml</DependentUpon>
     </Compile>
     <Compile Include="Resources\UserControls\BillHomeUC.xaml.cs">
       <DependentUpon>BillHomeUC.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TypeOfAgency.cs">
+      <DependentUpon>AgencyManagement_Entities.tt</DependentUpon>
     </Compile>
     <Compile Include="Resources\UserControls\BillUC.xaml.cs">
       <DependentUpon>BillUC.xaml</DependentUpon>
@@ -148,6 +155,9 @@
     <Compile Include="Resources\UserControls\BusinessProductUC.xaml.cs">
       <DependentUpon>BusinessProductUC.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Resources\UserControls\CardStoreUC.xaml.cs">
+      <DependentUpon>CardStoreUC.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Resources\UserControls\DebtReportUC.xaml.cs">
       <DependentUpon>DebtReportUC.xaml</DependentUpon>
     </Compile>
@@ -157,20 +167,11 @@
     <Compile Include="Resources\UserControls\ProductControlUC.xaml.cs">
       <DependentUpon>ProductControlUC.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Resources\UserControls\ReportUC.xaml.cs">
-      <DependentUpon>ReportUC.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Resources\UserControls\SalesReportUC.xaml.cs">
       <DependentUpon>SalesReportUC.xaml</DependentUpon>
     </Compile>
     <Compile Include="Resources\UserControls\StoreControlUC.xaml.cs">
       <DependentUpon>StoreControlUC.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Resources\UserControls\StoresHomeUC.xaml.cs">
-      <DependentUpon>StoresHomeUC.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Resources\UserControls\StoresUC.xaml.cs">
-      <DependentUpon>StoresUC.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -183,6 +184,8 @@
     <Compile Include="ViewModels\ProductViewModel.cs" />
     <Compile Include="ViewModels\ReportViewModel.cs" />
     <Compile Include="ViewModels\SettingViewModel.cs" />
+    <Compile Include="ViewModels\SignUpViewModel.cs" />
+    <Compile Include="ViewModels\SQLConnection.cs" />
     <Compile Include="ViewModels\StoreViewModel.cs" />
     <Compile Include="Views\AddProductWindow.xaml.cs">
       <DependentUpon>AddProductWindow.xaml</DependentUpon>
@@ -193,11 +196,23 @@
     <Compile Include="Views\AddTypeOfAgencyWindow.xaml.cs">
       <DependentUpon>AddTypeOfAgencyWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\ChangePasswordWindow.xaml.cs">
+      <DependentUpon>ChangePasswordWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\HomeWindow.xaml.cs">
       <DependentUpon>HomeWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\ImportProductWindow.xaml.cs">
+      <DependentUpon>ImportProductWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\InfoAccountWindow.xaml.cs">
+      <DependentUpon>InfoAccountWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\InvoiceWindow.xaml.cs">
       <DependentUpon>InvoiceWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\LoginWindow.xaml.cs">
+      <DependentUpon>LoginWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\SignUpWindow.xaml.cs">
       <DependentUpon>SignUpWindow.xaml</DependentUpon>
@@ -270,6 +285,13 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\UserControls\CardStoreUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Resources\UserControls\BusinessProductChosenUC.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -298,7 +320,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Resources\UserControls\StoresHomeUC.xaml">
+    <Page Include="Views\AddProductWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -306,11 +328,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\AddProductWindow.xaml">
+    <Page Include="Views\AddStoreWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\AddStoreWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ChangePasswordWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -322,23 +347,23 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\ImportProductWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\InfoAccountWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\InvoiceWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\LoginWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\SignUpWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Resources\UserControls\AccountSettingUC.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Resources\UserControls\ReportUC.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Resources\UserControls\StoresUC.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -357,6 +382,7 @@
       <DependentUpon>AgencyManagement_Entities.edmx</DependentUpon>
       <LastGenOutput>AgencyManagement_Entities.cs</LastGenOutput>
     </Content>
+    <Resource Include="Resources\Images\default.jpg" />
     <Resource Include="Resources\Images\logo.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

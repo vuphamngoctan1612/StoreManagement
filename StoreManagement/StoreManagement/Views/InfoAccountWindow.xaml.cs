@@ -10,17 +10,16 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace StoreManagement.Resources.UserControls
+namespace StoreManagement.Views
 {
     /// <summary>
-    /// Interaction logic for BillHomeUC.xaml
+    /// Interaction logic for InfoAccountWindow.xaml
     /// </summary>
-    public partial class BillHomeUC : UserControl
+    public partial class InfoAccountWindow : Window
     {
-        public BillHomeUC()
+        public InfoAccountWindow()
         {
             InitializeComponent();
         }
