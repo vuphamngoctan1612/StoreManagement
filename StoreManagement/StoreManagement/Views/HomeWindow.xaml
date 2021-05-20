@@ -1668,19 +1668,22 @@
                 <Grid Grid.Row="2"
                       x:Name="InvoiceTable"
                       Height="590"
-                      Width="1070"
+                      Width="1060"
                       Margin="30 10 0 0"
                       VerticalAlignment="Top"
                       Visibility="Visible">
                     <Grid 
                         x:Name="cardTitle"
                         Height="60"
-                        Width="1070"
-                        Margin="0,10,0,0"
+                        Width="1060"
+                        Margin="0,0,0,0"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Top"
-                        Background="White"
-                        Visibility="Visible">
+                        Background="WhiteSmoke"
+                        Visibility="Visible"
+                        materialDesign:ShadowAssist.Darken="True"
+                        materialDesign:ShadowAssist.ShadowDepth="Depth1"
+                        materialDesign:ShadowAssist.ShadowEdges="All">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition></ColumnDefinition>
                             <ColumnDefinition Width="150"/>
@@ -1693,7 +1696,7 @@
                                 FontSize="20"
                                 FontWeight="Medium" 
                                 Style="{StaticResource MaterialDesignFloatingHintComboBox}"
-                                Margin="0 0 0 0"
+                                Margin="10 0 0 0"
                                 materialDesign:HintAssist.Hint="Choosing bill"
                                 HorizontalAlignment="Left"
                                 VerticalAlignment="Top"
@@ -1723,26 +1726,27 @@
                             </Grid.RowDefinitions>
                             <Grid Grid.Row="0">
                                 <TextBlock 
-                                    Text="Get money:"
-                                    HorizontalAlignment="Left"
+                                    Text="Get money"
+                                    HorizontalAlignment="Right"
                                     VerticalAlignment="Center"
                                     FontSize="16"
                                     FontFamily="Segoe UI"
-                                    FontWeight="Bold"
                                     Foreground="#57548B"
-                                    Visibility="Visible"></TextBlock>
+                                    Visibility="Visible"
+                                    Margin="0,0,10,0"></TextBlock>
                             </Grid>
                             <Grid Grid.Row="1">
                                 <TextBlock 
                                     x:Name="textCollect"
                                     Text="Total"
-                                    HorizontalAlignment="Left"
+                                    HorizontalAlignment="Right"
                                     VerticalAlignment="Center"
                                     FontSize="16"
                                     FontFamily="Segoe UI"
-                                    FontWeight="Bold"
                                     Foreground="#00FF00"
-                                    Visibility="Visible"></TextBlock>
+                                    FontWeight="Medium"
+                                    Visibility="Visible"
+                                    Margin="0,0,10,0"></TextBlock>
                             </Grid>
                         </Grid>
                         <Grid Grid.Column="2">
@@ -1752,28 +1756,29 @@
                             </Grid.RowDefinitions>
                             <Grid Grid.Row="0">
                                 <TextBlock 
-                                    Text="Pay:"
-                                    HorizontalAlignment="Left"
+                                    Text="Pay"
+                                    HorizontalAlignment="Right"
                                     VerticalAlignment="Top"
                                     FontSize="16"
                                     FontFamily="Segoe UI"
-                                    FontWeight="Bold"
                                     Foreground="#57548B"
-                                    Visibility="Visible" Margin="0,2,0,0"></TextBlock>
+                                    Visibility="Visible" Margin="0,0,10,0"></TextBlock>
                             </Grid>
                             <Grid Grid.Row="1">
                                 <TextBlock 
                                 x:Name="textPay"
                                 Text="Total"
-                                HorizontalAlignment="Left"
+                                HorizontalAlignment="Right"
                                 VerticalAlignment="Center"
                                 FontSize="16"
                                 FontFamily="Segoe UI"
-                                FontWeight="Bold"
                                 Foreground="#FF0033"
+                                FontWeight="Medium"
+                                    Margin="0,0,10,0"
                                 Visibility="Visible"></TextBlock>
                             </Grid>
                         </Grid>
+
                     </Grid>
                     <Grid
                         x:Name="ColumnHeaderBill"
@@ -1783,7 +1788,7 @@
                         Width="1060"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Top"
-                        Margin="0 70 0 0"
+                        Margin="0 75 0 0"
                         Visibility="Visible">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="100"/>

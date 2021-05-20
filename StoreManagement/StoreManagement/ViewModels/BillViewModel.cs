@@ -146,10 +146,10 @@ namespace StoreManagement.ViewModels
                     billUC.Unit.Text = stockReceiptInfo.Product.Unit.ToString();
                     billUC.Amount.Text = stockReceiptInfo.Amount.ToString();
                     billUC.Price.Text = stockReceiptInfo.Product.ExportPrice.ToString();
-                    billUC.Total.Text = stockReceiptInfo.Price.ToString();
+                    billUC.Total.Text = ConvertToString(stockReceiptInfo.Price);
                     invoiceWindow.stkListInvoiceInfos.Children.Add(billUC);
                 }
-                invoiceWindow.txbTotal.Text = stockReceipt.Total.ToString();
+                invoiceWindow.txbTotal.Text = ConvertToString(stockReceipt.Total);
                 invoiceWindow.txbDebt.Visibility = System.Windows.Visibility.Hidden;
                 invoiceWindow.txbPrepay.Visibility = System.Windows.Visibility.Hidden;
                 invoiceWindow.textPre.Visibility = System.Windows.Visibility.Hidden;
@@ -181,12 +181,12 @@ namespace StoreManagement.ViewModels
                     billUC.Unit.Text = invoiceInfo.Product.Unit.ToString();
                     billUC.Amount.Text = invoiceInfo.Amount.ToString();
                     billUC.Price.Text = invoiceInfo.Product.ExportPrice.ToString();
-                    billUC.Total.Text = invoiceInfo.Total.ToString();
+                    billUC.Total.Text = ConvertToString(invoiceInfo.Total);
                     invoiceWindow.stkListInvoiceInfos.Children.Add(billUC);
                 }
-                invoiceWindow.txbTotal.Text = invoice.Total.ToString();
-                invoiceWindow.txbPrepay.Text = (invoice.Total - invoice.Debt).ToString();
-                invoiceWindow.txbDebt.Text = invoice.Debt.ToString();
+                invoiceWindow.txbTotal.Text = ConvertToString(invoice.Total);
+                invoiceWindow.txbPrepay.Text = ConvertToString((invoice.Total - invoice.Debt));
+                invoiceWindow.txbDebt.Text = ConvertToString(invoice.Debt);
                 invoiceWindow.ShowDialog();
             }
         }
@@ -232,7 +232,7 @@ namespace StoreManagement.ViewModels
                 total += invoice.Total;
                 this.HomeWindow.stkBill.Children.Add(invoiceUC);
             }
-            this.HomeWindow.textCollect.Text = total.ToString();
+            this.HomeWindow.textCollect.Text = ConvertToString(total);
         }
         private void LoadReceiptBill(HomeWindow para)
         {
@@ -262,11 +262,11 @@ namespace StoreManagement.ViewModels
                 invoiceUC.InvoiceID.Text = stockReceipt.ID.ToString();
                 invoiceUC.AgencyName.Text = "Our company";
                 invoiceUC.CheckOut.Text = stockReceipt.CheckIn.Value.ToShortDateString();
-                invoiceUC.Debt.Text = stockReceipt.Total.ToString();
+                invoiceUC.Debt.Text = ConvertToString(stockReceipt.Total);
                 pay += stockReceipt.Total;
                 this.HomeWindow.stkStockReceipt.Children.Add(invoiceUC);
             }
-            this.HomeWindow.textPay.Text = pay.ToString();
+            this.HomeWindow.textPay.Text = "-" + ConvertToString(pay);
         }
         private void Switch(HomeWindow para)
         {
