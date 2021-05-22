@@ -1703,7 +1703,8 @@
                                 FontFamily="Segoe UI"
                                 Foreground="#57548B"
                                 Visibility="Visible"
-                                Height="55">
+                                Height="55"
+                                materialDesign:HintAssist.Foreground="Gray">
                                 <ComboBoxItem
                                     Content="Stock Receipt" />
                                 <ComboBoxItem
@@ -1731,7 +1732,7 @@
                                     VerticalAlignment="Center"
                                     FontSize="16"
                                     FontFamily="Segoe UI"
-                                    Foreground="#57548B"
+                                    Foreground="Gray"
                                     Visibility="Visible"
                                     Margin="0,0,10,0"></TextBlock>
                             </Grid>
@@ -1761,7 +1762,7 @@
                                     VerticalAlignment="Top"
                                     FontSize="16"
                                     FontFamily="Segoe UI"
-                                    Foreground="#57548B"
+                                    Foreground="Gray"
                                     Visibility="Visible" Margin="0,0,10,0"></TextBlock>
                             </Grid>
                             <Grid Grid.Row="1">
