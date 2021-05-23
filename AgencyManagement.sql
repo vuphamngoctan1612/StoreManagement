@@ -15,8 +15,6 @@ create table Account
 	constraint PK_Account primary key(Username)
 )
 go
-insert into Account
-values ('dung', '625d45c587033e8970af8b4e3fdb575c', 'dung' , null)
 
 create table Agency
 (
@@ -49,7 +47,7 @@ create table Product
 (
 	ID int,
 	Name nvarchar(100),
-	Unit nvarchar(100),
+	UnitsID int,
 	Image image,
 	ImportPrice bigint,
 	ExportPrice bigint,
@@ -60,6 +58,13 @@ create table Product
 )
 go
 
+create table Units
+(
+	ID int,
+	Name nvarchar(100),
+
+	constraint PK_Units primary key(ID)
+)
 
 create table Invoice
 (
@@ -115,6 +120,9 @@ create table StockReceiptInfo
 
 	constraint PK_StockReceiptInfo primary key(StockReceiptID, ProductID)
 )
+go
+
+alter table Product add constraint FK_Units foreign key (UnitsID) references Units(ID)
 go
 
 alter table InvoiceInfo add constraint FK_InvoiceID foreign key (InvoiceID) references Invoice(ID)

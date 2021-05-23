@@ -48,23 +48,38 @@
                 <ColumnDefinition Width="0.5*"></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <Grid Grid.Column="0"
-                x:Name="grdImage"
-                HorizontalAlignment="Center" 
-                VerticalAlignment="Top"
-                Margin="0 50 0 0"
-                Height="200"
-                Width="200">
-                <Ellipse
-                    Stroke="#FCE5EC"
-                    Fill="#FCE5EC"
+            <Grid Grid.Column="0">
+                <Grid
+                    x:Name="grdImage"
+                    HorizontalAlignment="Center" 
+                    VerticalAlignment="Top"
+                    Margin="0 50 0 0"
                     Height="200"
-                    Width="200"
-                    StrokeDashArray="4 2" >
-                </Ellipse>
+                    Width="200">
+                    <Rectangle
+                        Stroke="#F79BB5"
+                        Opacity="0.7"
+                        RadiusX="10"
+                        RadiusY="10"
+                        Height="200"
+                        Width="200"
+                        StrokeThickness="4"
+                        StrokeDashArray="4 2" >
+                    </Rectangle>
+                    <materialDesign:PackIcon 
+                        Kind="ImageEdit" 
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center" 
+                        Width="80"
+                        Height="80"
+                        Margin="60"
+                        Foreground="#F97299">
+                    </materialDesign:PackIcon>
+                </Grid>
                 <Button 
                     HorizontalAlignment="Center"
-                    VerticalAlignment="Bottom"
+                    VerticalAlignment="Center"
+                    Margin="0 130 0 0"
                     BorderThickness="0"
                     Width="140"
                     Height="35"
@@ -74,19 +89,9 @@
                     FocusVisualStyle="{x:Null}"
                     FontWeight="SemiBold"
                     FontSize="18"
-                    Margin="44,0,36,-80"
                     Command="{Binding SelectImageCommand}"
                     CommandParameter="{Binding ElementName=grdImage}">
                 </Button>
-                <materialDesign:PackIcon 
-                    Kind="ImageEdit" 
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Center" 
-                    Width="80"
-                    Height="80"
-                    Margin="60"
-                    Foreground="#F97299">
-                </materialDesign:PackIcon>
             </Grid>
             <Grid Grid.Column="1"
                   Margin="0 20 0 0">
@@ -98,45 +103,6 @@
                     <RowDefinition></RowDefinition>
                 </Grid.RowDefinitions>
                 <Grid Grid.Row="0"
-                    Width="550" 
-                    VerticalAlignment="Center"
-                    HorizontalAlignment="Center">
-                    <Label
-                        HorizontalAlignment="Left"
-                        VerticalAlignment="Center"
-                        Content="Username"
-                        FontSize="22"
-                        FontWeight="SemiBold"
-                        Foreground="#57548B">
-                    </Label>
-                    <Rectangle
-                        HorizontalAlignment="Right"
-                        Width="300"
-                        Margin="0 0 30 0"
-                        StrokeThickness="2"
-                        RadiusX="10"
-                        RadiusY="10"
-                        Stroke="#E2D2DA"/>
-                    <TextBox
-                        x:Name="txtUsername"
-                        HorizontalAlignment="Right"
-                        VerticalAlignment="Center"
-                        Width="280"
-                        Margin="0 0 40 0"
-                        BorderThickness="0"
-                        materialDesign:HintAssist.Hint="Enter your username"
-                        MaxLines="1"
-                        Height="45"
-                        FontSize="17"
-                        FontWeight="SemiBold"
-                        Padding="0"
-                        HorizontalContentAlignment="Left"
-                        VerticalContentAlignment="Center" 
-                        Cursor="Arrow"
-                        Text="{Binding Username}">
-                    </TextBox>
-                </Grid>
-                <Grid Grid.Row="1"
                     Width="550" 
                     VerticalAlignment="Center"
                     HorizontalAlignment="Center">
@@ -170,8 +136,44 @@
                         FontWeight="SemiBold"
                         Padding="0"
                         HorizontalContentAlignment="Left"
-                        VerticalContentAlignment="Center" 
-                        Cursor="Arrow">
+                        VerticalContentAlignment="Center">
+                    </TextBox>
+                </Grid>
+                <Grid Grid.Row="1"
+                    Width="550" 
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center">
+                    <Label
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Content="Username"
+                        FontSize="22"
+                        FontWeight="SemiBold"
+                        Foreground="#57548B">
+                    </Label>
+                    <Rectangle
+                        HorizontalAlignment="Right"
+                        Width="300"
+                        Margin="0 0 30 0"
+                        StrokeThickness="2"
+                        RadiusX="10"
+                        RadiusY="10"
+                        Stroke="#E2D2DA"/>
+                    <TextBox
+                        x:Name="txtUsername"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Center"
+                        Width="280"
+                        Margin="0 0 40 0"
+                        BorderThickness="0"
+                        materialDesign:HintAssist.Hint="Enter your username"
+                        MaxLines="1"
+                        Height="45"
+                        FontSize="17"
+                        FontWeight="SemiBold"
+                        Padding="0"
+                        HorizontalContentAlignment="Left"
+                        VerticalContentAlignment="Center">
                     </TextBox>
                 </Grid>
                 <Grid Grid.Row="2"
@@ -194,7 +196,7 @@
                         RadiusX="10"
                         RadiusY="10"
                         Stroke="#E2D2DA"/>
-                    <TextBox
+                    <PasswordBox
                         x:Name="pwbPassword"
                         HorizontalAlignment="Right"
                         VerticalAlignment="Center"
@@ -202,15 +204,13 @@
                         Margin="0 0 40 0"
                         BorderThickness="0"
                         materialDesign:HintAssist.Hint="Enter your password"
-                        MaxLines="1"
                         Height="45"
                         FontSize="17"
                         FontWeight="SemiBold"
                         Padding="0"
                         HorizontalContentAlignment="Left"
-                        VerticalContentAlignment="Center" 
-                        Cursor="Arrow" >
-                    </TextBox>
+                        VerticalContentAlignment="Center">
+                    </PasswordBox>
                 </Grid>
                 <Grid Grid.Row="3"
                     Width="550" 
@@ -232,8 +232,7 @@
                         RadiusX="10"
                         RadiusY="10"
                         Stroke="#E2D2DA"/>
-                    <TextBox
-                        
+                    <PasswordBox                        
                         x:Name="pwbPasswordConfirm"
                         HorizontalAlignment="Right"
                         VerticalAlignment="Center"
@@ -241,16 +240,13 @@
                         Margin="0 0 40 0"
                         BorderThickness="0"
                         materialDesign:HintAssist.Hint="Enter your password again"
-                        MaxLines="1"
                         Height="45"
                         FontSize="17"
                         FontWeight="SemiBold"
                         Padding="0"
                         HorizontalContentAlignment="Left"
-                        VerticalContentAlignment="Center" 
-                        Cursor="Arrow" >
-
-                    </TextBox>
+                        VerticalContentAlignment="Center">
+                    </PasswordBox>
                 </Grid>
                 <Grid Grid.Row="5"
                     Width="550" 
@@ -283,7 +279,9 @@
                         Foreground="#57548B"
                         FocusVisualStyle="{x:Null}"
                         FontWeight="SemiBold"
-                        FontSize="22">                        
+                        FontSize="22"
+                        Command="{Binding CloseWindowCommand}"
+                        CommandParameter="{Binding ElementName=wdSignUp}">                        
                     </Button>
                 </Grid>
              </Grid>
