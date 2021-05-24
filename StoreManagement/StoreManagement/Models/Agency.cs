@@ -37,5 +37,6 @@ namespace StoreManagement.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Receipt> Receipts { get; set; }
         public virtual TypeOfAgency TypeOfAgency1 { get; set; }
+        public virtual District District1 { get; set; }
     }
 }

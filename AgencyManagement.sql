@@ -117,6 +117,16 @@ create table StockReceiptInfo
 )
 go
 
+create table District
+(
+	Name nvarchar(100),
+	NumberAgencyInDistrict int default 0,
+
+	constraint PK_District primary key(Name)
+)
+
+alter table Agency add constraint FK_District foreign key(District) references District(Name)
+
 alter table InvoiceInfo add constraint FK_InvoiceID foreign key (InvoiceID) references Invoice(ID)
 go
 alter table InvoiceInfo add constraint FK_ProductID foreign key (ProductID) references Product(ID)

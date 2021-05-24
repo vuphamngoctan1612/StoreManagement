@@ -35,5 +35,6 @@ namespace StoreManagement.Models
         public virtual DbSet<StockReceipt> StockReceipts { get; set; }
         public virtual DbSet<StockReceiptInfo> StockReceiptInfoes { get; set; }
         public virtual DbSet<TypeOfAgency> TypeOfAgencies { get; set; }
+        public virtual DbSet<District> Districts { get; set; }
     }
 }
