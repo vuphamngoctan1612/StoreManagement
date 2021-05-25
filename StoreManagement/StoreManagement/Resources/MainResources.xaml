@@ -8,6 +8,8 @@
     <viewmodels:BillViewModel x:Key="BillVM"></viewmodels:BillViewModel>
     <viewmodels:ProductViewModel x:Key="ProductVM"></viewmodels:ProductViewModel>
     <viewmodels:ReportViewModel x:Key="ReportVM"></viewmodels:ReportViewModel>
-    <viewmodels:AccountViewModel x:Key="AccountVM"></viewmodels:AccountViewModel>
     <viewmodels:AgencyReportViewModel x:Key="AgencyReportVM"></viewmodels:AgencyReportViewModel>
+    <viewmodels:BusinessViewModel x:Key="BusinessVM"/>
+    <viewmodels:SettingViewModel x:Key="SettingVM"/>
+    <viewmodels:AccountViewModel x:Key="AccountVM"></viewmodels:AccountViewModel>
 </ResourceDictionary>

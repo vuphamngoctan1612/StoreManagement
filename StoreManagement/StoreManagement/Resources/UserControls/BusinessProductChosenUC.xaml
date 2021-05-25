@@ -13,49 +13,57 @@
              BorderBrush="#EBF0FF"
              BorderThickness="1"
              Margin="0"
-             Padding="0">
+             Padding="0"
+             DataContext="{StaticResource BusinessVM}">
     <Grid>
         <TextBlock
+            x:Name="txbID"
             Text="ID"
             FontSize="14"
             FontWeight="SemiBold"
             Foreground="#504D85"
             VerticalAlignment="Center"
             HorizontalAlignment="Left"
-            Margin="30,10"/>
+            Margin="30,10"
+            Visibility="Hidden"/>
         <TextBlock
+            x:Name="txbName"
             Text="NAME"
             FontSize="14"
             FontWeight="SemiBold"
             Foreground="#504D85"
             VerticalAlignment="Center"
             HorizontalAlignment="Left"
-            Margin="150,10"/>
+            Margin="80,10"/>
         <TextBlock
+            x:Name="txbUnit"
             Text="UNIT"
             FontSize="14"
             FontWeight="SemiBold"
             Foreground="#504D85"
             VerticalAlignment="Center"
             HorizontalAlignment="Left"
-            Margin="300,10"/>
+            Margin="250,10"/>
         <TextBlock
+            x:Name="txbPrice"
             Text="PRICE"
             FontSize="14"
             FontWeight="SemiBold"
             Foreground="#504D85"
             VerticalAlignment="Center"
             HorizontalAlignment="Right"
-            Margin="300,10"/>
+            Margin="320,10"/>
         <TextBlock
+            x:Name="txbAmount"
             Text="AMOUNT"
             FontSize="14"
             FontWeight="SemiBold"
             Foreground="#504D85"
             VerticalAlignment="Center"
             HorizontalAlignment="Right"
-            Margin="140,10"/>
+            Margin="170,10"/>
         <TextBlock
+            x:Name="txbTotal"
             Text="TOTAL"
             FontSize="14"
             FontWeight="SemiBold"
@@ -71,7 +79,9 @@
             Background="{x:Null}"
             Padding="0"
             BorderThickness="0"
-            Margin="10,8">
+            Margin="10,8"
+            Command="{Binding RemovefromListChosenCommand}"
+            CommandParameter="{Binding ElementName=ProductChosenUC}">
             <materialDesign:PackIcon
                 Kind="Delete"
                 Foreground="Gray"/>
