@@ -7,7 +7,7 @@
              xmlns:local="clr-namespace:StoreManagement.Resources.UserControls"
              mc:Ignorable="d" 
              d:DesignHeight="45" d:DesignWidth="1070"
-             Background="#FFFFFF">
+             Background="WhiteSmoke">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"></RowDefinition>

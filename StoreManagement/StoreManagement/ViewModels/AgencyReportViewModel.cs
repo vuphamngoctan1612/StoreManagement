@@ -57,28 +57,23 @@ namespace StoreManagement.ViewModels
         }
         private void Switch(HomeWindow para)
         {
-            int index = int.Parse(uid);
-            switch (index)
+            if (para.comboBoxReport.SelectedIndex == 0)
             {
-                case 1:
-                    para.textSalesReport.Visibility = System.Windows.Visibility.Visible;
-                    para.textDebtReport.Visibility = System.Windows.Visibility.Hidden;
-                    para.cardTitleSalesReport.Visibility = System.Windows.Visibility.Visible;
-                    para.cardSalesReport.Visibility = System.Windows.Visibility.Visible;
-                    para.cardDebtAgencyReport.Visibility = System.Windows.Visibility.Hidden;
-                    para.scrollSales.Visibility = System.Windows.Visibility.Visible;
-                    para.scrollDebt.Visibility = System.Windows.Visibility.Hidden;
-                    break;
-                case 2:
-                    para.textSalesReport.Visibility = System.Windows.Visibility.Hidden;
-                    para.textDebtReport.Visibility = System.Windows.Visibility.Visible;
-                    para.cardTitleSalesReport.Visibility = System.Windows.Visibility.Visible;
-                    para.cardSalesReport.Visibility = System.Windows.Visibility.Hidden;
-                    para.cardDebtAgencyReport.Visibility = System.Windows.Visibility.Visible;
-                    para.scrollSales.Visibility = System.Windows.Visibility.Hidden;
-                    para.scrollDebt.Visibility = System.Windows.Visibility.Visible;
-                    break;
-            } 
+                para.cardTitleSalesReport.Visibility = System.Windows.Visibility.Visible;
+                para.cardSalesReport.Visibility = System.Windows.Visibility.Visible;
+                para.cardDebtAgencyReport.Visibility = System.Windows.Visibility.Hidden;
+                para.scrollSales.Visibility = System.Windows.Visibility.Visible;
+                para.scrollDebt.Visibility = System.Windows.Visibility.Hidden;
+            }
+            if (para.comboBoxReport.SelectedIndex == 1)
+            {
+
+                para.cardTitleSalesReport.Visibility = System.Windows.Visibility.Visible;
+                para.cardSalesReport.Visibility = System.Windows.Visibility.Hidden;
+                para.cardDebtAgencyReport.Visibility = System.Windows.Visibility.Visible;
+                para.scrollSales.Visibility = System.Windows.Visibility.Hidden;
+                para.scrollDebt.Visibility = System.Windows.Visibility.Visible;
+            }
                 
         }
         private void LoadDebtsReport(HomeWindow para)

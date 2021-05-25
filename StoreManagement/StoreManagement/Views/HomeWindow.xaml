@@ -1562,7 +1562,7 @@
                 HorizontalAlignment="Left"
                 VerticalAlignment="Bottom"
                 Margin="0 0 0 0"
-                Visibility="Visible">
+                Visibility="Hidden">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="Loaded">
                         <i:InvokeCommandAction 
@@ -1895,14 +1895,14 @@
                 Background="White"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Bottom"
-                Visibility="Hidden"
+                Visibility="Visible"
                 Margin="0 0 0 0"
                 Height="665"
                 DataContext="{StaticResource AgencyReportVM}">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="3"></RowDefinition>
                     <RowDefinition Height="60"></RowDefinition>
-                    <RowDefinition Height="50"></RowDefinition>
+                    <RowDefinition Height="60"></RowDefinition>
                     <RowDefinition Height="50"></RowDefinition>
                     <RowDefinition Height="*"></RowDefinition>
                 </Grid.RowDefinitions>
@@ -1962,7 +1962,8 @@
                                              VerticalAlignment="Top"
                                              Margin="280 10 0 0"/>
                     </Grid>
-                    <Grid Grid.Column="2">
+                    <Grid Grid.Column="2"
+                          Visibility="Hidden">
                         <Button x:Name="btSalesReport" 
                             x:Uid="1"
                             Style="{StaticResource MaterialDesignRaisedButton}"
@@ -1990,7 +1991,8 @@
                             </i:Interaction.Triggers>
                         </Button>
                     </Grid>
-                    <Grid Grid.Column="3">
+                    <Grid Grid.Column="3"
+                          Visibility="Hidden">
                         <Button x:Name="btDebtReport" 
                             x:Uid="2"
                             Style="{StaticResource MaterialDesignRaisedButton}"
@@ -2022,15 +2024,15 @@
                 <Grid Grid.Row="2">
 
                     <materialDesign:Card x:Name="cardTitleSalesReport"
-                             Height="50"
+                             Height="60"
                              Width="1070"
                              Margin="30,0,0,0"
                              HorizontalAlignment="Left"
                              VerticalAlignment="Top"
                              Padding="0"
                              UniformCornerRadius="0"
-                             Background="White"
-                             Visibility="Hidden">
+                             Background="WhiteSmoke"
+                             Visibility="Visible">
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*"></ColumnDefinition>
@@ -2038,24 +2040,33 @@
                             </Grid.ColumnDefinitions>
 
                             <Grid Grid.Column="0">
-                                <TextBlock x:Name="textSalesReport"
-                                    Text="Sales Report"
-                                    HorizontalAlignment="Center"
-                                    VerticalAlignment="Center"
-                                    FontSize="25"
-                                    FontFamily="Segoe UI"
-                                    FontWeight="Bold"
-                                    Foreground="#57548B"
-                                    Visibility="Hidden"></TextBlock>
-                                <TextBlock x:Name="textDebtReport"
-                                    Text="Receipt Bill"
-                                    HorizontalAlignment="Center"
-                                    VerticalAlignment="Center"
-                                    FontSize="25"
-                                    FontFamily="Segoe UI"
-                                    FontWeight="Bold"
-                                    Foreground="#57548B"
-                                           Visibility="Hidden"></TextBlock>
+                                <ComboBox
+                                x:Name="comboBoxReport"
+                                materialDesign:ComboBoxAssist.ClassicMode="true"
+                                FontSize="20"
+                                FontWeight="Medium" 
+                                Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+                                Margin="10 0 0 0"
+                                materialDesign:HintAssist.Hint="Choosing report"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Top"
+                                FontFamily="Segoe UI"
+                                Foreground="#57548B"
+                                Visibility="Visible"
+                                Height="55"
+                                materialDesign:HintAssist.Foreground="Gray">
+                                    <ComboBoxItem
+                                    Content="Sales Report" />
+                                    <ComboBoxItem
+                                    Content="Debts Report" />
+                                    <i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="SelectionChanged">
+                                            <i:InvokeCommandAction Command="{Binding SwitchCommand}"
+                                                               CommandParameter="{Binding ElementName=wdHome}"
+                                            />
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>
+                                </ComboBox>
                             </Grid>
                             <Grid Grid.Column="1">
                                 <DatePicker
