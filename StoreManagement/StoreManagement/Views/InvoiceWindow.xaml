@@ -3,24 +3,18 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:local="clr-namespace:StoreManagement.Views"
         mc:Ignorable="d"
         Title="InvoiceWindow" Height="810" Width="900">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="120"></RowDefinition>
+            <RowDefinition Height="150"></RowDefinition>
             <RowDefinition Height="130"></RowDefinition>
             <RowDefinition Height="380"></RowDefinition>
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
         <Grid
             Background="#FFF5F8">
-            <Image
-                VerticalAlignment="Center"
-                HorizontalAlignment="Left"
-                Margin="30,0"
-                Source="\Resources\Images\logo.png"/>
             <TextBlock
                 Text="INVOICE"
                 Foreground="#504D85"
@@ -28,7 +22,7 @@
                 FontWeight="Bold"
                 VerticalAlignment="Center"
                 HorizontalAlignment="Left"
-                Margin="150,0"/>
+                Margin="150,0"></TextBlock>
         </Grid>
         <Grid Grid.Row="1">
             <Grid.RowDefinitions>
@@ -90,24 +84,6 @@
                     VerticalAlignment="Bottom"
                     HorizontalAlignment="Right"
                     Margin="0,20,500,20"/>
-                <Button
-                    x:Name="btnPrint"
-                    Height="40"
-                    Width="40"
-                    HorizontalAlignment="Right"
-                    VerticalAlignment="Center"
-                    Margin="50,0"
-                    Background="{x:Null}"
-                    BorderBrush="{x:Null}"
-                    Padding="0"
-                    Command="{Binding PrintInvoiceCommand}"
-                    CommandParameter="{Binding ElementName=wdInvoice}">
-                    <materialDesign:PackIcon
-                        Kind="Printer"
-                        Foreground="CadetBlue"
-                        Height="40"
-                        Width="40"/>
-                </Button>
             </Grid>
         </Grid>
         <Grid
@@ -128,7 +104,7 @@
                 FontWeight="SemiBold"
                 VerticalAlignment="Top"
                 HorizontalAlignment="Left"
-                Margin="60,50"/>
+                Margin="60,20"/>
             <TextBlock 
                 Text="Date"
                 Foreground="#504D85"
@@ -145,7 +121,7 @@
                 FontWeight="SemiBold"
                 VerticalAlignment="Top"
                 HorizontalAlignment="Left"
-                Margin="200,50"/>
+                Margin="200,20"/>
             <TextBlock 
                 x:Name="txbInvoiceDate"
                 Text="0366901216"
@@ -155,7 +131,7 @@
                 VerticalAlignment="Bottom"
                 HorizontalAlignment="Left"
                 Margin="200,20"/>
-
+            
             <TextBlock 
                 Text="Total"
                 Width="80"
@@ -174,9 +150,9 @@
                 Foreground="#263238"
                 FontSize="16"
                 FontWeight="SemiBold"
-                VerticalAlignment="Center"
+                VerticalAlignment="Top"
                 HorizontalAlignment="Right"
-                Margin="200,55"/>
+                Margin="200,45"/>
             <TextBlock 
                 Text="Rest"
                 x:Name="textRest"
@@ -207,9 +183,9 @@
                 Foreground="#263238"
                 FontSize="16"
                 FontWeight="SemiBold"
-                VerticalAlignment="Center"
+                VerticalAlignment="Top"
                 HorizontalAlignment="Right"
-                Margin="100,55"/>
+                Margin="100,45"/>
             <TextBlock 
                 x:Name="txbDebt"
                 Text="9999999"
@@ -223,6 +199,7 @@
                 Margin="100,20"/>
             <TextBlock 
                 Text="VND"
+                Width="80"
                 TextAlignment="Right"
                 Foreground="#263238"
                 FontSize="16"
@@ -232,17 +209,20 @@
                 Margin="60,20"/>
             <TextBlock 
                 Text="VND"
+                x:Name="textPreVND"
+                Width="80"
                 TextAlignment="Right"
                 Foreground="#263238"
                 FontSize="16"
                 FontWeight="SemiBold"
-                VerticalAlignment="Center"
+                VerticalAlignment="Top"
                 HorizontalAlignment="Right"
-                Margin="60,55"/>
+                Margin="60,45"/>
             <TextBlock 
                 Text="VND"
                 x:Name="textRestVND"
                 Foreground="#263238"
+                Width="80"
                 TextAlignment="Right"
                 FontSize="16"
                 FontWeight="SemiBold"

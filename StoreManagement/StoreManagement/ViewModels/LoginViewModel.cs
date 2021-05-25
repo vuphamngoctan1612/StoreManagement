@@ -17,13 +17,20 @@ namespace StoreManagement.ViewModels
 {
     class LoginViewModel : BaseViewModel
     {
+
+
         public ICommand LoginCommand { get; set; }
+
         public ICommand OpenSignUpWindowCommand { get; set; }
-        
+
+
         public LoginViewModel()
         {
             LoginCommand = new RelayCommand<LoginWindow>((p) => { return true; }, (p) => { Login(p); });
+
+
             OpenSignUpWindowCommand = new RelayCommand<LoginWindow>((parameter) => true, (parameter) => OpenSignUpWindow(parameter));
+
         }
 
         public void OpenSignUpWindow(LoginWindow parameter)
@@ -31,14 +38,19 @@ namespace StoreManagement.ViewModels
             SignUpWindow SignUp = new SignUpWindow();
 
             SignUp.Show();
+
         }
 
         void Login(LoginWindow parameter)
         {
+
             if (parameter == null)
             {
                 return;
             }
+            string queryAccount = "select* from account";
+
+            List<Account> accounts = DataProvider.Instance.DB.Accounts.SqlQuery(queryAccount).ToList();
             //check username
             if (String.IsNullOrEmpty(parameter.txtUser.Text))
             {
@@ -61,26 +73,21 @@ namespace StoreManagement.ViewModels
                 HomeWindow homeWindow = new HomeWindow();
                 CurrentAccount.Instance.ConvertAccToCurrentAcc(parameter.txtUser.Text);
                 parameter.Hide();
-
-                ImageBrush imageBrush = new ImageBrush();
-                imageBrush.ImageSource = Converter.Instance.ConvertByteToBitmapImage(CurrentAccount.Image);
-                homeWindow.grdAcc_Image.Background = imageBrush;
-                homeWindow.menu_Acc_DisplayName.Header = CurrentAccount.DisplayName;
-
-                if (homeWindow.grdAcc_Image.Children.Count != 0)
-                {
-                    homeWindow.grdAcc_Image.Children.Remove(homeWindow.grdAcc_Image.Children[0]);
-                }
-
                 homeWindow.ShowDialog();
-                parameter.txtPassword.Text = "";
-                parameter.Show();
+                parameter.Close();
+
             }
             else
             {
                 MessageBox.Show("Sai tên đăng nhập hoặc mật khẩu!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
+
         }
 
     }
+
+
+
+
+
 }
