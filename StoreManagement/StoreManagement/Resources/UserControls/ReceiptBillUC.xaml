@@ -9,7 +9,7 @@
              x:Name="displayReceiptBill"
              mc:Ignorable="d" 
              d:DesignHeight="45" d:DesignWidth="1070"
-             Background="#FFFFFF"
+             Background="WhiteSmoke"
              Padding="1"
              DataContext="{StaticResource BillVM}">
     <Grid>

@@ -22,6 +22,8 @@ namespace StoreManagement.ViewModels
     {
         private string uid;
         private int status = 0;
+        private long? total = 0;
+        private long? pay = 0;
 
         public HomeWindow HomeWindow { get; set; }
         public ICommand OpenInvoiceWindowCommand { get; set; }
@@ -29,6 +31,7 @@ namespace StoreManagement.ViewModels
         public ICommand SeparateThousandsCommand { get; set; }
         public ICommand LoadBillCommand { get; set; }
         public ICommand LoadReceiptBillCommand { get; set; }
+        public ICommand LoadStockReceiptCommnad { get; set; }
         public ICommand SwitchCommand { get; set; }
         public ICommand ExportExcelCommand { get; set; }
         public ICommand GetUidCommand { get; set; }
@@ -38,7 +41,8 @@ namespace StoreManagement.ViewModels
         {
             LoadBillCommand = new RelayCommand<HomeWindow>((para) => true, (para) => LoadBill(para));
             LoadReceiptBillCommand = new RelayCommand<HomeWindow>((para) => true, (para) => LoadReceiptBill(para));
-            GetUidCommand = new RelayCommand<Button>((para) => true, (para) => uid = para.Uid);
+            LoadStockReceiptCommnad = new RelayCommand<HomeWindow>((para) => true, (para) => LoadStockReceipt(para));
+            GetUidCommand = new RelayCommand<ComboBox>((para) => true, (para) => uid = para.Uid);
             SwitchCommand = new RelayCommand<HomeWindow>((para) => true, (para) => Switch(para));
             SearchAgencyCommand = new RelayCommand<HomeWindow>((para) => true, (para) => Search(para));
             OpenInvoiceWindowCommand = new RelayCommand<InvoiceUC>((para) => true, (para) => OpenInvoiceWindow(para));
@@ -51,7 +55,7 @@ namespace StoreManagement.ViewModels
         {
             if (status == 0)
             {
-                MessageBox.Show("Click Releasing Bill or Receipt Bill firt");
+                MessageBox.Show("Click Releasing Bill, Receipt Bill or Stock Receipt first");
                 return;
             }
             SaveFileDialog sfd = new SaveFileDialog() { Filter = "Excel Workbook|*.xlsx" };
@@ -81,6 +85,14 @@ namespace StoreManagement.ViewModels
                     }
 
                 }
+                if (status == 3)
+                {
+                    List<StockReceipt> stockReceipts = DataProvider.Instance.DB.StockReceipts.ToList();
+                    using (var reader = ObjectReader.Create(stockReceipts))
+                    {
+                        data.Load(reader);
+                    }    
+                }    
                 worksheet = application.Worksheets.Add(misValue, misValue, misValue, misValue);
                 worksheet.Name = "Bill";
                 for (int i = 0; i < data.Columns.Count; i++)
@@ -112,34 +124,71 @@ namespace StoreManagement.ViewModels
         }
         private void OpenInvoiceWindow (InvoiceUC para)
         {
-            int no = 1;
-            Invoice invoice = new Invoice();
-            int id = int.Parse(para.InvoiceID.Text);
-            invoice = (Invoice)DataProvider.Instance.DB.Invoices.Where(x => x.ID == id).First();
-            List<InvoiceInfo> invoiceInfos = invoice.InvoiceInfoes.ToList();
-            InvoiceWindow invoiceWindow = new InvoiceWindow();
-            invoiceWindow.txbName.Text = invoice.Agency.Name;
-            invoiceWindow.txbAddress.Text = invoice.Agency.Address;
-            invoiceWindow.txbPhone.Text = invoice.Agency.PhoneNumber;
-            invoiceWindow.txbInvoiceID.Text = invoice.ID.ToString();
-            invoiceWindow.txbInvoiceDate.Text = invoice.Checkout.Value.ToShortDateString();
-            foreach (InvoiceInfo invoiceInfo in invoiceInfos)
+            if (para.AgencyName.Text == "Our company")
             {
-                Product product = new Product();
-                BillUC billUC = new BillUC();
-                billUC.ID.Text = no.ToString();
-                no++;
-                billUC.UnitName.Text = invoiceInfo.Product.Name.ToString();
-                billUC.Unit.Text = invoiceInfo.Product.Unit.ToString();
-                billUC.Amount.Text = invoiceInfo.Amount.ToString();
-                billUC.Price.Text = invoiceInfo.Product.ExportPrice.ToString();
-                billUC.Total.Text = invoiceInfo.Total.ToString();
-                invoiceWindow.stkListInvoiceInfos.Children.Add(billUC);
+                int no = 1;
+                StockReceipt stockReceipt = new StockReceipt();
+                int id = int.Parse(para.InvoiceID.Text);
+                stockReceipt = (StockReceipt)DataProvider.Instance.DB.StockReceipts.Where(x => x.ID == id).First();
+                List<StockReceiptInfo> stockReceiptInfos = stockReceipt.StockReceiptInfoes.ToList();
+                InvoiceWindow invoiceWindow = new InvoiceWindow();
+                invoiceWindow.txbName.Text = "Our company";
+                invoiceWindow.txbAddress.Text = "University of Infomation Technology";
+                invoiceWindow.txbInvoiceID.Text = stockReceipt.ID.ToString();
+                invoiceWindow.txbInvoiceDate.Text = stockReceipt.CheckIn.Value.ToShortDateString();
+                foreach (StockReceiptInfo stockReceiptInfo in stockReceiptInfos)
+                {
+                    BillUC billUC = new BillUC();
+                    billUC.ID.Text = no.ToString();
+                    no++;
+                    billUC.UnitName.Text = stockReceiptInfo.Product.Name.ToString();
+                    billUC.UnitName.Text = stockReceiptInfo.Product.Name.ToString();
+                    billUC.Unit.Text = stockReceiptInfo.Product.Unit.ToString();
+                    billUC.Amount.Text = stockReceiptInfo.Amount.ToString();
+                    billUC.Price.Text = stockReceiptInfo.Product.ExportPrice.ToString();
+                    billUC.Total.Text = ConvertToString(stockReceiptInfo.Price);
+                    invoiceWindow.stkListInvoiceInfos.Children.Add(billUC);
+                }
+                invoiceWindow.txbTotal.Text = ConvertToString(stockReceipt.Total);
+                invoiceWindow.txbDebt.Visibility = System.Windows.Visibility.Hidden;
+                invoiceWindow.txbPrepay.Visibility = System.Windows.Visibility.Hidden;
+                invoiceWindow.textPre.Visibility = System.Windows.Visibility.Hidden;
+                invoiceWindow.textPreVND.Visibility = System.Windows.Visibility.Hidden;
+                invoiceWindow.textRest.Visibility = System.Windows.Visibility.Hidden;
+                invoiceWindow.textRestVND.Visibility = System.Windows.Visibility.Hidden;
+                invoiceWindow.ShowDialog();
             }
-            invoiceWindow.txbTotal.Text = invoice.Total.ToString();
-            invoiceWindow.txbPrepay.Text = (invoice.Total - invoice.Debt).ToString();
-            invoiceWindow.txbDebt.Text = invoice.Debt.ToString();
-            invoiceWindow.ShowDialog();
+            else
+            {
+                int no = 1;
+                Invoice invoice = new Invoice();
+                int id = int.Parse(para.InvoiceID.Text);
+                invoice = (Invoice)DataProvider.Instance.DB.Invoices.Where(x => x.ID == id).First();
+                List<InvoiceInfo> invoiceInfos = invoice.InvoiceInfoes.ToList();
+                InvoiceWindow invoiceWindow = new InvoiceWindow();
+                invoiceWindow.txbName.Text = invoice.Agency.Name;
+                invoiceWindow.txbAddress.Text = invoice.Agency.Address;
+                invoiceWindow.txbPhone.Text = invoice.Agency.PhoneNumber;
+                invoiceWindow.txbInvoiceID.Text = invoice.ID.ToString();
+                invoiceWindow.txbInvoiceDate.Text = invoice.Checkout.Value.ToShortDateString();
+                foreach (InvoiceInfo invoiceInfo in invoiceInfos)
+                {
+                    Product product = new Product();
+                    BillUC billUC = new BillUC();
+                    billUC.ID.Text = no.ToString();
+                    no++;
+                    billUC.UnitName.Text = invoiceInfo.Product.Name.ToString();
+                    billUC.Unit.Text = invoiceInfo.Product.Unit.ToString();
+                    billUC.Amount.Text = invoiceInfo.Amount.ToString();
+                    billUC.Price.Text = invoiceInfo.Product.ExportPrice.ToString();
+                    billUC.Total.Text = ConvertToString(invoiceInfo.Total);
+                    invoiceWindow.stkListInvoiceInfos.Children.Add(billUC);
+                }
+                invoiceWindow.txbTotal.Text = ConvertToString(invoice.Total);
+                invoiceWindow.txbPrepay.Text = ConvertToString((invoice.Total - invoice.Debt));
+                invoiceWindow.txbDebt.Text = ConvertToString(invoice.Debt);
+                invoiceWindow.ShowDialog();
+            }
         }
         private void Search(HomeWindow para)
         {
@@ -169,7 +218,6 @@ namespace StoreManagement.ViewModels
         }
         private void LoadBill(HomeWindow para)
         {
-
             this.HomeWindow = para;
             this.HomeWindow.stkBill.Children.Clear();
             List<Invoice> invoices = new List<Invoice>();
@@ -181,8 +229,10 @@ namespace StoreManagement.ViewModels
                 invoiceUC.AgencyName.Text = invoice.Agency.Name.ToString();
                 invoiceUC.CheckOut.Text = invoice.Checkout.Value.ToShortDateString();
                 invoiceUC.Debt.Text = ConvertToString(invoice.Debt);
+                total += invoice.Total;
                 this.HomeWindow.stkBill.Children.Add(invoiceUC);
-            }    
+            }
+            this.HomeWindow.textCollect.Text = ConvertToString(total);
         }
         private void LoadReceiptBill(HomeWindow para)
         {
@@ -200,36 +250,66 @@ namespace StoreManagement.ViewModels
                 this.HomeWindow.stkReceiptBill.Children.Add(receiptBillUC);
             }    
         }
+        private void LoadStockReceipt(HomeWindow para)
+        {
+            this.HomeWindow = para;
+            this.HomeWindow.stkStockReceipt.Children.Clear();
+            List<StockReceipt> stockReceipts = new List<StockReceipt>();
+            stockReceipts = DataProvider.Instance.DB.StockReceipts.ToList<StockReceipt>();
+            foreach (StockReceipt stockReceipt in stockReceipts) 
+            {
+                InvoiceUC invoiceUC = new InvoiceUC();
+                invoiceUC.InvoiceID.Text = stockReceipt.ID.ToString();
+                invoiceUC.AgencyName.Text = "Our company";
+                invoiceUC.CheckOut.Text = stockReceipt.CheckIn.Value.ToShortDateString();
+                invoiceUC.Debt.Text = ConvertToString(stockReceipt.Total);
+                pay += stockReceipt.Total;
+                this.HomeWindow.stkStockReceipt.Children.Add(invoiceUC);
+            }
+            this.HomeWindow.textPay.Text = "-" + ConvertToString(pay);
+        }
         private void Switch(HomeWindow para)
         {
-            int index = int.Parse(uid);
-            switch (index)
+            if (para.comboBoxBill.SelectedIndex == 1)
             {
-                case 1:
-                    status = 1;
-                    para.InvoiceTable.Visibility = System.Windows.Visibility.Visible;
-                    para.textReleasingBill.Visibility = System.Windows.Visibility.Visible;
-                    para.stkBill.Visibility = System.Windows.Visibility.Visible;
-                    para.textReceiptBill.Visibility = System.Windows.Visibility.Hidden;
-                    para.stkReceiptBill.Visibility = System.Windows.Visibility.Hidden;
-                    para.ColumnHeaderBill.Visibility = System.Windows.Visibility.Visible;
-                    para.ScrollInvoice.Visibility = System.Windows.Visibility.Visible;
-                    para.ScrollReceipt.Visibility = System.Windows.Visibility.Hidden;
-                    para.LastBlock.Text = "Debt";
-                    break;
-                case 2:
-                    status = 2;
-                    para.InvoiceTable.Visibility = System.Windows.Visibility.Visible;
-                    para.textReleasingBill.Visibility = System.Windows.Visibility.Hidden;
-                    para.stkBill.Visibility = System.Windows.Visibility.Hidden;
-                    para.textReceiptBill.Visibility = System.Windows.Visibility.Visible;
-                    para.stkReceiptBill.Visibility = System.Windows.Visibility.Visible;
-                    para.ColumnHeaderBill.Visibility = System.Windows.Visibility.Visible;
-                    para.ScrollReceipt.Visibility = System.Windows.Visibility.Visible;
-                    para.ScrollInvoice.Visibility = System.Windows.Visibility.Visible;
-                    para.LastBlock.Text = "Amount";
-                    break;
+                status = 1;
+                para.InvoiceTable.Visibility = System.Windows.Visibility.Visible;
+                para.stkBill.Visibility = System.Windows.Visibility.Visible;
+                para.stkReceiptBill.Visibility = System.Windows.Visibility.Hidden;
+                para.stkStockReceipt.Visibility = System.Windows.Visibility.Hidden;
+                para.ColumnHeaderBill.Visibility = System.Windows.Visibility.Visible;
+                para.ScrollInvoice.Visibility = System.Windows.Visibility.Visible;
+                para.ScrollReceipt.Visibility = System.Windows.Visibility.Hidden;
+                para.ScrollStockReceipt.Visibility = System.Windows.Visibility.Hidden;
+                para.LastBlock.Text = "Debt";
             }
+            if (para.comboBoxBill.SelectedIndex == 2)
+            {
+                status = 2;
+                para.InvoiceTable.Visibility = System.Windows.Visibility.Visible;
+                para.stkBill.Visibility = System.Windows.Visibility.Hidden;
+                para.stkReceiptBill.Visibility = System.Windows.Visibility.Visible;
+                para.stkStockReceipt.Visibility = System.Windows.Visibility.Hidden;
+                para.ColumnHeaderBill.Visibility = System.Windows.Visibility.Visible;
+                para.ScrollReceipt.Visibility = System.Windows.Visibility.Visible;
+                para.ScrollInvoice.Visibility = System.Windows.Visibility.Hidden;
+                para.ScrollStockReceipt.Visibility = System.Windows.Visibility.Hidden;
+                para.LastBlock.Text = "Amount";
+            }
+            if (para.comboBoxBill.SelectedIndex == 0)
+            {
+                status = 3;
+                para.InvoiceTable.Visibility = System.Windows.Visibility.Visible;
+                para.stkBill.Visibility = System.Windows.Visibility.Hidden;
+                para.stkReceiptBill.Visibility = System.Windows.Visibility.Hidden;
+                para.stkStockReceipt.Visibility = System.Windows.Visibility.Visible;
+                para.ColumnHeaderBill.Visibility = System.Windows.Visibility.Visible;
+                para.ScrollInvoice.Visibility = System.Windows.Visibility.Hidden;
+                para.ScrollReceipt.Visibility = System.Windows.Visibility.Hidden;
+                para.ScrollStockReceipt.Visibility = System.Windows.Visibility.Visible;
+                para.LastBlock.Text = "Total";
+            }
+            
         }
     }
 }
