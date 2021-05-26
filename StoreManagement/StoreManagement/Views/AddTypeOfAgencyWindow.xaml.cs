@@ -11,16 +11,15 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using System.Windows.Markup;
 
 namespace StoreManagement.Views
 {
     /// <summary>
-    /// Interaction logic for InvoiceWindow.xaml
+    /// Interaction logic for AddTypeOfAgencyWindow.xaml
     /// </summary>
-    public partial class InvoiceWindow : Window
+    public partial class AddTypeOfAgencyWindow : Window
     {
-        public InvoiceWindow()
+        public AddTypeOfAgencyWindow()
         {
             InitializeComponent();
         }

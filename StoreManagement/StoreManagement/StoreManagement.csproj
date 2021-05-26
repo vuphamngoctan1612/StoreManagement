@@ -175,6 +175,9 @@
     <Compile Include="Resources\UserControls\InvoiceUC.xaml.cs">
       <DependentUpon>InvoiceUC.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Resources\UserControls\InvoiceBusinessUC.xaml.cs">
+      <DependentUpon>InvoiceBusinessUC.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Resources\UserControls\ProductControlUC.xaml.cs">
       <DependentUpon>ProductControlUC.xaml</DependentUpon>
     </Compile>
@@ -298,6 +301,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Resources\UserControls\InvoiceBusinessUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Resources\UserControls\ProductControlUC.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -335,6 +342,17 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ReceiptBillWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\AddStoreWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\AddTypeOfAgencyWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

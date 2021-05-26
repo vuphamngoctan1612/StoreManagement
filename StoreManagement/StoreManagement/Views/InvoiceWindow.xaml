@@ -15,6 +15,14 @@
         </Grid.RowDefinitions>
         <Grid
             Background="#FFF5F8">
+<<<<<<< HEAD
+            <Image
+                VerticalAlignment="Center"
+                HorizontalAlignment="Left"
+                Margin="30,0"
+                Source="file:///D:/GitClone/StoreManagement/StoreManagement/StoreManagement/Resources/Images/logo.png"/>
+=======
+>>>>>>> f7b57017c13f1e6519f43b048a0e31c62e3ed2be
             <TextBlock
                 Text="INVOICE"
                 Foreground="#504D85"
@@ -198,6 +206,7 @@
                 HorizontalAlignment="Right"
                 Margin="100,20"/>
             <TextBlock 
+                x:Name="totalVND"
                 Text="VND"
                 Width="80"
                 TextAlignment="Right"
@@ -208,6 +217,7 @@
                 HorizontalAlignment="Right"
                 Margin="60,20"/>
             <TextBlock 
+                x:Name="textPreVND"
                 Text="VND"
                 x:Name="textPreVND"
                 Width="80"

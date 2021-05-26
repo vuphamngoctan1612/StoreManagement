@@ -21,7 +21,11 @@ namespace StoreManagement.Resources.UserControls
     public partial class InvoiceUC : UserControl
     {
         public InvoiceUC()
+<<<<<<< HEAD
+        { 
+=======
         {
+>>>>>>> f7b57017c13f1e6519f43b048a0e31c62e3ed2be
             InitializeComponent();
         }
     }

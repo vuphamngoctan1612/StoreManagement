@@ -10,17 +10,17 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
-using System.Windows.Markup;
 
-namespace StoreManagement.Views
+namespace StoreManagement.Resources.UserControls
 {
     /// <summary>
-    /// Interaction logic for InvoiceWindow.xaml
+    /// Interaction logic for TypeOfAgencyUC.xaml
     /// </summary>
-    public partial class InvoiceWindow : Window
+    public partial class TypeOfAgencyUC : UserControl
     {
-        public InvoiceWindow()
+        public TypeOfAgencyUC()
         {
             InitializeComponent();
         }
