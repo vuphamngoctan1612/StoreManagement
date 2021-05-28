@@ -148,10 +148,10 @@ go
 insert into TypeOfAgency values (1, 'Type 1', 1000000)
 insert into TypeOfAgency values (2, 'Type 2', 2000000)
 
-insert into Agency values (1, 'Agency 1', 1, '0987654321', 'TP HCM', 'Quan 1', GETDATE(), 'abcdxyz@gmail.com', 500000, 0)
-insert into Agency values (2, 'Agency 2', 2, '0987234321', 'TP HCM', 'Quan 1', GETDATE(), 'abcdxyz@gmail.com', 600000, 0)
-insert into Agency values (3, 'Agency 3', 2, '0985314321', 'TP HCM', 'Quan 1', GETDATE(), 'abcdxyz@gmail.com', 800000, 0)
-insert into Agency values (4, 'Agency 4', 1, '0987844321', 'TP HCM', 'Quan 1', GETDATE(), 'abcdxyz@gmail.com', 900000, 0)
+insert into Agency values (3, 'Agency 3', 1, '0987654321', 'TP HCM', 'Quan 1', GETDATE(), 'abcdxyz@gmail.com', 500000, 0)
+insert into Agency values (4, 'Agency 4', 2, '0987234321', 'TP HCM', 'Quan 1', GETDATE(), 'abcdxyz@gmail.com', 600000, 0)
+insert into Agency values (5, 'Agency 5', 2, '0985314321', 'TP HCM', 'Quan 1', GETDATE(), 'abcdxyz@gmail.com', 800000, 0)
+insert into Agency values (6, 'Agency 6', 1, '0987844321', 'TP HCM', 'Quan 1', GETDATE(), 'abcdxyz@gmail.com', 900000, 0)
 
 insert into Invoice values (1,1,'2021-2-19', 200000, 20000000)
 insert into Invoice values (2,1,'2021-2-28', 340000, 2900000)
@@ -172,7 +172,42 @@ insert into Invoice values (13,4,GETDATE(), 210000, 2900000)
 insert into Invoice values (14,4,GETDATE(), 500000, 5200000)
 insert into Invoice values (15,4,GETDATE(), 200000, 4000000)
 insert into Invoice values (16,4,'2021-1-25', 290000, 2900000)
+insert into Invoice values (3,1,GETDATE(),2000000,4000000)
+insert into Invoice values (4,2,GETDATE(),1000000,4000000)
+insert into Invoice values (5,1,GETDATE(),2000000,5000000)
+insert into Invoice values (6,1,'2021-05-27',1000000,5000000)
+insert into Invoice values (7,1,dateadd(day,datediff(day,1,GETDATE()),0),1000000,5000000)
+insert into Invoice values (8,2,'2021-05-26',1000000,5000000)
+insert into Invoice values (9,2,'2021-04-26',1000000,50000000)
+insert into Invoice values (10,2,'2021-05-27',1000000,8000000)
+insert into Invoice values (11,2,'2021-05-27',1000000,8000000)
+insert into Invoice values (13,2,'2021-05-27',1000000,8000000)
+insert into Invoice values (14,2,'2021-05-27',1000000,2000000)
+insert into Invoice values (15,2,'2021-05-27',0,1000000)
+insert into Invoice values (16,2,'2021-05-27',0,1000000)
+insert into Invoice values (17,2,'2021-05-27',0,1000000)
+select count(ID) from Invoice
+where Checkout = (select CAST (GETDATE() as date))
 
+select sum(Total) from Invoice
+where Checkout = (select CAST (GETDATE() as date))
+
+
+select * from Invoice
+where Checkout = (select CAST (GETDATE() - 1 as date))
+
+select sum(Total) from Invoice
+where Checkout = (select CAST (GETDATE() - 1 as date))
+
+select sum(Total) from Invoice
+where ( select month(Checkout) as month) = (select month(GETDATE()) as month)
+
+select sum(Total) from Invoice
+where ( select month(Checkout) as month) = (select month(GETDATE()) - 1 as month)
+
+select CAST (GETDATE() - 1 as date)
+
+SELECT MONTH(GETDATE()) - 1 AS Month;
 
 -- đống này kh insert được do thiếu product
 --INSERT INTO InvoiceInfo VALUES (1, 1,3, 600000)

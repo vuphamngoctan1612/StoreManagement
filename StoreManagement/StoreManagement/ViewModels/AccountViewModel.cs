@@ -233,101 +233,101 @@ namespace StoreManagement.ViewModels
         }
         private void Account_ChangePassword(HomeWindow para)
         {
-            if (string.IsNullOrEmpty(para.txt_Account_Password.Text))
-            {
-                para.txt_Account_Password.Focus();
-                return;
-            }
-            if (string.IsNullOrEmpty(para.txt_Account_NewPassword.Text))
-            {
-                para.txt_Account_NewPassword.Focus();
-                return;
-            }
-            if (string.IsNullOrEmpty(para.txt_Account_RetypeNewPassword.Text))
-            {
-                para.txt_Account_RetypeNewPassword.Focus();
-                return;
-            }
-            if (para.txt_Account_NewPassword.Text == para.txt_Account_Password.Text)
-            {
-                para.txt_Account_NewPassword.Focus();
-                MessageBox.Show("Vui lòng nhập mật khẩu khác với mật khẩu hiện tại.");
-                return;
-            }
-            if (para.txt_Account_NewPassword.Text != para.txt_Account_RetypeNewPassword.Text)
-            {
-                para.txt_Account_NewPassword.Focus();
-                MessageBox.Show("Nhập lại mật khẩu chưa trùng khớp vui lòng nhập lại.");
-                return;
-            }
-            try
-            {
-                Account acc = new Account();
-                acc = DataProvider.Instance.DB.Accounts.Where(x => x.Username == tempUsername).First();
+        //    if (string.IsNullOrEmpty(para.txt_Account_Password.Text))
+        //    {
+        //        para.txt_Account_Password.Focus();
+        //        return;
+        //    }
+        //    if (string.IsNullOrEmpty(para.txt_Account_NewPassword.Text))
+        //    {
+        //        para.txt_Account_NewPassword.Focus();
+        //        return;
+        //    }
+        //    if (string.IsNullOrEmpty(para.txt_Account_RetypeNewPassword.Text))
+        //    {
+        //        para.txt_Account_RetypeNewPassword.Focus();
+        //        return;
+        //    }
+        //    if (para.txt_Account_NewPassword.Text == para.txt_Account_Password.Text)
+        //    {
+        //        para.txt_Account_NewPassword.Focus();
+        //        MessageBox.Show("Vui lòng nhập mật khẩu khác với mật khẩu hiện tại.");
+        //        return;
+        //    }
+        //    if (para.txt_Account_NewPassword.Text != para.txt_Account_RetypeNewPassword.Text)
+        //    {
+        //        para.txt_Account_NewPassword.Focus();
+        //        MessageBox.Show("Nhập lại mật khẩu chưa trùng khớp vui lòng nhập lại.");
+        //        return;
+        //    }
+        //    try
+        //    {
+        //        Account acc = new Account();
+        //        acc = DataProvider.Instance.DB.Accounts.Where(x => x.Username == tempUsername).First();
 
-                if (para.txt_Account_Password.Text != acc.Password)
-                {
-                    MessageBox.Show("Mật khẩu hiện tại chưa đúng vui lòng nhập lại.");
-                    return;
-                }
-                else
-                {
-                    acc.Password = para.txt_Account_RetypeNewPassword.Text;
-                    DataProvider.Instance.DB.Accounts.AddOrUpdate(acc);
-                    DataProvider.Instance.DB.SaveChanges();
-                    MessageBox.Show("Thay đổi mật khẩu thành công.");
-                    para.txt_Account_Password.Clear();
-                    para.txt_Account_NewPassword.Clear();
-                    para.txt_Account_RetypeNewPassword.Clear();
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
+        //        if (para.txt_Account_Password.Text != acc.Password)
+        //        {
+        //            MessageBox.Show("Mật khẩu hiện tại chưa đúng vui lòng nhập lại.");
+        //            return;
+        //        }
+        //        else
+        //        {
+        //            acc.Password = para.txt_Account_RetypeNewPassword.Text;
+        //            DataProvider.Instance.DB.Accounts.AddOrUpdate(acc);
+        //            DataProvider.Instance.DB.SaveChanges();
+        //            MessageBox.Show("Thay đổi mật khẩu thành công.");
+        //            para.txt_Account_Password.Clear();
+        //            para.txt_Account_NewPassword.Clear();
+        //            para.txt_Account_RetypeNewPassword.Clear();
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        MessageBox.Show(ex.Message);
+        //    }
         }
         private void UpdateAccount(HomeWindow para)
         {
-            if (string.IsNullOrEmpty(para.txt_Account_Name.Text))
-            {
-                para.txt_Account_Name.Focus();
-                return;
-            }
-            if (string.IsNullOrEmpty(para.txt_Account_Location.Text))
-            {
-                para.txt_Account_Location.Focus();
-                return;
-            }
-            if (string.IsNullOrEmpty(para.txt_Account_PhoneNumber.Text))
-            {
-                para.txt_Account_PhoneNumber.Focus();
-                return;
-            }
-            para.Title = "Update info account";
-            try
-            {
-                Account acc = new Account();
-                acc = DataProvider.Instance.DB.Accounts.Where(x => x.Username == tempUsername).First();
+        //    if (string.IsNullOrEmpty(para.txt_Account_Name.Text))
+        //    {
+        //        para.txt_Account_Name.Focus();
+        //        return;
+        //    }
+        //    if (string.IsNullOrEmpty(para.txt_Account_Location.Text))
+        //    {
+        //        para.txt_Account_Location.Focus();
+        //        return;
+        //    }
+        //    if (string.IsNullOrEmpty(para.txt_Account_PhoneNumber.Text))
+        //    {
+        //        para.txt_Account_PhoneNumber.Focus();
+        //        return;
+        //    }
+        //    para.Title = "Update info account";
+        //    try
+        //    {
+        //        Account acc = new Account();
+        //        acc = DataProvider.Instance.DB.Accounts.Where(x => x.Username == tempUsername).First();
 
-                if (para.txt_Account_Name.Text == acc.DisplayName && para.txt_Account_Location.Text == acc.Location && para.txt_Account_PhoneNumber.Text == acc.PhoneNumber)
-                {
-                    MessageBox.Show("Thông tin không thay đổi");
-                    return;
-                }
-                else
-                {
-                    acc.DisplayName = para.txt_Account_Name.Text;
-                    acc.Location = para.txt_Account_Location.Text;
-                    acc.PhoneNumber = para.txt_Account_PhoneNumber.Text;
-                    DataProvider.Instance.DB.Accounts.AddOrUpdate(acc);
-                    DataProvider.Instance.DB.SaveChanges();
-                    MessageBox.Show("Cập nhật thông tin thành công.");
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
+        //        if (para.txt_Account_Name.Text == acc.DisplayName && para.txt_Account_Location.Text == acc.Location && para.txt_Account_PhoneNumber.Text == acc.PhoneNumber)
+        //        {
+        //            MessageBox.Show("Thông tin không thay đổi");
+        //            return;
+        //        }
+        //        else
+        //        {
+        //            acc.DisplayName = para.txt_Account_Name.Text;
+        //            acc.Location = para.txt_Account_Location.Text;
+        //            acc.PhoneNumber = para.txt_Account_PhoneNumber.Text;
+        //            DataProvider.Instance.DB.Accounts.AddOrUpdate(acc);
+        //            DataProvider.Instance.DB.SaveChanges();
+        //            MessageBox.Show("Cập nhật thông tin thành công.");
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        MessageBox.Show(ex.Message);
+        //    }
         }
         private void LoadAccount(HomeWindow para)
         {

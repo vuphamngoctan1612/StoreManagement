@@ -25,6 +25,7 @@ namespace StoreManagement.ViewModels
         private long? total = 0;
         private long? pay = 0;
 
+
         public HomeWindow HomeWindow { get; set; }
         public ICommand OpenInvoiceWindowCommand { get; set; }
         public ICommand OpenReceiptWindowCommand { get; set; }
@@ -36,6 +37,10 @@ namespace StoreManagement.ViewModels
         public ICommand ExportExcelCommand { get; set; }
         public ICommand GetUidCommand { get; set; }
         public ICommand SearchAgencyCommand { get; set; }
+        public ICommand ClearCommand { get; set; }
+
+        public static void EnableCollectionSynchronization(System.Collections.IEnumerable collection, object context, System.Windows.Data.CollectionSynchronizationCallback synchronizationCallback) { }
+         
 
         public BillViewModel()
         {
@@ -48,9 +53,16 @@ namespace StoreManagement.ViewModels
             OpenInvoiceWindowCommand = new RelayCommand<InvoiceUC>((para) => true, (para) => OpenInvoiceWindow(para));
             OpenReceiptWindowCommand = new RelayCommand<ReceiptBillUC>((para) => true, (para) => OpenReceiptWindow(para));
             ExportExcelCommand = new RelayCommand<HomeWindow>((para) => true, (para) => ExportExcel(para));
+            ClearCommand = new RelayCommand<HomeWindow>((para) => true, (para) => Clear(para));
 
         }
         
+        private void Clear(HomeWindow para)
+        {
+            total = 0;
+            pay = 0;
+        }
+
         private void ExportExcel(HomeWindow para)
         {
             if (status == 0)
@@ -73,8 +85,9 @@ namespace StoreManagement.ViewModels
                     using (var reader = ObjectReader.Create(invoices))
                     {
                         data.Load(reader);
-                    }    
-
+                    }
+                    data.Columns.Remove("Agency");
+                    data.Columns.Remove("InvoiceInfoes");
                 }
                 if (status == 2)
                 {
@@ -83,6 +96,7 @@ namespace StoreManagement.ViewModels
                     {
                         data.Load(reader);
                     }
+                    data.Columns.Remove("Agency");
 
                 }
                 if (status == 3)
@@ -91,7 +105,8 @@ namespace StoreManagement.ViewModels
                     using (var reader = ObjectReader.Create(stockReceipts))
                     {
                         data.Load(reader);
-                    }    
+                    }
+                    data.Columns.Remove("StockReceiptInfoes");
                 }    
                 worksheet = application.Worksheets.Add(misValue, misValue, misValue, misValue);
                 worksheet.Name = "Bill";
@@ -195,7 +210,7 @@ namespace StoreManagement.ViewModels
             this.HomeWindow = para;
             foreach (InvoiceUC control in this.HomeWindow.stkBill.Children)
             {
-                if (!control.AgencyName.Text.ToLower().Contains(this.HomeWindow.txtSearchAgency.Text))
+                if (!control.AgencyName.Text.ToLower().Contains(this.HomeWindow.txtSearchAgencyinBill.Text))
                 {
                     control.Visibility = Visibility.Collapsed;
                 }
@@ -206,7 +221,7 @@ namespace StoreManagement.ViewModels
             }   
             foreach (ReceiptBillUC control in this.HomeWindow.stkReceiptBill.Children)
             {
-                if (!control.AgencyName.Text.ToLower().Contains(this.HomeWindow.txtSearchAgency.Text))
+                if (!control.AgencyName.Text.ToLower().Contains(this.HomeWindow.txtSearchAgencyinBill.Text))
                 {
                     control.Visibility = Visibility.Collapsed;
                 }

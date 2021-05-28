@@ -7,6 +7,7 @@
         xmlns:controls="clr-namespace:StoreManagement.Resources.UserControls"
         xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf" 
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
         mc:Ignorable="d"
         Title="Agency Management"
         Height="810"
@@ -566,7 +567,7 @@
                         </materialDesign:PackIcon>
                     </Grid>
 
-<<<<<<< HEAD
+
                     <Menu>
                         <MenuItem          
                             x:Name="menu_Acc_DisplayName"
@@ -615,7 +616,6 @@
                         </MenuItem>
                     </MenuItem>
                     </Menu>
-=======
                     <!--<Expander
                         Header="Display name"
                         Background="Transparent"
@@ -662,7 +662,6 @@
                             </Button>
                         </StackPanel>
                     </Expander>-->
->>>>>>> f7b57017c13f1e6519f43b048a0e31c62e3ed2be
                 </Grid>
             </Grid>
 
@@ -670,7 +669,7 @@
             <Grid Grid.Row="1"
                 x:Name="grdBody_Main"
                 DataContext="{StaticResource ReportVM}"
-                Visibility="Hidden">
+                Visibility="Visible">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="2"></RowDefinition>
                     <RowDefinition Height="70"></RowDefinition>
@@ -685,7 +684,7 @@
                         <RowDefinition Height="40"></RowDefinition>
                         <RowDefinition Height="30"></RowDefinition>
                     </Grid.RowDefinitions>
-                    <Grid Grid.Row="0">
+                    <!--<Grid Grid.Row="0">
                         <TextBlock
                             Text="MY STORES"
                             Foreground="#F97298"
@@ -706,12 +705,16 @@
                             VerticalAlignment="Center"
                             Margin="65 0 0 5">
                         </TextBlock>
-                    </Grid>
+                    </Grid>-->
                 </Grid>
                 <Grid Grid.Row="2">
                     <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="MouseMove">
+                            <i:InvokeCommandAction Command="{Binding LoadSalesResult}" 
+                                               CommandParameter="{Binding ElementName=wdHome}"/>
+                        </i:EventTrigger>
                         <i:EventTrigger EventName="Loaded">
-                            <i:InvokeCommandAction Command="{Binding LoadTop3AgencyCommand}" 
+                            <i:InvokeCommandAction Command="{Binding LoadSalesResult}" 
                                                CommandParameter="{Binding ElementName=wdHome}"/>
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
@@ -723,18 +726,17 @@
                             VerticalAlignment="Center"
                             ScrollViewer.VerticalScrollBarVisibility="Auto" 
                             ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
-                            Margin="0">
+                            Margin="0"
+                            Visibility="Hidden">
                     </WrapPanel>
-                </Grid>
-                <Grid Grid.Row="3">
                     <Border
                         BorderThickness="1"
                         Background="White"
                         CornerRadius="2"
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center"
-                        Width="1100"
-                        Height="400">
+                        Width="1110"
+                        Height="200">
                         <Border.Effect>
                             <DropShadowEffect 
                             BlurRadius="8" 
@@ -744,19 +746,125 @@
                             Opacity=".42"/>
                         </Border.Effect>
                         <Grid
-                            Height="380"
+                                x:Name="grid_today"
+                                Width="1100"
+                                Height="200"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Margin="0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="50"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <Grid Grid.Row="0">
+                                <TextBlock
+                                        Text="Today's sales result"
+                                        FontStyle="Normal"
+                                        FontSize="25" 
+                                        FontWeight="Bold"
+                                        HorizontalAlignment="Left"
+                                        VerticalAlignment="Center"
+                                        Margin="20 0"
+                                        Foreground="#504D85"/>
+                            </Grid>
+                            <Grid Grid.Row="1">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="300"/>
+                                    <ColumnDefinition Width="250"/>
+                                    <ColumnDefinition Width="250"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid Grid.Column="0">
+                                    <TextBlock
+                                        x:Name="txb_today_total"
+                                        Text="{Binding ItemSourceTime, Mode=TwoWay}"
+                                        FontStyle="Normal"
+                                        FontSize="22" 
+                                        FontWeight="SemiBold"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        Foreground="#504D85"
+                                        />
+                                </Grid>
+                                <Grid Grid.Column="1">
+                                    <TextBlock
+                                        x:Name="txb_today_bill"
+                                        Text="{Binding ItemSourceTime, Mode=TwoWay}"
+                                        FontStyle="Normal"
+                                        FontSize="22" 
+                                        FontWeight="SemiBold"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        Foreground="#504D85"/>
+                                </Grid>
+                                <Grid Grid.Column="2">
+                                    <TextBlock
+                                        x:Name="txb_yesterday_compare"
+                                        Text="{Binding ItemSourceTime, Mode=TwoWay}"
+                                        FontStyle="Normal"
+                                        FontSize="22" 
+                                        FontWeight="SemiBold"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        Foreground="#504D85"/>
+                                </Grid>
+                                <Grid Grid.Column="3">
+                                    <TextBlock
+                                        x:Name="txb_monnt_compare"
+                                        Text="{Binding ItemSourceTime, Mode=TwoWay}"
+                                        FontStyle="Normal"
+                                        FontSize="22" 
+                                        FontWeight="SemiBold"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        Foreground="#504D85"/>
+                                </Grid>
+                            </Grid>
+                        </Grid>
+                    </Border>
+                </Grid>
+
+                <Grid Grid.Row="3">
+                    <ScrollViewer 
+                            HorizontalScrollBarVisibility="Disabled" 
+                            Margin="10"
+                            HorizontalAlignment="Center" 
+                            Style="{StaticResource FavsScrollViewer}"
+                            VerticalScrollBarVisibility="Auto"
+                            Width="1120"
+                            Height="800"
+                            Visibility="Visible">
+                        <Border
+                        BorderThickness="1"
+                        Background="White"
+                        CornerRadius="2"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Top"
+                        Margin="0 10"
+                        Width="1100"
+                        Height="790">
+                            <Border.Effect>
+                                <DropShadowEffect 
+                            BlurRadius="8" 
+                            ShadowDepth="1.5" 
+                            Direction="270"
+                            Color="{StaticResource MaterialDesignShadow}" 
+                            Opacity=".42"/>
+                            </Border.Effect>
+                            <Grid
+                            Height="800"
                             Width="1050"
-                            VerticalAlignment="Center"
+                            VerticalAlignment="Top"
                             HorizontalAlignment="Center"
                             Margin="0">
-                            <StackPanel
+                                <StackPanel
                                 Width="400"
                                 Height="50"
                                 Orientation="Horizontal"
                                 VerticalAlignment="Top"
                                 HorizontalAlignment="Left"
                                 Margin="80 5 0 0">
-                                <ComboBox
+                                    <ComboBox
                                     DataContext="{StaticResource ReportVM}"
                                     x:Name="cboSelectPeriod"
                                     materialDesign:ComboBoxAssist.ClassicMode="true"
@@ -771,17 +879,17 @@
                                     VerticalContentAlignment="Center" 
                                     Padding="3,0,0,0" 
                                     Margin="0">
-                                    <i:Interaction.Triggers>
-                                        <i:EventTrigger EventName="SelectionChanged">
-                                            <i:InvokeCommandAction Command="{Binding SelectedPeriodChangedCommand}" 
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="SelectionChanged">
+                                                <i:InvokeCommandAction Command="{Binding SelectedPeriodChangedCommand}" 
                                            CommandParameter="{Binding ElementName=wdHome}"/>
-                                        </i:EventTrigger>
-                                    </i:Interaction.Triggers>
-                                    <ComboBoxItem Content="Theo tháng"/>
-                                    <ComboBoxItem Content="Theo quý"/>
-                                    <ComboBoxItem Content="Theo năm"/>
-                                </ComboBox>
-                                <ComboBox
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+                                        <ComboBoxItem Content="Theo tháng"/>
+                                        <ComboBoxItem Content="Theo quý"/>
+                                        <ComboBoxItem Content="Theo năm"/>
+                                    </ComboBox>
+                                    <ComboBox
                                     x:Name="cboSelectTime"
                                     DataContext="{StaticResource ReportVM}"
                                     ItemsSource="{Binding ItemSourceTime, Mode=TwoWay}"
@@ -797,42 +905,70 @@
                                     VerticalContentAlignment="Center" 
                                     Padding="3,0,0,0" 
                                     Margin="60,0,0,0" >
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="SelectionChanged">
+                                                <i:InvokeCommandAction Command="{Binding SelectedTimeChangeCommand}" 
+                                           CommandParameter="{Binding ElementName=wdHome}"/>
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+                                    </ComboBox>
+                                </StackPanel>
+                                <lvc:CartesianChart 
+                                Series="{Binding SeriesCollection}"
+                                LegendLocation="Left"
+                                Margin="20 80 20 400">
+                                    <lvc:CartesianChart.AxisX>
+                                        <lvc:Axis 
+                                        Title="{Binding AxisXTitle, Mode=TwoWay}"
+                                        Labels="{Binding Labels, Mode=TwoWay}">
+                                            <lvc:Axis.Separator>
+                                                <lvc:Separator Step="1"></lvc:Separator>
+                                            </lvc:Axis.Separator>
+                                        </lvc:Axis>
+                                    </lvc:CartesianChart.AxisX>
+                                    <lvc:CartesianChart.AxisY>
+                                        <lvc:Axis 
+                                        Title="{Binding AxixYTitle, Mode=TwoWay}"
+                                        LabelFormatter="{Binding Formatter}">
+                                        </lvc:Axis>
+                                    </lvc:CartesianChart.AxisY>
                                     <i:Interaction.Triggers>
-                                        <i:EventTrigger EventName="SelectionChanged">
-                                            <i:InvokeCommandAction Command="{Binding SelectedTimeChangeCommand}" 
+                                        <i:EventTrigger EventName="Loaded">
+                                            <i:InvokeCommandAction Command="{Binding InitColumnChartCommand}" 
                                            CommandParameter="{Binding ElementName=wdHome}"/>
                                         </i:EventTrigger>
                                     </i:Interaction.Triggers>
-                                </ComboBox>
-                            </StackPanel>
-                            <lvc:CartesianChart 
+                                </lvc:CartesianChart>
+                                <!--<lvc:CartesianChart 
                                 Series="{Binding SeriesCollection}"
                                 LegendLocation="Left"
-                                Margin="20 80 20 20">
-                                <lvc:CartesianChart.AxisX>
-                                    <lvc:Axis 
+                                Margin="20 410 20 0">
+                                    <lvc:CartesianChart.AxisX>
+                                        <lvc:Axis 
                                         Title="{Binding AxisXTitle, Mode=TwoWay}"
                                         Labels="{Binding Labels, Mode=TwoWay}">
-                                        <lvc:Axis.Separator>
-                                            <lvc:Separator Step="1"></lvc:Separator>
-                                        </lvc:Axis.Separator>
-                                    </lvc:Axis>
-                                </lvc:CartesianChart.AxisX>
-                                <lvc:CartesianChart.AxisY>
-                                    <lvc:Axis 
+                                            <lvc:Axis.Separator>
+                                                <lvc:Separator Step="1"></lvc:Separator>
+                                            </lvc:Axis.Separator>
+                                        </lvc:Axis>
+                                    </lvc:CartesianChart.AxisX>
+                                    <lvc:CartesianChart.AxisY>
+                                        <lvc:Axis 
                                         Title="{Binding AxixYTitle, Mode=TwoWay}"
                                         LabelFormatter="{Binding Formatter}">
-                                    </lvc:Axis>
-                                </lvc:CartesianChart.AxisY>
-                                <i:Interaction.Triggers>
-                                    <i:EventTrigger EventName="Loaded">
-                                        <i:InvokeCommandAction Command="{Binding InitColumnChartCommand}" 
+                                        </lvc:Axis>
+                                    </lvc:CartesianChart.AxisY>
+                                    <i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="Loaded">
+                                            <i:InvokeCommandAction Command="{Binding InitColumnChartCommand}" 
                                            CommandParameter="{Binding ElementName=wdHome}"/>
-                                    </i:EventTrigger>
-                                </i:Interaction.Triggers>
-                            </lvc:CartesianChart>
-                        </Grid>
-                    </Border>
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>
+                                </lvc:CartesianChart>-->
+                            </Grid>
+                            
+                        </Border>
+                    </ScrollViewer>
                 </Grid>
             </Grid>
             <!--Body stores-->
@@ -1179,7 +1315,7 @@
                                     HorizontalAlignment="Left"
                                     VerticalAlignment="Top"
                                     Margin="15"/>
-<<<<<<< HEAD
+
                                 <Button
                                     x:Name="btnReLoadBusiness"
                                     Background="Transparent"
@@ -1201,8 +1337,6 @@
                                         Height="35"
                                         Width="35"/>
                                 </Button>
-=======
->>>>>>> f7b57017c13f1e6519f43b048a0e31c62e3ed2be
                                 <Grid>
                                     <Border
                                         Margin="20,50,20,20"
@@ -1788,9 +1922,27 @@
                                     Content="Receipt Bill" />
                                 <i:Interaction.Triggers>
                                     <i:EventTrigger EventName="SelectionChanged">
+                                        <i:InvokeCommandAction Command="{Binding ClearCommand}"
+                                                               CommandParameter="{Binding ElementName=wdHome}"/>
+                                    </i:EventTrigger>
+                                    <i:EventTrigger EventName="SelectionChanged">
                                         <i:InvokeCommandAction Command="{Binding SwitchCommand}"
-                                                               CommandParameter="{Binding ElementName=wdHome}"
-                                            />
+                                                               CommandParameter="{Binding ElementName=wdHome}"/>
+                                    </i:EventTrigger>
+                                    <i:EventTrigger EventName="SelectionChanged">
+                                        <i:InvokeCommandAction 
+                                            Command="{Binding LoadBillCommand}"
+                                            CommandParameter="{Binding ElementName=wdHome}"/>
+                                    </i:EventTrigger>
+                                    <i:EventTrigger EventName="SelectionChanged">
+                                        <i:InvokeCommandAction 
+                                            Command="{Binding LoadReceiptBillCommand}"
+                                            CommandParameter="{Binding ElementName=wdHome}"/>
+                                    </i:EventTrigger>
+                                    <i:EventTrigger EventName="SelectionChanged">
+                                        <i:InvokeCommandAction 
+                                            Command="{Binding LoadStockReceiptCommnad}"
+                                            CommandParameter="{Binding ElementName=wdHome}"/>
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
                             </ComboBox>
@@ -1861,7 +2013,7 @@
                         Grid.Row="1"
                         Background="#FF9CB9"
                         Height="45"
-                        Width="1060"
+                        Width="1050"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Top"
                         Margin="0 75 0 0"
@@ -1937,7 +2089,8 @@
                             Margin="0 70 0 0"
                             HorizontalAlignment="Left" 
                             Style="{StaticResource FavsScrollViewer}"
-                            VerticalScrollBarVisibility="Auto">
+                            VerticalScrollBarVisibility="Auto"
+                        >
                         <StackPanel x:Name="stkReceiptBill"
                                 Width="1060"
                                 HorizontalAlignment="Left"
@@ -2175,7 +2328,7 @@
                 <Grid Grid.Row="3">
                     <materialDesign:Card x:Name="cardSalesReport"
                              Height="50"
-                             Width="1070"
+                             Width="1050"
                              Margin="30,0,0,0"
                              HorizontalAlignment="Left"
                              VerticalAlignment="Top"
@@ -2246,7 +2399,7 @@
                     </materialDesign:Card>
                     <materialDesign:Card x:Name="cardDebtAgencyReport"
                              Height="50"
-                             Width="1070"
+                             Width="1050"
                              Margin="30,0,0,0"
                              HorizontalAlignment="Left"
                              VerticalAlignment="Top"

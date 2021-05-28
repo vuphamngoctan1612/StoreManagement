@@ -85,19 +85,49 @@ namespace StoreManagement.ViewModels
             }
         }
 
-        public ICommand LoadTop3AgencyCommand { get; set; }
+        //public ICommand LoadTop3AgencyCommand { get; set; }
         public ICommand InitColumnChartCommand { get; set; }
         public ICommand SelectedPeriodChangedCommand { get; set; }
         public ICommand SelectedTimeChangeCommand { get; set; }
+        public ICommand LoadSalesResult { get; set; }
 
         public ReportViewModel()
         {
-            LoadTop3AgencyCommand = new RelayCommand<HomeWindow>((para) => true, (para) => LoadTop3Agency(para));
+            //LoadTop3AgencyCommand = new RelayCommand<HomeWindow>((para) => true, (para) => LoadTop3Agency(para));
             InitColumnChartCommand = new RelayCommand<HomeWindow>((para) => true, (para) => InitColumnChart(para));
             SelectedPeriodChangedCommand = new RelayCommand<HomeWindow>((para) => true, (para) => cbbPeriodSelectedIndex_Changed(para));
             SelectedTimeChangeCommand = new RelayCommand<HomeWindow>((para) => true, (para) => cbbTimeSelectedIndex_Changed(para));
+            LoadSalesResult = new RelayCommand<HomeWindow>((para) => true, (para) => LoadSales(para));
         }
 
+        private void LoadSales(HomeWindow para)
+        {
+            //total today
+            List<Int64> tempSums = DataProvider.Instance.DB.Database.SqlQuery<Int64>("select sum(Total) from Invoice " +
+                                                                                        "where Checkout = (select CAST(GETDATE() as date))").ToList();
+            double sumInvoicesTotal = (double)(tempSums.First());
+            para.txb_today_total.Text = sumInvoicesTotal.ToString();
+            //count Invoices
+            List<Int32> tempCounts = DataProvider.Instance.DB.Database.SqlQuery<Int32>("select count(ID) from Invoice " +
+                                                                                        "where Checkout = (select CAST(GETDATE() as date))").ToList();
+            int countInvoices = (int)(tempCounts.First());
+            para.txb_today_bill.Text = countInvoices.ToString();
+            //compare with yesterday
+            List<Int64> tempSumsYesterday = DataProvider.Instance.DB.Database.SqlQuery<Int64>("select sum(Total) from Invoice " +
+                                                                                                "where Checkout = (select CAST(GETDATE() - 1 as date))").ToList();
+            double sumInvoicesTotalYesterday = (double)(tempSumsYesterday.First());
+
+            para.txb_yesterday_compare.Text = ((100 * sumInvoicesTotal / sumInvoicesTotalYesterday) - 100).ToString() + "%";
+            //compare with last month
+            List<Int64> tempThisMonths = DataProvider.Instance.DB.Database.SqlQuery<Int64>("select sum(Total) from Invoice " +
+                                                                                            "where(select month(Checkout) as month) = (select month(GETDATE()) as month)").ToList();
+            double sumInvoicesThisMonth = (double)(tempThisMonths.First());
+
+            List<Int64> tempLastMonth = DataProvider.Instance.DB.Database.SqlQuery<Int64>("select sum(Total) from Invoice " +
+                                                                                            "where(select month(Checkout) as month) = (select month(GETDATE()) - 1 as month)").ToList();
+            double sumInvoicesLastMonth = (double)(tempLastMonth.First());
+            para.txb_monnt_compare.Text = ((100 * sumInvoicesThisMonth / sumInvoicesLastMonth) - 100).ToString() + "%";
+        }
         private void cbbTimeSelectedIndex_Changed(HomeWindow para)
         {
             this.HomeWindow = para;
@@ -185,38 +215,38 @@ namespace StoreManagement.ViewModels
             Formatter = value => ConvertToString(value);
         }
 
-        private void LoadTop3Agency(HomeWindow para)
-        {
-            this.HomeWindow = para;
-            //List<Agency> agencies = this.GetTop3AgencyByMonth(DateTime.Now.Month.ToString());
-            List<Agency> agencies = this.GetTop3AgencyByMonth("4");
-            int count = 1;
-            foreach (Agency item in agencies)
-            {
-                CardStoreUC control = new CardStoreUC();
-                control.txbID.Text = item.ID.ToString();
-                control.tbNameStore.Text = item.Name;
-                control.tbRanking.Text = string.Format("Top {0}", count);
-                control.Margin = new System.Windows.Thickness(100, 10, 100, 0);
-                if (count == 1)
-                {
-                    control.bdBG.Background = (Brush)new BrushConverter().ConvertFrom("#FF8E8E");
-                    control.tbRanking.Foreground = (Brush)new BrushConverter().ConvertFrom("#D03131");
-                }
-                if (count == 2)
-                {
-                    control.bdBG.Background = (Brush)new BrushConverter().ConvertFrom("#AFF6E4");
-                    control.tbRanking.Foreground = (Brush)new BrushConverter().ConvertFrom("#31D0AD");
-                }
-                if (count == 3)
-                {
-                    control.bdBG.Background = (Brush)new BrushConverter().ConvertFrom("#DCC613");
-                    control.tbRanking.Foreground = (Brush)new BrushConverter().ConvertFrom("#DCC613");
-                }
-                this.HomeWindow.wpBody_Main_TopAgency.Children.Add(control);
-                count++;
-            }
-        }
+        //private void LoadTop3Agency(HomeWindow para)
+        //{
+        //    this.HomeWindow = para;
+        //    //List<Agency> agencies = this.GetTop3AgencyByMonth(DateTime.Now.Month.ToString());
+        //    List<Agency> agencies = this.GetTop3AgencyByMonth("4");
+        //    int count = 1;
+        //    foreach (Agency item in agencies)
+        //    {
+        //        CardStoreUC control = new CardStoreUC();
+        //        control.txbID.Text = item.ID.ToString();
+        //        control.tbNameStore.Text = item.Name;
+        //        control.tbRanking.Text = string.Format("Top {0}", count);
+        //        control.Margin = new System.Windows.Thickness(100, 10, 100, 0);
+        //        if (count == 1)
+        //        {
+        //            control.bdBG.Background = (Brush)new BrushConverter().ConvertFrom("#FF8E8E");
+        //            control.tbRanking.Foreground = (Brush)new BrushConverter().ConvertFrom("#D03131");
+        //        }
+        //        if (count == 2)
+        //        {
+        //            control.bdBG.Background = (Brush)new BrushConverter().ConvertFrom("#AFF6E4");
+        //            control.tbRanking.Foreground = (Brush)new BrushConverter().ConvertFrom("#31D0AD");
+        //        }
+        //        if (count == 3)
+        //        {
+        //            control.bdBG.Background = (Brush)new BrushConverter().ConvertFrom("#DCC613");
+        //            control.tbRanking.Foreground = (Brush)new BrushConverter().ConvertFrom("#DCC613");
+        //        }
+        //        this.HomeWindow.wpBody_Main_TopAgency.Children.Add(control);
+        //        count++;
+        //    }
+        //}
 
         #region Load Chart
         private void LoadChartByMonth(string month, string year)

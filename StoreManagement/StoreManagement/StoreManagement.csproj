@@ -206,6 +206,9 @@
     <Compile Include="Views\AddStoreWindow.xaml.cs">
       <DependentUpon>AddStoreWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\AddTypeOfAgencyWindow.xaml.cs">
+      <DependentUpon>AddTypeOfAgencyWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\ChangePasswordWindow.xaml.cs">
       <DependentUpon>ChangePasswordWindow.xaml</DependentUpon>
     </Compile>
@@ -350,9 +353,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\AddTypeOfAgencyWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
