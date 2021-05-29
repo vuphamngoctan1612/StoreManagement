@@ -172,24 +172,38 @@ insert into Invoice values (13,4,GETDATE(), 210000, 2900000)
 insert into Invoice values (14,4,GETDATE(), 500000, 5200000)
 insert into Invoice values (15,4,GETDATE(), 200000, 4000000)
 insert into Invoice values (16,4,'2021-1-25', 290000, 2900000)
-insert into Invoice values (3,1,GETDATE(),2000000,4000000)
-insert into Invoice values (4,2,GETDATE(),1000000,4000000)
-insert into Invoice values (5,1,GETDATE(),2000000,5000000)
-insert into Invoice values (6,1,'2021-05-27',1000000,5000000)
-insert into Invoice values (7,1,dateadd(day,datediff(day,1,GETDATE()),0),1000000,5000000)
-insert into Invoice values (8,2,'2021-05-26',1000000,5000000)
-insert into Invoice values (9,2,'2021-04-26',1000000,50000000)
-insert into Invoice values (10,2,'2021-05-27',1000000,8000000)
-insert into Invoice values (11,2,'2021-05-27',1000000,8000000)
-insert into Invoice values (13,2,'2021-05-27',1000000,8000000)
-insert into Invoice values (14,2,'2021-05-27',1000000,2000000)
-insert into Invoice values (15,2,'2021-05-27',0,1000000)
-insert into Invoice values (16,2,'2021-05-27',0,1000000)
-insert into Invoice values (17,2,'2021-05-27',0,1000000)
+--Quang test
+--last month
+insert into Invoice values (3,1,GETDATE() - 31,2000000,4000000)
+insert into Invoice values (4,2,GETDATE() - 31,1000000,4000000)
+insert into Invoice values (5,3,GETDATE() - 31,2000000,5000000)
+--yesterday
+insert into Invoice values (6,1,GETDATE() - 1,1000000,5000000)
+insert into Invoice values (7,2,GETDATE() - 1,1000000,5000000)
+insert into Invoice values (8,3,GETDATE() - 1,1000000,5000000)
+insert into Invoice values (9,4,GETDATE() - 1,1000000,50000000)
+--today
+insert into Invoice values (10,4,GETDATE(),1000000,8000000)
+insert into Invoice values (11,5,GETDATE(),1000000,8000000)
+insert into Invoice values (13,3,GETDATE(),1000000,8000000)
+insert into Invoice values (14,4,GETDATE(),1000000,2000000)
+insert into Invoice values (15,5,GETDATE(),0,1000000)
+insert into Invoice values (16,6,GETDATE(),0,1000000)
+insert into Invoice values (17,5,GETDATE(),0,1000000)
+insert into Invoice values (18,6,GETDATE(),2000000,5000000)
+insert into Invoice values (19,6,GETDATE(),2000000,5000000)
+insert into Invoice values (20,5,GETDATE(),0,1000000)
+
+delete from Invoice
+where ID > 2
+
 select count(ID) from Invoice
 where Checkout = (select CAST (GETDATE() as date))
 
-select sum(Total) from Invoice
+select GETDATE() - 1
+
+select sum(total) as total
+from Invoice
 where Checkout = (select CAST (GETDATE() as date))
 
 

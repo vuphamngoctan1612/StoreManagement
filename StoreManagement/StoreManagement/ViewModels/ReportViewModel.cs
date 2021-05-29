@@ -100,33 +100,76 @@ namespace StoreManagement.ViewModels
             LoadSalesResult = new RelayCommand<HomeWindow>((para) => true, (para) => LoadSales(para));
         }
 
-        private void LoadSales(HomeWindow para)
+        public void LoadSales(HomeWindow para)
         {
+            double sumInvoicesTotal = 0;
+            int countInvoices = 0;
+            double sumInvoicesTotalYesterday = 0;
+            double sumInvoicesThisMonth = 0;
+            double sumInvoicesLastMonth = 0;
             //total today
-            List<Int64> tempSums = DataProvider.Instance.DB.Database.SqlQuery<Int64>("select sum(Total) from Invoice " +
-                                                                                        "where Checkout = (select CAST(GETDATE() as date))").ToList();
-            double sumInvoicesTotal = (double)(tempSums.First());
-            para.txb_today_total.Text = sumInvoicesTotal.ToString();
+            List<Int64> tempSums = new List<Int64>();
+            try
+            {
+                tempSums = DataProvider.Instance.DB.Database.SqlQuery<Int64>("select sum(Total) from Invoice " +
+                                                                                            "where Checkout = (select CAST(GETDATE() as date))").ToList();
+
+                if (tempSums != null)
+                {
+                    sumInvoicesTotal = (double)(tempSums.First());
+                }
+            }
+            catch { }
+            para.txb_today_total.Text = ConvertToString(sumInvoicesTotal);
             //count Invoices
             List<Int32> tempCounts = DataProvider.Instance.DB.Database.SqlQuery<Int32>("select count(ID) from Invoice " +
                                                                                         "where Checkout = (select CAST(GETDATE() as date))").ToList();
-            int countInvoices = (int)(tempCounts.First());
+            countInvoices = (int)(tempCounts.First());
             para.txb_today_bill.Text = countInvoices.ToString();
             //compare with yesterday
-            List<Int64> tempSumsYesterday = DataProvider.Instance.DB.Database.SqlQuery<Int64>("select sum(Total) from Invoice " +
-                                                                                                "where Checkout = (select CAST(GETDATE() - 1 as date))").ToList();
-            double sumInvoicesTotalYesterday = (double)(tempSumsYesterday.First());
-
-            para.txb_yesterday_compare.Text = ((100 * sumInvoicesTotal / sumInvoicesTotalYesterday) - 100).ToString() + "%";
+            try
+            {
+                List<Int64> tempSumsYesterday = DataProvider.Instance.DB.Database.SqlQuery<Int64>("select sum(Total) from Invoice " +
+                                                                                                    "where Checkout = (select CAST(GETDATE() - 1 as date))").ToList();
+                if (tempSumsYesterday != null)
+                {
+                    sumInvoicesTotalYesterday = (double)(tempSumsYesterday.First());
+                }
+            }
+            catch { }
+            if (sumInvoicesTotalYesterday != 0)
+            {
+                para.txb_yesterday_compare.Text = ((int)(100 * sumInvoicesTotal / sumInvoicesTotalYesterday) - 100).ToString() + "%";
+            }
+            else
+            {
+                para.txb_yesterday_compare.Text = ConvertToString(sumInvoicesTotal) + " VND";
+            }
             //compare with last month
-            List<Int64> tempThisMonths = DataProvider.Instance.DB.Database.SqlQuery<Int64>("select sum(Total) from Invoice " +
-                                                                                            "where(select month(Checkout) as month) = (select month(GETDATE()) as month)").ToList();
-            double sumInvoicesThisMonth = (double)(tempThisMonths.First());
-
-            List<Int64> tempLastMonth = DataProvider.Instance.DB.Database.SqlQuery<Int64>("select sum(Total) from Invoice " +
-                                                                                            "where(select month(Checkout) as month) = (select month(GETDATE()) - 1 as month)").ToList();
-            double sumInvoicesLastMonth = (double)(tempLastMonth.First());
-            para.txb_monnt_compare.Text = ((100 * sumInvoicesThisMonth / sumInvoicesLastMonth) - 100).ToString() + "%";
+            try
+            {
+                List<Int64> tempThisMonths = DataProvider.Instance.DB.Database.SqlQuery<Int64>("select sum(Total) from Invoice " +
+                                                                                                "where(select month(Checkout) as month) = (select month(GETDATE()) as month)").ToList();
+                if (tempThisMonths != null)
+                {
+                    sumInvoicesThisMonth = (double)(tempThisMonths.First());
+                }
+                List<Int64> tempLastMonth = DataProvider.Instance.DB.Database.SqlQuery<Int64>("select sum(Total) from Invoice " +
+                                                                                                "where(select month(Checkout) as month) = (select month(GETDATE()) - 1 as month)").ToList();
+                if (tempLastMonth != null)
+                {
+                    sumInvoicesLastMonth = (double)(tempLastMonth.First());
+                }
+            }
+            catch { }
+            if (sumInvoicesLastMonth != 0)
+            {
+                para.txb_monnt_compare.Text = ((int)(100 * sumInvoicesThisMonth / sumInvoicesLastMonth) - 100).ToString() + "%";
+            }
+            else
+            {
+                para.txb_monnt_compare.Text = ConvertToString(sumInvoicesThisMonth) + " VND";
+            }    
         }
         private void cbbTimeSelectedIndex_Changed(HomeWindow para)
         {

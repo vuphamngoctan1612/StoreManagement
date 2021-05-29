@@ -166,6 +166,12 @@
     <Compile Include="Resources\UserControls\BillUC.xaml.cs">
       <DependentUpon>BillUC.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Resources\UserControls\BusinessProductChosenUC.xaml.cs">
+      <DependentUpon>BusinessProductChosenUC.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\UserControls\BusinessProductUC.xaml.cs">
+      <DependentUpon>BusinessProductUC.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Resources\UserControls\CardStoreUC.xaml.cs">
       <DependentUpon>CardStoreUC.xaml</DependentUpon>
     </Compile>
@@ -195,6 +201,7 @@
     <Compile Include="ViewModels\AccountViewModel.cs" />
     <Compile Include="ViewModels\AgencyReportViewModel.cs" />
     <Compile Include="ViewModels\BillViewModel.cs" />
+    <Compile Include="ViewModels\BusinessViewModel.cs" />
     <Compile Include="ViewModels\ProductViewModel.cs" />
     <Compile Include="ViewModels\ReportViewModel.cs" />
     <Compile Include="ViewModels\SignUpViewModel.cs" />
@@ -291,6 +298,14 @@
     <Page Include="Resources\UserControls\BillUC.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\UserControls\BusinessProductChosenUC.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\UserControls\BusinessProductUC.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Resources\UserControls\CardStoreUC.xaml">
       <SubType>Designer</SubType>

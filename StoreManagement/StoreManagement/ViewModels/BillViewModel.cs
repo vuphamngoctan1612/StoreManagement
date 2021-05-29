@@ -57,7 +57,7 @@ namespace StoreManagement.ViewModels
 
         }
         
-        private void Clear(HomeWindow para)
+        public void Clear(HomeWindow para)
         {
             total = 0;
             pay = 0;
@@ -231,7 +231,7 @@ namespace StoreManagement.ViewModels
                 }
             }    
         }
-        private void LoadBill(HomeWindow para)
+        public void LoadBill(HomeWindow para)
         {
             this.HomeWindow = para;
             this.HomeWindow.stkBill.Children.Clear();
@@ -249,7 +249,7 @@ namespace StoreManagement.ViewModels
             }
             this.HomeWindow.textCollect.Text = ConvertToString(total);
         }
-        private void LoadReceiptBill(HomeWindow para)
+        public void LoadReceiptBill(HomeWindow para)
         {
             this.HomeWindow = para;
             this.HomeWindow.stkReceiptBill.Children.Clear();
@@ -265,7 +265,7 @@ namespace StoreManagement.ViewModels
                 this.HomeWindow.stkReceiptBill.Children.Add(receiptBillUC);
             }    
         }
-        private void LoadStockReceipt(HomeWindow para)
+        public void LoadStockReceipt(HomeWindow para)
         {
             this.HomeWindow = para;
             this.HomeWindow.stkStockReceipt.Children.Clear();

@@ -10,4 +10,5 @@
     <viewmodels:ReportViewModel x:Key="ReportVM"></viewmodels:ReportViewModel>
     <viewmodels:AccountViewModel x:Key="AccountVM"></viewmodels:AccountViewModel>
     <viewmodels:AgencyReportViewModel x:Key="AgencyReportVM"></viewmodels:AgencyReportViewModel>
+    <viewmodels:BusinessViewModel x:Key="BusinessVM"></viewmodels:BusinessViewModel>
 </ResourceDictionary>

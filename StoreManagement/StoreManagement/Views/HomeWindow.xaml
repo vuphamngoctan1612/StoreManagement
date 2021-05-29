@@ -709,10 +709,10 @@
                 </Grid>
                 <Grid Grid.Row="2">
                     <i:Interaction.Triggers>
-                        <i:EventTrigger EventName="MouseMove">
+                        <!--<i:EventTrigger EventName="MouseMove">
                             <i:InvokeCommandAction Command="{Binding LoadSalesResult}" 
                                                CommandParameter="{Binding ElementName=wdHome}"/>
-                        </i:EventTrigger>
+                        </i:EventTrigger>-->
                         <i:EventTrigger EventName="Loaded">
                             <i:InvokeCommandAction Command="{Binding LoadSalesResult}" 
                                                CommandParameter="{Binding ElementName=wdHome}"/>
@@ -1756,7 +1756,11 @@
                                         Content="Pay"
                                         VerticalAlignment="Bottom"
                                         materialDesign:ButtonAssist.CornerRadius="6"
-                                        Margin="14,20">
+                                        Margin="14,20"
+                                        DataContext="{StaticResource BusinessVM}"
+                                        Command="{Binding UpdateViewCommand}"
+                                        CommandParameter="{Binding ElementName=wdHome}">
+                                        
                                     </Button>
                                 </Grid>
                             </Grid>

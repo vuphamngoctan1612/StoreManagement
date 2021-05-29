@@ -76,7 +76,7 @@ namespace StoreManagement.ViewModels
             }
                 
         }
-        private void LoadDebtsReport(HomeWindow para)
+        public void LoadDebtsReport(HomeWindow para)
         {
             this.HomeWindow = para;
             List<Agency> agencies = DataProvider.Instance.DB.Agencies.ToList<Agency>();
@@ -93,11 +93,15 @@ namespace StoreManagement.ViewModels
                 invoices = agency.Invoices.ToList();
                 foreach (Invoice invoice in invoices)
                 {
-                    if (invoice.Checkout.Value.Month == para.Date.SelectedDate.Value.Month && invoice.Checkout.Value.Year == para.Date.SelectedDate.Value.Year)
+                    try
                     {
-                        dept += invoice.Debt;
-                        count++;
+                        if (invoice.Checkout.Value.Month == para.Date.SelectedDate.Value.Month && invoice.Checkout.Value.Year == para.Date.SelectedDate.Value.Year)
+                        {
+                            dept += invoice.Debt;
+                            count++;
+                        }
                     }
+                    catch { }
                 }
                 check++;
                 debtReportUC.txtOriginalDebt.Text = invoices.First().Debt.ToString();
@@ -107,7 +111,7 @@ namespace StoreManagement.ViewModels
                 this.HomeWindow.stkDebtReport.Children.Add(debtReportUC);
             }
         }
-        private void LoadSalesReport(HomeWindow para)
+        public void LoadSalesReport(HomeWindow para)
         {
             this.HomeWindow = para;
             List<Agency> agencies = DataProvider.Instance.DB.Agencies.ToList<Agency>();
@@ -125,12 +129,16 @@ namespace StoreManagement.ViewModels
                 invoices = agency.Invoices.ToList();
                 foreach (Invoice invoice in invoices)
                 {
-                    if (invoice.Checkout.Value.Month == para.Date.SelectedDate.Value.Month && invoice.Checkout.Value.Year == para.Date.SelectedDate.Value.Year)
+                    try
                     {
-                        total += invoice.Total;
-                        dept += invoice.Debt;
-                        count++;
+                        if (invoice.Checkout.Value.Month == para.Date.SelectedDate.Value.Month && invoice.Checkout.Value.Year == para.Date.SelectedDate.Value.Year)
+                        {
+                            total += invoice.Total;
+                            dept += invoice.Debt;
+                            count++;
+                        }
                     }
+                    catch { }
                 }
                 salesReportUC.txtNumberOfBills.Text = count.ToString();
                 salesReportUC.txtTotal.Text = total.ToString();
