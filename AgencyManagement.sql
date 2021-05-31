@@ -62,7 +62,7 @@ create table Product
 	constraint PK_Product primary key (ID)
 )
 go
-
+select * from Product
 insert into Product
 values (5,'Bánh', 'Gói',null,9000,10000,1000,0)
 insert into Product
@@ -90,6 +90,8 @@ create table InvoiceInfo
 	constraint PK_InvoiceInfo primary key(InvoiceID, ProductID)
 )
 go
+
+insert into InvoiceInfo values(3)
 
 create table Receipt
 (
@@ -179,24 +181,97 @@ insert into Invoice values (16,4,'2021-1-25', 290000, 2900000)
 --Quang test
 --last month
 insert into Invoice values (3,1,GETDATE() - 31,2000000,4000000)
+insert into InvoiceInfo 
+values (3,1,200,1000000),
+(3,2,100,1500000),
+(3,3,100,1500000)
 insert into Invoice values (4,2,GETDATE() - 31,1000000,4000000)
+insert into InvoiceInfo 
+values (4,1,200,1000000),
+(4,2,100,1500000),
+(4,3,100,1500000)
 insert into Invoice values (5,3,GETDATE() - 31,2000000,5000000)
+insert into InvoiceInfo 
+values (5,1,100,500000),
+(5,2,100,1500000),
+(5,3,100,1500000),
+(5,4,100,1500000)
+delete from InvoiceInfo
+where InvoiceID = 5
 --yesterday
 insert into Invoice values (6,1,GETDATE() - 1,1000000,5000000)
+insert into InvoiceInfo 
+values (6,1,200,1000000),
+(6,2,100,1500000),
+(6,3,100,1500000),
+(6,5,100,1000000)
 insert into Invoice values (7,2,GETDATE() - 1,1000000,5000000)
+insert into InvoiceInfo 
+values (7,1,200,1000000),
+(7,2,100,1500000),
+(7,3,100,1500000),
+(7,6,100,1000000)
 insert into Invoice values (8,3,GETDATE() - 1,1000000,5000000)
+insert into InvoiceInfo 
+values (8,5,200,2000000),
+(8,6,300,3000000)
 insert into Invoice values (9,4,GETDATE() - 1,1000000,50000000)
+insert into InvoiceInfo 
+values (9,5,2000,20000000),
+(9,6,3000,30000000)
 --today
 insert into Invoice values (10,4,GETDATE(),1000000,8000000)
+insert into InvoiceInfo 
+values (10,1,100,500000),
+(10,2,100,1500000),
+(10,3,100,1500000),
+(10,4,100,1500000),
+(10,5,100,1000000),
+(10,6,200,2000000)
 insert into Invoice values (11,5,GETDATE(),1000000,8000000)
+insert into InvoiceInfo 
+values (11,1,100,500000),
+(11,2,100,1500000),
+(11,3,100,1500000),
+(11,4,100,1500000),
+(11,5,100,1000000),
+(11,6,200,2000000)
 insert into Invoice values (13,3,GETDATE(),1000000,8000000)
+insert into InvoiceInfo 
+values (13,1,100,500000),
+(13,2,100,1500000),
+(13,3,100,1500000),
+(13,4,100,1500000),
+(13,5,100,1000000),
+(13,6,200,2000000)
 insert into Invoice values (14,4,GETDATE(),1000000,2000000)
+insert into InvoiceInfo 
+values (14,5,100,1000000),
+(14,6,100,1000000)
 insert into Invoice values (15,5,GETDATE(),0,1000000)
+insert into InvoiceInfo 
+values (15,5,100,1000000)
 insert into Invoice values (16,6,GETDATE(),0,1000000)
+insert into InvoiceInfo 
+values (16,6,100,1000000)
 insert into Invoice values (17,5,GETDATE(),0,1000000)
+insert into InvoiceInfo 
+values (17,5,100,1000000)
 insert into Invoice values (18,6,GETDATE(),2000000,5000000)
+insert into InvoiceInfo 
+values (18,1,200,1000000),
+(18,2,100,1500000),
+(18,3,100,1500000),
+(18,6,100,1000000)
 insert into Invoice values (19,6,GETDATE(),2000000,5000000)
+insert into InvoiceInfo 
+values (19,1,200,1000000),
+(19,2,100,1500000),
+(19,3,100,1500000),
+(19,6,100,1000000)
 insert into Invoice values (20,5,GETDATE(),0,1000000)
+insert into InvoiceInfo 
+values (20,6,100,1000000)
 
 select * from Product
 
@@ -230,12 +305,20 @@ where ( select month(Checkout) as month) = (select month(GETDATE()) as month)
 group by AgencyID
 order by Total DESC
 
-
 SELECT TOP 5 Agency.ID FROM Agency  
                 JOIN Invoice ON Agency.ID = Invoice.AgencyID 
                 WHERE MONTH(CHECKOUT) = 05
                 GROUP BY Agency.ID 
                 ORDER BY SUM(INVOICE.TOTAL) DESC
+
+select sum(Total) as total from InvoiceInfo
+group by ProductID
+order by Total DESC
+
+SELECT TOP 5 Product.ID FROM Product
+                JOIN InvoiceInfo ON Product.ID = InvoiceInfo.ProductID
+                GROUP BY Product.ID
+                ORDER BY SUM(InvoiceInfo.TOTAL) DESC
 
 select Total from Invoice
 where ( select month(Checkout) as month) = (select month(GETDATE()) - 1 as month) and
