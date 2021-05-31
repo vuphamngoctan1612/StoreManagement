@@ -63,7 +63,11 @@ create table Product
 )
 go
 
-
+insert into Product
+values (5,'Bánh', 'Gói',null,9000,10000,1000,0)
+insert into Product
+values (6,'Sữa', 'Hộp',null,9000,10000,1000,0)
+select * from Product
 create table Invoice
 (
 	ID int,
@@ -194,6 +198,10 @@ insert into Invoice values (18,6,GETDATE(),2000000,5000000)
 insert into Invoice values (19,6,GETDATE(),2000000,5000000)
 insert into Invoice values (20,5,GETDATE(),0,1000000)
 
+select * from Product
+
+select * from InvoiceInfo
+
 delete from Invoice
 where ID > 2
 
@@ -216,12 +224,30 @@ where Checkout = (select CAST (GETDATE() - 1 as date))
 select sum(Total) from Invoice
 where ( select month(Checkout) as month) = (select month(GETDATE()) as month)
 
-select sum(Total) from Invoice
-where ( select month(Checkout) as month) = (select month(GETDATE()) - 1 as month)
+
+select  sum(Total) as total from Invoice
+where ( select month(Checkout) as month) = (select month(GETDATE()) as month)
+group by AgencyID
+order by Total DESC
+
+
+SELECT TOP 5 Agency.ID FROM Agency  
+                JOIN Invoice ON Agency.ID = Invoice.AgencyID 
+                WHERE MONTH(CHECKOUT) = 05
+                GROUP BY Agency.ID 
+                ORDER BY SUM(INVOICE.TOTAL) DESC
+
+select Total from Invoice
+where ( select month(Checkout) as month) = (select month(GETDATE()) - 1 as month) and
+		Invoice.AgencyID = 3
 
 select CAST (GETDATE() - 1 as date)
 
 SELECT MONTH(GETDATE()) - 1 AS Month;
+
+SELECT SUM(Debt) AS TOTAL FROM Invoice  
+WHERE YEAR(CHECKOUT) = 2021
+GROUP BY DATEPART(QUARTER, CHECKOUT)
 
 -- đống này kh insert được do thiếu product
 --INSERT INTO InvoiceInfo VALUES (1, 1,3, 600000)

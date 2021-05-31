@@ -825,16 +825,7 @@
                 </Grid>
 
                 <Grid Grid.Row="3">
-                    <ScrollViewer 
-                            HorizontalScrollBarVisibility="Disabled" 
-                            Margin="10"
-                            HorizontalAlignment="Center" 
-                            Style="{StaticResource FavsScrollViewer}"
-                            VerticalScrollBarVisibility="Auto"
-                            Width="1120"
-                            Height="800"
-                            Visibility="Visible">
-                        <Border
+                    <Border
                         BorderThickness="1"
                         Background="White"
                         CornerRadius="2"
@@ -842,133 +833,83 @@
                         VerticalAlignment="Top"
                         Margin="0 10"
                         Width="1100"
-                        Height="790">
-                            <Border.Effect>
-                                <DropShadowEffect 
+                        Height="400">
+                        <Border.Effect>
+                            <DropShadowEffect 
                             BlurRadius="8" 
                             ShadowDepth="1.5" 
                             Direction="270"
                             Color="{StaticResource MaterialDesignShadow}" 
                             Opacity=".42"/>
-                            </Border.Effect>
-                            <Grid
-                            Height="800"
+                        </Border.Effect>
+                        <Grid
+                            Height="400"
                             Width="1050"
                             VerticalAlignment="Top"
                             HorizontalAlignment="Center"
                             Margin="0">
-                                <StackPanel
-                                Width="400"
+                            <StackPanel
+                                Width="600"
                                 Height="50"
                                 Orientation="Horizontal"
                                 VerticalAlignment="Top"
                                 HorizontalAlignment="Left"
                                 Margin="80 5 0 0">
-                                    <ComboBox
+                                <ComboBox
+                                    x:Name="cboSelectTypeOfChart"
                                     DataContext="{StaticResource ReportVM}"
-                                    x:Name="cboSelectPeriod"
                                     materialDesign:ComboBoxAssist.ClassicMode="true"
                                     FontSize="16"
                                     FontWeight="Medium" 
                                     Style="{StaticResource MaterialDesignFloatingHintComboBox}"
-                                    materialDesign:HintAssist.Hint="Chọn chu kỳ"
+                                    materialDesign:HintAssist.Hint="Chọn loại biểu đồ"
                                     Width="160" 
                                     Height="40" 
                                     HorizontalAlignment="Left" 
+                                    VerticalAlignment="Top"
                                     HorizontalContentAlignment="Left"
                                     VerticalContentAlignment="Center" 
                                     Padding="3,0,0,0" 
-                                    Margin="0">
-                                        <i:Interaction.Triggers>
-                                            <i:EventTrigger EventName="SelectionChanged">
-                                                <i:InvokeCommandAction Command="{Binding SelectedPeriodChangedCommand}" 
-                                           CommandParameter="{Binding ElementName=wdHome}"/>
-                                            </i:EventTrigger>
-                                        </i:Interaction.Triggers>
-                                        <ComboBoxItem Content="Theo tháng"/>
-                                        <ComboBoxItem Content="Theo quý"/>
-                                        <ComboBoxItem Content="Theo năm"/>
-                                    </ComboBox>
-                                    <ComboBox
-                                    x:Name="cboSelectTime"
-                                    DataContext="{StaticResource ReportVM}"
-                                    ItemsSource="{Binding ItemSourceTime, Mode=TwoWay}"
-                                    materialDesign:ComboBoxAssist.ClassicMode="true"
-                                    FontSize="16"
-                                    FontWeight="Medium" 
-                                    Style="{StaticResource MaterialDesignFloatingHintComboBox}"
-                                    materialDesign:HintAssist.Hint="Chọn"
-                                    Width="160" 
-                                    Height="40" 
-                                    HorizontalAlignment="Left" 
-                                    HorizontalContentAlignment="Left"
-                                    VerticalContentAlignment="Center" 
-                                    Padding="3,0,0,0" 
-                                    Margin="60,0,0,0" >
-                                        <i:Interaction.Triggers>
-                                            <i:EventTrigger EventName="SelectionChanged">
-                                                <i:InvokeCommandAction Command="{Binding SelectedTimeChangeCommand}" 
-                                           CommandParameter="{Binding ElementName=wdHome}"/>
-                                            </i:EventTrigger>
-                                        </i:Interaction.Triggers>
-                                    </ComboBox>
-                                </StackPanel>
-                                <lvc:CartesianChart 
-                                Series="{Binding SeriesCollection}"
-                                LegendLocation="Left"
-                                Margin="20 80 20 400">
-                                    <lvc:CartesianChart.AxisX>
-                                        <lvc:Axis 
-                                        Title="{Binding AxisXTitle, Mode=TwoWay}"
-                                        Labels="{Binding Labels, Mode=TwoWay}">
-                                            <lvc:Axis.Separator>
-                                                <lvc:Separator Step="1"></lvc:Separator>
-                                            </lvc:Axis.Separator>
-                                        </lvc:Axis>
-                                    </lvc:CartesianChart.AxisX>
-                                    <lvc:CartesianChart.AxisY>
-                                        <lvc:Axis 
-                                        Title="{Binding AxixYTitle, Mode=TwoWay}"
-                                        LabelFormatter="{Binding Formatter}">
-                                        </lvc:Axis>
-                                    </lvc:CartesianChart.AxisY>
+                                    Margin="0,0,0,0" >
+                                    <ComboBoxItem Content="Agency"/>
+                                    <ComboBoxItem Content="Product"/>
                                     <i:Interaction.Triggers>
-                                        <i:EventTrigger EventName="Loaded">
-                                            <i:InvokeCommandAction Command="{Binding InitColumnChartCommand}" 
+                                        <i:EventTrigger EventName="SelectionChanged">
+                                            <i:InvokeCommandAction Command="{Binding SelectedTypeChangeCommand}" 
                                            CommandParameter="{Binding ElementName=wdHome}"/>
                                         </i:EventTrigger>
                                     </i:Interaction.Triggers>
-                                </lvc:CartesianChart>
-                                <!--<lvc:CartesianChart 
+                                </ComboBox>
+                            </StackPanel>
+                            <lvc:CartesianChart 
                                 Series="{Binding SeriesCollection}"
                                 LegendLocation="Left"
-                                Margin="20 410 20 0">
-                                    <lvc:CartesianChart.AxisX>
-                                        <lvc:Axis 
+                                Margin="20 80 20 20">
+                                <lvc:CartesianChart.AxisX>
+                                    <lvc:Axis 
                                         Title="{Binding AxisXTitle, Mode=TwoWay}"
                                         Labels="{Binding Labels, Mode=TwoWay}">
-                                            <lvc:Axis.Separator>
-                                                <lvc:Separator Step="1"></lvc:Separator>
-                                            </lvc:Axis.Separator>
-                                        </lvc:Axis>
-                                    </lvc:CartesianChart.AxisX>
-                                    <lvc:CartesianChart.AxisY>
-                                        <lvc:Axis 
+                                        <lvc:Axis.Separator>
+                                            <lvc:Separator Step="1"></lvc:Separator>
+                                        </lvc:Axis.Separator>
+                                    </lvc:Axis>
+                                </lvc:CartesianChart.AxisX>
+                                <lvc:CartesianChart.AxisY>
+                                    <lvc:Axis 
                                         Title="{Binding AxixYTitle, Mode=TwoWay}"
                                         LabelFormatter="{Binding Formatter}">
-                                        </lvc:Axis>
-                                    </lvc:CartesianChart.AxisY>
-                                    <i:Interaction.Triggers>
-                                        <i:EventTrigger EventName="Loaded">
-                                            <i:InvokeCommandAction Command="{Binding InitColumnChartCommand}" 
+                                    </lvc:Axis>
+                                </lvc:CartesianChart.AxisY>
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="Loaded">
+                                        <i:InvokeCommandAction Command="{Binding InitColumnChartCommand}" 
                                            CommandParameter="{Binding ElementName=wdHome}"/>
-                                        </i:EventTrigger>
-                                    </i:Interaction.Triggers>
-                                </lvc:CartesianChart>-->
-                            </Grid>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </lvc:CartesianChart>
+                        </Grid>
                             
-                        </Border>
-                    </ScrollViewer>
+                    </Border>
                 </Grid>
             </Grid>
             <!--Body stores-->
