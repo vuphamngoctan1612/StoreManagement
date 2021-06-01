@@ -775,49 +775,161 @@
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
                                 <Grid Grid.Column="0">
-                                    <TextBlock
-                                        x:Name="txb_today_total"
-                                        Text="{Binding ItemSourceTime, Mode=TwoWay}"
-                                        FontStyle="Normal"
-                                        FontSize="22" 
-                                        FontWeight="SemiBold"
+                                    <Border
+                                        BorderThickness="1"
+                                        Background="White"
+                                        CornerRadius="8"
                                         HorizontalAlignment="Center"
                                         VerticalAlignment="Center"
-                                        Foreground="#504D85"
-                                        />
+                                        Margin="0 0"
+                                        Width="290"
+                                        Height="135">
+                                        <Border.Effect>
+                                            <DropShadowEffect 
+                                            BlurRadius="8" 
+                                            ShadowDepth="1.5" 
+                                            Direction="270"
+                                            Color="{StaticResource MaterialDesignShadow}" 
+                                            Opacity=".42"/>
+                                        </Border.Effect>
+                                        <Grid>
+                                            <TextBlock
+                                                Text="Total sales today"
+                                                FontSize="14"
+                                                Foreground="#9098B1"
+                                                VerticalAlignment="Top"
+                                                HorizontalAlignment="Left"
+                                                Margin="15 10"/>
+                                            <TextBlock
+                                                x:Name="txb_today_total"
+                                                Text="{Binding ItemSourceTime, Mode=TwoWay}"
+                                                FontStyle="Normal"
+                                                FontSize="28" 
+                                                FontWeight="SemiBold"
+                                                HorizontalAlignment="Left"
+                                                VerticalAlignment="Center"
+                                                Margin="15"
+                                                Foreground="#4F4F4F"
+                                                />
+                                        </Grid>
+                                    </Border>
                                 </Grid>
                                 <Grid Grid.Column="1">
-                                    <TextBlock
-                                        x:Name="txb_today_bill"
-                                        Text="{Binding ItemSourceTime, Mode=TwoWay}"
-                                        FontStyle="Normal"
-                                        FontSize="22" 
-                                        FontWeight="SemiBold"
+                                    <Border
+                                        BorderThickness="1"
+                                        Background="White"
+                                        CornerRadius="8"
                                         HorizontalAlignment="Center"
                                         VerticalAlignment="Center"
-                                        Foreground="#504D85"/>
+                                        Margin="0 0"
+                                        Width="240"
+                                        Height="135">
+                                        <Border.Effect>
+                                            <DropShadowEffect 
+                                            BlurRadius="8" 
+                                            ShadowDepth="1.5" 
+                                            Direction="270"
+                                            Color="{StaticResource MaterialDesignShadow}" 
+                                            Opacity=".42"/>
+                                        </Border.Effect>
+                                        <Grid>
+                                            <TextBlock
+                                                Text="Total bill today"
+                                                FontSize="14"
+                                                Foreground="#9098B1"
+                                                VerticalAlignment="Top"
+                                                HorizontalAlignment="Left"
+                                                Margin="15 10"/>
+                                            <TextBlock
+                                                x:Name="txb_today_bill"
+                                                Text="{Binding ItemSourceTime, Mode=TwoWay}"
+                                                FontStyle="Normal"
+                                                FontSize="28" 
+                                                FontWeight="SemiBold"
+                                                HorizontalAlignment="Left"
+                                                VerticalAlignment="Center"
+                                                Margin="15"
+                                                Foreground="#4F4F4F"/>
+                                        </Grid>
+                                    </Border>
                                 </Grid>
                                 <Grid Grid.Column="2">
-                                    <TextBlock
-                                        x:Name="txb_yesterday_compare"
-                                        Text="{Binding ItemSourceTime, Mode=TwoWay}"
-                                        FontStyle="Normal"
-                                        FontSize="22" 
-                                        FontWeight="SemiBold"
+                                    <Border
+                                        BorderThickness="1"
+                                        Background="White"
+                                        CornerRadius="8"
                                         HorizontalAlignment="Center"
                                         VerticalAlignment="Center"
-                                        Foreground="#504D85"/>
+                                        Margin="0 0"
+                                        Width="240"
+                                        Height="135">
+                                        <Border.Effect>
+                                            <DropShadowEffect 
+                                            BlurRadius="8" 
+                                            ShadowDepth="1.5" 
+                                            Direction="270"
+                                            Color="{StaticResource MaterialDesignShadow}" 
+                                            Opacity=".42"/>
+                                        </Border.Effect>
+                                        <Grid>
+                                            <TextBlock
+                                                Text="Compare with yesterday"
+                                                FontSize="14"
+                                                Foreground="#9098B1"
+                                                VerticalAlignment="Top"
+                                                HorizontalAlignment="Left"
+                                                Margin="15 10"/>
+                                            <TextBlock
+                                                x:Name="txb_yesterday_compare"
+                                                Text="{Binding ItemSourceTime, Mode=TwoWay}"
+                                                FontStyle="Normal"
+                                                FontSize="28" 
+                                                FontWeight="SemiBold"
+                                                HorizontalAlignment="Left"
+                                                VerticalAlignment="Center"
+                                                Margin="15"
+                                                Foreground="#4F4F4F"/>
+                                        </Grid>
+                                    </Border>
                                 </Grid>
                                 <Grid Grid.Column="3">
-                                    <TextBlock
-                                        x:Name="txb_monnt_compare"
-                                        Text="{Binding ItemSourceTime, Mode=TwoWay}"
-                                        FontStyle="Normal"
-                                        FontSize="22" 
-                                        FontWeight="SemiBold"
+                                    <Border
+                                        BorderThickness="1"
+                                        Background="White"
+                                        CornerRadius="8"
                                         HorizontalAlignment="Center"
                                         VerticalAlignment="Center"
-                                        Foreground="#504D85"/>
+                                        Margin="0 0"
+                                        Width="290"
+                                        Height="135">
+                                        <Border.Effect>
+                                            <DropShadowEffect 
+                                            BlurRadius="8" 
+                                            ShadowDepth="1.5" 
+                                            Direction="270"
+                                            Color="{StaticResource MaterialDesignShadow}" 
+                                            Opacity=".42"/>
+                                        </Border.Effect>
+                                        <Grid>
+                                            <TextBlock
+                                                Text="Compare with last month"
+                                                FontSize="14"
+                                                Foreground="#9098B1"
+                                                VerticalAlignment="Top"
+                                                HorizontalAlignment="Left"
+                                                Margin="15 10"/>
+                                            <TextBlock
+                                                x:Name="txb_monnt_compare"
+                                                Text="{Binding ItemSourceTime, Mode=TwoWay}"
+                                                FontStyle="Normal"
+                                                FontSize="28" 
+                                                FontWeight="SemiBold"
+                                                HorizontalAlignment="Left"
+                                                VerticalAlignment="Center"
+                                                Margin="15"
+                                                Foreground="#4F4F4F"/>
+                                        </Grid>
+                                    </Border>
                                 </Grid>
                             </Grid>
                         </Grid>

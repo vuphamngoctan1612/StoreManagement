@@ -117,7 +117,7 @@ namespace StoreManagement.ViewModels
                 }
             }
             catch { }
-            para.txb_today_total.Text = ConvertToString(sumInvoicesTotal);
+            para.txb_today_total.Text = ConvertToString(sumInvoicesTotal) + " VND";
             //count Invoices
             List<Int32> tempCounts = DataProvider.Instance.DB.Database.SqlQuery<Int32>("select count(ID) from Invoice " +
                                                                                         "where Checkout = (select CAST(GETDATE() as date))").ToList();
