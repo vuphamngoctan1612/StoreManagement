@@ -373,6 +373,46 @@
                     </i:Interaction.Triggers>
                 </TextBox>
             </Grid>
+            <!--<Grid Grid.Row="6"
+                Width="550" 
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center">
+                <Label
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Content="Total"
+                    FontSize="22"
+                    FontWeight="SemiBold"
+                    Foreground="#57548B">
+                </Label>
+                <Rectangle
+                    HorizontalAlignment="Left"
+                    Width="350"
+                    Margin="180 0 0 0"
+                    StrokeThickness="2"
+                    RadiusX="10"
+                    RadiusY="10"
+                    Stroke="#E2D2DA">
+                </Rectangle>
+                <TextBox
+                    x:Name="txtTotal"
+                    IsEnabled="False"
+                    materialDesign:HintAssist.Hint="Automatic"
+                     HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Width="330"
+                    Margin="190 0 0 0"
+                    BorderThickness="0"
+                    MaxLines="1"
+                    Height="40"
+                    FontSize="17"
+                    FontWeight="SemiBold"
+                    Padding="0"
+                    HorizontalContentAlignment="Left"
+                    VerticalContentAlignment="Center" 
+                    Cursor="Arrow">
+                </TextBox>
+            </Grid>-->
             <Grid Grid.Row="6">
                 <Grid
                     VerticalAlignment="Center"

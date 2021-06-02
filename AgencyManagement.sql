@@ -15,6 +15,8 @@ create table Account
 	constraint PK_Account primary key(Username)
 )
 go
+insert into Account
+values ('dung', '625d45c587033e8970af8b4e3fdb575c', 'dung' , null)
 
 create table Agency
 (

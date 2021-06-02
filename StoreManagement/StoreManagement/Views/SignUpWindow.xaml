@@ -232,7 +232,7 @@
                         RadiusX="10"
                         RadiusY="10"
                         Stroke="#E2D2DA"/>
-                    <PasswordBox                        
+                    <PasswordBox    
                         x:Name="pwbPasswordConfirm"
                         HorizontalAlignment="Right"
                         VerticalAlignment="Center"
