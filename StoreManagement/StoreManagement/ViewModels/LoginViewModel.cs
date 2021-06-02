@@ -47,14 +47,14 @@ namespace StoreManagement.ViewModels
                 return;
             }
             //check password
-            if (String.IsNullOrEmpty(parameter.txtPassword.Text))
+            if (String.IsNullOrEmpty(parameter.txtPassword.Password))
             {
                 MessageBox.Show("Vui lòng nhập mật khẩu!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
                 parameter.txtPassword.Focus();
                 return;
             }
 
-            string codedPassword = MD5Hash(parameter.txtPassword.Text);
+            string codedPassword = MD5Hash(parameter.txtPassword.Password);
             var checkACC = DataProvider.Instance.DB.Accounts.Where(x => x.Username == parameter.txtUser.Text && x.Password == codedPassword).Count();
             if (checkACC > 0)
             {
@@ -73,7 +73,7 @@ namespace StoreManagement.ViewModels
                 }
 
                 homeWindow.ShowDialog();
-                parameter.txtPassword.Text = "";
+                parameter.txtPassword.Password = "";
                 parameter.Show();
             }
             else
@@ -81,6 +81,5 @@ namespace StoreManagement.ViewModels
                 MessageBox.Show("Sai tên đăng nhập hoặc mật khẩu!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
         }
-
     }
 }

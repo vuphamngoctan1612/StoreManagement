@@ -49,7 +49,7 @@ create table Product
 (
 	ID int,
 	Name nvarchar(100),
-	Unit nvarchar(100),
+	UnitsID int,
 	Image image,
 	ImportPrice bigint,
 	ExportPrice bigint,
@@ -60,6 +60,13 @@ create table Product
 )
 go
 
+create table Units
+(
+	ID int,
+	Name nvarchar(100),
+
+	constraint PK_Units primary key(ID)
+)
 
 create table Invoice
 (
@@ -126,6 +133,10 @@ create table District
 )
 
 alter table Agency add constraint FK_District foreign key(District) references District(Name)
+go
+
+alter table Product add constraint FK_Units foreign key (UnitsID) references Units(ID)
+go
 
 alter table InvoiceInfo add constraint FK_InvoiceID foreign key (InvoiceID) references Invoice(ID)
 go
