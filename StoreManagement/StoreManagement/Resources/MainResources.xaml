@@ -11,4 +11,5 @@
     <viewmodels:BusinessViewModel x:Key="BusinessVM"/>
     <viewmodels:SettingViewModel x:Key="SettingVM"/>
     <viewmodels:AccountViewModel x:Key="AccountVM"></viewmodels:AccountViewModel>
+    <viewmodels:UnitsViewModel x:Key="UnitsVM"></viewmodels:UnitsViewModel>
 </ResourceDictionary>

@@ -207,9 +207,7 @@
                         FontWeight="SemiBold" 
                         Padding="75,0,0,0" 
                         Cursor="Hand" 
-                        FocusVisualStyle="{x:Null}"
-                        Command="{Binding OpenProductsWindowCommand}"
-                        CommandParameter="{Binding ElementName=wdHome}">
+                        FocusVisualStyle="{x:Null}">
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="Click">
                                 <i:InvokeCommandAction Command="{Binding SwitchTabCommand}"
@@ -685,6 +683,7 @@
                                 <ComboBox
                                     DataContext="{StaticResource ReportVM}"
                                     x:Name="cboSelectPeriod"
+                                    Foreground="#504D85"
                                     materialDesign:ComboBoxAssist.ClassicMode="true"
                                     FontSize="16"
                                     FontWeight="Medium" 
@@ -703,9 +702,15 @@
                                            CommandParameter="{Binding ElementName=wdHome}"/>
                                         </i:EventTrigger>
                                     </i:Interaction.Triggers>
-                                    <ComboBoxItem Content="Theo tháng"/>
-                                    <ComboBoxItem Content="Theo quý"/>
-                                    <ComboBoxItem Content="Theo năm"/>
+                                    <ComboBoxItem 
+                                        Content="Theo tháng"
+                                        Foreground="#504D85"/>
+                                    <ComboBoxItem 
+                                        Content="Theo quý"
+                                        Foreground="#504D85"/>
+                                    <ComboBoxItem 
+                                        Content="Theo năm"
+                                        Foreground="#504D85"/>
                                 </ComboBox>
                                 <ComboBox
                                     x:Name="cboSelectTime"
@@ -714,6 +719,7 @@
                                     materialDesign:ComboBoxAssist.ClassicMode="true"
                                     FontSize="16"
                                     FontWeight="Medium" 
+                                    Foreground="#504D85"
                                     Style="{StaticResource MaterialDesignFloatingHintComboBox}"
                                     materialDesign:HintAssist.Hint="Chọn"
                                     Width="160" 
