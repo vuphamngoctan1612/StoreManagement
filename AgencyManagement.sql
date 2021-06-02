@@ -272,6 +272,7 @@ values (19,1,200,1000000),
 insert into Invoice values (20,5,GETDATE(),0,1000000)
 insert into InvoiceInfo 
 values (20,6,100,1000000)
+insert into Invoice values (21,5,GETDATE(),0,1000000)
 
 select * from Product
 
@@ -320,9 +321,8 @@ SELECT TOP 5 Product.ID FROM Product
                 GROUP BY Product.ID
                 ORDER BY SUM(InvoiceInfo.TOTAL) DESC
 
-select Total from Invoice
-where ( select month(Checkout) as month) = (select month(GETDATE()) - 1 as month) and
-		Invoice.AgencyID = 3
+select sum(Total) from Invoice
+where ( select month(Checkout) as month) = (select month(GETDATE()) - 1 as month) 
 
 select CAST (GETDATE() - 1 as date)
 

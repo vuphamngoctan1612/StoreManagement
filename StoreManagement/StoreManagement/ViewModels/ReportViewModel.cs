@@ -110,11 +110,7 @@ namespace StoreManagement.ViewModels
             {
                 tempSums = DataProvider.Instance.DB.Database.SqlQuery<Int64>("select sum(Total) from Invoice " +
                                                                                             "where Checkout = (select CAST(GETDATE() as date))").ToList();
-
-                if (tempSums != null)
-                {
-                    sumInvoicesTotal = (double)(tempSums.First());
-                }
+                sumInvoicesTotal = (double)(tempSums.First());
             }
             catch { }
             para.txb_today_total.Text = ConvertToString(sumInvoicesTotal) + " VND";
@@ -124,49 +120,50 @@ namespace StoreManagement.ViewModels
             countInvoices = (int)(tempCounts.First());
             para.txb_today_bill.Text = countInvoices.ToString();
             //compare with yesterday
+            List<Int64> tempSumsYesterday = new List<Int64>();
             try
             {
-                List<Int64> tempSumsYesterday = DataProvider.Instance.DB.Database.SqlQuery<Int64>("select sum(Total) from Invoice " +
+                tempSumsYesterday = DataProvider.Instance.DB.Database.SqlQuery<Int64>("select sum(Total) from Invoice " +
                                                                                                     "where Checkout = (select CAST(GETDATE() - 1 as date))").ToList();
-                if (tempSumsYesterday != null)
-                {
-                    sumInvoicesTotalYesterday = (double)(tempSumsYesterday.First());
-                }
+                sumInvoicesTotalYesterday = (double)(tempSumsYesterday.First());
             }
             catch { }
             if (sumInvoicesTotalYesterday != 0)
             {
-                para.txb_yesterday_compare.Text = ((int)(100 * sumInvoicesTotal / sumInvoicesTotalYesterday) - 100).ToString() + "%";
+                para.yesterday_compare.Text = ((int)(100 * sumInvoicesTotal / sumInvoicesTotalYesterday) - 100).ToString() + "%";
+                if(((int)(100 * sumInvoicesTotal / sumInvoicesTotalYesterday) - 100).ToString().First() == '-')
+                {
+                    para.yesterday_compare.Foreground = (Brush)new BrushConverter().ConvertFrom("#E3507A");
+                }
+                para.txb_yesterday_compare.Text = ConvertToString(sumInvoicesTotal - sumInvoicesTotalYesterday) + " VND";
             }
             else
             {
                 para.txb_yesterday_compare.Text = ConvertToString(sumInvoicesTotal) + " VND";
+                para.yesterday_compare.Text = "There were no bills yesterday";
             }
             //compare with last month
             try
             {
-                List<Int64> tempThisMonths = DataProvider.Instance.DB.Database.SqlQuery<Int64>("select sum(Total) from Invoice " +
-                                                                                                "where(select month(Checkout) as month) = (select month(GETDATE()) as month)").ToList();
-                if (tempThisMonths != null)
-                {
-                    sumInvoicesThisMonth = (double)(tempThisMonths.First());
-                }
                 List<Int64> tempLastMonth = DataProvider.Instance.DB.Database.SqlQuery<Int64>("select sum(Total) from Invoice " +
                                                                                                 "where(select month(Checkout) as month) = (select month(GETDATE()) - 1 as month)").ToList();
-                if (tempLastMonth != null)
-                {
-                    sumInvoicesLastMonth = (double)(tempLastMonth.First());
-                }
+                sumInvoicesLastMonth = (double)(tempLastMonth.First());
             }
             catch { }
             if (sumInvoicesLastMonth != 0)
             {
-                para.txb_monnt_compare.Text = ((int)(100 * sumInvoicesThisMonth / sumInvoicesLastMonth) - 100).ToString() + "%";
+                para.month_compare.Text = ((int)(100 * sumInvoicesThisMonth / sumInvoicesLastMonth) - 100).ToString() + "%";
+                if (((int)(100 * sumInvoicesThisMonth / sumInvoicesLastMonth) - 100).ToString().First() == '-')
+                {
+                    para.month_compare.Foreground = (Brush)new BrushConverter().ConvertFrom("#E3507A");
+                }
+                para.txb_month_compare.Text = ConvertToString(sumInvoicesThisMonth - sumInvoicesLastMonth) + " VND";
             }
             else
             {
-                para.txb_monnt_compare.Text = ConvertToString(sumInvoicesThisMonth) + " VND";
-            }    
+                para.txb_month_compare.Text = ConvertToString(sumInvoicesThisMonth) + " VND";
+                para.month_compare.Text = "There were no bills last month";
+            }
         }
 
         private void cboSelectTypeOfChartIndex_Changed(HomeWindow para)
