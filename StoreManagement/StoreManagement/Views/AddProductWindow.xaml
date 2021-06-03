@@ -185,7 +185,7 @@
                         CornerRadius="10">
                         <ComboBox
                             Name="cbbUnits"
-                            IsEditable="True"
+                            IsEditable="False"
                             HorizontalAlignment="Left"
                             VerticalAlignment="Center"
                             VerticalContentAlignment="Center"

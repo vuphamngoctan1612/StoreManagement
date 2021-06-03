@@ -23,6 +23,12 @@ namespace StoreManagement.ViewModels
 
         private void AddUnits(AddUnitsWindow para)
         {
+            if (string.IsNullOrEmpty(para.txtName.Text))
+            {
+                para.txtName.Focus();
+                return;
+            }
+
             try
             {
                 Unit unit = new Unit();

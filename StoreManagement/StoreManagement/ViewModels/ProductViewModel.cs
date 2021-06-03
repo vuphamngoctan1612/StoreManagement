@@ -22,7 +22,7 @@ namespace StoreManagement.ViewModels
     {
         private Unit selectedUnits;
         public Unit SelectedUnits
-        { 
+        {
             get => selectedUnits;
             set
             {
@@ -31,8 +31,8 @@ namespace StoreManagement.ViewModels
             }
         }
         private ObservableCollection<Unit> itemsSourceUnits = new ObservableCollection<Unit>();
-        public ObservableCollection<Unit> ItemsSourceUnits 
-        { 
+        public ObservableCollection<Unit> ItemsSourceUnits
+        {
             get => itemsSourceUnits;
             set
             {
@@ -202,44 +202,13 @@ namespace StoreManagement.ViewModels
                 this.LoadProduct(this.HomeWindow);
                 para.Close();
             }
-
-            ImageBrush imageBrush = new ImageBrush();
-            imageBrush.ImageSource = Converter.Instance.ConvertByteToBitmapImage(product.Image);
-
-            ImportProductWindow window = new ImportProductWindow();
-
-            window.txtID.Text = product.ID.ToString();
-            window.txtStockReceiptID.Text = stockReceiptID.ToString();
-
-            window.txtProductName.Text = product.Name;
-            window.txtProductName.SelectionStart = window.txtProductName.Text.Length;
-
-            window.txtUnit.Text = product.Unit;
-            window.txtUnit.SelectionStart = window.txtUnit.Text.Length;
-
-            window.txtImportPrice.Text = ConvertToString(product.ImportPrice);
-            window.txtImportPrice.SelectionStart = window.txtImportPrice.Text.Length;
-
-            window.txtAmount.Text = ConvertToString(product.Count);
-            window.txtAmount.SelectionStart = window.txtAmount.Text.Length;
-
-            window.grdImage.Background = imageBrush;
-            if (window.grdImage.Children.Count != 0)
-            {
-                window.grdImage.Children.Remove(window.grdImage.Children[0]);
-                window.grdImage.Children.Remove(window.grdImage.Children[0]);
-            }
-
-            window.Title = "Import exits product";
-            window.ShowDialog();
         }
-        
         private void OpenImportProductwindow(HomeWindow para)
         {
             this.HomeWindow = para;
             ImportProductWindow window = new ImportProductWindow();
             this.InitItemsSourceUnits();
-            
+
             try
             {
                 string query = "SELECT MAX(ID) FROM Product " +
@@ -264,204 +233,6 @@ namespace StoreManagement.ViewModels
         private void CloseImportWindow(ImportProductWindow para)
         {
             para.Close();
-        }
-
-        private void Import_SaveProduct(ImportProductWindow para)
-        {
-            if (string.IsNullOrEmpty(para.txtProductName.Text))
-            {
-                para.txtProductName.Focus();
-                return;
-            }
-            if (string.IsNullOrEmpty(para.txtUnit.Text))
-            {
-                para.txtUnit.Focus();
-                return;
-            }
-            if (string.IsNullOrEmpty(para.txtImportPrice.Text))
-            {
-                para.txtImportPrice.Focus();
-                return;
-            }
-            if (string.IsNullOrEmpty(para.txtAmount.Text))
-            {
-                para.txtAmount.Focus();
-                return;
-            }
-
-            StreamReader sr = new StreamReader("../../cache.txt");
-            string cache = sr.ReadToEnd();
-            sr.Close();
-
-            string[] rulesSetting = cache.Split(' ');
-
-            var results = DataProvider.Instance.DB.Products.Where(x => x.IsDelete == false).Select(x => x.Unit).Distinct().ToList();
-
-            if (para.Title == "Thêm sản phẩm" && DataProvider.Instance.DB.Products.Where(x => x.IsDelete == false).ToList().Count >= int.Parse(rulesSetting[2]))
-            {
-                MessageBox.Show("Exceed the number of product limit");
-                return;
-            }
-
-            if (DataProvider.Instance.DB.Products.Where(x => x.IsDelete == false).Where(x => x.Unit == para.txtUnit.Text).ToList().Count < 1)
-            {
-                if (results.Count >= int.Parse(rulesSetting[3]))
-                {
-                    MessageBox.Show("Exceed the number of unit limit");
-                    return;
-                }
-            }
-
-            string id = para.txtID.Text;
-            string name = para.txtProductName.Text;
-            string unit = para.txtUnit.Text;
-            long importPrice = ConvertToNumber(para.txtImportPrice.Text);
-            long exportPrice = ConvertToNumber(para.txtStockReceiptID.Text);
-            int amount = (int)ConvertToNumber(para.txtAmount.Text);
-
-            try
-            {
-                int productID = int.Parse(para.txtID.Text);
-                int stockReceiptID = int.Parse(para.txtStockReceiptID.Text);
-                string productName = para.txtProductName.Text;
-                string units = para.txtUnit.Text;
-                importPrice = ConvertToNumber(para.txtImportPrice.Text);
-                amount = (int)ConvertToNumber(para.txtAmount.Text);
-                byte[] imgByteArr;
-
-                if (imageFileName == null)
-                {
-                    imgByteArr = Converter.Instance.ConvertImageToBytes(@"..\..\Resources\Images\default.jpg");
-                }
-                else
-                {
-                    imgByteArr = Converter.Instance.ConvertImageToBytes(imageFileName);
-                }
-
-                Product product;
-                //exits product
-                if (para.Title == "Import exits product")
-                {
-                    product = DataProvider.Instance.DB.Products.Where(p => p.ID == productID).First();
-                    product.ID = productID;
-                    product.Name = productName;
-                    product.Unit = units;
-                    product.ImportPrice = importPrice;
-                    product.Count = amount;
-                    product.Image = imgByteArr;
-                    product.IsDelete = false;
-                }
-                //import new product
-                else
-                {
-                    product = new Product();
-                    product.ID = productID;
-                    product.Name = productName;
-                    product.Unit = units;
-                    product.ImportPrice = importPrice;
-                    product.ExportPrice = 0;
-                    product.Count = amount;
-                    product.Image = imgByteArr;
-                    product.IsDelete = false;
-                }
-
-                StockReceiptInfo stockReceiptInfo = new StockReceiptInfo();
-                stockReceiptInfo.StockReceiptID = stockReceiptID;
-                stockReceiptInfo.ProductID = productID;
-                stockReceiptInfo.Amount = amount;
-                stockReceiptInfo.Price = importPrice;
-
-                StockReceipt stockReceipt = new StockReceipt();
-                stockReceipt.ID = stockReceiptID;
-                stockReceipt.CheckIn = DateTime.Now;
-                stockReceipt.Total = product.Count * product.ImportPrice;
-
-                DataProvider.Instance.DB.Products.AddOrUpdate(product);
-                DataProvider.Instance.DB.StockReceipts.AddOrUpdate(stockReceipt);
-                DataProvider.Instance.DB.StockReceiptInfoes.AddOrUpdate(stockReceiptInfo);
-                DataProvider.Instance.DB.SaveChanges();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-            finally
-            {
-                this.LoadProduct(this.HomeWindow);
-                para.Close();
-            }
-        }
-
-        private void AddProduct(AddProductWindow para)
-        {
-            if (string.IsNullOrEmpty(para.txtName.Text))
-            {
-                para.txtName.Focus();
-                return;
-            }
-            if (string.IsNullOrEmpty(para.txtUnit.Text))
-            {
-                para.txtUnit.Focus();
-                return;
-            }
-            if (string.IsNullOrEmpty(para.txtPrice.Text))
-            {
-                para.txtUnit.Focus();
-                return;
-            }
-
-            try
-            {
-                int id = int.Parse(para.txtID.Text);
-                string name = para.txtName.Text;
-                string unit = para.txtUnit.Text;
-                long price = ConvertToNumber(para.txtPrice.Text);
-                
-                byte[] imgByteArr;
-                if (imageFileName == null)
-                {
-                    imgByteArr = Converter.Instance.ConvertImageToBytes(@"..\..\Resources\Images\default.jpg");
-                }
-                else
-                {
-                    imgByteArr = Converter.Instance.ConvertImageToBytes(imageFileName);
-                }
-
-                Product product;
-                //update product
-                if (para.Title == "Update info product")    
-                {
-                    product = DataProvider.Instance.DB.Products.Where(x => x.ID == id).First();
-                    product.ID = id;
-                    product.Name = name;
-                    product.Unit = unit;
-                    product.ExportPrice = price;
-                    product.Image = imgByteArr;
-                }
-                //add product                
-                else
-                {
-                    product = new Product();
-                    product.ID = id;
-                    product.Name = name;
-                    product.Unit = unit;
-                    product.ImportPrice = 0;
-                    product.ExportPrice = price;
-                    product.Count = 0;
-                    product.Image = imgByteArr;
-                    product.IsDelete = false;
-                }
-                this.AddOrUpdateProduct(product);
-            }
-            catch(Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-            finally
-            {
-                LoadProduct(this.HomeWindow);
-                para.Close();
-            }
         }
         //add product window
         private void OpenAddProductWindow(HomeWindow para)
@@ -502,41 +273,61 @@ namespace StoreManagement.ViewModels
                 para.cbbUnits.Focus();
                 return;
             }
-            window.txtID.Text = product.ID.ToString();
 
-            window.txtName.Text = product.Name;
-            window.txtName.SelectionStart = window.txtName.Text.Length;
-
-            window.txtUnit.Text = product.Unit;
-            window.txtUnit.SelectionStart = window.txtUnit.Text.Length;
-
-            window.txtPrice.Text = ConvertToString(product.ExportPrice);
-            window.txtPrice.SelectionStart = window.txtPrice.Text.Length;
-
-            window.Title = "Update info product";
-            window.grdImage.Background = imageBrush;
-            if (window.grdImage.Children.Count != 0)
+            try
             {
-                window.grdImage.Children.Remove(window.grdImage.Children[0]);
-                window.grdImage.Children.Remove(window.grdImage.Children[0]);
+                int id = int.Parse(para.txtID.Text);
+                string name = para.txtName.Text;
+                long price = ConvertToNumber(para.txtPrice.Text);
+
+                byte[] imgByteArr;
+                if (imageFileName == null)
+                {
+                    imgByteArr = Converter.Instance.ConvertImageToBytes(@"..\..\Resources\Images\default.jpg");
+                }
+                else
+                {
+                    imgByteArr = Converter.Instance.ConvertImageToBytes(imageFileName);
+                }
+
+                Product product;
+                //update product
+                if (para.Title == "Update info product")
+                {
+                    product = DataProvider.Instance.DB.Products.Where(x => x.ID == id).First();
+                    product.ID = id;
+                    product.Name = name;
+                    product.ExportPrice = price;
+                    product.Image = imgByteArr;
+                    product.UnitsID = selectedUnits.ID;
+                }
+                //add product                
+                else
+                {
+                    product = new Product();
+                    product.ID = id;
+                    product.Name = name;
+                    product.ImportPrice = 0;
+                    product.ExportPrice = price;
+                    product.Count = 0;
+                    product.Image = imgByteArr;
+                    product.IsDelete = false;
+                    product.UnitsID = selectedUnits.ID;
+                }
+
+                DataProvider.Instance.DB.Products.AddOrUpdate(product);
+                DataProvider.Instance.DB.SaveChanges();
             }
-
-            window.ShowDialog();
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            finally
+            {
+                LoadProduct(this.HomeWindow);
+                para.Close();
+            }
         }
-
-        private void DeleteProduct(ProductControlUC para)
-        {
-            Product product = new Product();
-            int id = int.Parse(para.txbID.Text);
-            product = (Product)DataProvider.Instance.DB.Products.Where(x => x.ID == id).First();
-
-            product.IsDelete = true;
-            DataProvider.Instance.DB.Products.AddOrUpdate(product);
-            DataProvider.Instance.DB.SaveChanges();
-
-            this.HomeWindow.stkProducts.Children.Remove(para);
-        }
-
         private void ChooseImage(Grid para)
         {
             OpenFileDialog op = new OpenFileDialog();
@@ -557,49 +348,6 @@ namespace StoreManagement.ViewModels
                 {
                     para.Children.Remove(para.Children[0]);
                     para.Children.Remove(para.Children[0]);
-                }
-            }
-        }
-
-        private void LoadProduct(HomeWindow para)
-        {
-            this.HomeWindow = para;
-            this.HomeWindow.stkProducts.Children.Clear();
-            List<Product> products = new List<Product>();
-
-            string query = "SELECT * FROM Product";
-            products = DataProvider.Instance.DB.Products.SqlQuery(query).ToList();
-
-            foreach (Product product in products)
-            {
-                if (product.IsDelete == false)
-                {
-                    ProductControlUC control = new ProductControlUC();
-                    control.txbID.Text = product.ID.ToString();
-                    control.txbName.Text = product.Name;
-                    control.txbUnit.Text = product.Unit;
-                    control.txbImportPrice.Text = ConvertToString(product.ImportPrice);
-                    control.txbPrice.Text = ConvertToString(product.ExportPrice);
-                    control.txbCount.Text = ConvertToString(product.Count);
-
-                    this.HomeWindow.stkProducts.Children.Add(control);
-                }
-            }
-        }
-
-        private void SearchProduct(HomeWindow para)
-        {
-            this.HomeWindow = para;
-
-            foreach (ProductControlUC control in HomeWindow.stkProducts.Children)
-            {
-                if (!control.txbName.Text.ToLower().Contains(this.HomeWindow.txtSeachProduct.Text))
-                {
-                    control.Visibility = Visibility.Collapsed;
-                }
-                else
-                {
-                    control.Visibility = Visibility.Visible;
                 }
             }
         }
@@ -704,15 +452,24 @@ namespace StoreManagement.ViewModels
         private void OpenAddUnitsWindow(ComboBox para)
         {
             AddUnitsWindow window = new AddUnitsWindow();
-
-            int id = DataProvider.Instance.DB.Units.Max(p => p.ID) + 1;
-            window.txtID.Text = id.ToString();
-
-            window.ShowDialog();
-            if (window.isSaveSucceed)
+            
+            try
             {
-                this.InitItemsSourceUnits();
+                int id = DataProvider.Instance.DB.Units.Max(p => p.ID) + 1;
+                window.txtID.Text = id.ToString();
             }
+            catch
+            {
+                window.txtID.Text = "1";
+            }
+            finally
+            {
+                window.ShowDialog();
+                if (window.isSaveSucceed)
+                {
+                    this.InitItemsSourceUnits();
+                }
+            }            
         }
         private void LoadProduct(HomeWindow para)
         {
@@ -733,7 +490,7 @@ namespace StoreManagement.ViewModels
                 control.txbPrice.Text = ConvertToString(product.ExportPrice);
                 control.txbCount.Text = ConvertToString(product.Count);
 
-                this.HomeWindow.stkProducts.Children.Add(control);                
+                this.HomeWindow.stkProducts.Children.Add(control);
             }
         }
         private void SearchProduct(HomeWindow para)
@@ -772,7 +529,7 @@ namespace StoreManagement.ViewModels
         private List<Unit> GetListUnits()
         {
             //string query = "SELECT * FROM UNITS";
-            List<Unit> res = DataProvider.Instance.DB.Units.Select(p=>p).ToList();
+            List<Unit> res = DataProvider.Instance.DB.Units.Select(p => p).ToList();
 
             return res;
         }
