@@ -309,7 +309,6 @@ namespace StoreManagement.ViewModels
                 uc.txbPrice.Text = SeparateThousands(item.ExportPrice.Value.ToString());
                 uc.tb_main.Text = "1";
                 uc.txbUnit.Text = DataProvider.Instance.DB.Units.Where(p => p.ID == item.UnitsID).Select(p => p.Name).First();
-                uc.txbAmount.Text = "1";
                 uc.txbTotal.Text = SeparateThousands(item.ExportPrice.Value.ToString());
 
                 this.HomeWindow.stkListProductChosenBusiness.Children.Add(uc);

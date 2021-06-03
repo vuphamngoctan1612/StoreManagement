@@ -708,7 +708,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-        </EntityContainerMapping>
           <EntitySetMapping Name="Units">
             <EntityTypeMapping TypeName="AgencyManagementModel.Unit">
               <MappingFragment StoreEntitySet="Units">
