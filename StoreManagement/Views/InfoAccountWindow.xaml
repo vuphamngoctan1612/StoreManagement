@@ -1,0 +1,306 @@
+﻿<Window x:Class="StoreManagement.Views.InfoAccountWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:StoreManagement.Views"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        mc:Ignorable="d"
+        x:Name="wdInfoAcc"
+        DataContext="{StaticResource AccountVM}"
+        Title="InfoAccountWindow"
+        WindowStartupLocation="CenterScreen"
+        Height="500" 
+        Width="1000">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.5*"></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Column="0">
+            <Grid
+                x:Name="grdImage"
+                HorizontalAlignment="Center" 
+                VerticalAlignment="Top"
+                Height="200"
+                Width="200"
+                Margin="0 70 0 0">
+                <Ellipse
+                    Stroke="#FCE5EC"
+                    Fill="#FCE5EC"
+                    Height="200"
+                    Width="200"
+                    StrokeDashArray="4 2" >
+                </Ellipse>
+                <materialDesign:PackIcon 
+                    Kind="ImageEdit" 
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center" 
+                    Width="80"
+                    Height="80"
+                    Margin="60"
+                    Foreground="#F97299">
+                </materialDesign:PackIcon>
+            </Grid>
+            <Button 
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                BorderThickness="0"
+                Width="140"
+                Height="35"
+                Margin="0 200 0 0"
+                Content="Select image"
+                Background="#F79BB5"
+                Foreground="#57548B"
+                FocusVisualStyle="{x:Null}"
+                FontWeight="SemiBold"
+                FontSize="18"
+                Command="{Binding ChooseImgAccountCommand}"
+                CommandParameter="{Binding ElementName=grdImage}">
+            </Button>
+        </Grid>
+        <Grid Grid.Column="1"
+              Margin="0 40 0 0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0.6*"></RowDefinition>
+                <RowDefinition Height="0.6*"></RowDefinition>
+                <RowDefinition Height="0.6*"></RowDefinition>
+                <RowDefinition Height="0.6*"></RowDefinition>
+                <RowDefinition Height="1*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0"
+                Width="550" 
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center">
+                <Label
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Content="Username"
+                    FontSize="22"
+                    FontWeight="SemiBold"
+                    Foreground="#57548B">
+                </Label>
+                <Rectangle
+                    HorizontalAlignment="Left"
+                    Width="350"
+                    Margin="180 0 0 0"
+                    StrokeThickness="2"
+                    RadiusX="10"
+                    RadiusY="10"
+                    Stroke="#E2D2DA">
+                </Rectangle>
+                <TextBox
+                    Name="txtUsername"
+                    IsEnabled="False"
+                    materialDesign:HintAssist.Hint="Automatic"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Width="330"
+                    Margin="190 0 0 0"
+                    BorderThickness="0"
+                    MaxLines="1"
+                    Height="40"
+                    FontSize="17"
+                    FontWeight="SemiBold"
+                    Padding="0"
+                    HorizontalContentAlignment="Left"
+                    VerticalContentAlignment="Center" 
+                    Cursor="Arrow">
+                </TextBox>
+            </Grid>
+            <Grid Grid.Row="1"
+                Width="550" 
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center">
+                <Label
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Content="Display name"
+                    FontSize="22"
+                    FontWeight="SemiBold"
+                    Foreground="#57548B">
+                </Label>
+                <Rectangle
+                    HorizontalAlignment="Left"
+                    Width="350"
+                    Margin="180 0 0 0"
+                    StrokeThickness="2"
+                    RadiusX="10"
+                    RadiusY="10"
+                    Stroke="#E2D2DA">
+                </Rectangle>
+                <TextBox
+                    x:Name="txtDisplayName"
+                    materialDesign:HintAssist.Hint="Enter your display name"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Width="330"
+                    Margin="190 0 0 0"
+                    BorderThickness="0"
+                    MaxLines="1"
+                    Height="40"
+                    FontSize="17"
+                    FontWeight="SemiBold"
+                    Padding="0"
+                    HorizontalContentAlignment="Left"
+                    VerticalContentAlignment="Center" 
+                    Cursor="Arrow">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="TextChanged">
+                            <i:InvokeCommandAction Command="{Binding TextChangeCommand}"
+                                               CommandParameter="{Binding ElementName=displayname_error}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </TextBox>
+            </Grid>
+            <TextBlock
+                Width="216" 
+                Height="45"
+                Margin="250,60,190,50" 
+                Foreground="#FF0000"
+                FontSize="12" 
+                x:Name="displayname_error" RenderTransformOrigin="0.302,-0.84" Grid.Row="1" Grid.RowSpan="2"/>
+            <Grid Grid.Row="2"
+                Width="550" 
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center">
+                <Label
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Content="Location"
+                    FontSize="22"
+                    FontWeight="SemiBold"
+                    Foreground="#57548B">
+                </Label>
+                <Rectangle
+                    HorizontalAlignment="Left"
+                    Width="350"
+                    Margin="180 0 0 0"
+                    StrokeThickness="2"
+                    RadiusX="10"
+                    RadiusY="10"
+                    Stroke="#E2D2DA">
+                </Rectangle>
+                <TextBox
+                    x:Name="txtLocation"
+                    materialDesign:HintAssist.Hint="Enter your location"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Width="330"
+                    Margin="190 0 0 0"
+                    BorderThickness="0"
+                    MaxLines="1"
+                    Height="40"
+                    FontSize="17"
+                    FontWeight="SemiBold"
+                    Padding="0"
+                    HorizontalContentAlignment="Left"
+                    VerticalContentAlignment="Center" 
+                    Cursor="Arrow">
+                </TextBox>
+            </Grid>
+
+            <Grid Grid.Row="3"
+                Width="550" 
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center">
+                <Label
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Content="Phone number"
+                    FontSize="22"
+                    FontWeight="SemiBold"
+                    Foreground="#57548B">
+                </Label>
+                <Rectangle
+                    HorizontalAlignment="Left"
+                    Width="350"
+                    Margin="180 0 0 0"
+                    StrokeThickness="2"
+                    RadiusX="10"
+                    RadiusY="10"
+                    Stroke="#E2D2DA">
+                </Rectangle>
+                <TextBox
+                    x:Name="txtPhoneNumber"
+                    materialDesign:HintAssist.Hint="Enter your phone number"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Width="330"
+                    Margin="190 0 0 0"
+                    BorderThickness="0"
+                    MaxLines="1"
+                    Height="40"
+                    FontSize="17"
+                    FontWeight="SemiBold"
+                    Padding="0"
+                    HorizontalContentAlignment="Left"
+                    VerticalContentAlignment="Center" 
+                    Cursor="Arrow">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="TextChanged">
+                            <i:InvokeCommandAction Command="{Binding TextChangeCommand}"
+                                               CommandParameter="{Binding ElementName=phone_error}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </TextBox>
+            </Grid>
+            <TextBlock
+                Width="216" 
+                Height="45"
+                Margin="253,58,190,100" 
+                Foreground="#FF0000"
+                FontSize="12" 
+                x:Name="phone_error" RenderTransformOrigin="0.302,-0.84" Grid.Row="3" Grid.RowSpan="2"/>
+            <Grid Grid.Row="4">
+                <Grid
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center"
+                    Height="40"
+                    Width="550"
+                    Margin="0 0 0 30">
+                    <Button 
+                        x:Name="btnSave"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Width="110"
+                        Height="35"
+                        Margin="220 0 0 0"
+                        Content="Save"
+                        BorderThickness="0"
+                        Foreground="#57548B"
+                        Background="#F79BB5"
+                        FontSize="22"
+                        Cursor="Hand"
+                        FocusVisualStyle="{x:Null}"
+                        FontWeight="SemiBold"
+                        Command="{Binding InfoAcc_SaveCommand}"
+                        CommandParameter="{Binding ElementName=wdInfoAcc}">
+                    </Button>
+                    <Button 
+                        x:Name="btnClose"
+                        HorizontalAlignment="Left"
+                        HorizontalContentAlignment="Center"
+                        VerticalContentAlignment="Center"
+                        VerticalAlignment="Center"
+                        Width="110"
+                        Height="35"
+                        Margin="380 0 0 0"
+                        Content="Close"
+                        BorderThickness="0"
+                        Cursor="Hand"
+                        Background="#F0F0F0"
+                        FocusVisualStyle="{x:Null}"
+                        Foreground="#57548B"
+                        FontSize="22"
+                        FontWeight="SemiBold"
+                        Command="{Binding InfoAcc_CloseWindowCommand}"
+                        CommandParameter="{Binding ElementName=wdInfoAcc}">
+                    </Button>
+                </Grid>
+            </Grid>
+        </Grid>
+    </Grid>
+</Window>

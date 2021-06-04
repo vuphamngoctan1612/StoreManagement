@@ -1,0 +1,206 @@
+﻿<UserControl x:Class="StoreManagement.Resources.UserControls.StoreControlUC"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:StoreManagement.Resources.UserControls"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             x:Name="StoreUC"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             mc:Ignorable="d" 
+             d:DesignHeight="350" d:DesignWidth="250"
+             BorderBrush="#FCE5EC"
+             BorderThickness="0">
+    <Border
+        BorderBrush="LightGray"
+        BorderThickness="0"
+        Background="#FCE5EC"
+        CornerRadius="5"
+        Padding="1">
+        <Grid
+        Background="#FFF7F9">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="80"></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition Height="30"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid 
+            Grid.Row="0">
+                <Rectangle
+                Width="220"
+                Height="50"
+                RadiusX="15"
+                RadiusY="15"
+                Stroke="#FF8CAE"
+                Fill="#FF8CAE">
+                </Rectangle>
+                <materialDesign:PackIcon 
+                VerticalAlignment="Center"
+                Kind="AccountMultiple"
+                Height="25"
+                Width="25"
+                Margin="30 0 0 0" 
+                Foreground="#504D85"
+                HorizontalAlignment="Left">
+                </materialDesign:PackIcon>
+                <TextBlock
+                x:Name="txbID"
+                Visibility="Hidden"/>
+                <TextBlock
+                x:Name="AgencyName"
+                Text="TN Agency"
+                FontSize="22"
+                FontWeight="SemiBold"
+                Foreground="#504D85" 
+                Margin="0 0 0 0"
+                HorizontalAlignment="Center" 
+                VerticalAlignment="Center"/>
+            </Grid>
+            <Grid
+            Grid.Row="1">
+                <Ellipse
+                Height="30"
+                Width="30"
+                Fill="#81BCF2" 
+                HorizontalAlignment="Left" 
+                VerticalAlignment="Center"
+                Margin="30 0 0 0">
+                </Ellipse>
+                <materialDesign:PackIcon
+                HorizontalAlignment="Left"
+                VerticalAlignment="Center"
+                Height="25"
+                Width="25"
+                Margin="32.4 0 0 0"
+                Foreground="#504D85"
+                Kind="Phone">
+                </materialDesign:PackIcon>
+                <TextBlock
+                x:Name="txbAgencyPhone"
+                Text="0862768062"
+                FontSize="22"
+                Foreground="#504D85" 
+                Margin="85 0 0 0"
+                HorizontalAlignment="Left" 
+                VerticalAlignment="Center"/>
+            </Grid>
+            <Grid
+            Grid.Row="2">
+                <Ellipse
+                Height="30"
+                Width="30"
+                Fill="#F5EFA8" 
+                HorizontalAlignment="Left" 
+                VerticalAlignment="Center"
+                Margin="30 0 0 0">
+                </Ellipse>
+                <materialDesign:PackIcon
+                HorizontalAlignment="Left"
+                VerticalAlignment="Center"
+                Height="25"
+                Width="25"
+                Margin="32.4 0 0 0"
+                Foreground="#504D85"
+                Kind="MapMarker">
+                </materialDesign:PackIcon>
+                <TextBlock
+                x:Name="txbAgencyPosition"
+                Text="TP.Hồ Chí Minh"
+                FontSize="22"
+                Foreground="#504D85" 
+                Margin="85 0 0 0"
+                HorizontalAlignment="Left" 
+                VerticalAlignment="Center"/>
+            </Grid>
+            <Grid
+            Grid.Row="3">
+                <Ellipse
+                Height="30"
+                Width="30"
+                Fill="#FF93BE" 
+                HorizontalAlignment="Left" 
+                VerticalAlignment="Center"
+                Margin="30 0 0 0">
+                </Ellipse>
+                <materialDesign:PackIcon
+                HorizontalAlignment="Left"
+                VerticalAlignment="Center"
+                Height="25"
+                Width="25"
+                Margin="32.4 0 0 0"
+                Foreground="#504D85"
+                Kind="Layers">
+                </materialDesign:PackIcon>
+                <TextBlock
+                x:Name="txbAgencyType"
+                Text="Special"
+                FontSize="22"
+                Foreground="#504D85" 
+                Margin="85 0 0 0"
+                HorizontalAlignment="Left" 
+                VerticalAlignment="Center"/>
+            </Grid>
+            <Grid
+            Grid.Row="4">
+                <Ellipse
+                Height="30"
+                Width="30"
+                Fill="#78D1E4" 
+                HorizontalAlignment="Left" 
+                VerticalAlignment="Center"
+                Margin="30 0 0 0">
+                </Ellipse>
+                <materialDesign:PackIcon
+                HorizontalAlignment="Left"
+                VerticalAlignment="Center"
+                Height="25"
+                Width="25"
+                Margin="32.4 0 0 0"
+                Foreground="#504D85"
+                Kind="CalendarRange">
+                </materialDesign:PackIcon>
+                <TextBlock
+                x:Name="txbAgencyDate"
+                Text="13/04/2020"
+                FontSize="22"
+                Foreground="#504D85" 
+               Margin="85 0 0 0"
+                HorizontalAlignment="Left" 
+                VerticalAlignment="Center"/>
+            </Grid>
+            <Grid
+            Grid.Row="5">
+                <materialDesign:PackIcon
+                Kind="ChevronDoubleRight"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Right"
+                Foreground="#504D85"
+                Cursor="Hand"
+                Height="20"
+                Width="20"/>
+                <Button
+                x:Name="btnShowInfo"
+                BorderBrush="{x:Null}"
+                Background="{x:Null}"
+                Content="More"
+                Foreground="#504D85" 
+                VerticalAlignment="Center"
+                HorizontalContentAlignment="Right"
+                Margin="5"
+                FontStyle="Italic"
+                FontSize="12">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click">
+                            <i:InvokeCommandAction Command="{Binding OpenEditStoreWindowCommand}" 
+                                   CommandParameter="{Binding ElementName=StoreUC}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </Button>
+
+            </Grid>
+        </Grid>
+    </Border>
+</UserControl>
