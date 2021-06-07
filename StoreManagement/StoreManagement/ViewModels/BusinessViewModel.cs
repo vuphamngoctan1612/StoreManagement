@@ -31,6 +31,7 @@ namespace StoreManagement.ViewModels
         public ICommand SearchProductBusinessCommand { get; set; }
         public ICommand PrintInvoiceCommand { get; set; }
         public ICommand ReloadBusinessTagCommand { get; set; }
+        public ICommand ChangeValueCommand { get; set; }
 
         public BusinessViewModel()
         {
@@ -51,6 +52,23 @@ namespace StoreManagement.ViewModels
             SearchProductBusinessCommand = new RelayCommand<HomeWindow>((para) => true, (para) => SearchProductBusiness(para));
             PrintInvoiceCommand = new RelayCommand<InvoiceWindow>((para) => true, (para) => PrintInvoice(para));
             ReloadBusinessTagCommand = new RelayCommand<HomeWindow>((para) => true, (para) => ReloadBusiness());
+            ChangeValueCommand = new RelayCommand<BusinessProductChosenUC>((para) => true, (para) => ValueChangeProductChosen(para));
+        }
+
+        private void ValueChangeProductChosen(BusinessProductChosenUC para)
+        {
+            if (String.IsNullOrEmpty(para.tb_main.Text.ToString()) || int.Parse(para.tb_main.Text.ToString()) > 99999)
+            {
+                para.tb_main.Text = "1";
+            }
+
+            int total = (int)ConvertToNumber(para.txbPrice.Text.ToString()) * int.Parse(para.tb_main.Text.ToString());
+            para.txbTotal.Text = SeparateThousands(total.ToString());
+
+            LoadTotalofPayment();
+
+            this.HomeWindow.txbChangePayment.Text = "";
+            this.HomeWindow.txtRetainerPaymment.Text = "";
         }
 
         private void PrintInvoice(InvoiceWindow para)
@@ -91,12 +109,12 @@ namespace StoreManagement.ViewModels
         {
             if (para.txbIDAgencyPayment.Text == "-1")
             {
-                MessageBox.Show("Vui lòng chọn đại lý");
+                MessageBox.Show("Please choose agency");
                 return;
             }
             if (ListProductChosen.Count == 0)
             {
-                MessageBox.Show("Vui lòng chọn sản phẩm");
+                MessageBox.Show("Please choose product");
                 return;
             }
 
@@ -117,7 +135,7 @@ namespace StoreManagement.ViewModels
 
                 uc.txbName.Text = item.txbName.Text;
                 uc.txbPrice.Text = item.txbPrice.Text;
-                uc.txbAmount.Text = item.txbAmount.Text;
+                uc.txbAmount.Text = item.tb_main.Text.ToString();
                 uc.txbUnit.Text = item.txbUnit.Text;
                 uc.txbTotal.Text = item.txbTotal.Text;
                 uc.txbID.Text = item.txbID.Text;
@@ -150,7 +168,7 @@ namespace StoreManagement.ViewModels
             inv.AgencyID = int.Parse(this.HomeWindow.txbIDAgencyPayment.Text);
             inv.Checkout = DateTime.Parse(wdInvoice.txbDate.Text);
             inv.Debt = ConvertToNumber(wdInvoice.txbChange.Text);
-            //inv.Total = ConvertToNumber(wdInvoice.txbTotal.Text);
+            inv.Total = ConvertToNumber(wdInvoice.txbTotal.Text);
 
             DataProvider.Instance.DB.Invoices.Add(inv);
 
@@ -203,7 +221,7 @@ namespace StoreManagement.ViewModels
 
             if (String.IsNullOrEmpty(para.Text))
             {
-                MessageBox.Show("Vui lòng chọn đại lý");
+                MessageBox.Show("Please choose aagency");
             }
             else
             {
@@ -289,8 +307,8 @@ namespace StoreManagement.ViewModels
                 uc.txbID.Text = item.ID.ToString();
                 uc.txbName.Text = item.Name.ToString();
                 uc.txbPrice.Text = SeparateThousands(item.ExportPrice.Value.ToString());
+                uc.tb_main.Text = "1";
                 uc.txbUnit.Text = DataProvider.Instance.DB.Units.Where(p => p.ID == item.UnitsID).Select(p => p.Name).First();
-                uc.txbAmount.Text = "1";
                 uc.txbTotal.Text = SeparateThousands(item.ExportPrice.Value.ToString());
 
                 this.HomeWindow.stkListProductChosenBusiness.Children.Add(uc);
@@ -301,9 +319,9 @@ namespace StoreManagement.ViewModels
                 {
                     if (item.txbID.Text == id.ToString())
                     {
-                        int amount = int.Parse(item.txbAmount.Text) + 1;
+                        int amount = int.Parse(item.tb_main.Text) + 1;
                         long total = ConvertToNumber(item.txbPrice.Text) * amount;
-                        item.txbAmount.Text = amount.ToString();
+                        item.tb_main.Text = amount.ToString();
                         item.txbTotal.Text = SeparateThousands(total.ToString());
                     }
                 }

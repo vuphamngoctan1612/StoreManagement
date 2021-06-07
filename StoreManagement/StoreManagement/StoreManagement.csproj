@@ -116,6 +116,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>AgencyManagement_Entities.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\District.cs">
+      <DependentUpon>AgencyManagement_Entities.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Invoice.cs">
       <DependentUpon>AgencyManagement_Entities.tt</DependentUpon>
     </Compile>
