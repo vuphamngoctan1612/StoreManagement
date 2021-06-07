@@ -139,6 +139,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>AgencyManagement_Entities.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\District.cs">
+      <DependentUpon>AgencyManagement_Entities.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Invoice.cs">
       <DependentUpon>AgencyManagement_Entities.tt</DependentUpon>
     </Compile>
@@ -159,6 +162,12 @@
     </Compile>
     <Compile Include="Models\sysdiagram.cs">
       <DependentUpon>AgencyManagement_Entities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Unit.cs">
+      <DependentUpon>AgencyManagement_Entities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\UserControls\AgencyControlUC.xaml.cs">
+      <DependentUpon>AgencyControlUC.xaml</DependentUpon>
     </Compile>
     <Compile Include="Models\TypeOfAgency.cs">
       <DependentUpon>AgencyManagement_Entities.tt</DependentUpon>
@@ -207,6 +216,7 @@
     <Compile Include="ViewModels\SignUpViewModel.cs" />
     <Compile Include="ViewModels\SQLConnection.cs" />
     <Compile Include="ViewModels\StoreViewModel.cs" />
+    <Compile Include="ViewModels\UnitsViewModel.cs" />
     <Compile Include="Views\AddProductWindow.xaml.cs">
       <DependentUpon>AddProductWindow.xaml</DependentUpon>
     </Compile>
@@ -215,6 +225,9 @@
     </Compile>
     <Compile Include="Views\AddTypeOfAgencyWindow.xaml.cs">
       <DependentUpon>AddTypeOfAgencyWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\AddUnitsWindow.xaml.cs">
+      <DependentUpon>AddUnitsWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ChangePasswordWindow.xaml.cs">
       <DependentUpon>ChangePasswordWindow.xaml</DependentUpon>
@@ -360,6 +373,7 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ReceiptBillWindow.xaml">
+    <Page Include="Views\AddUnitsWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

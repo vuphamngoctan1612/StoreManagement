@@ -8,10 +8,16 @@
              x:Name="StoreUC"
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              mc:Ignorable="d" 
-             d:DesignHeight="350" d:DesignWidth="280"
+             d:DesignHeight="350" d:DesignWidth="250"
              BorderBrush="#FCE5EC"
-             BorderThickness="1">
-    <Grid
+             BorderThickness="0">
+    <Border
+        BorderBrush="LightGray"
+        BorderThickness="0"
+        Background="#FCE5EC"
+        CornerRadius="5"
+        Padding="1">
+        <Grid
         Background="#FFF7F9">
         <Grid.RowDefinitions>
             <RowDefinition Height="80"></RowDefinition>
@@ -23,8 +29,8 @@
         </Grid.RowDefinitions>
         <Grid 
             Grid.Row="0">
-            <Rectangle
-                Width="250"
+                <Rectangle
+                Width="220"
                 Height="50"
                 RadiusX="15"
                 RadiusY="15"
@@ -36,7 +42,7 @@
                 Kind="AccountMultiple"
                 Height="25"
                 Width="25"
-                Margin="42 0 0 0" 
+                Margin="30 0 0 0" 
                 Foreground="#504D85"
                 HorizontalAlignment="Left">
             </materialDesign:PackIcon>
@@ -49,8 +55,8 @@
                 FontSize="22"
                 FontWeight="SemiBold"
                 Foreground="#504D85" 
-                Margin="85 0 0 0"
-                HorizontalAlignment="Left" 
+                Margin="0 0 0 0"
+                HorizontalAlignment="Center" 
                 VerticalAlignment="Center"/>
         </Grid>
         <Grid
@@ -61,14 +67,14 @@
                 Fill="#81BCF2" 
                 HorizontalAlignment="Left" 
                 VerticalAlignment="Center"
-                Margin="40 0 0 0">
-            </Ellipse>
-            <materialDesign:PackIcon
+                Margin="30 0 0 0">
+                </Ellipse>
+                <materialDesign:PackIcon
                 HorizontalAlignment="Left"
                 VerticalAlignment="Center"
                 Height="25"
                 Width="25"
-                Margin="42.4 0 0 0"
+                Margin="32.4 0 0 0"
                 Foreground="#504D85"
                 Kind="Phone">
             </materialDesign:PackIcon>
@@ -89,14 +95,14 @@
                 Fill="#F5EFA8" 
                 HorizontalAlignment="Left" 
                 VerticalAlignment="Center"
-                Margin="40 0 0 0">
-            </Ellipse>
-            <materialDesign:PackIcon
+                Margin="30 0 0 0">
+                </Ellipse>
+                <materialDesign:PackIcon
                 HorizontalAlignment="Left"
                 VerticalAlignment="Center"
                 Height="25"
                 Width="25"
-                Margin="42.4 0 0 0"
+                Margin="32.4 0 0 0"
                 Foreground="#504D85"
                 Kind="MapMarker">
             </materialDesign:PackIcon>
@@ -117,14 +123,14 @@
                 Fill="#FF93BE" 
                 HorizontalAlignment="Left" 
                 VerticalAlignment="Center"
-                Margin="40 0 0 0">
-            </Ellipse>
-            <materialDesign:PackIcon
+                Margin="30 0 0 0">
+                </Ellipse>
+                <materialDesign:PackIcon
                 HorizontalAlignment="Left"
                 VerticalAlignment="Center"
                 Height="25"
                 Width="25"
-                Margin="42.4 0 0 0"
+                Margin="32.4 0 0 0"
                 Foreground="#504D85"
                 Kind="Layers">
             </materialDesign:PackIcon>
@@ -145,14 +151,14 @@
                 Fill="#78D1E4" 
                 HorizontalAlignment="Left" 
                 VerticalAlignment="Center"
-                Margin="40 0 0 0">
-            </Ellipse>
-            <materialDesign:PackIcon
+                Margin="30 0 0 0">
+                </Ellipse>
+                <materialDesign:PackIcon
                 HorizontalAlignment="Left"
                 VerticalAlignment="Center"
                 Height="25"
                 Width="25"
-                Margin="42.4 0 0 0"
+                Margin="32.4 0 0 0"
                 Foreground="#504D85"
                 Kind="CalendarRange">
             </materialDesign:PackIcon>

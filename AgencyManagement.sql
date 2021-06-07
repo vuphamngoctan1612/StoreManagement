@@ -52,7 +52,7 @@ create table Product
 (
 	ID int,
 	Name nvarchar(100),
-	Unit nvarchar(100),
+	UnitsID int,
 	Image image,
 	ImportPrice bigint,
 	ExportPrice bigint,
@@ -68,6 +68,15 @@ values (5,'Bánh', 'Gói',null,9000,10000,1000,0)
 insert into Product
 values (6,'Sữa', 'Hộp',null,9000,10000,1000,0)
 select * from Product
+
+create table Units
+(
+	ID int,
+	Name nvarchar(100),
+
+	constraint PK_Units primary key(ID)
+)
+
 create table Invoice
 (
 	ID int,
@@ -129,6 +138,20 @@ update StockReceipt
 set Total = 50000
 where ID = 1
 
+
+create table District
+(
+	Name nvarchar(100),
+	NumberAgencyInDistrict int default 0,
+
+	constraint PK_District primary key(Name)
+)
+
+alter table Agency add constraint FK_District foreign key(District) references District(Name)
+go
+
+alter table Product add constraint FK_Units foreign key (UnitsID) references Units(ID)
+go
 
 alter table InvoiceInfo add constraint FK_InvoiceID foreign key (InvoiceID) references Invoice(ID)
 go

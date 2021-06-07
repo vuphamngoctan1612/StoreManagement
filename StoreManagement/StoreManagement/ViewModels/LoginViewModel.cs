@@ -17,20 +17,13 @@ namespace StoreManagement.ViewModels
 {
     class LoginViewModel : BaseViewModel
     {
-
-
         public ICommand LoginCommand { get; set; }
-
         public ICommand OpenSignUpWindowCommand { get; set; }
-
-
+        
         public LoginViewModel()
         {
             LoginCommand = new RelayCommand<LoginWindow>((p) => { return true; }, (p) => { Login(p); });
-
-
             OpenSignUpWindowCommand = new RelayCommand<LoginWindow>((parameter) => true, (parameter) => OpenSignUpWindow(parameter));
-
         }
 
         public void OpenSignUpWindow(LoginWindow parameter)
@@ -38,12 +31,10 @@ namespace StoreManagement.ViewModels
             SignUpWindow SignUp = new SignUpWindow();
 
             SignUp.Show();
-
         }
 
         void Login(LoginWindow parameter)
         {
-
             if (parameter == null)
             {
                 return;
@@ -59,31 +50,40 @@ namespace StoreManagement.ViewModels
                 return;
             }
             //check password
-            if (String.IsNullOrEmpty(parameter.txtPassword.Text))
+            if (String.IsNullOrEmpty(parameter.txtPassword.Password))
             {
                 MessageBox.Show("Vui lòng nhập mật khẩu!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
                 parameter.txtPassword.Focus();
                 return;
             }
 
-            string codedPassword = MD5Hash(parameter.txtPassword.Text);
+            string codedPassword = MD5Hash(parameter.txtPassword.Password);
             var checkACC = DataProvider.Instance.DB.Accounts.Where(x => x.Username == parameter.txtUser.Text && x.Password == codedPassword).Count();
             if (checkACC > 0)
             {
                 HomeWindow homeWindow = new HomeWindow();
                 CurrentAccount.Instance.ConvertAccToCurrentAcc(parameter.txtUser.Text);
                 parameter.Hide();
-                homeWindow.ShowDialog();
-                parameter.Close();
 
+                ImageBrush imageBrush = new ImageBrush();
+                imageBrush.ImageSource = Converter.Instance.ConvertByteToBitmapImage(CurrentAccount.Image);
+                homeWindow.grdAcc_Image.Background = imageBrush;
+                homeWindow.menu_Acc_DisplayName.Header = CurrentAccount.DisplayName;
+
+                if (homeWindow.grdAcc_Image.Children.Count != 0)
+                {
+                    homeWindow.grdAcc_Image.Children.Remove(homeWindow.grdAcc_Image.Children[0]);
+                }
+
+                homeWindow.ShowDialog();
+                parameter.txtPassword.Password = "";
+                parameter.Show();
             }
             else
             {
                 MessageBox.Show("Sai tên đăng nhập hoặc mật khẩu!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
-
         }
-
     }
 
 

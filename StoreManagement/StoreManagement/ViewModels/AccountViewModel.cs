@@ -42,6 +42,7 @@ namespace StoreManagement.ViewModels
         //home window
         public ICommand ShowProfileCommand { get; set; }
         public ICommand ShowChangePasswordCommand { get; set; }
+        public ICommand LogOutCommand { get; set; }
 
         public AccountViewModel()
         {
@@ -59,9 +60,15 @@ namespace StoreManagement.ViewModels
             //home window
             ShowProfileCommand = new RelayCommand<HomeWindow>((para) => true, para => ShowProfileAccountWindow(para));
             ShowChangePasswordCommand = new RelayCommand<HomeWindow>((para) => true, para => ShowChangePasswordWindow(para));
+            LogOutCommand = new RelayCommand<HomeWindow>((para) => true, para => LogOut(para));
         }
 
         //home window
+        private void LogOut(HomeWindow para)
+        {
+            para.Close();
+        }
+
         private void ShowChangePasswordWindow(HomeWindow para)
         {
             this.HomeWindow = para;
@@ -233,37 +240,37 @@ namespace StoreManagement.ViewModels
         }
         private void Account_ChangePassword(HomeWindow para)
         {
-        //    if (string.IsNullOrEmpty(para.txt_Account_Password.Text))
-        //    {
-        //        para.txt_Account_Password.Focus();
-        //        return;
-        //    }
-        //    if (string.IsNullOrEmpty(para.txt_Account_NewPassword.Text))
-        //    {
-        //        para.txt_Account_NewPassword.Focus();
-        //        return;
-        //    }
-        //    if (string.IsNullOrEmpty(para.txt_Account_RetypeNewPassword.Text))
-        //    {
-        //        para.txt_Account_RetypeNewPassword.Focus();
-        //        return;
-        //    }
-        //    if (para.txt_Account_NewPassword.Text == para.txt_Account_Password.Text)
-        //    {
-        //        para.txt_Account_NewPassword.Focus();
-        //        MessageBox.Show("Vui lòng nhập mật khẩu khác với mật khẩu hiện tại.");
-        //        return;
-        //    }
-        //    if (para.txt_Account_NewPassword.Text != para.txt_Account_RetypeNewPassword.Text)
-        //    {
-        //        para.txt_Account_NewPassword.Focus();
-        //        MessageBox.Show("Nhập lại mật khẩu chưa trùng khớp vui lòng nhập lại.");
-        //        return;
-        //    }
-        //    try
-        //    {
-        //        Account acc = new Account();
-        //        acc = DataProvider.Instance.DB.Accounts.Where(x => x.Username == tempUsername).First();
+            //if (string.IsNullOrEmpty(para.txt_Account_Password.Text))
+            //{
+            //    para.txt_Account_Password.Focus();
+            //    return;
+            //}
+            //if (string.IsNullOrEmpty(para.txt_Account_NewPassword.Text))
+            //{
+            //    para.txt_Account_NewPassword.Focus();
+            //    return;
+            //}
+            //if (string.IsNullOrEmpty(para.txt_Account_RetypeNewPassword.Text))
+            //{
+            //    para.txt_Account_RetypeNewPassword.Focus();
+            //    return;
+            //}
+            //if (para.txt_Account_NewPassword.Text == para.txt_Account_Password.Text)
+            //{
+            //    para.txt_Account_NewPassword.Focus();
+            //    MessageBox.Show("Vui lòng nhập mật khẩu khác với mật khẩu hiện tại.");
+            //    return;
+            //}
+            //if (para.txt_Account_NewPassword.Text != para.txt_Account_RetypeNewPassword.Text)
+            //{
+            //    para.txt_Account_NewPassword.Focus();
+            //    MessageBox.Show("Nhập lại mật khẩu chưa trùng khớp vui lòng nhập lại.");
+            //    return;
+            //}
+            //try
+            //{
+            //    Account acc = new Account();
+            //    acc = DataProvider.Instance.DB.Accounts.Where(x => x.Username == tempUsername).First();
 
         //        if (para.txt_Account_Password.Text != acc.Password)
         //        {
@@ -309,25 +316,25 @@ namespace StoreManagement.ViewModels
         //        Account acc = new Account();
         //        acc = DataProvider.Instance.DB.Accounts.Where(x => x.Username == tempUsername).First();
 
-        //        if (para.txt_Account_Name.Text == acc.DisplayName && para.txt_Account_Location.Text == acc.Location && para.txt_Account_PhoneNumber.Text == acc.PhoneNumber)
-        //        {
-        //            MessageBox.Show("Thông tin không thay đổi");
-        //            return;
-        //        }
-        //        else
-        //        {
-        //            acc.DisplayName = para.txt_Account_Name.Text;
-        //            acc.Location = para.txt_Account_Location.Text;
-        //            acc.PhoneNumber = para.txt_Account_PhoneNumber.Text;
-        //            DataProvider.Instance.DB.Accounts.AddOrUpdate(acc);
-        //            DataProvider.Instance.DB.SaveChanges();
-        //            MessageBox.Show("Cập nhật thông tin thành công.");
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        MessageBox.Show(ex.Message);
-        //    }
+            //    if (para.txt_Account_Name.Text == acc.DisplayName && para.txt_Account_Location.Text == acc.Location && para.txt_Account_PhoneNumber.Text == acc.PhoneNumber)
+            //    {
+            //        MessageBox.Show("Thông tin không thay đổi");
+            //        return;
+            //    }
+            //    else
+            //    {
+            //        acc.DisplayName = para.txt_Account_Name.Text;
+            //        acc.Location = para.txt_Account_Location.Text;
+            //        acc.PhoneNumber = para.txt_Account_PhoneNumber.Text;
+            //        DataProvider.Instance.DB.Accounts.AddOrUpdate(acc);
+            //        DataProvider.Instance.DB.SaveChanges();
+            //        MessageBox.Show("Cập nhật thông tin thành công.");
+            //    }
+            //}
+            //catch (Exception ex)
+            //{
+            //    MessageBox.Show(ex.Message);
+            //}
         }
         private void LoadAccount(HomeWindow para)
         {

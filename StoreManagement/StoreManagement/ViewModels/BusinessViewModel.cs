@@ -32,7 +32,7 @@ namespace StoreManagement.ViewModels
         public ICommand SearchProductBusinessCommand { get; set; }
         public ICommand PrintInvoiceCommand { get; set; }
         public ICommand ReloadBusinessTagCommand { get; set; }
-        public ICommand UpdateViewCommand { get; set; }
+        public ICommand ChangeValueCommand { get; set; }
 
         public BusinessViewModel()
         {
@@ -53,7 +53,23 @@ namespace StoreManagement.ViewModels
             SearchProductBusinessCommand = new RelayCommand<HomeWindow>((para) => true, (para) => SearchProductBusiness(para));
             PrintInvoiceCommand = new RelayCommand<InvoiceWindow>((para) => true, (para) => PrintInvoice(para));
             ReloadBusinessTagCommand = new RelayCommand<HomeWindow>((para) => true, (para) => ReloadBusiness());
-            UpdateViewCommand = new RelayCommand<HomeWindow>((para) => true, (para) => UpdateView(para));
+            ChangeValueCommand = new RelayCommand<BusinessProductChosenUC>((para) => true, (para) => ValueChangeProductChosen(para));
+        }
+
+        private void ValueChangeProductChosen(BusinessProductChosenUC para)
+        {
+            if (String.IsNullOrEmpty(para.tb_main.Text.ToString()) || int.Parse(para.tb_main.Text.ToString()) > 99999)
+            {
+                para.tb_main.Text = "1";
+            }
+
+            int total = (int)ConvertToNumber(para.txbPrice.Text.ToString()) * int.Parse(para.tb_main.Text.ToString());
+            para.txbTotal.Text = SeparateThousands(total.ToString());
+
+            LoadTotalofPayment();
+
+            this.HomeWindow.txbChangePayment.Text = "";
+            this.HomeWindow.txtRetainerPaymment.Text = "";
         }
 
         private void UpdateView(HomeWindow para)
@@ -107,88 +123,88 @@ namespace StoreManagement.ViewModels
 
         private void PayBusiness(HomeWindow para)
         {
-            //if (para.txbIDAgencyPayment.Text == "-1")
-            //{
-            //    MessageBox.Show("Vui lòng chọn đại lý");
-            //    return;
-            //}
-            //if (ListProductChosen.Count == 0)
-            //{
-            //    MessageBox.Show("Vui lòng chọn sản phẩm");
-            //    return;
-            //}
+            if (para.txbIDAgencyPayment.Text == "-1")
+            {
+                MessageBox.Show("Please choose agency");
+                return;
+            }
+            if (ListProductChosen.Count == 0)
+            {
+                MessageBox.Show("Please choose product");
+                return;
+            }
 
-            //MessageBoxResult mes = MessageBox.Show("Are you sure?", "Confirm", MessageBoxButton.YesNo);
+            MessageBoxResult mes = MessageBox.Show("Are you sure?", "Confirm", MessageBoxButton.YesNo);
 
-            //if (mes != MessageBoxResult.Yes)
-            //{
-            //    return;
-            //}
+            if (mes != MessageBoxResult.Yes)
+            {
+                return;
+            }
 
-            //InvoiceWindow wdInvoice = new InvoiceWindow();
+            InvoiceWindow wdInvoice = new InvoiceWindow();
 
-            //wdInvoice.stkListInvoiceInfos.Children.Add(new InvoiceBusinessUC());
+            wdInvoice.stkListProductChosenInvoice.Children.Add(new InvoiceBusinessUC());
 
-            //foreach (BusinessProductChosenUC item in this.HomeWindow.stkListProductChosenBusiness.Children)
-            //{
-            //    InvoiceBusinessUC uc = new InvoiceBusinessUC();
+            foreach (BusinessProductChosenUC item in this.HomeWindow.stkListProductChosenBusiness.Children)
+            {
+                InvoiceBusinessUC uc = new InvoiceBusinessUC();
 
-            //    uc.txbName.Text = item.txbName.Text;
-            //    uc.txbPrice.Text = item.txbPrice.Text;
-            //    uc.txbAmount.Text = item.txbAmount.Text;
-            //    uc.txbUnit.Text = item.txbUnit.Text;
-            //    uc.txbTotal.Text = item.txbTotal.Text;
-            //    uc.txbID.Text = item.txbID.Text;
+                uc.txbName.Text = item.txbName.Text;
+                uc.txbPrice.Text = item.txbPrice.Text;
+                uc.txbAmount.Text = item.tb_main.Text.ToString();
+                uc.txbUnit.Text = item.txbUnit.Text;
+                uc.txbTotal.Text = item.txbTotal.Text;
+                uc.txbID.Text = item.txbID.Text;
 
-            //    wdInvoice.stkListInvoiceInfos.Children.Add(uc);
-            //}
+                wdInvoice.stkListProductChosenInvoice.Children.Add(uc);
+            }
 
-            //wdInvoice.txbTotal.Text = this.HomeWindow.TotalFeeofProductChosenPayment.Text;
-            //wdInvoice.txbPrepay.Text = this.HomeWindow.txtRetainerPaymment.Text;
-            //wdInvoice.txbDebt.Text = this.HomeWindow.txbChangePayment.Text;
-            //wdInvoice.txbName.Text = this.HomeWindow.txbAgencyinPayment.Text;
-            //wdInvoice.txbPhone.Text = this.HomeWindow.txbPhoneNumberinPayment.Text;
-            //wdInvoice.txbAddress.Text = this.HomeWindow.txbAddressinPayment.Text;
+            wdInvoice.txbTotal.Text = this.HomeWindow.TotalFeeofProductChosenPayment.Text;
+            wdInvoice.txbRetainer.Text = this.HomeWindow.txtRetainerPaymment.Text;
+            wdInvoice.txbChange.Text = this.HomeWindow.txbChangePayment.Text;
+            wdInvoice.txbName.Text = this.HomeWindow.txbAgencyinPayment.Text;
+            wdInvoice.txbPhone.Text = this.HomeWindow.txbPhoneNumberinPayment.Text;
+            wdInvoice.txbAddress.Text = this.HomeWindow.txbAddressinPayment.Text;
 
-            //try
-            //{
-            //    string query = "SELECT * FROM Invoice";
+            try
+            {
+                string query = "SELECT * FROM Invoice";
 
-            //    Invoice invoice = DataProvider.Instance.DB.Invoices.SqlQuery(query).Last();
-            //    wdInvoice.txbInvoiceID.Text = (invoice.ID + 1).ToString();
-            //}
-            //catch
-            //{
-            //    wdInvoice.txbInvoiceID.Text = "1";
-            //}
-            //wdInvoice.txbInvoiceDate.Text = DateTime.Now.ToShortDateString();
+                Invoice invoice = DataProvider.Instance.DB.Invoices.SqlQuery(query).Last();
+                wdInvoice.txbIDinvoice.Text = (invoice.ID + 1).ToString();
+            }
+            catch
+            {
+                wdInvoice.txbIDinvoice.Text = "1";
+            }
+            wdInvoice.txbDate.Text = DateTime.Now.ToShortDateString();
 
-            //Invoice inv = new Invoice();
-            //inv.ID = int.Parse(wdInvoice.txbInvoiceID.Text);
-            //inv.AgencyID = int.Parse(this.HomeWindow.txbIDAgencyPayment.Text);
-            //inv.Checkout = DateTime.Parse(wdInvoice.txbInvoiceDate.Text);
-            //inv.Debt = ConvertToNumber(wdInvoice.txbDebt.Text);
-            ////inv.Total = ConvertToNumber(wdInvoice.txbTotal.Text);
+            Invoice inv = new Invoice();
+            inv.ID = int.Parse(wdInvoice.txbIDinvoice.Text);
+            inv.AgencyID = int.Parse(this.HomeWindow.txbIDAgencyPayment.Text);
+            inv.Checkout = DateTime.Parse(wdInvoice.txbDate.Text);
+            inv.Debt = ConvertToNumber(wdInvoice.txbChange.Text);
+            inv.Total = ConvertToNumber(wdInvoice.txbTotal.Text);
 
-            //DataProvider.Instance.DB.Invoices.Add(inv);
+            DataProvider.Instance.DB.Invoices.Add(inv);
 
-            //for (int i = 1; i < wdInvoice.stkListInvoiceInfos.Children.Count; i++)
-            //{
-            //    InvoiceInfo invInfo = new InvoiceInfo();
-            //    InvoiceBusinessUC item = (InvoiceBusinessUC)(wdInvoice.stkListInvoiceInfos.Children[i]);
+            for (int i = 1; i < wdInvoice.stkListProductChosenInvoice.Children.Count; i++)
+            {
+                InvoiceInfo invInfo = new InvoiceInfo();
+                InvoiceBusinessUC item = (InvoiceBusinessUC)(wdInvoice.stkListProductChosenInvoice.Children[i]);
 
-            //    invInfo.InvoiceID = inv.ID;
-            //    invInfo.ProductID = int.Parse(item.txbID.Text);
-            //    invInfo.Amount = int.Parse(item.txbAmount.Text);
-            //    invInfo.Total = ConvertToNumber(item.txbTotal.Text);
+                invInfo.InvoiceID = inv.ID;
+                invInfo.ProductID = int.Parse(item.txbID.Text);
+                invInfo.Amount = int.Parse(item.txbAmount.Text);
+                invInfo.Total = ConvertToNumber(item.txbTotal.Text);
 
-            //    DataProvider.Instance.DB.InvoiceInfoes.Add(invInfo);
-            //}
+                DataProvider.Instance.DB.InvoiceInfoes.Add(invInfo);
+            }
 
-            //DataProvider.Instance.DB.SaveChanges();
-            //wdInvoice.ShowDialog();
+            DataProvider.Instance.DB.SaveChanges();
+            wdInvoice.ShowDialog();
 
-            //ReloadBusiness();
+            ReloadBusiness();
         }
 
         private void ReloadBusiness()
@@ -216,24 +232,24 @@ namespace StoreManagement.ViewModels
 
         private void AddAgencytoPayment(ComboBox para)
         {
-            //string query = "SELECT * FROM AGENCY WHERE ISDELETE = 0";
-            //this.ListAgency = DataProvider.Instance.DB.Agencies.SqlQuery(query).ToList<Agency>();
+            string query = "SELECT * FROM AGENCY WHERE ISDELETE = 0";
+            this.ListAgency = DataProvider.Instance.DB.Agencies.SqlQuery(query).ToList<Agency>();
 
-            //if (String.IsNullOrEmpty(para.Text))
-            //{
-            //    MessageBox.Show("Vui lòng chọn đại lý");
-            //}
-            //else
-            //{
-            //    int pos = para.SelectedIndex;
-            //    int id = ListAgency[pos].ID;
-            //    Agency item = DataProvider.Instance.DB.Agencies.Where(x => x.ID == id).First();
+            if (String.IsNullOrEmpty(para.Text))
+            {
+                MessageBox.Show("Please choose aagency");
+            }
+            else
+            {
+                int pos = para.SelectedIndex;
+                int id = ListAgency[pos].ID;
+                Agency item = DataProvider.Instance.DB.Agencies.Where(x => x.ID == id).First();
 
-            //    this.HomeWindow.txbIDAgencyPayment.Text = item.ID.ToString();
-            //    this.HomeWindow.txbAgencyinPayment.Text = item.Name.ToString();
-            //    this.HomeWindow.txbAddressinPayment.Text = item.Address.ToString();
-            //    this.HomeWindow.txbPhoneNumberinPayment.Text = item.PhoneNumber.ToString();
-            //}
+                this.HomeWindow.txbIDAgencyPayment.Text = item.ID.ToString();
+                this.HomeWindow.txbAgencyinPayment.Text = item.Name.ToString();
+                this.HomeWindow.txbAddressinPayment.Text = item.Address.ToString();
+                this.HomeWindow.txbPhoneNumberinPayment.Text = item.PhoneNumber.ToString();
+            }
         }
 
         private void LoadPayment(TextBox para)
@@ -279,55 +295,55 @@ namespace StoreManagement.ViewModels
 
         private void LoadListChosen(BusinessProductUC para)
         {
-            //bool flag = true;
-            //int id = int.Parse(para.txbId.Text);
+            bool flag = true;
+            int id = int.Parse(para.txbId.Text);
 
-            //if (ListProductChosen != null)
-            //{
-            //    foreach (Product item in ListProductChosen)
-            //    {
-            //        if (item.ID == id)
-            //        {
-            //            flag = false;
-            //            break;
-            //        }
-            //    }
-            //}
-            //else
-            //{
-            //    ListProductChosen = new List<Product>();
-            //}
+            if (ListProductChosen != null)
+            {
+                foreach (Product item in ListProductChosen)
+                {
+                    if (item.ID == id)
+                    {
+                        flag = false;
+                        break;
+                    }
+                }
+            }
+            else
+            {
+                ListProductChosen = new List<Product>();
+            }
 
-            //if (flag == true)
-            //{
-            //    Product item = DataProvider.Instance.DB.Products.Where(x => x.ID == id).First();
-            //    ListProductChosen.Add(item);
-            //    BusinessProductChosenUC uc = new BusinessProductChosenUC();
+            if (flag == true)
+            {
+                Product item = DataProvider.Instance.DB.Products.Where(x => x.ID == id).First();
+                ListProductChosen.Add(item);
+                BusinessProductChosenUC uc = new BusinessProductChosenUC();
 
-            //    uc.txbID.Text = item.ID.ToString();
-            //    uc.txbName.Text = item.Name.ToString();
-            //    uc.txbPrice.Text = SeparateThousands(item.ExportPrice.Value.ToString());
-            //    uc.txbUnit.Text = item.Unit;
-            //    uc.txbAmount.Text = "1";
-            //    uc.txbTotal.Text = SeparateThousands(item.ExportPrice.Value.ToString());
+                uc.txbID.Text = item.ID.ToString();
+                uc.txbName.Text = item.Name.ToString();
+                uc.txbPrice.Text = SeparateThousands(item.ExportPrice.Value.ToString());
+                uc.tb_main.Text = "1";
+                uc.txbUnit.Text = DataProvider.Instance.DB.Units.Where(p => p.ID == item.UnitsID).Select(p => p.Name).First();
+                uc.txbTotal.Text = SeparateThousands(item.ExportPrice.Value.ToString());
 
-            //    this.HomeWindow.stkListProductChosenBusiness.Children.Add(uc);
-            //}
-            //else
-            //{
-            //    foreach (BusinessProductChosenUC item in this.HomeWindow.stkListProductChosenBusiness.Children)
-            //    {
-            //        if (item.txbID.Text == id.ToString())
-            //        {
-            //            int amount = int.Parse(item.txbAmount.Text) + 1;
-            //            long total = ConvertToNumber(item.txbPrice.Text) * amount;
-            //            item.txbAmount.Text = amount.ToString();
-            //            item.txbTotal.Text = SeparateThousands(total.ToString());
-            //        }
-            //    }
-            //}
-            //LoadTotalofPayment();
-            //LoadPayment(this.HomeWindow.txtRetainerPaymment);
+                this.HomeWindow.stkListProductChosenBusiness.Children.Add(uc);
+            }
+            else
+            {
+                foreach (BusinessProductChosenUC item in this.HomeWindow.stkListProductChosenBusiness.Children)
+                {
+                    if (item.txbID.Text == id.ToString())
+                    {
+                        int amount = int.Parse(item.tb_main.Text) + 1;
+                        long total = ConvertToNumber(item.txbPrice.Text) * amount;
+                        item.tb_main.Text = amount.ToString();
+                        item.txbTotal.Text = SeparateThousands(total.ToString());
+                    }
+                }
+            }
+            LoadTotalofPayment();
+            LoadPayment(this.HomeWindow.txtRetainerPaymment);
         }
 
         private void LoadBusiness(HomeWindow para)

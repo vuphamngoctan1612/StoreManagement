@@ -16,11 +16,19 @@ using System.Windows.Shapes;
 namespace StoreManagement.Resources.UserControls
 {
     /// <summary>
+<<<<<<< HEAD:StoreManagement/StoreManagement/Resources/UserControls/InvoiceUC.xaml.cs
     /// Interaction logic for InvoiceUC.xaml
     /// </summary>
     public partial class InvoiceUC : UserControl
     {
         public InvoiceUC()
+=======
+    /// Interaction logic for TypeOfAgencyUC.xaml
+    /// </summary>
+    public partial class TypeOfAgencyUC : UserControl
+    {
+        public TypeOfAgencyUC()
+>>>>>>> origin/dev:StoreManagement/StoreManagement/Resources/UserControls/TypeOfAgencyUC.xaml.cs
         {
             InitializeComponent();
         }

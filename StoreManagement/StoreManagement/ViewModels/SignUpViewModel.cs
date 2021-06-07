@@ -22,13 +22,18 @@ namespace StoreManagement.ViewModels
 {
     class SignUpViewModel : BaseViewModel
     {
+        private bool isSucceed = false;
         private string imageFileName;
+
         public ICommand SelectImageCommand { get; set; }
         public ICommand SignUpCommand { get; set; }
+        public ICommand CloseWindowCommand { get; set; }
+
         public SignUpViewModel()
         {
             SignUpCommand = new RelayCommand<SignUpWindow>((parameter) => true, (parameter) => SignUp(parameter));
             SelectImageCommand = new RelayCommand<Grid>((para) => true, (para) => ChooseImage(para));
+            CloseWindowCommand = new RelayCommand<SignUpWindow>((para) => true, (para) => CloseWindow(para));
         }
 
         private void ChooseImage(Grid para)
@@ -61,42 +66,39 @@ namespace StoreManagement.ViewModels
             {
                 return;
             }
-            //check username
-            if (String.IsNullOrEmpty(parameter.txtUsername.Text))
-            {
-                MessageBox.Show("Vui lòng nhập tên đăng nhập", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
-                parameter.txtUsername.Focus();
-                return;
-            }
-            //check displayname
             if (String.IsNullOrEmpty(parameter.displayname.Text))
             {
                 MessageBox.Show("Vui lòng nhập tên ", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
                 parameter.displayname.Focus();
                 return;
             }
-
-            //Check password
-            if (String.IsNullOrEmpty(parameter.pwbPassword.Text))
+            if (String.IsNullOrEmpty(parameter.txtUsername.Text))
+            {
+                MessageBox.Show("Vui lòng nhập tên đăng nhập", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
+                parameter.txtUsername.Focus();
+                return;
+            }
+            if (String.IsNullOrEmpty(parameter.pwbPassword.Password))
             {
                 MessageBox.Show("Vui lòng nhập mật khẩu!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
                 parameter.pwbPassword.Focus();
                 return;
             }
-            if (String.IsNullOrEmpty(parameter.pwbPasswordConfirm.Text))
+            if (String.IsNullOrEmpty(parameter.pwbPasswordConfirm.Password))
             {
                 MessageBox.Show("Vui lòng xác thực mật khẩu!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
                 parameter.pwbPasswordConfirm.Focus();
                 return;
             }
-            if (parameter.pwbPassword.Text != parameter.pwbPasswordConfirm.Text)
+
+            if (parameter.pwbPassword.Password != parameter.pwbPasswordConfirm.Password)
             {
                 MessageBox.Show("Mật khẩu không trùng khớp!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
 
-            //try
-            //{
+            try
+            {
                 byte[] imgByteArr;
                 if (imageFileName == null)
                 {
@@ -109,25 +111,31 @@ namespace StoreManagement.ViewModels
 
                 Account acc = new Account();
                 acc.Username = parameter.txtUsername.Text;
-                acc.Password = MD5Hash(parameter.pwbPassword.Text);
+                acc.Password = MD5Hash(parameter.pwbPassword.Password);
                 acc.DisplayName = parameter.displayname.Text;
                 acc.Image = imgByteArr;
                 DataProvider.Instance.DB.Accounts.Add(acc);
                 DataProvider.Instance.DB.SaveChanges();
-            //}
-            //catch
-            //{
-            //    MessageBox.Show("Tài khoản đã tồn tại! Vui lòng nhập tài khoản khác", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
-            //    parameter.txtUsername.Focus();
-            //    return;
-            //}
-            //finally
-            //{
-            //    //parameter.Close();
-            //}
+                this.isSucceed = true;
+            }
+            catch
+            {
+                MessageBox.Show("Tài khoản đã tồn tại! Vui lòng nhập tài khoản khác", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
+                parameter.txtUsername.Focus();
+                return;
+            }
+            finally
+            {
+                if (this.isSucceed)
+                {
+                    parameter.Close();
+                }
+            }
+        }
 
-
-
+        private void CloseWindow(SignUpWindow para)
+        {
+            para.Close();
         }
     }
 }

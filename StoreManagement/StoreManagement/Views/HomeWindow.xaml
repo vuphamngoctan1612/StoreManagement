@@ -208,9 +208,7 @@
                         FontWeight="SemiBold" 
                         Padding="75,0,0,0" 
                         Cursor="Hand" 
-                        FocusVisualStyle="{x:Null}"
-                        Command="{Binding OpenProductsWindowCommand}"
-                        CommandParameter="{Binding ElementName=wdHome}">
+                        FocusVisualStyle="{x:Null}">
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="Click">
                                 <i:InvokeCommandAction Command="{Binding SwitchTabCommand}"
@@ -578,90 +576,44 @@
                             VerticalAlignment="Center"
                             FontWeight="SemiBold"
                             Foreground="#504D85">
-                        <MenuItem
+                            <MenuItem
                                 Header="Your profile"
                                 FontWeight="Normal"
                                 Cursor="Hand">
-                            <i:Interaction.Triggers>
-                                <i:EventTrigger EventName="Click">
-                                    <i:InvokeCommandAction 
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="Click">
+                                        <i:InvokeCommandAction 
                                             Command="{Binding ShowProfileCommand}"
                                             CommandParameter="{Binding ElementName = wdHome}"/>
-                                </i:EventTrigger>
-                            </i:Interaction.Triggers>
-                        </MenuItem>
-                        <MenuItem
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </MenuItem>
+                            <MenuItem
                                 Header="Change password"
                                 FontWeight="Normal"
                                 Cursor="Hand">
-                            <i:Interaction.Triggers>
-                                <i:EventTrigger EventName="Click">
-                                    <i:InvokeCommandAction 
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="Click">
+                                        <i:InvokeCommandAction 
                                             Command="{Binding ShowChangePasswordCommand}"
                                             CommandParameter="{Binding ElementName = wdHome}"/>
-                                </i:EventTrigger>
-                            </i:Interaction.Triggers>
-                        </MenuItem>
-                        <MenuItem
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </MenuItem>
+                            <MenuItem
                                 Header="Log out"
                                 Cursor="Hand"
                                 FontWeight="Normal">
-                            <i:Interaction.Triggers>
-                                <i:EventTrigger EventName="Click">
-                                    <i:InvokeCommandAction 
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="Click">
+                                        <i:InvokeCommandAction 
                                             Command="{Binding LogOutCommand}"
                                             CommandParameter="{Binding ElementName = wdHome}"/>
-                                </i:EventTrigger>
-                            </i:Interaction.Triggers>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </MenuItem>
                         </MenuItem>
-                    </MenuItem>
                     </Menu>
-                    <!--<Expander
-                        Header="Display name"
-                        Background="Transparent"
-                        Foreground="#504D85"
-                        FontWeight="SemiBold"
-                        FontSize="22"
-                        HorizontalAlignment="Left"
-                        VerticalAlignment="Center">
-                        <StackPanel
-                            HorizontalAlignment="Left"
-                            VerticalAlignment="Center"
-                            Height="100"
-                            Margin="10 40 0 0"
-                            Orientation="Vertical">
-                            <Button
-                                BorderThickness="0"
-                                Content="Your profile"
-                                Foreground="#504D85"
-                                FontSize="16"
-                                FontWeight="Normal"
-                                Cursor="Hand"
-                                HorizontalAlignment="Left"
-                                VerticalAlignment="Center">
-                            </Button>
-                            <Button
-                                BorderThickness="0"
-                                Content="Change password"
-                                Foreground="#504D85"
-                                FontSize="16"
-                                FontWeight="Normal"
-                                Cursor="Hand"
-                                HorizontalAlignment="Left"
-                                VerticalAlignment="Center">
-                            </Button>
-                            <Button
-                                BorderThickness="0"
-                                Content="Logout"
-                                Foreground="#504D85"
-                                FontSize="16"
-                                FontWeight="Normal"
-                                Cursor="Hand"
-                                HorizontalAlignment="Left"
-                                VerticalAlignment="Center">
-                            </Button>
-                        </StackPanel>
-                    </Expander>-->
                 </Grid>
             </Grid>
 
@@ -1011,6 +963,7 @@
                                     materialDesign:ComboBoxAssist.ClassicMode="true"
                                     FontSize="16"
                                     FontWeight="Medium" 
+                                    Foreground="#504D85"
                                     Style="{StaticResource MaterialDesignFloatingHintComboBox}"
                                     materialDesign:HintAssist.Hint="Chọn loại biểu đồ"
                                     Width="160" 
@@ -1065,7 +1018,7 @@
             <!--Body stores-->
             <Grid Grid.Row="1"
                 x:Name="grdBody_Store"
-                Height="665"
+                Height="690"
                 Width="1140"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Bottom"
@@ -1079,14 +1032,50 @@
                 </i:Interaction.Triggers>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="3"></RowDefinition>
-                    <RowDefinition Height="100"></RowDefinition>
+                    <RowDefinition Height="110"></RowDefinition>
                     <RowDefinition></RowDefinition>
                 </Grid.RowDefinitions>
                 <Grid Grid.Row="0"
-                    Background="#FBA1BB"
-                      Width="1000">
+                    Background="#FBA1BB">
                 </Grid>
                 <Grid Grid.Row="1">
+                    <Border
+                        Background="{x:Null}"
+                        CornerRadius="8"
+                        BorderBrush="#FBA1BB"
+                        BorderThickness="1"
+                        Height="32"
+                        Width="200"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Margin="280,0">
+                        <ComboBox
+                            Name="cbbStore_Store"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Height="40"
+                            Width="240"
+                            Style="{StaticResource MaterialDesignOutlinedComboBox}"
+                            Background="Transparent"
+                            Foreground="#504D85"
+                            BorderThickness="0"
+                            FontSize="18"
+                            FontWeight="SemiBold"
+                            Padding="0"
+                            HorizontalContentAlignment="Center"
+                            VerticalContentAlignment="Center" 
+                            Cursor="Arrow"
+                            ScrollViewer.VerticalScrollBarVisibility="Visible">
+                            <ComboBoxItem HorizontalContentAlignment="Center">List detail</ComboBoxItem>
+                            <ComboBoxItem HorizontalContentAlignment="Center">Paging</ComboBoxItem>
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="SelectionChanged">
+                                    <i:InvokeCommandAction Command="{Binding ChangeWayShowAgencyCommand}" 
+                                                       CommandParameter="{Binding ElementName=wdHome}"/>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </ComboBox>
+                    </Border>
                     <Button 
                         x:Name="btnAddAgency"
                         Width="170"
@@ -1103,7 +1092,7 @@
                         FontFamily="Segoe UI"
                         Margin="60,15"
                         Style="{StaticResource MaterialDesignRaisedButton}"
-                        ToolTip="Thêm đại lý"
+                        ToolTip="Add agency"
                         Command="{Binding OpenAddStoreWindowCommand}"
                         CommandParameter="{Binding ElementName=wdHome}">
                     </Button>
@@ -1122,32 +1111,53 @@
                         <Grid
                             x:Name="grdStoreFisrt">
                         </Grid>
-                        <Grid
-                            x:Name="grdStoreSecond"
-                            Grid.Column="1">
-                        </Grid>
-                        <Grid
-                            x:Name="grdStoreThird"
-                            Grid.Column="2">
+                        <Grid Grid.Row="1"
+                              Background="#F2F2F2">
+                            <ScrollViewer 
+                                Grid.Row="2"
+                                HorizontalScrollBarVisibility="Disabled" 
+                                Margin="0"
+                                HorizontalAlignment="Left" 
+                                Style="{StaticResource FavsScrollViewer}"
+                                Width="1070" 
+                                Height="500"
+                                VerticalAlignment="Top"
+                                VerticalScrollBarVisibility="Auto">
+                                <StackPanel 
+                                    x:Name="stkStore_Store" 
+                                    ScrollViewer.VerticalScrollBarVisibility="Auto" 
+                                    ScrollViewer.HorizontalScrollBarVisibility="Disabled"/>
+                            </ScrollViewer>
                         </Grid>
                     </Grid>
                     <Grid
-                        Grid.Row="1">
-                        <Button
-                            x:Name="btnNextPage"
-                            Width="50"
-                            Height="50"
-                            Background="{x:Null}"
-                            BorderBrush="{x:Null}" 
-                            Padding="0"
-                            VerticalAlignment="Center"
-                            HorizontalAlignment="Right"
-                            Margin="30"
-                            Command="{Binding NextPageStoresCommand}"
-                            CommandParameter="{Binding HomeWindow}">
-                            <materialDesign:PackIcon 
-                                Kind="ArrowRightBoldCircleOutline" 
-                                Foreground="LightPink"
+                        x:Name="grdList3Store_Store"
+                        Visibility="Visible">
+                        <Grid.RowDefinitions>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition Height="110"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid
+                            Width="1000">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid
+                                x:Name="grdStoreFisrt"/>
+                            <Grid
+                                x:Name="grdStoreSecond"
+                                Grid.Column="1"/>
+                            <Grid
+                                x:Name="grdStoreThird"
+                                Grid.Column="2"/>
+                        </Grid>
+                        <Grid
+                            Grid.Row="1">
+                            <Button
+                                x:Name="btnNextPage"
+                                Width="50"
                                 Height="50"
                                 Width="50"
                                 VerticalAlignment="Center"
@@ -1418,7 +1428,7 @@
                                     HorizontalAlignment="Right"
                                     Margin="23,10"
                                     Padding="0"
-                                    materialDesign:HintAssist.Hint="Reload Business tag"
+                                    ToolTip="Reload Business tag"
                                     Command="{Binding ReloadBusinessTagCommand}"
                                     CommandParameter="{Binding ElementName=wdHome}">
                                     <materialDesign:PackIcon
@@ -1620,9 +1630,14 @@
                                         <TextBox
                                             x:Name="txbSeaechAgency"
                                             Height="40"
-                                            Width="250"
-                                            HorizontalAlignment="Left"
-                                            VerticalAlignment="Top"
+                                            Width="240"
+                                            BorderThickness="0"
+                                            materialDesign:HintAssist.Hint="Agency"
+                                            FontSize="17"
+                                            Foreground="#504D85"
+                                            Background="Transparent"
+                                            FontWeight="SemiBold"
+                                            Padding="0"
                                             HorizontalContentAlignment="Center"
                                             VerticalContentAlignment="Center"
                                             BorderBrush="{x:Null}"
@@ -1652,6 +1667,7 @@
                                         Height="40"
                                         Width="250"
                                         Background="#FFB2C8"
+                                        Foreground="#504D85"
                                         BorderBrush="{x:Null}"
                                         materialDesign:ButtonAssist.CornerRadius="6"
                                         Content="Add">
@@ -1698,11 +1714,10 @@
                                         Foreground="#6F6C99"
                                         FontSize="16"
                                         FontWeight="SemiBold"
-                                        Height="20"
                                         Width="100"
                                         HorizontalAlignment="Left"
                                         VerticalAlignment="Center"
-                                        Margin="20,10"/>
+                                        Margin="20,5"/>
                                     <TextBlock
                                         x:Name="txbAgencyinPayment"
                                         Text="TAAgency"
@@ -1712,7 +1727,7 @@
                                         Height="20"
                                         HorizontalAlignment="Right"
                                         VerticalAlignment="Center"
-                                        Margin="10,10"/>
+                                        Margin="10,5"/>
                                 </Grid>
                                 <Grid
                                     Grid.Row="2">
@@ -1786,7 +1801,7 @@
                                 <Grid
                                     Grid.Row="5">
                                     <TextBlock
-                                        Text="Trả trước"
+                                        Text="Retainer"
                                         Foreground="#263238"
                                         FontSize="16"
                                         FontWeight="SemiBold"
@@ -1795,6 +1810,30 @@
                                         HorizontalAlignment="Left"
                                         VerticalAlignment="Center"
                                         Margin="20,10"/>
+                                    <TextBox
+                                        x:Name="txtRetainerPaymment"
+                                        Text="0"
+                                        Height="30"
+                                        Width="100"
+                                        HorizontalAlignment="Right"
+                                        VerticalAlignment="Top"
+                                        Margin="50,5"
+                                        FontSize="16"
+                                        Foreground="#263238"
+                                        HorizontalContentAlignment="Right"
+                                        VerticalContentAlignment="Bottom"
+                                        materialDesign:BottomDashedLineAdorner.Brush="Gray">
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="PreviewTextInput" >
+                                                <ei:CallMethodAction TargetObject="{Binding}"
+                                                 MethodName="NumberValidationTextBox" />
+                                            </i:EventTrigger>
+                                            <i:EventTrigger EventName="TextChanged">
+                                                <i:InvokeCommandAction Command="{Binding CalculationPaymentCommand}" 
+                                                   CommandParameter="{Binding ElementName=txtRetainerPaymment}"/>
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+                                    </TextBox>
                                     <TextBlock
                                         x:Name="txbRetainer"
                                         Text="99.999.999 VND"
@@ -1813,7 +1852,7 @@
                                         <ColumnDefinition Width="68*"/>
                                     </Grid.ColumnDefinitions>
                                     <TextBlock
-                                        Text="Còn lại"
+                                        Text="Excess cash"
                                         Foreground="#263238"
                                         FontSize="16"
                                         FontWeight="SemiBold"
