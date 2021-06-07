@@ -452,15 +452,24 @@ namespace StoreManagement.ViewModels
         private void OpenAddUnitsWindow(ComboBox para)
         {
             AddUnitsWindow window = new AddUnitsWindow();
-
-            int id = DataProvider.Instance.DB.Units.Max(p => p.ID) + 1;
-            window.txtID.Text = id.ToString();
-
-            window.ShowDialog();
-            if (window.isSaveSucceed)
+            
+            try
             {
-                this.InitItemsSourceUnits();
+                int id = DataProvider.Instance.DB.Units.Max(p => p.ID) + 1;
+                window.txtID.Text = id.ToString();
             }
+            catch
+            {
+                window.txtID.Text = "1";
+            }
+            finally
+            {
+                window.ShowDialog();
+                if (window.isSaveSucceed)
+                {
+                    this.InitItemsSourceUnits();
+                }
+            }            
         }
         private void LoadProduct(HomeWindow para)
         {
