@@ -616,27 +616,27 @@
                     </Menu>
                 </Grid>
             </Grid>
-
-            <!--Body main-->
-            <Grid Grid.Row="1"
+        </Grid>
+        <!--Body main-->
+        <Grid Grid.Row="1"
                 x:Name="grdBody_Main"
                 DataContext="{StaticResource ReportVM}"
                 Visibility="Visible">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="2"></RowDefinition>
-                    <RowDefinition Height="70"></RowDefinition>
-                    <RowDefinition Height="200"></RowDefinition>
-                    <RowDefinition></RowDefinition>
-                </Grid.RowDefinitions>
-                <Grid Grid.Row="0"
+            <Grid.RowDefinitions>
+                <RowDefinition Height="2"></RowDefinition>
+                <RowDefinition Height="70"></RowDefinition>
+                <RowDefinition Height="200"></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0"
                       Background="#FBA1BB">
-                </Grid>
-                <Grid Grid.Row="1">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="40"></RowDefinition>
-                        <RowDefinition Height="30"></RowDefinition>
-                    </Grid.RowDefinitions>
-                    <!--<Grid Grid.Row="0">
+            </Grid>
+            <Grid Grid.Row="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="40"></RowDefinition>
+                    <RowDefinition Height="30"></RowDefinition>
+                </Grid.RowDefinitions>
+                <!--<Grid Grid.Row="0">
                         <TextBlock
                             Text="MY STORES"
                             Foreground="#F97298"
@@ -658,19 +658,19 @@
                             Margin="65 0 0 5">
                         </TextBlock>
                     </Grid>-->
-                </Grid>
-                <Grid Grid.Row="2">
-                    <i:Interaction.Triggers>
-                        <!--<i:EventTrigger EventName="MouseMove">
+            </Grid>
+            <Grid Grid.Row="2">
+                <i:Interaction.Triggers>
+                    <!--<i:EventTrigger EventName="MouseMove">
                             <i:InvokeCommandAction Command="{Binding LoadSalesResult}" 
                                                CommandParameter="{Binding ElementName=wdHome}"/>
                         </i:EventTrigger>-->
-                        <i:EventTrigger EventName="Loaded">
-                            <i:InvokeCommandAction Command="{Binding LoadSalesResult}" 
+                    <i:EventTrigger EventName="Loaded">
+                        <i:InvokeCommandAction Command="{Binding LoadSalesResult}" 
                                                CommandParameter="{Binding ElementName=wdHome}"/>
-                        </i:EventTrigger>
-                    </i:Interaction.Triggers>
-                    <WrapPanel  
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+                <WrapPanel  
                             x:Name="wpBody_Main_TopAgency"
                             Width="1100"
                             Height="200"
@@ -680,8 +680,8 @@
                             ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
                             Margin="0"
                             Visibility="Hidden">
-                    </WrapPanel>
-                    <Border
+                </WrapPanel>
+                <Border
                         BorderThickness="1"
                         Background="White"
                         CornerRadius="2"
@@ -689,27 +689,27 @@
                         VerticalAlignment="Center"
                         Width="1110"
                         Height="200">
-                        <Border.Effect>
-                            <DropShadowEffect 
+                    <Border.Effect>
+                        <DropShadowEffect 
                             BlurRadius="8" 
                             ShadowDepth="1.5" 
                             Direction="270"
                             Color="{StaticResource MaterialDesignShadow}" 
                             Opacity=".42"/>
-                        </Border.Effect>
-                        <Grid
+                    </Border.Effect>
+                    <Grid
                                 x:Name="grid_today"
                                 Width="1100"
                                 Height="200"
                                 HorizontalAlignment="Center"
                                 VerticalAlignment="Center"
                                 Margin="0">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="50"/>
-                                <RowDefinition Height="*"/>
-                            </Grid.RowDefinitions>
-                            <Grid Grid.Row="0">
-                                <TextBlock
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="50"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="0">
+                            <TextBlock
                                         Text="Today's sales result"
                                         FontStyle="Normal"
                                         FontSize="25" 
@@ -718,16 +718,16 @@
                                         VerticalAlignment="Center"
                                         Margin="20 0"
                                         Foreground="#504D85"/>
-                            </Grid>
-                            <Grid Grid.Row="1">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="275"/>
-                                    <ColumnDefinition Width="275"/>
-                                    <ColumnDefinition Width="275"/>
-                                    <ColumnDefinition Width="275"/>
-                                </Grid.ColumnDefinitions>
-                                <Grid Grid.Column="0">
-                                    <Border
+                        </Grid>
+                        <Grid Grid.Row="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="275"/>
+                                <ColumnDefinition Width="275"/>
+                                <ColumnDefinition Width="275"/>
+                                <ColumnDefinition Width="275"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid Grid.Column="0">
+                                <Border
                                         BorderThickness="1"
                                         CornerRadius="8"
                                         HorizontalAlignment="Center"
@@ -736,23 +736,23 @@
                                         Width="255"
                                         Height="135"
                                         Background="#FFFFFF">
-                                        <Border.Effect>
-                                            <DropShadowEffect 
+                                    <Border.Effect>
+                                        <DropShadowEffect 
                                             BlurRadius="8" 
                                             ShadowDepth="1.5" 
                                             Direction="270"
                                             Color="{StaticResource MaterialDesignShadow}" 
                                             Opacity=".42"/>
-                                        </Border.Effect>
-                                        <Grid>
-                                            <TextBlock
+                                    </Border.Effect>
+                                    <Grid>
+                                        <TextBlock
                                                 Text="Total sales today"
                                                 FontSize="14"
                                                 Foreground="#9098B1"
                                                 VerticalAlignment="Top"
                                                 HorizontalAlignment="Left"
                                                 Margin="15 10"/>
-                                            <TextBlock
+                                        <TextBlock
                                                 x:Name="txb_today_total"
                                                 Text="0"
                                                 FontStyle="Normal"
@@ -763,11 +763,11 @@
                                                 Margin="15"
                                                 Foreground="#504D85"
                                                 />
-                                        </Grid>
-                                    </Border>
-                                </Grid>
-                                <Grid Grid.Column="1">
-                                    <Border
+                                    </Grid>
+                                </Border>
+                            </Grid>
+                            <Grid Grid.Column="1">
+                                <Border
                                         BorderThickness="1"
                                         Background="White"
                                         CornerRadius="8"
@@ -776,23 +776,23 @@
                                         Margin="0 0"
                                         Width="255"
                                         Height="135">
-                                        <Border.Effect>
-                                            <DropShadowEffect 
+                                    <Border.Effect>
+                                        <DropShadowEffect 
                                             BlurRadius="8" 
                                             ShadowDepth="1.5" 
                                             Direction="270"
                                             Color="{StaticResource MaterialDesignShadow}" 
                                             Opacity=".42"/>
-                                        </Border.Effect>
-                                        <Grid>
-                                            <TextBlock
+                                    </Border.Effect>
+                                    <Grid>
+                                        <TextBlock
                                                 Text="Total bill today"
                                                 FontSize="14"
                                                 Foreground="#9098B1"
                                                 VerticalAlignment="Top"
                                                 HorizontalAlignment="Left"
                                                 Margin="15 10"/>
-                                            <TextBlock
+                                        <TextBlock
                                                 x:Name="txb_today_bill"
                                                 Text="0"
                                                 FontStyle="Normal"
@@ -802,11 +802,11 @@
                                                 VerticalAlignment="Center"
                                                 Margin="15"
                                                 Foreground="#504D85"/>
-                                        </Grid>
-                                    </Border>
-                                </Grid>
-                                <Grid Grid.Column="2">
-                                    <Border
+                                    </Grid>
+                                </Border>
+                            </Grid>
+                            <Grid Grid.Column="2">
+                                <Border
                                         BorderThickness="1"
                                         Background="White"
                                         CornerRadius="8"
@@ -815,21 +815,21 @@
                                         Margin="0 0"
                                         Width="255"
                                         Height="135">
-                                        <Border.Effect>
-                                            <DropShadowEffect 
+                                    <Border.Effect>
+                                        <DropShadowEffect 
                                             BlurRadius="8" 
                                             ShadowDepth="1.5" 
                                             Direction="270"
                                             Color="{StaticResource MaterialDesignShadow}" 
                                             Opacity="0.42"/>
-                                        </Border.Effect>
-                                        <Grid>
-                                            <Grid.RowDefinitions>
-                                                <RowDefinition Height="40"/>
-                                                <RowDefinition Height="*"/>
-                                                <RowDefinition Height="40"/>
-                                            </Grid.RowDefinitions>
-                                            <Grid Grid.Row="0">
+                                    </Border.Effect>
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="40"/>
+                                            <RowDefinition Height="*"/>
+                                            <RowDefinition Height="40"/>
+                                        </Grid.RowDefinitions>
+                                        <Grid Grid.Row="0">
                                             <TextBlock
                                                 Text="Compare with yesterday"
                                                 FontSize="14"
@@ -837,8 +837,8 @@
                                                 VerticalAlignment="Top"
                                                 HorizontalAlignment="Left"
                                                 Margin="15 10"/>
-                                            </Grid>
-                                            <Grid Grid.Row="1">
+                                        </Grid>
+                                        <Grid Grid.Row="1">
                                             <TextBlock
                                                 x:Name="txb_yesterday_compare"
                                                 Text="0"
@@ -849,8 +849,8 @@
                                                 VerticalAlignment="Center"
                                                 Margin="15 0"
                                                 Foreground="#504D85"/>
-                                            </Grid>
-                                            <Grid Grid.Row="2">
+                                        </Grid>
+                                        <Grid Grid.Row="2">
                                             <TextBlock
                                                 x:Name="yesterday_compare"
                                                 Text="oqhphugeqpugeup"
@@ -859,12 +859,12 @@
                                                 VerticalAlignment="Top"
                                                 HorizontalAlignment="Left"
                                                 Margin="15 10" />
-                                            </Grid>
                                         </Grid>
-                                    </Border>
-                                </Grid>
-                                <Grid Grid.Column="3">
-                                    <Border
+                                    </Grid>
+                                </Border>
+                            </Grid>
+                            <Grid Grid.Column="3">
+                                <Border
                                         BorderThickness="1"
                                         Background="White"
                                         CornerRadius="8"
@@ -873,30 +873,30 @@
                                         Margin="0 0"
                                         Width="255"
                                         Height="135">
-                                        <Border.Effect>
-                                            <DropShadowEffect 
+                                    <Border.Effect>
+                                        <DropShadowEffect 
                                             BlurRadius="8" 
                                             ShadowDepth="1.5" 
                                             Direction="270"
                                             Color="{StaticResource MaterialDesignShadow}" 
                                             Opacity=".42"/>
-                                        </Border.Effect>
-                                        <Grid>
-                                            <Grid.RowDefinitions>
-                                                <RowDefinition Height="40"/>
-                                                <RowDefinition Height="*"/>
-                                                <RowDefinition Height="40"/>
-                                            </Grid.RowDefinitions>
-                                            <Grid Grid.Row="0">
-                                                <TextBlock
+                                    </Border.Effect>
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="40"/>
+                                            <RowDefinition Height="*"/>
+                                            <RowDefinition Height="40"/>
+                                        </Grid.RowDefinitions>
+                                        <Grid Grid.Row="0">
+                                            <TextBlock
                                                 Text="Compare with last month"
                                                 FontSize="14"
                                                 Foreground="#9098B1"
                                                 VerticalAlignment="Top"
                                                 HorizontalAlignment="Left"
                                                 Margin="15 10"/>
-                                            </Grid>
-                                            <Grid Grid.Row="1">
+                                        </Grid>
+                                        <Grid Grid.Row="1">
                                             <TextBlock
                                                 x:Name="txb_month_compare"
                                                 Text="0"
@@ -907,8 +907,8 @@
                                                 VerticalAlignment="Center"
                                                 Margin="15"
                                                 Foreground="#504D85"/>
-                                            </Grid>
-                                            <Grid Grid.Row="2">
+                                        </Grid>
+                                        <Grid Grid.Row="2">
                                             <TextBlock
                                                 x:Name="month_compare"
                                                 Text="oqhphugeqpugeup"
@@ -917,17 +917,16 @@
                                                 VerticalAlignment="Top"
                                                 HorizontalAlignment="Left"
                                                 Margin="15 10"/>
-                                            </Grid>
                                         </Grid>
-                                    </Border>
-                                </Grid>
+                                    </Grid>
+                                </Border>
                             </Grid>
                         </Grid>
-                    </Border>
-                </Grid>
-
-                <Grid Grid.Row="3">
-                    <Border
+                    </Grid>
+                </Border>
+            </Grid>
+            <Grid Grid.Row="3">
+                <Border
                         BorderThickness="1"
                         Background="White"
                         CornerRadius="2"
@@ -936,28 +935,28 @@
                         Margin="0 10"
                         Width="1100"
                         Height="400">
-                        <Border.Effect>
-                            <DropShadowEffect 
+                    <Border.Effect>
+                        <DropShadowEffect 
                             BlurRadius="8" 
                             ShadowDepth="1.5" 
                             Direction="270"
                             Color="{StaticResource MaterialDesignShadow}" 
                             Opacity=".42"/>
-                        </Border.Effect>
-                        <Grid
+                    </Border.Effect>
+                    <Grid
                             Height="400"
                             Width="1050"
                             VerticalAlignment="Top"
                             HorizontalAlignment="Center"
                             Margin="0">
-                            <StackPanel
+                        <StackPanel
                                 Width="600"
                                 Height="50"
                                 Orientation="Horizontal"
                                 VerticalAlignment="Top"
                                 HorizontalAlignment="Left"
                                 Margin="80 5 0 0">
-                                <ComboBox
+                            <ComboBox
                                     x:Name="cboSelectTypeOfChart"
                                     DataContext="{StaticResource ReportVM}"
                                     materialDesign:ComboBoxAssist.ClassicMode="true"
@@ -974,72 +973,74 @@
                                     VerticalContentAlignment="Center" 
                                     Padding="3,0,0,0" 
                                     Margin="0,0,0,0" >
-                                    <ComboBoxItem Content="Agency"/>
-                                    <ComboBoxItem Content="Product"/>
-                                    <i:Interaction.Triggers>
-                                        <i:EventTrigger EventName="SelectionChanged">
-                                            <i:InvokeCommandAction Command="{Binding SelectedTypeChangeCommand}" 
-                                           CommandParameter="{Binding ElementName=wdHome}"/>
-                                        </i:EventTrigger>
-                                    </i:Interaction.Triggers>
-                                </ComboBox>
-                            </StackPanel>
-                            <lvc:CartesianChart 
-                                Series="{Binding SeriesCollection}"
-                                LegendLocation="Left"
-                                Margin="20 80 20 20">
-                                <lvc:CartesianChart.AxisX>
-                                    <lvc:Axis 
-                                        Title="{Binding AxisXTitle, Mode=TwoWay}"
-                                        Labels="{Binding Labels, Mode=TwoWay}">
-                                        <lvc:Axis.Separator>
-                                            <lvc:Separator Step="1"></lvc:Separator>
-                                        </lvc:Axis.Separator>
-                                    </lvc:Axis>
-                                </lvc:CartesianChart.AxisX>
-                                <lvc:CartesianChart.AxisY>
-                                    <lvc:Axis 
-                                        Title="{Binding AxixYTitle, Mode=TwoWay}"
-                                        LabelFormatter="{Binding Formatter}">
-                                    </lvc:Axis>
-                                </lvc:CartesianChart.AxisY>
+                                <ComboBoxItem Content="Agency"/>
+                                <ComboBoxItem Content="Product"/>
                                 <i:Interaction.Triggers>
-                                    <i:EventTrigger EventName="Loaded">
-                                        <i:InvokeCommandAction Command="{Binding InitColumnChartCommand}" 
+                                    <i:EventTrigger EventName="SelectionChanged">
+                                        <i:InvokeCommandAction Command="{Binding SelectedTypeChangeCommand}" 
                                            CommandParameter="{Binding ElementName=wdHome}"/>
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
-                            </lvc:CartesianChart>
-                        </Grid>
-                            
-                    </Border>
-                </Grid>
+                            </ComboBox>
+                        </StackPanel>
+                        <lvc:CartesianChart 
+                                Series="{Binding SeriesCollection}"
+                                LegendLocation="Left"
+                                Margin="20 80 20 20">
+                            <lvc:CartesianChart.AxisX>
+                                <lvc:Axis 
+                                        Title="{Binding AxisXTitle, Mode=TwoWay}"
+                                        Labels="{Binding Labels, Mode=TwoWay}">
+                                    <lvc:Axis.Separator>
+                                        <lvc:Separator Step="1"></lvc:Separator>
+                                    </lvc:Axis.Separator>
+                                </lvc:Axis>
+                            </lvc:CartesianChart.AxisX>
+                            <lvc:CartesianChart.AxisY>
+                                <lvc:Axis 
+                                        Title="{Binding AxixYTitle, Mode=TwoWay}"
+                                        LabelFormatter="{Binding Formatter}">
+                                </lvc:Axis>
+                            </lvc:CartesianChart.AxisY>
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="Loaded">
+                                    <i:InvokeCommandAction Command="{Binding InitColumnChartCommand}" 
+                                           CommandParameter="{Binding ElementName=wdHome}"/>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </lvc:CartesianChart>
+                    </Grid>
+
+                </Border>
             </Grid>
-            <!--Body stores-->
-            <Grid Grid.Row="1"
+        </Grid>
+
+        <!--Body stores-->
+        <Grid
+                Grid.Row="1"
+                DataContext="{StaticResource StoreVM}"
                 x:Name="grdBody_Store"
                 Height="690"
                 Width="1140"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Bottom"
-                Visibility="Hidden"
-               >
-                <i:Interaction.Triggers>
-                    <i:EventTrigger EventName="Loaded">
-                        <i:InvokeCommandAction Command="{Binding LoadStoreOnWindowCommand}" 
+                Visibility="Hidden">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="Loaded">
+                    <i:InvokeCommandAction Command="{Binding LoadStoreOnWindowCommand}" 
                                                CommandParameter="{Binding ElementName=wdHome}"/>
-                    </i:EventTrigger>
-                </i:Interaction.Triggers>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="3"></RowDefinition>
-                    <RowDefinition Height="110"></RowDefinition>
-                    <RowDefinition></RowDefinition>
-                </Grid.RowDefinitions>
-                <Grid Grid.Row="0"
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="3"></RowDefinition>
+                <RowDefinition Height="110"></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0"
                     Background="#FBA1BB">
-                </Grid>
-                <Grid Grid.Row="1">
-                    <Border
+            </Grid>
+            <Grid Grid.Row="1">
+                <Border
                         Background="{x:Null}"
                         CornerRadius="8"
                         BorderBrush="#FBA1BB"
@@ -1049,7 +1050,7 @@
                         HorizontalAlignment="Left"
                         VerticalAlignment="Center"
                         Margin="280,0">
-                        <ComboBox
+                    <ComboBox
                             Name="cbbStore_Store"
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center"
@@ -1066,20 +1067,20 @@
                             VerticalContentAlignment="Center" 
                             Cursor="Arrow"
                             ScrollViewer.VerticalScrollBarVisibility="Visible">
-                            <ComboBoxItem HorizontalContentAlignment="Center">List detail</ComboBoxItem>
-                            <ComboBoxItem HorizontalContentAlignment="Center">Paging</ComboBoxItem>
-                            <i:Interaction.Triggers>
-                                <i:EventTrigger EventName="SelectionChanged">
-                                    <i:InvokeCommandAction Command="{Binding ChangeWayShowAgencyCommand}" 
+                        <ComboBoxItem HorizontalContentAlignment="Center">List detail</ComboBoxItem>
+                        <ComboBoxItem HorizontalContentAlignment="Center">Paging</ComboBoxItem>
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="SelectionChanged">
+                                <i:InvokeCommandAction Command="{Binding ChangeWayShowAgencyCommand}" 
                                                        CommandParameter="{Binding ElementName=wdHome}"/>
-                                </i:EventTrigger>
-                            </i:Interaction.Triggers>
-                        </ComboBox>
-                    </Border>
-                    <Button 
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </ComboBox>
+                </Border>
+                <Button 
                         x:Name="btnAddAgency"
-                        Width="170"
-                        Height="50"
+                        Width="112"
+                        Height="32"
                         Background="#F79BB5"
                         Uid="0"
                         FocusVisualStyle="{x:Null}"
@@ -1090,30 +1091,125 @@
                         VerticalAlignment="Center"
                         Content="Add agency"
                         FontFamily="Segoe UI"
-                        Margin="60,15"
+                        Margin="0,25,60,25"
                         Style="{StaticResource MaterialDesignRaisedButton}"
                         ToolTip="Add agency"
                         Command="{Binding OpenAddStoreWindowCommand}"
-                        CommandParameter="{Binding ElementName=wdHome}">
-                    </Button>
-                </Grid>
-                <Grid Grid.Row="2">
+                        CommandParameter="{Binding ElementName=wdHome}" Grid.Column="1">
+                </Button>
+                <TextBox
+                        x:Name="txtSearchAgency"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Left"
+                        Height="32"
+                        Width="200"
+                        materialDesign:HintAssist.Hint="Search agency"
+                        FontSize="16"
+                        FontFamily="Poppins"
+                        FontWeight="Regular"
+                        BorderBrush="#F79BB5"
+                        HorizontalContentAlignment="Center"
+                        VerticalContentAlignment="Center"
+                        Style="{StaticResource MaterialDesignTextBox}"  
+                        materialDesign:TextFieldAssist.TextFieldCornerRadius="8"
+                        BorderThickness="1"
+                        Margin="60,25,0,25">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="TextChanged">
+                            <i:InvokeCommandAction Command="{Binding SearchAgencyCommand}" 
+                                                       CommandParameter="{Binding ElementName=wdHome}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </TextBox>
+                <materialDesign:PackIcon
+                        Kind="Search"
+                        Height="25"
+                        Width="25"
+                        Foreground="#F79BB5"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Margin="230,0"/>
+            </Grid>
+            <Grid Grid.Row="2">
+                <Grid
+                        x:Name="grdListStore_Store"
+                        HorizontalAlignment="Center"
+                        Width="1070"
+                        Visibility="Hidden">
                     <Grid.RowDefinitions>
+                        <RowDefinition Height="45"></RowDefinition>
                         <RowDefinition></RowDefinition>
-                        <RowDefinition Height="110"></RowDefinition>
                     </Grid.RowDefinitions>
-                    <Grid>
+                    <Grid Grid.Row="0"
+                            Background="#FF9CB9"
+                              Margin="0">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition></ColumnDefinition>
-                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition Width="200"></ColumnDefinition>
+                            <ColumnDefinition Width="150"></ColumnDefinition>
+                            <ColumnDefinition Width="100"></ColumnDefinition>
+                            <ColumnDefinition Width="200"></ColumnDefinition>
+                            <ColumnDefinition Width="150"></ColumnDefinition>
+                            <ColumnDefinition Width="150"></ColumnDefinition>
                             <ColumnDefinition></ColumnDefinition>
                         </Grid.ColumnDefinitions>
-                        <Grid
-                            x:Name="grdStoreFisrt">
-                        </Grid>
-                        <Grid Grid.Row="1"
+                        <TextBlock Grid.Column="0"
+                                Text="Name" 
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                FontFamily="Poppins"
+                                FontStyle="Normal"
+                                FontSize="22" 
+                                FontWeight="SemiBold"
+                                Foreground="#504D85"/>
+                        <TextBlock Grid.Column="1"
+                                Text="Species" 
+                                HorizontalAlignment="Center"
+                                FontFamily="Poppins"
+                                FontStyle="Normal"
+                                FontSize="22"
+                                FontWeight="SemiBold"
+                                VerticalAlignment="Center"
+                                Foreground="#504D85"/>
+                        <TextBlock Grid.Column="2"
+                                Text="District" 
+                                HorizontalAlignment="Center"
+                                FontFamily="Poppins"
+                                FontStyle="Normal"
+                                FontSize="22"
+                                FontWeight="SemiBold"
+                                VerticalAlignment="Center"
+                                Foreground="#504D85"/>
+                        <TextBlock Grid.Column="3"
+                                Text="Address" 
+                                HorizontalAlignment="Center"
+                                FontWeight="SemiBold"
+                                FontFamily="Poppins"
+                                FontStyle="Normal"
+                                FontSize="22"
+                                VerticalAlignment="Center"
+                                Foreground="#504D85"/>
+                        <TextBlock Grid.Column="4"
+                                Text="Phone" 
+                                HorizontalAlignment="Center"
+                                FontWeight="SemiBold"
+                                FontFamily="Poppins"
+                                FontStyle="Normal"
+                                FontSize="22"
+                                VerticalAlignment="Center"
+                                Foreground="#504D85"/>
+                        <TextBlock Grid.Column="5"
+                                Text="Debt" 
+                                HorizontalAlignment="Center"
+                                FontFamily="Poppins"
+                                FontStyle="Normal"
+                                FontSize="22"
+                                FontWeight="SemiBold"
+                                VerticalAlignment="Center"
+                                Foreground="#504D85"/>
+                    </Grid>
+                    <Grid Grid.Row="1"
                               Background="#F2F2F2">
-                            <ScrollViewer 
+                        <ScrollViewer 
                                 Grid.Row="2"
                                 HorizontalScrollBarVisibility="Disabled" 
                                 Margin="0"
@@ -1123,70 +1219,83 @@
                                 Height="500"
                                 VerticalAlignment="Top"
                                 VerticalScrollBarVisibility="Auto">
-                                <StackPanel 
+                            <StackPanel 
                                     x:Name="stkStore_Store" 
                                     ScrollViewer.VerticalScrollBarVisibility="Auto" 
                                     ScrollViewer.HorizontalScrollBarVisibility="Disabled"/>
-                            </ScrollViewer>
-                        </Grid>
+                        </ScrollViewer>
                     </Grid>
-                    <Grid
+                </Grid>
+                <Grid
                         x:Name="grdList3Store_Store"
                         Visibility="Visible">
-                        <Grid.RowDefinitions>
-                            <RowDefinition></RowDefinition>
-                            <RowDefinition Height="110"></RowDefinition>
-                        </Grid.RowDefinitions>
-                        <Grid
+                    <Grid.RowDefinitions>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition Height="110"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid
                             Width="1000">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition></ColumnDefinition>
-                                <ColumnDefinition></ColumnDefinition>
-                                <ColumnDefinition></ColumnDefinition>
-                            </Grid.ColumnDefinitions>
-                            <Grid
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid
                                 x:Name="grdStoreFisrt"/>
-                            <Grid
+                        <Grid
                                 x:Name="grdStoreSecond"
                                 Grid.Column="1"/>
-                            <Grid
+                        <Grid
                                 x:Name="grdStoreThird"
                                 Grid.Column="2"/>
-                        </Grid>
-                        <Grid
+                    </Grid>
+                    <Grid
                             Grid.Row="1">
-                            <Button
+                        <Button
                                 x:Name="btnNextPage"
                                 Width="50"
                                 Height="50"
-                                Width="50"
+                                Background="{x:Null}"
+                                BorderBrush="{x:Null}" 
+                                Padding="0"
                                 VerticalAlignment="Center"
-                                HorizontalAlignment="Center"/>
+                                HorizontalAlignment="Right"
+                                Margin="30"
+                                Command="{Binding NextPageStoresCommand}"
+                                CommandParameter="{Binding HomeWindow}">
+                            <materialDesign:PackIcon 
+                                    Kind="ArrowRightBoldCircleOutline" 
+                                    Foreground="LightPink"
+                                    Height="50"
+                                    Width="50"
+                                    VerticalAlignment="Center"
+                                    HorizontalAlignment="Center"/>
                         </Button>
                         <Button
-                            x:Name="btnBackPage"
-                            Width="50"
-                            Height="50"
-                            Background="{x:Null}"
-                            BorderBrush="{x:Null}" 
-                            Padding="0"
-                            VerticalAlignment="Center"
-                            HorizontalAlignment="Right"
-                            Margin="100,30"
-                            Command="{Binding BackPageStoresCommand}"
-                            CommandParameter="{Binding HomeWindow}">
-                            <materialDesign:PackIcon 
-                                Kind="ArrowLeftBoldCircleOutline" 
-                                Foreground="LightPink"
-                                Height="50"
+                                x:Name="btnBackPage"
                                 Width="50"
+                                Height="50"
+                                Background="{x:Null}"
+                                BorderBrush="{x:Null}" 
+                                Padding="0"
                                 VerticalAlignment="Center"
-                                HorizontalAlignment="Center"/>
+                                HorizontalAlignment="Right"
+                                Margin="100,30"
+                                Command="{Binding BackPageStoresCommand}"
+                                CommandParameter="{Binding HomeWindow}">
+                            <materialDesign:PackIcon 
+                                    Kind="ArrowLeftBoldCircleOutline" 
+                                    Foreground="LightPink"
+                                    Height="50"
+                                    Width="50"
+                                    VerticalAlignment="Center"
+                                    HorizontalAlignment="Center"/>
                         </Button>
                     </Grid>
                 </Grid>
             </Grid>
-            <!--Body products -->
+        </Grid>
+        <!--Body products -->
             <Grid Grid.Row="1"                 
                 DataContext="{StaticResource ProductVM}"
                 x:Name="grdBody_Product"
@@ -1632,7 +1741,6 @@
                                             Height="40"
                                             Width="240"
                                             BorderThickness="0"
-                                            materialDesign:HintAssist.Hint="Agency"
                                             FontSize="17"
                                             Foreground="#504D85"
                                             Background="Transparent"
@@ -1890,7 +1998,7 @@
                                         DataContext="{StaticResource BusinessVM}"
                                         Command="{Binding UpdateViewCommand}"
                                         CommandParameter="{Binding ElementName=wdHome}">
-                                        
+
                                     </Button>
                                 </Grid>
                             </Grid>
@@ -2927,5 +3035,4 @@
                 </ScrollViewer>
             </Grid>
         </Grid>
-    </Grid>
 </Window>
