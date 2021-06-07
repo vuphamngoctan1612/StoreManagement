@@ -20,13 +20,13 @@ namespace StoreManagement.ViewModels
         public HomeWindow HomeWindow { get; set; }
 
         private ObservableCollection<string> itemSourceTime = new ObservableCollection<string>();
-        public ObservableCollection<string> ItemSourceTime 
-        { 
-            get => itemSourceTime; 
+        public ObservableCollection<string> ItemSourceTime
+        {
+            get => itemSourceTime;
             set
-            { 
+            {
                 itemSourceTime = value;
-                OnPropertyChanged(); 
+                OnPropertyChanged();
             }
         }
 
@@ -34,11 +34,11 @@ namespace StoreManagement.ViewModels
         public string AxisXTitle
         {
             get => axisXTitle;
-            set 
+            set
             {
                 axisXTitle = value;
                 OnPropertyChanged();
-            } 
+            }
         }
 
         private string axisYTitle;
@@ -64,14 +64,14 @@ namespace StoreManagement.ViewModels
         }
 
         private Func<double, string> formatter;
-        public Func<double, string> Formatter 
-        { 
+        public Func<double, string> Formatter
+        {
             get => formatter;
-            set 
+            set
             {
-                formatter = value; 
+                formatter = value;
                 OnPropertyChanged();
-            } 
+            }
         }
 
         private SeriesCollection seriesCollection;
@@ -85,162 +85,152 @@ namespace StoreManagement.ViewModels
             }
         }
 
-        public ICommand LoadTop3AgencyCommand { get; set; }
         public ICommand InitColumnChartCommand { get; set; }
-        public ICommand SelectedPeriodChangedCommand { get; set; }
-        public ICommand SelectedTimeChangeCommand { get; set; }
+        public ICommand SelectedTypeChangeCommand { get; set; }
+        public ICommand LoadSalesResult { get; set; }
 
         public ReportViewModel()
         {
-            LoadTop3AgencyCommand = new RelayCommand<HomeWindow>((para) => true, (para) => LoadTop3Agency(para));
+            //LoadTop3AgencyCommand = new RelayCommand<HomeWindow>((para) => true, (para) => LoadTop3Agency(para));
             InitColumnChartCommand = new RelayCommand<HomeWindow>((para) => true, (para) => InitColumnChart(para));
-            SelectedPeriodChangedCommand = new RelayCommand<HomeWindow>((para) => true, (para) => cbbPeriodSelectedIndex_Changed(para));
-            SelectedTimeChangeCommand = new RelayCommand<HomeWindow>((para) => true, (para) => cbbTimeSelectedIndex_Changed(para));
+            SelectedTypeChangeCommand = new RelayCommand<HomeWindow>((para) => true, (para) => cboSelectTypeOfChartIndex_Changed(para));
+            LoadSalesResult = new RelayCommand<HomeWindow>((para) => true, (para) => LoadSales(para));
         }
 
-        private void cbbTimeSelectedIndex_Changed(HomeWindow para)
+        public void LoadSales(HomeWindow para)
         {
-            this.HomeWindow = para;
-            if (this.HomeWindow.cboSelectPeriod.SelectedIndex == 0) // theo thang
+            double sumInvoicesTotal = 0;
+            int countInvoices = 0;
+            double sumInvoicesTotalYesterday = 0;
+            double sumInvoicesThisMonth = 0;
+            double sumInvoicesLastMonth = 0;
+            //total today
+            List<Int64> tempSums = new List<Int64>();
+            try
             {
-                if (this.HomeWindow.cboSelectTime.SelectedIndex != -1)
-                {
-                    string[] tmp = this.HomeWindow.cboSelectTime.SelectedValue.ToString().Split(' ');
-                    string currentMonth = tmp[1];
-                    string currenYear = DateTime.Now.Year.ToString();
-
-                    this.LoadChartByMonth(currentMonth, currenYear);
-                }
+                tempSums = DataProvider.Instance.DB.Database.SqlQuery<Int64>("select sum(Total) from Invoice " +
+                                                                                            "where Checkout = (select CAST(GETDATE() as date))").ToList();
+                sumInvoicesTotal = (double)(tempSums.First());
             }
-            else if (this.HomeWindow.cboSelectPeriod.SelectedIndex == 1) //theo quy
+            catch { }
+            para.txb_today_total.Text = ConvertToString(sumInvoicesTotal) + " VND";
+            //count Invoices
+            List<Int32> tempCounts = DataProvider.Instance.DB.Database.SqlQuery<Int32>("select count(ID) from Invoice " +
+                                                                                        "where Checkout = (select CAST(GETDATE() as date))").ToList();
+            countInvoices = (int)(tempCounts.First());
+            para.txb_today_bill.Text = countInvoices.ToString();
+            //compare with yesterday
+            List<Int64> tempSumsYesterday = new List<Int64>();
+            try
             {
-                if (this.HomeWindow.cboSelectTime.SelectedIndex != -1)
-                {
-                    string[] tmp = this.HomeWindow.cboSelectTime.SelectedValue.ToString().Split(' ');
-                    string selectedYear = tmp[1];
-
-                    this.LoadChartByQuarter(selectedYear);
-                }
+                tempSumsYesterday = DataProvider.Instance.DB.Database.SqlQuery<Int64>("select sum(Total) from Invoice " +
+                                                                                                    "where Checkout = (select CAST(GETDATE() - 1 as date))").ToList();
+                sumInvoicesTotalYesterday = (double)(tempSumsYesterday.First());
             }
-            else // theo nam => 12 thang
+            catch { }
+            if (sumInvoicesTotalYesterday != 0)
             {
-                if (this.HomeWindow.cboSelectTime.SelectedIndex != -1)
+                para.yesterday_compare.Text = ((int)(100 * sumInvoicesTotal / sumInvoicesTotalYesterday) - 100).ToString() + "%";
+                if (((int)(100 * sumInvoicesTotal / sumInvoicesTotalYesterday) - 100).ToString().First() == '-')
                 {
-                    string[] tmp = this.HomeWindow.cboSelectTime.SelectedValue.ToString().Split(' ');
-                    string selectedYear = tmp[1];
-
-                    this.LoadChartByYear(selectedYear);
+                    para.yesterday_compare.Foreground = (Brush)new BrushConverter().ConvertFrom("#E3507A");
                 }
+                para.txb_yesterday_compare.Text = ConvertToString(sumInvoicesTotal - sumInvoicesTotalYesterday) + " VND";
+            }
+            else
+            {
+                para.txb_yesterday_compare.Text = ConvertToString(sumInvoicesTotal) + " VND";
+                para.yesterday_compare.Text = "There were no bills yesterday";
+            }
+            //compare with last month
+            try
+            {
+                List<Int64> tempLastMonth = DataProvider.Instance.DB.Database.SqlQuery<Int64>("select sum(Total) from Invoice " +
+                                                                                                "where(select month(Checkout) as month) = (select month(GETDATE()) - 1 as month)").ToList();
+                sumInvoicesLastMonth = (double)(tempLastMonth.First());
+            }
+            catch { }
+            if (sumInvoicesLastMonth != 0)
+            {
+                para.month_compare.Text = ((int)(100 * sumInvoicesThisMonth / sumInvoicesLastMonth) - 100).ToString() + "%";
+                if (((int)(100 * sumInvoicesThisMonth / sumInvoicesLastMonth) - 100).ToString().First() == '-')
+                {
+                    para.month_compare.Foreground = (Brush)new BrushConverter().ConvertFrom("#E3507A");
+                }
+                para.txb_month_compare.Text = ConvertToString(sumInvoicesThisMonth - sumInvoicesLastMonth) + " VND";
+            }
+            else
+            {
+                para.txb_month_compare.Text = ConvertToString(sumInvoicesThisMonth) + " VND";
+                para.month_compare.Text = "There were no bills last month";
             }
         }
 
-        private void cbbPeriodSelectedIndex_Changed(HomeWindow para)
+        private void cboSelectTypeOfChartIndex_Changed(HomeWindow para)
         {
             this.ItemSourceTime.Clear();
-            if (para.cboSelectPeriod.SelectedIndex == 0)    //theo thang
+            if (para.cboSelectTypeOfChart.SelectedIndex == 0)
             {
-                string[] MonthInYear = this.GetMonthInYear(DateTime.Now.Year.ToString());
-                //int currentMonth = DateTime.Now.Month;
-                for (int i = 0; i < MonthInYear.Length; i++)
-                {
-                    this.ItemSourceTime.Add(string.Format("Tháng {0}", MonthInYear[i].ToString()));
-                }
+                this.LoadChartByAgency();
             }
-            else // theo nam, quy
+            if (para.cboSelectTypeOfChart.SelectedIndex == 1)
             {
-                string[] Year = this.GetYear();
-                for (int i = 0; i < Year.Length; i++)
-                {
-                    this.ItemSourceTime.Add(string.Format("Năm {0}", Year[i].ToString()));
-                }
+                this.LoadChartByProduct();
             }
         }
+
 
         private void InitColumnChart(HomeWindow para)
         {
             string month = DateTime.Now.Month.ToString();
             string year = DateTime.Now.Year.ToString();
 
-            para.cboSelectPeriod.IsEnabled = true;
-            para.cboSelectTime.IsEnabled = true;
+            para.cboSelectTypeOfChart.IsEnabled = true;
 
-            para.cboSelectPeriod.Text = "Theo tháng";
-            para.cboSelectTime.Text = "Tháng " + month;
+            para.cboSelectTypeOfChart.Text = "Agency";
 
-            AxisXTitle = "Days";
+            AxisXTitle = "Agency";
             SeriesCollection = new SeriesCollection
             {
                 new ColumnSeries
                 {
                     Title = "Total",
-                    Values = this.GetTotalByMonth(month, year)
-                },
-                new ColumnSeries
-                {
-                    Title  = "Debt",
-                    Values = this.GetDebtByMonth(month, year)
+                    Values = this.GetTotalOfTop5AgenciesByMonth()
                 }
             };
-            Labels = this.GetDayInMonth(month, year);
+            Labels = this.GetTop5AgencyByMonth();
             Formatter = value => ConvertToString(value);
         }
 
-        private void LoadTop3Agency(HomeWindow para)
-        {
-            this.HomeWindow = para;
-            //List<Agency> agencies = this.GetTop3AgencyByMonth(DateTime.Now.Month.ToString());
-            List<Agency> agencies = this.GetTop3AgencyByMonth("4");
-            int count = 1;
-            foreach (Agency item in agencies)
-            {
-                CardStoreUC control = new CardStoreUC();
-                control.txbID.Text = item.ID.ToString();
-                control.tbNameStore.Text = item.Name;
-                control.tbRanking.Text = string.Format("Top {0}", count);
-                control.Margin = new System.Windows.Thickness(100, 10, 100, 0);
-                if (count == 1)
-                {
-                    control.bdBG.Background = (Brush)new BrushConverter().ConvertFrom("#FF8E8E");
-                    control.tbRanking.Foreground = (Brush)new BrushConverter().ConvertFrom("#D03131");
-                }
-                if (count == 2)
-                {
-                    control.bdBG.Background = (Brush)new BrushConverter().ConvertFrom("#AFF6E4");
-                    control.tbRanking.Foreground = (Brush)new BrushConverter().ConvertFrom("#31D0AD");
-                }
-                if (count == 3)
-                {
-                    control.bdBG.Background = (Brush)new BrushConverter().ConvertFrom("#DCC613");
-                    control.tbRanking.Foreground = (Brush)new BrushConverter().ConvertFrom("#DCC613");
-                }
-                this.HomeWindow.wpBody_Main_TopAgency.Children.Add(control);
-                count++;
-            }
-        }
+
 
         #region Load Chart
-        private void LoadChartByMonth(string month, string year)
+        private void LoadChartByAgency()
         {
-            AxisXTitle = "Day";
+            AxisXTitle = "Agency";
             SeriesCollection = new SeriesCollection
             {
                 new ColumnSeries
                 {
                     Title = "Total",
-                    Values = this.GetTotalByMonth(month, year)
-                },
-                new ColumnSeries
-                {
-                    Title  = "Debt",
-                    Values = this.GetDebtByMonth(month, year)
-                },
-                new ColumnSeries
-                {
-                    Title = "Cost",
-                    Values = this.GetCostByMonth(month, year)
+                    Values = this.GetTotalOfTop5AgenciesByMonth()
                 }
             };
-            Labels = this.GetDayInMonth(month, year);
+            Labels = this.GetTop5AgencyByMonth();
+            Formatter = value => ConvertToString(value);
+        }
+        private void LoadChartByProduct()
+        {
+            AxisXTitle = "Prodcut";
+            SeriesCollection = new SeriesCollection
+            {
+                new ColumnSeries
+                {
+                    Title = "Total",
+                    Values = this.GetTotalOfTop5ProductsByMonth()
+                }
+            };
+            Labels = this.GetTop5ProductByMonth();
             Formatter = value => ConvertToString(value);
         }
         private void LoadChartByYear(string year)
@@ -613,25 +603,122 @@ namespace StoreManagement.ViewModels
             }
         }
         #endregion
-        #region For Top 3
-        private List<Agency> GetTop3AgencyByMonth(string month)
+        #region For Top 5
+        private string[] GetTop5AgencyByMonth()
         {
-            List<Agency> res = new List<Agency>();
+            List<Agency> agencies = new List<Agency>();
+            List<string> res = new List<string>();
             List<Int32> temp = new List<Int32>();
+            string sMonth = DateTime.Now.Month.ToString();
 
-            string query = string.Format("SELECT TOP 3 Agency.ID FROM Agency " +
+            string query = string.Format("SELECT TOP 5 Agency.ID FROM Agency " +
                 "JOIN Invoice ON Agency.ID = Invoice.AgencyID " +
-                "WHERE MONTH(CHECKOUT) = {0} " +
                 "GROUP BY Agency.ID " +
-                "ORDER BY SUM(INVOICE.TOTAL) DESC", month);
-            temp = DataProvider.Instance.DB.Database.SqlQuery<Int32>(query).ToList();
-            foreach (Int32 item in temp)
+                "ORDER BY SUM(INVOICE.TOTAL) DESC", sMonth);
+            try
             {
-                Agency tmp = (Agency)DataProvider.Instance.DB.Agencies.Where(x => x.ID == item).First();
-                res.Add(tmp);
+                temp = DataProvider.Instance.DB.Database.SqlQuery<Int32>(query).ToList();
+                foreach (Int32 item in temp)
+                {
+                    Agency tmp = (Agency)DataProvider.Instance.DB.Agencies.Where(x => x.ID == item).First();
+                    res.Add(tmp.Name);
+                }
+                res.Add("Other Agencies");
+                return res.ToArray();
+            }
+            catch
+            {
+                return res.ToArray();
             }
 
-            return res;
+        }
+        private string[] GetTop5ProductByMonth()
+        {
+            List<Product> agencies = new List<Product>();
+            List<string> res = new List<string>();
+            List<Int32> temp = new List<Int32>();
+            string sMonth = DateTime.Now.Month.ToString();
+
+            string query = string.Format("SELECT TOP 5 Product.ID FROM Product " +
+                "JOIN InvoiceInfo ON Product.ID = InvoiceInfo.ProductID " +
+                "GROUP BY Product.ID " +
+                "ORDER BY SUM(InvoiceInfo.TOTAL) DESC", sMonth);
+            try
+            {
+                temp = DataProvider.Instance.DB.Database.SqlQuery<Int32>(query).ToList();
+                foreach (Int32 item in temp)
+                {
+                    Product tmp = (Product)DataProvider.Instance.DB.Products.Where(x => x.ID == item).First();
+                    res.Add(tmp.Name);
+                }
+                res.Add("Other Products");
+                return res.ToArray();
+            }
+            catch
+            {
+                return res.ToArray();
+            }
+
+        }
+        private ChartValues<Double> GetTotalOfTop5AgenciesByMonth()
+        {
+            string sMonth = DateTime.Now.Month.ToString();
+            ChartValues<double> res = new ChartValues<double>();
+            List<Int64> temps = new List<Int64>();
+            Int64 total = 0;
+            try
+            {
+                string query = string.Format("select  sum(Total) as Total from Invoice " +
+                                            "group by AgencyID " +
+                                            "order by Total DESC ", sMonth);
+                temps = DataProvider.Instance.DB.Database.SqlQuery<Int64>(query).ToList();
+
+                string query1 = string.Format("select  sum(Total) as Total from Invoice ", sMonth);
+                Int64 tmp = DataProvider.Instance.DB.Database.SqlQuery<Int64>(query1).ToList().First();
+
+                foreach (Int64 temp in temps)
+                {
+                    res.Add(double.Parse(temp.ToString()));
+                    total += temp;
+                }
+                tmp -= total;
+                res.Add(double.Parse(tmp.ToString()));
+                return res;
+            }
+            catch
+            {
+                return res;
+            }
+        }
+        private ChartValues<Double> GetTotalOfTop5ProductsByMonth()
+        {
+            string sMonth = DateTime.Now.Month.ToString();
+            ChartValues<double> res = new ChartValues<double>();
+            List<Int64> temps = new List<Int64>();
+            Int64 total = 0;
+            try
+            {
+                string query = string.Format("select sum(Total) as total from InvoiceInfo " +
+                                            "group by ProductID " +
+                                            "order by Total DESC ", sMonth);
+                temps = DataProvider.Instance.DB.Database.SqlQuery<Int64>(query).ToList();
+
+                string query1 = string.Format("select  sum(Total) as Total from InvoiceInfo ", sMonth);
+                Int64 tmp = DataProvider.Instance.DB.Database.SqlQuery<Int64>(query1).ToList().First();
+
+                foreach (Int64 temp in temps)
+                {
+                    res.Add(double.Parse(temp.ToString()));
+                    total += temp;
+                }
+                tmp -= total;
+                res.Add(double.Parse(tmp.ToString()));
+                return res;
+            }
+            catch
+            {
+                return res;
+            }
         }
         #endregion
     }
