@@ -155,6 +155,9 @@ namespace StoreManagement.ViewModels
             wd.txtName.Text = this.ListType[stt - 1].Name;
             wd.txtDebt.Text = SeparateThousands(this.ListType[stt-1].MaxOfDebt.ToString());
 
+            wd.txtName.SelectionStart = wd.txtName.Text.Length;
+            wd.txtDebt.SelectionStart = wd.txtDebt.Text.Length;
+
             wd.ShowDialog();
         }
 
@@ -295,6 +298,11 @@ namespace StoreManagement.ViewModels
             para.txtNumberAgencyinDistrict_Setting.Text = rulesSetting[1];
             para.txtNumberProduct_Setting.Text = rulesSetting[2];
             para.txtNumberUnit_Setting.Text = rulesSetting[3];
+
+            para.txtNumberType_Setting.SelectionStart = para.txtNumberType_Setting.Text.Length;
+            para.txtNumberAgencyinDistrict_Setting.SelectionStart = para.txtNumberAgencyinDistrict_Setting.Text.Length;
+            para.txtNumberProduct_Setting.SelectionStart = para.txtNumberProduct_Setting.Text.Length;
+            para.txtNumberUnit_Setting.SelectionStart = para.txtNumberUnit_Setting.Text.Length;
 
             for (int i = 0; i < this.ListType.Count; i++)
             {

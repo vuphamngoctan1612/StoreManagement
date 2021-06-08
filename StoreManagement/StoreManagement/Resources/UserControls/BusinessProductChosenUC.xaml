@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:StoreManagement.Resources.UserControls"
-             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              mc:Ignorable="d" 
              x:Name="ProductChosenUC"
              d:DesignHeight="38" 
@@ -53,7 +53,8 @@
             VerticalAlignment="Center"
             HorizontalAlignment="Right"
             Margin="320,10"/>
-        <TextBlock
+        <!--<TextBlock
+            Visibility="Hidden"
             x:Name="txbAmount"
             Text="AMOUNT"
             FontSize="14"
@@ -61,7 +62,8 @@
             Foreground="#504D85"
             VerticalAlignment="Center"
             HorizontalAlignment="Right"
-            Margin="170,10"/>
+            Margin="170,10"/>-->
+
         <TextBlock
             x:Name="txbTotal"
             Text="TOTAL"
@@ -86,5 +88,139 @@
                 Kind="Delete"
                 Foreground="Gray"/>
         </Button>
+        <UserControl
+            Height="32"
+            Width="80"
+            HorizontalAlignment="Right"
+            Margin="155,0">
+            <UserControl.Resources>
+                <ControlTemplate 
+                    x:Key="updown_button_style" 
+                    TargetType="Button">
+                    <Border 
+                        x:Name="br" 
+                        BorderThickness="0" 
+                        BorderBrush="{DynamicResource ThemeBrushDark}" 
+                        Background="{DynamicResource ThemeBrush}" 
+                        CornerRadius="0">
+                        <ContentPresenter 
+                            x:Name="cp" 
+                            TextElement.Foreground="{TemplateBinding Foreground}" 
+                            HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" 
+                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger 
+                            Property="IsMouseOver" 
+                            Value="true">
+                            <Setter 
+                                TargetName="br" 
+                                Property="Background" 
+                                Value="{DynamicResource ThemeBrushActive}" />
+                        </Trigger>
+                        <Trigger 
+                            Property="IsEnabled" 
+                            Value="false">
+                            <Setter 
+                                TargetName="br" 
+                                Property="Background" 
+                                Value="Silver" />   
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+                <Style TargetType="Button">
+                    <Setter 
+                        Property="Template" 
+                        Value="{StaticResource updown_button_style}" />
+                </Style>
+            </UserControl.Resources>
+            <Border>
+                <Border.OpacityMask>
+                    <VisualBrush>
+                        <VisualBrush.Visual>
+                            <Border 
+                                Background="{StaticResource Gray1}" 
+                                SnapsToDevicePixels="True"
+                                CornerRadius="4"
+                                Width="{Binding ActualWidth, RelativeSource={RelativeSource FindAncestor, AncestorType=Border}}"
+                                Height="{Binding ActualHeight, RelativeSource={RelativeSource FindAncestor, AncestorType=Border}}" />
+                        </VisualBrush.Visual>
+                    </VisualBrush>
+                </Border.OpacityMask>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition Width="22" />
+                    </Grid.ColumnDefinitions>
+                    <TextBox 
+                        x:Name="tb_main" 
+                        FontWeight="Medium" 
+                        FontSize="14" 
+                        VerticalContentAlignment="Center" 
+                        Padding="5,1" 
+                        Grid.Column="0" 
+                        Grid.RowSpan="2" 
+                        Foreground="{StaticResource Gray1}"
+                        Text="1"
+                        TextChanged="tb_main_TextChanged" 
+                        PreviewTextInput="tb_main_PreviewTextInput" IsTabStop="False" >
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="TextChanged">
+                                <i:InvokeCommandAction Command="{Binding ChangeValueCommand}" 
+                                                   CommandParameter="{Binding ElementName=ProductChosenUC}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </TextBox>
+                    <Button 
+                        x:Name="cmdUp" 
+                        x:FieldModifier="private" 
+                        Grid.Column="1" 
+                        Grid.Row="0" 
+                        Width="auto" 
+                        Height="auto" 
+                        Click="cmdUp_Click" 
+                        Cursor="Hand" IsTabStop="False">
+                        <Button.Content>
+                            <Path 
+                            HorizontalAlignment="Center" 
+                            VerticalAlignment="Center" 
+                            Fill="{StaticResource White}" 
+                            Data="M4,0 L0,4 L8,4 z"/>
+                        </Button.Content>
+                    </Button>
+                    <Button 
+                        x:Name="cmdDown" 
+                        x:FieldModifier="private" 
+                        Grid.Column="1" 
+                        Grid.Row="1" 
+                        Width="auto" 
+                        Height="auto" 
+                        Click="cmdDown_Click" 
+                        Cursor="Hand" IsTabStop="False">
+                        <Button.Content>
+                            <Path 
+                                HorizontalAlignment="Left" 
+                                VerticalAlignment="Top" 
+                                Fill="{StaticResource White}" 
+                                Data="M0,0 L8,0 L4,4 z"/>
+                        </Button.Content>
+                    </Button>
+                    <Border 
+                        x:Name="brdBrush" 
+                        BorderBrush="{StaticResource Gray4}" 
+                        IsHitTestVisible="False"
+                        BorderThickness="1.5"
+                        CornerRadius="4" 
+                        Grid.RowSpan="2" 
+                        Grid.ColumnSpan="2" 
+                        Padding="0" 
+                        Margin="0" />   
+                </Grid>
+            </Border>
+        </UserControl>
     </Grid>
 </UserControl>

@@ -23,6 +23,7 @@ namespace StoreManagement.ViewModels
             get; set;
         }
         public List<Agency> ListStores;
+        public List<District> ListDistrict;
         public ICommand LoadStoreOnWindowCommand { get; set; }
         public ICommand NextPageStoresCommand { get; set; }
         public ICommand BackPageStoresCommand { get; set; }
@@ -35,11 +36,12 @@ namespace StoreManagement.ViewModels
         public ICommand SearchAgencyCommand { get; set; }
         public ICommand ChangeWayShowAgencyCommand { get; set; }
         public ICommand EditAgencyCommand { get; set; }
+        public ICommand ChangeWayChooseDistrictCommand { get; set; }
 
         public StoreViewModel()
         {
-
-            this.ListType = DataProvider.Instance.DB.TypeOfAgencies.ToList<TypeOfAgency>();
+            this.ListDistrict = DataProvider.Instance.DB.Districts.ToList();
+            this.ListType = DataProvider.Instance.DB.TypeOfAgencies.ToList();
             PageNumber = 1;
             string query = "SELECT * FROM AGENCY WHERE ISDELETE = 0";
             this.ListStores = DataProvider.Instance.DB.Agencies.SqlQuery(query).ToList();
@@ -61,6 +63,31 @@ namespace StoreManagement.ViewModels
             SearchAgencyCommand = new RelayCommand<HomeWindow>((para) => true, (para) => SearchAgency(para));
             ChangeWayShowAgencyCommand = new RelayCommand<HomeWindow>((para) => true, (para) => ChangeWayShowAgency(para));
             EditAgencyCommand = new RelayCommand<TextBlock>((para) => true, (para) => OpenEditStoreWindow(para.Text));
+            ChangeWayChooseDistrictCommand = new RelayCommand<AddStoreWindow>((para) => true, (para) => ChangeWayChooseDistrict(para));
+        }
+
+        private void ChangeWayChooseDistrict(AddStoreWindow para)
+        {
+            if (para.cbDistrict.Visibility == Visibility.Visible)
+            {
+                para.cbDistrict.Visibility = Visibility.Hidden;
+                para.txtDistrict.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                para.cbDistrict.Visibility = Visibility.Visible;
+                para.txtDistrict.Visibility = Visibility.Hidden;
+                LoadListDistrict(para);
+            }
+        }
+
+        private void LoadListDistrict(AddStoreWindow para)
+        {
+            this.ListDistrict = DataProvider.Instance.DB.Districts.ToList();
+
+            para.cbDistrict.ItemsSource = this.ListDistrict;
+            para.cbDistrict.SelectedValuePath = "Name";
+            para.cbDistrict.DisplayMemberPath = "Name";
         }
 
         private void ChangeWayShowAgency(HomeWindow para)
@@ -185,7 +212,7 @@ namespace StoreManagement.ViewModels
 
         private void DeleteStore(AgencyControlUC para)
         {
-            Agency store= new Agency();
+            Agency store = new Agency();
             int id = int.Parse(para.txtID.Text);
             store = (Agency)DataProvider.Instance.DB.Agencies.Where(x => x.ID == id).First();
 
@@ -193,14 +220,23 @@ namespace StoreManagement.ViewModels
             DataProvider.Instance.DB.Agencies.AddOrUpdate(store);
             DataProvider.Instance.DB.SaveChanges();
 
+            District district = DataProvider.Instance.DB.Districts.Where(x => x.Name == store.District).First();
+            district.NumberAgencyInDistrict -= 1;
+
+            DataProvider.Instance.DB.Districts.AddOrUpdate(district);
+            DataProvider.Instance.DB.SaveChanges();
+
             this.HomeWindow.stkStore_Store.Children.Remove(para);
         }
 
         private void SaveStore(AddStoreWindow para)
         {
+            string oldDistrict = "";
             StreamReader sr = new StreamReader("../../cache.txt");
             string cache = sr.ReadToEnd();
             sr.Close();
+
+            string district = "";
 
             string[] rulesSetting = cache.Split(' ');
 
@@ -229,10 +265,49 @@ namespace StoreManagement.ViewModels
                 para.txtEmail.Focus();
                 return;
             }
-            if (string.IsNullOrEmpty(para.txtDistrict.Text))
+
+            if (para.cbDistrict.Visibility == Visibility.Visible)
             {
-                para.txtDistrict.Focus();
-                return;
+                if (string.IsNullOrEmpty(para.cbDistrict.Text.ToString()))
+                {
+                    para.cbDistrict.Focus();
+                    return;
+                }
+                else
+                {
+                    district = para.cbDistrict.Text.ToString();
+                }
+            }
+
+            if (para.txtDistrict.Visibility == Visibility.Visible)
+            {
+                if (string.IsNullOrEmpty(para.txtDistrict.Text))
+                {
+                    para.txtDistrict.Focus();
+                    return;
+                }
+                else
+                {
+                    district = para.txtDistrict.Text.ToString();
+                    var result = DataProvider.Instance.DB.Districts.Where(x => x.Name == district).ToList();
+
+                    if (result.Count < 1)
+                    {
+                        if (DataProvider.Instance.DB.Districts.ToList().Count < 20)
+                        {
+                            District newitem = new District();
+                            newitem.Name = district;
+                            newitem.NumberAgencyInDistrict = 0;
+                            DataProvider.Instance.DB.Districts.Add(newitem);
+                            DataProvider.Instance.DB.SaveChanges();
+                        }
+                        else
+                        {
+                            MessageBox.Show("Exceed the number of districts limit: 20");
+                            return;
+                        }
+                    }
+                }
             }
             if (string.IsNullOrEmpty(para.txtPhone.Text) || para.txtPhone.Text.Length != 10)
             {
@@ -245,27 +320,38 @@ namespace StoreManagement.ViewModels
                 return;
             }
 
-            if (DataProvider.Instance.DB.Agencies.Where(x => x.IsDelete == false).Where(x => x.District == para.txtDistrict.Text).ToList().Count <= 0)
+            int? number = DataProvider.Instance.DB.Districts.Where(x => x.Name == district).First().NumberAgencyInDistrict;
+
+            if (para.Title == "Edit agency")
             {
-                var results = DataProvider.Instance.DB.Agencies.Where(x => x.IsDelete == false).Select(x => x.District).Distinct().ToList();
-                if (results.Count >= 20)
+                int id = int.Parse(para.txtID.Text.ToString());
+                Agency agency = DataProvider.Instance.DB.Agencies.Where(x => x.ID == id).First();
+
+                oldDistrict = agency.District;
+                if (district != agency.District)
                 {
-                    MessageBox.Show("Exceed the number of districts limit: 20");
+                    if (int.Parse(rulesSetting[1]) <= number)
+                    {
+                        MessageBox.Show("Number of agency in this district is full");
+                        return;
+                    }
+                }
+            }
+            else
+            {
+                if (int.Parse(rulesSetting[1]) <= number)
+                {
+                    MessageBox.Show("Number of agency in this district is full");
                     return;
                 }
             }
-
-            if (!CheckConditionNumberAgency(rulesSetting[1], para) && para.Title == "Thêm đại lý")
-            {
-                MessageBox.Show("Number of agency in this district is full");
-                return;
-            }
+            
 
             TypeOfAgency type = (TypeOfAgency)DataProvider.Instance.DB.TypeOfAgencies.Where(x => x.Name == para.txtSpecies.Text).First();
 
             if (type.MaxOfDebt < ConvertToNumber(para.txtDebt.Text))
             {
-                MessageBox.Show("Nợ vượt quá cho phép.");
+                MessageBox.Show("Debit limit.");
                 return;
             }
             try
@@ -275,13 +361,33 @@ namespace StoreManagement.ViewModels
                 item.Name = para.txtName.Text;
                 item.PhoneNumber = para.txtPhone.Text;
                 item.Address = para.txtAddress.Text;
-                item.District = para.txtDistrict.Text;
+                item.District = district;
                 item.Debt = ConvertToNumber(para.txtDebt.Text);
                 item.CheckIn = DateTime.Parse(para.txtCheckin.Text);
                 item.TypeOfAgency = type.ID;
                 item.Email = para.txtEmail.Text;
                 item.IsDelete = false;
 
+                if (para.Title == "Add agency")
+                {
+                    District updateDistrict = DataProvider.Instance.DB.Districts.Where(x => x.Name == district).First();
+                    updateDistrict.NumberAgencyInDistrict += 1;
+
+                    DataProvider.Instance.DB.Districts.AddOrUpdate(updateDistrict);
+                    DataProvider.Instance.DB.SaveChanges();
+                }
+                else
+                {
+                    District updateDistrict = DataProvider.Instance.DB.Districts.Where(x => x.Name == oldDistrict).First();
+                    updateDistrict.NumberAgencyInDistrict -= 1;
+                    DataProvider.Instance.DB.Districts.AddOrUpdate(updateDistrict);
+                    DataProvider.Instance.DB.SaveChanges();
+
+                    updateDistrict = DataProvider.Instance.DB.Districts.Where(x => x.Name == district).First();
+                    updateDistrict.NumberAgencyInDistrict += 1;
+                    DataProvider.Instance.DB.Districts.AddOrUpdate(updateDistrict);
+                    DataProvider.Instance.DB.SaveChanges();
+                }    
                 DataProvider.Instance.DB.Agencies.AddOrUpdate(item);
                 DataProvider.Instance.DB.SaveChanges();
             }
@@ -321,6 +427,14 @@ namespace StoreManagement.ViewModels
             wd.txtEmail.Text = store.Email.ToString();
             wd.txtCheckin.Text = store.CheckIn.ToString();
             wd.txtPhone.Text = store.PhoneNumber.ToString();
+            wd.cbDistrict.Visibility = Visibility.Hidden;
+            wd.txtDistrict.Visibility = Visibility.Visible;
+
+            wd.txtName.SelectionStart = wd.txtName.Text.Length;
+            wd.txtAddress.SelectionStart = wd.txtAddress.Text.Length;
+            wd.txtPhone.SelectionStart = wd.txtPhone.Text.Length;
+            wd.txtEmail.SelectionStart = wd.txtEmail.Text.Length;
+            wd.txtDistrict.SelectionStart = wd.txtDistrict.Text.Length;
 
             for (int i = 0; i < wd.txtSpecies.Items.Count; i++)
             {
@@ -331,7 +445,7 @@ namespace StoreManagement.ViewModels
 
             wd.txtSpecies.SelectedIndex = pos;
             wd.txtDebt.Text = SeparateThousands(store.Debt.ToString());
-            wd.Title = "Sửa thông tin đại lý";
+            wd.Title = "Edit agency";
             wd.txtDebt.IsEnabled = false;
             wd.txtCheckin.IsEnabled = false;
             wd.ShowDialog();
@@ -340,7 +454,7 @@ namespace StoreManagement.ViewModels
         private void OpenAddStoreWindow()
         {
             AddStoreWindow wd = new AddStoreWindow();
-
+            LoadListDistrict(wd);
             try
             {
                 string query = "SELECT * FROM Agency";
@@ -381,7 +495,7 @@ namespace StoreManagement.ViewModels
 
                 StoreControlUC uc = new StoreControlUC();
                 uc.Height = 350;
-                uc.Width = 280;
+                uc.Width = 250;
                 uc.txbID.Text = ListStores[pos].ID.ToString();
                 uc.AgencyName.Text = ListStores[pos].Name.ToString();
                 uc.txbAgencyPhone.Text = ListStores[pos].PhoneNumber.ToString();
@@ -435,7 +549,7 @@ namespace StoreManagement.ViewModels
 
                 StoreControlUC uc = new StoreControlUC();
                 uc.Height = 350;
-                uc.Width = 280;
+                uc.Width = 250;
                 uc.txbID.Text = ListStores[pos].ID.ToString();
                 uc.AgencyName.Text = ListStores[pos].Name.ToString();
                 uc.txbAgencyPhone.Text = ListStores[pos].PhoneNumber.ToString();
@@ -477,19 +591,6 @@ namespace StoreManagement.ViewModels
                 return pageNumber;
         }
 
-        private bool CheckConditionNumberAgency(string rule, AddStoreWindow para)
-        {
-            int count = 0;
-            string district = para.txtDistrict.Text;
-
-            count = DataProvider.Instance.DB.Agencies.Where(x => x.District == district).Where(x => x.IsDelete == false).Count();
-
-            if (count >= int.Parse(rule))
-            {
-                return false;
-            }
-            return true;
-        }
         private String SeparateThousands(String txt)
         {
             if (!string.IsNullOrEmpty(txt))

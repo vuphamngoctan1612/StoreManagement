@@ -589,12 +589,12 @@
                     </Menu>
                 </Grid>
             </Grid>
-            
+
             <!--Body main-->
             <Grid Grid.Row="1"
                 x:Name="grdBody_Main"
                 DataContext="{StaticResource ReportVM}"
-                Visibility="Visible">                
+                Visibility="Visible">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="2"></RowDefinition>
                     <RowDefinition Height="70"></RowDefinition>
@@ -764,7 +764,7 @@
                                 </i:Interaction.Triggers>
                             </lvc:CartesianChart>
                         </Grid>
-                    </Border>                    
+                    </Border>
                 </Grid>
             </Grid>
             <!--Body stores-->
@@ -772,7 +772,7 @@
                 Grid.Row="1"
                 DataContext="{StaticResource StoreVM}"
                 x:Name="grdBody_Store"
-                Height="665"
+                Height="690"
                 Width="1140"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Bottom"
@@ -785,12 +785,11 @@
                 </i:Interaction.Triggers>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="3"></RowDefinition>
-                    <RowDefinition Height="100"></RowDefinition>
+                    <RowDefinition Height="110"></RowDefinition>
                     <RowDefinition></RowDefinition>
                 </Grid.RowDefinitions>
                 <Grid Grid.Row="0"
-                    Background="#FBA1BB"
-                      Width="1000">
+                    Background="#FBA1BB">
                 </Grid>
                 <Grid Grid.Row="1">
                     <Border
@@ -809,17 +808,19 @@
                             VerticalAlignment="Center"
                             Height="40"
                             Width="240"
+                            Style="{StaticResource MaterialDesignOutlinedComboBox}"
+                            Background="Transparent"
+                            Foreground="#504D85"
                             BorderThickness="0"
-                            materialDesign:HintAssist.Hint="Hình thức xem"
-                            FontSize="17"
+                            FontSize="18"
                             FontWeight="SemiBold"
                             Padding="0"
                             HorizontalContentAlignment="Center"
                             VerticalContentAlignment="Center" 
                             Cursor="Arrow"
                             ScrollViewer.VerticalScrollBarVisibility="Visible">
-                            <ComboBoxItem>Dạng một trang</ComboBoxItem>
-                            <ComboBoxItem>Dạng nhiều trang</ComboBoxItem>
+                            <ComboBoxItem HorizontalContentAlignment="Center">List detail</ComboBoxItem>
+                            <ComboBoxItem HorizontalContentAlignment="Center">Paging</ComboBoxItem>
                             <i:Interaction.Triggers>
                                 <i:EventTrigger EventName="SelectionChanged">
                                     <i:InvokeCommandAction Command="{Binding ChangeWayShowAgencyCommand}" 
@@ -844,7 +845,7 @@
                         FontFamily="Segoe UI"
                         Margin="0,25,60,25"
                         Style="{StaticResource MaterialDesignRaisedButton}"
-                        ToolTip="Thêm đại lý"
+                        ToolTip="Add agency"
                         Command="{Binding OpenAddStoreWindowCommand}"
                         CommandParameter="{Binding ElementName=wdHome}" Grid.Column="1">
                     </Button>
@@ -958,7 +959,8 @@
                                 VerticalAlignment="Center"
                                 Foreground="#504D85"/>
                         </Grid>
-                        <Grid Grid.Row="1">
+                        <Grid Grid.Row="1"
+                              Background="#F2F2F2">
                             <ScrollViewer 
                                 Grid.Row="2"
                                 HorizontalScrollBarVisibility="Disabled" 
@@ -983,23 +985,21 @@
                             <RowDefinition></RowDefinition>
                             <RowDefinition Height="110"></RowDefinition>
                         </Grid.RowDefinitions>
-                        <Grid>
+                        <Grid
+                            Width="1000">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition></ColumnDefinition>
                                 <ColumnDefinition></ColumnDefinition>
                                 <ColumnDefinition></ColumnDefinition>
                             </Grid.ColumnDefinitions>
                             <Grid
-                                x:Name="grdStoreFisrt">
-                            </Grid>
+                                x:Name="grdStoreFisrt"/>
                             <Grid
                                 x:Name="grdStoreSecond"
-                                Grid.Column="1">
-                            </Grid>
+                                Grid.Column="1"/>
                             <Grid
                                 x:Name="grdStoreThird"
-                                Grid.Column="2">
-                            </Grid>
+                                Grid.Column="2"/>
                         </Grid>
                         <Grid
                             Grid.Row="1">
@@ -1147,7 +1147,7 @@
                                 Command="{Binding AddImportProductWindowCommand}"
                                 CommandParameter="{Binding ElementName=wdHome}"
                                 Style="{StaticResource MaterialDesignRaisedButton}">
-                                
+
                             </Button>
                         </StackPanel>
                     </Grid>
@@ -1300,7 +1300,7 @@
                                     HorizontalAlignment="Right"
                                     Margin="23,10"
                                     Padding="0"
-                                    materialDesign:HintAssist.Hint="Reload Business tag"
+                                    ToolTip="Reload Business tag"
                                     Command="{Binding ReloadBusinessTagCommand}"
                                     CommandParameter="{Binding ElementName=wdHome}">
                                     <materialDesign:PackIcon
@@ -1310,7 +1310,7 @@
                                         Height="35"
                                         Width="35"/>
                                 </Button>
-                                    <Grid>
+                                <Grid>
                                     <Border
                                         Margin="20,50,20,20"
                                         BorderBrush="#EBF0FF"
@@ -1518,8 +1518,10 @@
                                             Height="40"
                                             Width="240"
                                             BorderThickness="0"
-                                            materialDesign:HintAssist.Hint="Đại lý"
+                                            materialDesign:HintAssist.Hint="Agency"
                                             FontSize="17"
+                                            Foreground="#504D85"
+                                            Background="Transparent"
                                             FontWeight="SemiBold"
                                             Padding="0"
                                             HorizontalContentAlignment="Center"
@@ -1555,6 +1557,7 @@
                                         Height="40"
                                         Width="250"
                                         Background="#FFB2C8"
+                                        Foreground="#504D85"
                                         BorderBrush="{x:Null}"
                                         materialDesign:ButtonAssist.CornerRadius="6"
                                         Content="Add"
@@ -1607,11 +1610,10 @@
                                         Foreground="#6F6C99"
                                         FontSize="16"
                                         FontWeight="SemiBold"
-                                        Height="20"
                                         Width="100"
                                         HorizontalAlignment="Left"
                                         VerticalAlignment="Center"
-                                        Margin="20,10"/>
+                                        Margin="20,5"/>
                                     <TextBlock
                                         x:Name="txbAgencyinPayment"
                                         Text=""
@@ -1621,7 +1623,7 @@
                                         Height="20"
                                         HorizontalAlignment="Right"
                                         VerticalAlignment="Center"
-                                        Margin="10,10"/>
+                                        Margin="10,5"/>
                                 </Grid>
                                 <Grid
                                     Grid.Row="2">
@@ -1704,7 +1706,7 @@
                                 <Grid
                                     Grid.Row="5">
                                     <TextBlock
-                                        Text="Trả trước"
+                                        Text="Retainer"
                                         Foreground="#263238"
                                         FontSize="16"
                                         FontWeight="SemiBold"
@@ -1721,6 +1723,8 @@
                                         HorizontalAlignment="Right"
                                         VerticalAlignment="Top"
                                         Margin="50,5"
+                                        FontSize="16"
+                                        Foreground="#263238"
                                         HorizontalContentAlignment="Right"
                                         VerticalContentAlignment="Bottom"
                                         materialDesign:BottomDashedLineAdorner.Brush="Gray">
@@ -1749,7 +1753,7 @@
                                     Grid.Row="6">
 
                                     <TextBlock
-                                        Text="Còn lại"
+                                        Text="Excess cash"
                                         Foreground="#263238"
                                         FontSize="16"
                                         FontWeight="SemiBold"
