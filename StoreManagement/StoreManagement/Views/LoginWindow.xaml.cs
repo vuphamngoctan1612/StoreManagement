@@ -22,16 +22,8 @@ namespace StoreManagement.Views
         public LoginWindow()
         {
             InitializeComponent();
-        }
-
-        private void btLogin_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void btClose_Click(object sender, RoutedEventArgs e)
-        {
-
+            this.txtUser.Text = null;
+            this.txtPassword.Password = null;
         }
     }
 }

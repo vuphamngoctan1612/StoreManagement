@@ -101,6 +101,11 @@ namespace StoreManagement.ViewModels
             }
 
             window.ShowDialog();
+            if (window.isSucceed)
+            {
+                imageBrush.ImageSource = Converter.Instance.ConvertByteToBitmapImage(CurrentAccount.Image);
+                this.HomeWindow.grdAcc_Image.Background = imageBrush;
+            }
         }        
         //info account window
         private void InfoAcc_Save(InfoAccountWindow para)
@@ -108,16 +113,19 @@ namespace StoreManagement.ViewModels
             if (string.IsNullOrEmpty(para.txtDisplayName.Text))
             {
                 para.txtDisplayName.Focus();
+                para.txtDisplayName.Text = "";
                 return;
             }
             if (string.IsNullOrEmpty(para.txtLocation.Text))
             {
                 para.txtLocation.Focus();
+                para.txtLocation.Text = "";
                 return;
             }
             if (string.IsNullOrEmpty(para.txtPhoneNumber.Text))
             {
                 para.txtPhoneNumber.Focus();
+                para.txtPhoneNumber.Text = "";
                 return;
             }
 
@@ -127,6 +135,12 @@ namespace StoreManagement.ViewModels
             string phonenumber = para.txtPhoneNumber.Text;
             byte[] imgByteArr;
 
+            if (phonenumber.Length != 10)
+            {
+                MessageBox.Show("not valid");
+                return;
+            }
+
             if (imageFileName == null)
             {
                 imgByteArr = Converter.Instance.ConvertImageToBytes(@"..\..\Resources\Images\default.jpg");
@@ -135,19 +149,30 @@ namespace StoreManagement.ViewModels
             {
                 imgByteArr = Converter.Instance.ConvertImageToBytes(imageFileName);
             }
-
-            Account account = DataProvider.Instance.DB.Accounts.SingleOrDefault(p => p.Username == username);
-            if (account != null)
+            try
             {
-                account.DisplayName = displayname;
-                account.Location = location;
-                account.PhoneNumber = phonenumber;
-                account.Image = imgByteArr;
-                DataProvider.Instance.DB.SaveChanges();
+                Account account = DataProvider.Instance.DB.Accounts.SingleOrDefault(p => p.Username == username);
+                if (account != null)
+                {
+                    account.DisplayName = displayname;
+                    account.Location = location;
+                    account.PhoneNumber = phonenumber;
+                    account.Image = imgByteArr;
+                    DataProvider.Instance.DB.SaveChanges();
 
-                CurrentAccount.Instance.ConvertAccToCurrentAcc(account);
+                    CurrentAccount.Instance.ConvertAccToCurrentAcc(account);
+                    para.isSucceed = true;
+                }
             }
+            catch
+            {
+                para.isSucceed = false;
+            }
+            finally
+            {
 
+            }
+           
 
             para.Close();
         }

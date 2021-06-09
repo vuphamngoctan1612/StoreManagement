@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="0f51c98825f848a0936d558e3e7ac033" Name="Diagram1" ZoomLevel="64">
+      <Diagram DiagramId="0f51c98825f848a0936d558e3e7ac033" Name="Diagram1" ZoomLevel="73">
         <EntityTypeShape EntityType="AgencyManagementModel.Account" Width="1.5" PointX="15.5" PointY="6.875" />
         <EntityTypeShape EntityType="AgencyManagementModel.Agency" Width="1.5" PointX="9" PointY="2" />
         <EntityTypeShape EntityType="AgencyManagementModel.Invoice" Width="1.5" PointX="9.875" PointY="6.75" />
@@ -23,7 +23,7 @@
         <AssociationConnector Association="AgencyManagementModel.FK_Product" />
         <AssociationConnector Association="AgencyManagementModel.FK_Units" />
         <AssociationConnector Association="AgencyManagementModel.FK_StockReceipt" />
-        <EntityTypeShape EntityType="AgencyManagementModel.District" Width="1.5" PointX="5.75" PointY="0.75" />
+        <EntityTypeShape EntityType="AgencyManagementModel.District" Width="2.125" PointX="6.75" PointY="6" />
         <AssociationConnector Association="AgencyManagementModel.FK_District" />
       </Diagram>
     </edmx:Diagrams>

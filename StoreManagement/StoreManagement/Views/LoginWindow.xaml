@@ -11,7 +11,10 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:StoreManagement.Views" xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:local="clr-namespace:StoreManagement.Views" 
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" 
+        xmlns:vd="clr-namespace:StoreManagement.Validations"
+        xmlns:util="clr-namespace:StoreManagement"
         mc:Ignorable="d"
         DataContext="{StaticResource LoginVM}"
         Title="Login"
@@ -54,11 +57,11 @@
             HorizontalAlignment="Right"
             VerticalAlignment="Center"
             Width="500"
-            Height="550">
+            Height="580">
             <Rectangle
                 RadiusX="10"
                 RadiusY="10"
-                Fill="#FDE9EE">
+                Fill="#FDE6EA">
             </Rectangle>
             <TextBlock
                 Style="{StaticResource MaterialDesignHeadline4TextBlock}"
@@ -76,7 +79,7 @@
                 Width="400"
                 RadiusX="15"
                 RadiusY="15"
-                Margin="35 135 0 0"
+                Margin="35 140 0 0"
                 VerticalAlignment="Top" 
                 HorizontalAlignment="Left">
             </Rectangle>
@@ -85,12 +88,20 @@
                 Height="80" 
                 Width="360"
                 BorderThickness="0"
-                Margin="55 135 0 0"
+                Margin="55 140 0 0"
                 VerticalAlignment="Top" 
                 HorizontalAlignment="Left"
                 VerticalContentAlignment="Center"
+                Validation.ErrorTemplate="{StaticResource textBoxErrorTemplate2}"
                 FontSize="30"
-                materialDesign:HintAssist.Hint="Enter your username">
+                materialDesign:HintAssist.Hint="Username">
+                <TextBox.Text>
+                    <Binding Path="Username" Source="{StaticResource Account}" UpdateSourceTrigger="PropertyChanged" Mode="OneWayToSource">
+                        <Binding.ValidationRules>
+                            <vd:NotNullValidation ErrorMessage="Please enter username"/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
             </TextBox>
             <Rectangle
                 Fill="White" 
@@ -98,7 +109,7 @@
                 Width="400"
                 RadiusX="15"
                 RadiusY="15"
-                Margin="35 245 0 0"
+                Margin="35 250 0 0"
                 VerticalAlignment="Top" 
                 HorizontalAlignment="Left">
             </Rectangle>
@@ -108,12 +119,20 @@
                 Height="80" 
                 Width="360"
                 BorderThickness="0"
-                Margin="55 245 0 0"
+                Margin="55 250 0 0"
                 VerticalAlignment="Top" 
                 HorizontalAlignment="Left"
                 VerticalContentAlignment="Center"
-                FontSize="30"
-                materialDesign:HintAssist.Hint="Enter your password">
+                FontSize="30"                
+                Validation.ErrorTemplate="{StaticResource textBoxErrorTemplate2}"
+                materialDesign:HintAssist.Hint="Password">
+                <PasswordBox.DataContext>
+                    <Binding Path="Name" Source="{StaticResource AccountVM}" UpdateSourceTrigger="PropertyChanged" Mode="OneWayToSource">
+                        <Binding.ValidationRules>
+                            <vd:NotNullValidation ErrorMessage="Please enter password"/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </PasswordBox.DataContext>
             </PasswordBox>
             <Button 
                 x:Name="btLogin" 
@@ -126,7 +145,7 @@
                 Background="#F79BB5"
                 materialDesign:ButtonAssist.CornerRadius="10"
                 BorderThickness="0"
-                Margin="35 360 0 0"
+                Margin="35 365 0 0"
                 VerticalAlignment="Top"
                 HorizontalAlignment="Left"
                 Cursor="Hand"
@@ -136,7 +155,7 @@
             <TextBlock
                 Style="{StaticResource MaterialDesignHeadline4TextBlock}"
                 Text="New around here ?"
-                Margin="80 480 0 0"
+                Margin="80 485 0 0"
                 VerticalAlignment="Top"
                 HorizontalAlignment="Left"
                 TextAlignment="Left"
@@ -147,7 +166,7 @@
             <Button
                 x:Name="btSignUp"
                 Height="45"
-                Margin="290 475 0 0"
+                Margin="290 480 0 0"
                 VerticalAlignment="Top"
                 HorizontalAlignment="Left"
                 Content="Sign Up" 

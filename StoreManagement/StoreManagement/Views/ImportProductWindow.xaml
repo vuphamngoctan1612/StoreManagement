@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:StoreManagement.Views"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
-        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" xmlns:vd="clr-namespace:StoreManagement.Validations"
         mc:Ignorable="d"
         DataContext="{StaticResource ProductVM}"
         Title="Import product window"
@@ -197,7 +197,15 @@
                     FontWeight="SemiBold"
                     Padding="0"
                     HorizontalContentAlignment="Left"
-                    VerticalContentAlignment="Center">
+                    VerticalContentAlignment="Center"
+                    Validation.ErrorTemplate="{StaticResource textBoxErrorTemplate}">
+                    <TextBox.Text>
+                        <Binding Path="Name" Source="{StaticResource Product}" UpdateSourceTrigger="PropertyChanged" Mode="OneWayToSource">
+                            <Binding.ValidationRules>
+                                <vd:NotNullValidation ErrorMessage="Please enter product name"/>
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </TextBox.Text>
                 </TextBox>
             </Grid>
             <Grid Grid.Row="3"
@@ -240,8 +248,16 @@
                         materialDesign:HintAssist.Hint="Select your units"
                         DisplayMemberPath="Name"
                         Visibility="Visible"
+                        Validation.ErrorTemplate="{StaticResource textBoxErrorTemplate}"
                         ItemsSource="{Binding ItemsSourceUnits, Mode=TwoWay}"
                         SelectedItem="{Binding SelectedUnits}">
+                        <ComboBox.Text>
+                            <Binding Path="UnitsID" Source="{StaticResource Product}" UpdateSourceTrigger="PropertyChanged" Mode="OneWayToSource">
+                                <Binding.ValidationRules>
+                                    <vd:NotNullValidation ErrorMessage="Please choose item"/>
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </ComboBox.Text>
                     </ComboBox>
                 </Border>
                 <materialDesign:PackIcon
@@ -303,6 +319,7 @@
                     FontSize="17"
                     FontWeight="SemiBold"
                     Padding="0"
+                    Validation.ErrorTemplate="{StaticResource textBoxErrorTemplate}"
                     HorizontalContentAlignment="Left"
                     VerticalContentAlignment="Center">
                     <i:Interaction.Triggers>
@@ -319,6 +336,13 @@
                                 MethodName="NumberValidationTextBox" />
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
+                    <TextBox.Text>
+                        <Binding Path="Name" Source="{StaticResource Product}" UpdateSourceTrigger="PropertyChanged" Mode="OneWayToSource">
+                            <Binding.ValidationRules>
+                                <vd:NotNullValidation ErrorMessage="Please enter import price"/>
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </TextBox.Text>
                 </TextBox>
             </Grid>
             <Grid Grid.Row="5"
@@ -355,6 +379,7 @@
                     FontSize="17"
                     FontWeight="SemiBold"
                     Padding="0"
+                    Validation.ErrorTemplate="{StaticResource textBoxErrorTemplate}"
                     HorizontalContentAlignment="Left"
                     VerticalContentAlignment="Center">
                     <i:Interaction.Triggers>
@@ -371,48 +396,15 @@
                                 MethodName="NumberValidationTextBox" />
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
+                    <TextBox.Text>
+                        <Binding Path="Name" Source="{StaticResource Product}" UpdateSourceTrigger="PropertyChanged" Mode="OneWayToSource">
+                            <Binding.ValidationRules>
+                                <vd:NotNullValidation ErrorMessage="Please enter amount"/>
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </TextBox.Text>
                 </TextBox>
             </Grid>
-            <!--<Grid Grid.Row="6"
-                Width="550" 
-                VerticalAlignment="Center"
-                HorizontalAlignment="Center">
-                <Label
-                    HorizontalAlignment="Left"
-                    VerticalAlignment="Center"
-                    Content="Total"
-                    FontSize="22"
-                    FontWeight="SemiBold"
-                    Foreground="#57548B">
-                </Label>
-                <Rectangle
-                    HorizontalAlignment="Left"
-                    Width="350"
-                    Margin="180 0 0 0"
-                    StrokeThickness="2"
-                    RadiusX="10"
-                    RadiusY="10"
-                    Stroke="#E2D2DA">
-                </Rectangle>
-                <TextBox
-                    x:Name="txtTotal"
-                    IsEnabled="False"
-                    materialDesign:HintAssist.Hint="Automatic"
-                     HorizontalAlignment="Left"
-                    VerticalAlignment="Center"
-                    Width="330"
-                    Margin="190 0 0 0"
-                    BorderThickness="0"
-                    MaxLines="1"
-                    Height="40"
-                    FontSize="17"
-                    FontWeight="SemiBold"
-                    Padding="0"
-                    HorizontalContentAlignment="Left"
-                    VerticalContentAlignment="Center" 
-                    Cursor="Arrow">
-                </TextBox>
-            </Grid>-->
             <Grid Grid.Row="6">
                 <Grid
                     VerticalAlignment="Center"

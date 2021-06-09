@@ -68,14 +68,14 @@ namespace StoreManagement.ViewModels
             }
             if (String.IsNullOrEmpty(parameter.displayname.Text))
             {
-                MessageBox.Show("Vui lòng nhập tên ", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
                 parameter.displayname.Focus();
+                parameter.displayname.Text = "";
                 return;
             }
             if (String.IsNullOrEmpty(parameter.txtUsername.Text))
             {
-                MessageBox.Show("Vui lòng nhập tên đăng nhập", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
                 parameter.txtUsername.Focus();
+                parameter.txtUsername.Text = "";
                 return;
             }
             if (String.IsNullOrEmpty(parameter.pwbPassword.Password))

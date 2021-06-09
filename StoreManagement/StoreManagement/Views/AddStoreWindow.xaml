@@ -6,501 +6,1044 @@
         xmlns:local="clr-namespace:StoreManagement.Views" 
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
+        xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions" xmlns:vd="clr-namespace:StoreManagement.Validations"
         mc:Ignorable="d"
         DataContext="{StaticResource StoreVM}"
         Background="White"
         Title="Add agency" 
-        Height="780" 
-        Width="680"
+        Height="700" 
+        Width="1100"
         ResizeMode="CanMinimize"
         x:Name="wdAddstore"
         WindowStartupLocation="CenterScreen">
-    <Grid Margin="0">
-        <Grid
-            Width="580"
-            Height="700" 
-            HorizontalAlignment="Right"
-            Margin="0,30,40,37">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="90"></RowDefinition>
-                <RowDefinition Height="60"></RowDefinition>
-                <RowDefinition Height="60"></RowDefinition>
-                <RowDefinition Height="60"></RowDefinition>
-                <RowDefinition Height="60"></RowDefinition>
-                <RowDefinition Height="60"></RowDefinition>
-                <RowDefinition Height="60"></RowDefinition>
-                <RowDefinition Height="60"></RowDefinition>
-                <RowDefinition Height="60"></RowDefinition>
-                <RowDefinition Height="60"></RowDefinition>
-                <RowDefinition ></RowDefinition>
-            </Grid.RowDefinitions>
-            <Grid Grid.Row="0">
-                <materialDesign:PackIcon 
-                    Kind="NoteText" 
-                    Foreground="#FA83A6"
-                    Height="90"
-                    Width="80"
-                    Margin="5"/>
-                <TextBlock
-                    Text="Infomation's Agency"
-                    FontSize="45"
-                    Foreground="#57548B"
-                    FontWeight="SemiBold"
-                    VerticalAlignment="Center"
-                    HorizontalAlignment="Right"
-                    Margin="60,5"/>
-            </Grid>
-            <Grid Grid.Row="1"
-                Width="550" 
-                VerticalAlignment="Top"
-                Margin="10">
-                <Label
-                    HorizontalAlignment="Left"
-                    VerticalAlignment="Center"
-                    Content="ID"
-                    FontSize="22"
-                    FontWeight="SemiBold"
-                    Margin="40 0 0 0"
-                    Foreground="#57548B">
-                </Label>
-                <Rectangle
-                    HorizontalAlignment="Right"
-                    Width="300"
-                    Margin="0 0 30 0"
-                    StrokeThickness="2"
-                    RadiusX="5"
-                    RadiusY="5"
-                    Stroke="#E2D2DA"/>
-                <TextBox
-                    Name="txtID"
-                    IsEnabled="False"
-                    HorizontalAlignment="Right"
-                    VerticalAlignment="Center"
-                    Width="280"
-                    Margin="0 0 40 0"
-                    BorderThickness="0"
-                    materialDesign:HintAssist.Hint="Auto ID"
-                    MaxLines="1"
-                    Height="40"
-                    FontSize="17"
-                    FontWeight="SemiBold"
-                    Padding="0"
-                    HorizontalContentAlignment="Left"
-                    VerticalContentAlignment="Center" 
-                    Cursor="Arrow">
-
-                </TextBox>
-            </Grid>
-            <Grid Grid.Row="2"
-                Width="550" 
-                VerticalAlignment="Top"
-                Margin="10">
-                <Label
-                    HorizontalAlignment="Left"
-                    VerticalAlignment="Center"
-                    Content="Name"
-                    FontSize="22"
-                    FontWeight="SemiBold"
-                    Margin="40 0 0 0"
-                    Foreground="#57548B">
-                </Label>
-                <Rectangle
-                    HorizontalAlignment="Right"
-                    Width="300"
-                    Margin="0 0 30 0"
-                    StrokeThickness="2"
-                    RadiusX="5"
-                    RadiusY="5"
-                    Stroke="#E2D2DA"/>
-                <TextBox
-                    Name="txtName"
-                    HorizontalAlignment="Right"
-                    VerticalAlignment="Center"
-                    Width="280"
-                    Margin="0 0 40 0"
-                    BorderThickness="0"
-                    materialDesign:HintAssist.Hint="Name"
-                    MaxLines="1"
-                    Height="40"
-                    FontSize="17"
-                    FontWeight="SemiBold"
-                    Padding="0"
-                    HorizontalContentAlignment="Left"
-                    VerticalContentAlignment="Center" 
-                    Cursor="Arrow">
-
-                </TextBox>
-            </Grid>
-            <Grid Grid.Row="3"
-                Width="550" 
-                VerticalAlignment="Top"
-                Margin="10">
-                <Label
-                    HorizontalAlignment="Left"
-                    VerticalAlignment="Center"
-                    Content="Species"
-                    FontSize="22"
-                    FontWeight="SemiBold"
-                    Margin="40 0 0 0"
-                    Foreground="#57548B">
-                </Label>
-                <Rectangle
-                    HorizontalAlignment="Right"
-                    Width="300"
-                    Margin="0 0 30 0"
-                    StrokeThickness="2"
-                    RadiusX="5"
-                    RadiusY="5"
-                    Stroke="#E2D2DA"/>
-                <ComboBox
-                    Name="txtSpecies"
-                    Style="{StaticResource MaterialDesignOutlinedComboBox}"
-                    HorizontalAlignment="Right"
-                    VerticalAlignment="Center"
-                    Width="300"
-                    Margin="0 0 30 0"
-                    BorderThickness="0"
-                    materialDesign:HintAssist.Hint="Type"
-                    ItemsSource="{Binding Path= ListType}"
-                    SelectedValuePath="ID"
-                    DisplayMemberPath="Name"
-                    Height="40"
-                    FontSize="17"
-                    FontWeight="SemiBold"
-                    Padding="10 0 10 0"
-                    HorizontalContentAlignment="Left"
-                    VerticalContentAlignment="Center" 
-                    Cursor="Arrow">
-                </ComboBox>
-            </Grid>
-            <Grid Grid.Row="4"
-                Width="550" 
-                VerticalAlignment="Top"
-                Margin="10">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="339*"/>
-                    <ColumnDefinition Width="211*"/>
-                </Grid.ColumnDefinitions>
-                <Label
-                    HorizontalAlignment="Left"
-                    VerticalAlignment="Center"
-                    Content="District"
-                    FontSize="22"
-                    FontWeight="SemiBold"
-                    Margin="40,1,0,1"
-                    Foreground="#57548B">
-                </Label>
-                <Rectangle
-                    HorizontalAlignment="Right"
-                    Width="300"
-                    Margin="0 0 30 0"
-                    StrokeThickness="2"
-                    RadiusX="5"
-                    RadiusY="5"
-                    Stroke="#E2D2DA" Grid.ColumnSpan="2"/>
-                <ComboBox
-                    Name="cbDistrict"
-                    Style="{StaticResource MaterialDesignOutlinedComboBox}"
-                    HorizontalAlignment="Right"
-                    VerticalAlignment="Center"
-                    Width="300"
-                    Margin="0 0 30 0"
-                    BorderThickness="0"
-                    materialDesign:HintAssist.Hint="District"
-                    Height="40"
-                    FontSize="17"
-                    FontWeight="SemiBold"
-                    Padding="10 0 10 0"
-                    Background="Transparent"
-                    HorizontalContentAlignment="Left"
-                    VerticalContentAlignment="Center"
-                    Cursor="Arrow" Grid.ColumnSpan="2">
-                </ComboBox>
-                <TextBox
-                    Name="txtDistrict"
-                    Visibility="Hidden"
-                    HorizontalAlignment="Right"
-                    VerticalAlignment="Center"
-                    Width="280"
-                    Margin="0 0 40 0"
-                    BorderThickness="0"
-                    materialDesign:HintAssist.Hint="District"
-                    MaxLines="1"
-                    Height="40"
-                    FontSize="17"
-                    FontWeight="SemiBold"
-                    Padding="0"
-                    HorizontalContentAlignment="Left"
-                    VerticalContentAlignment="Center" 
-                    Cursor="Arrow" Grid.ColumnSpan="2">
-                </TextBox>
-                <Button
-                    x:Name="changeWayChooseDistrict"
-                    Height="25"
-                    Width="25"
-                    Background="Transparent"
-                    HorizontalAlignment="Right"
-                    BorderBrush="{x:Null}"
-                    Margin="0,8"
-                    Padding="0"
-                    Command="{Binding ChangeWayChooseDistrictCommand}"
-                    CommandParameter="{Binding ElementName=wdAddstore}" Grid.Column="1">
-                    <materialDesign:PackIcon
-                        Kind="AddCircleOutline"
-                        Width="25"
-                        Height="25"
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="90"></RowDefinition>
+            <!--<RowDefinition Height="0.8*"></RowDefinition>
+            <RowDefinition Height="1*"></RowDefinition>
+            <RowDefinition Height="0.8*"></RowDefinition>
+            <RowDefinition Height="0.8*"></RowDefinition>
+            <RowDefinition Height="1*"></RowDefinition>
+            <RowDefinition Height="1*"></RowDefinition>
+            <RowDefinition Height="1*"></RowDefinition>
+            <RowDefinition Height="1*"></RowDefinition>
+            <RowDefinition Height="1*"></RowDefinition>
+            <RowDefinition Height="1*"></RowDefinition>-->
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="100"></RowDefinition>            
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <!--<materialDesign:PackIcon 
+                HorizontalAlignment="Left"
+                VerticalAlignment="Center"
+                Margin="50 0 0 0"
+                Kind="NoteText" 
+                Foreground="#FA83A6"
+                Height="80"
+                Width="80"/>-->
+            <TextBlock
+                Text="Infomation's Agency"
+                FontSize="45"
+                Foreground="#57548B"
+                FontWeight="SemiBold"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center"/>
+        </Grid>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Column="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0"
+			        Width="500" 
+			        VerticalAlignment="Center">
+                    <Label
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Content="ID"
+                        FontSize="22"
+                        FontWeight="SemiBold"
+                        Margin="10 0 0 0"
+                        Foreground="#57548B">
+                    </Label>
+                    <Rectangle
+                        HorizontalAlignment="Right"
+                        Width="350"
+                        Margin="0 0 30 0"
+                        StrokeThickness="2"
+                        RadiusX="5"
+                        RadiusY="5"
+                        Stroke="#E2D2DA"/>
+                    <TextBox
+                        Name="txtID"
+                        IsEnabled="False"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Center"
+                        Width="330"
+                        Margin="0 0 40 0"
+                        BorderThickness="0"
+                        materialDesign:HintAssist.Hint="Auto ID"
+                        MaxLines="1"
+                        Height="40"
+                        FontSize="17"
+                        FontWeight="SemiBold"
                         Padding="0"
-                        Foreground="Gray"/>
-                </Button>
+                        HorizontalContentAlignment="Left"
+                        VerticalContentAlignment="Center">
+                    </TextBox>
+                </Grid>
+                <Grid Grid.Row="1"
+			        Width="500" 
+			        VerticalAlignment="Center">
+                    <Label
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Content="Name"
+                        FontSize="22"
+                        FontWeight="SemiBold"
+                        Margin="10 0 0 0"
+                        Foreground="#57548B">
+                    </Label>
+                    <Rectangle
+                        HorizontalAlignment="Right"
+                        Width="350"
+                        Margin="0 0 30 0"
+                        StrokeThickness="2"
+                        RadiusX="5"
+                        RadiusY="5"
+                        Stroke="#E2D2DA"/>
+                    <TextBox
+                        Name="txtName"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Center"
+                        Width="330"
+                        Margin="0 0 40 0"
+                        BorderThickness="0"
+                        materialDesign:HintAssist.Hint="Enter your agency name"
+                        MaxLines="1"
+                        Height="40"
+                        FontSize="17"
+                        FontWeight="SemiBold"
+                        Padding="0"
+                        HorizontalContentAlignment="Left"
+                        VerticalContentAlignment="Center"
+                        Validation.ErrorTemplate="{StaticResource textBoxErrorTemplate}">
+                        <TextBox.Text>
+                            <Binding Path="Name" Source="{StaticResource Agency}" UpdateSourceTrigger="PropertyChanged" Mode="OneWayToSource">
+                                <Binding.ValidationRules>
+                                    <vd:NotNullValidation ErrorMessage="Please enter agency name"/>
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox.Text>
+                    </TextBox>
+                </Grid>
+                <Grid Grid.Row="2"
+                    Width="500" 
+                    VerticalAlignment="Center">
+                    <Label
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Content="Species"
+                        FontSize="22"
+                        FontWeight="SemiBold"
+                        Margin="10 0 0 0"
+                        Foreground="#57548B">
+                    </Label>
+                    <Rectangle
+                        HorizontalAlignment="Right"
+                        Width="350"
+                        Margin="0 0 30 0"
+                        StrokeThickness="2"
+                        RadiusX="5"
+                        RadiusY="5"
+                        Stroke="#E2D2DA"/>
+                    <ComboBox
+                        Name="cbbSpecies"
+                        materialDesign:ComboBoxAssist.ClassicMode="true"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Center"
+                        Width="350"
+                        Margin="0 0 30 0"
+                        BorderThickness="0"
+                        materialDesign:HintAssist.Hint="Choose your type"
+                        ItemsSource="{Binding Path= ListType}"
+                        SelectedValuePath="ID"
+                        DisplayMemberPath="Name"
+                        Height="40"
+                        FontSize="17"
+                        FontWeight="SemiBold"
+                        Padding="10 0 10 0"
+                        HorizontalContentAlignment="Left"
+                        VerticalContentAlignment="Center"
+                        Validation.ErrorTemplate="{StaticResource comboBoxErrorTemplate}">
+                        <ComboBox.Text>
+                            <Binding Path="TypeOfAgency" Source="{StaticResource Agency}" UpdateSourceTrigger="PropertyChanged" Mode="OneWayToSource">
+                                <Binding.ValidationRules>
+                                    <vd:NotNullValidation ErrorMessage="Please choose item"/>
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </ComboBox.Text>
+                    </ComboBox>
+                </Grid>
+                <Grid Grid.Row="3"
+                    Width="500" 
+                    VerticalAlignment="Center">
+                    <Label
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Content="District"
+                        FontSize="22"
+                        FontWeight="SemiBold"
+                        Margin="10 0 0 0"
+                        Foreground="#57548B">
+                    </Label>
+                    <Rectangle
+                        HorizontalAlignment="Right"
+                        Width="350"
+                        Margin="0 0 30 0"
+                        StrokeThickness="2"
+                        RadiusX="5"
+                        RadiusY="5"
+                        Stroke="#E2D2DA"/>
+                    <ComboBox
+                        Name="cbDistrict"
+                        materialDesign:ComboBoxAssist.ClassicMode="true"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Center"
+                        Width="350"
+                        Margin="0 0 30 0"
+                        Padding="10 0 10 0"
+                        BorderThickness="0"
+                        materialDesign:HintAssist.Hint="Choose your district"
+                        Height="40"
+                        FontSize="17"
+                        FontWeight="SemiBold"
+                        Background="Transparent"
+                        HorizontalContentAlignment="Left"
+                        VerticalContentAlignment="Center"
+                        Validation.ErrorTemplate="{StaticResource comboBoxErrorTemplate}">
+                        <ComboBox.Text>
+                            <Binding Path="District" Source="{StaticResource Agency}" UpdateSourceTrigger="PropertyChanged" Mode="OneWayToSource">
+                                <Binding.ValidationRules>
+                                    <vd:NotNullValidation ErrorMessage="Please choose item"/>
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </ComboBox.Text>
+                    </ComboBox>
+                    <Button
+                        x:Name="changeWayChooseDistrict"
+                        Height="25"
+                        Width="25"
+                        Background="Transparent"
+                        HorizontalAlignment="Right"
+                        BorderBrush="{x:Null}"
+                        Margin="0,8"
+                        Padding="0"
+                        Command="{Binding OpenAddDistrictCommand}"
+                        CommandParameter="{Binding ElementName=wdAddstore}" Grid.Column="1">
+                        <materialDesign:PackIcon
+                            Kind="AddCircleOutline"
+                            Width="25"
+                            Height="25"
+                            Padding="0"
+                            Foreground="Gray"/>
+                    </Button>
+                </Grid>
+                <Grid Grid.Row="4"
+                    Width="500" 
+                    VerticalAlignment="Center">
+                    <Label
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Content="Address"
+                        FontSize="22"
+                        FontWeight="SemiBold"
+                        Margin="10 0 0 0"
+                        Foreground="#57548B">
+                    </Label>
+                    <Rectangle
+                        HorizontalAlignment="Right"
+                        Width="350"
+                        Margin="0 0 30 0"
+                        StrokeThickness="2"
+                        RadiusX="5"
+                        RadiusY="5"
+                        Stroke="#E2D2DA"/>
+                    <TextBox
+                        Name="txtAddress"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Center"
+                        Width="330"
+                        Margin="0 0 40 0"
+                        BorderThickness="0"
+                        materialDesign:HintAssist.Hint="Enter your address"
+                        MaxLines="1"
+                        Height="40"
+                        FontSize="17"
+                        FontWeight="SemiBold"
+                        Padding="0"
+                        HorizontalContentAlignment="Left"
+                        VerticalContentAlignment="Center" 
+                        Validation.ErrorTemplate="{StaticResource textBoxErrorTemplate}">
+                        <TextBox.Text>
+                            <Binding Path="Address" Source="{StaticResource Agency}" UpdateSourceTrigger="PropertyChanged" Mode="OneWayToSource">
+                                <Binding.ValidationRules>
+                                    <vd:NotNullValidation ErrorMessage="Please enter address"/>
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox.Text>
+                    </TextBox>
+                </Grid>
             </Grid>
-            <Grid Grid.Row="5"
-                Width="550" 
-                VerticalAlignment="Top"
-                Margin="10">
-                <Label
-                    HorizontalAlignment="Left"
-                    VerticalAlignment="Center"
-                    Content="Address"
-                    FontSize="22"
-                    FontWeight="SemiBold"
-                    Margin="40 0 0 0"
-                    Foreground="#57548B">
-                </Label>
-                <Rectangle
-                    HorizontalAlignment="Right"
-                    Width="300"
-                    Margin="0 0 30 0"
-                    StrokeThickness="2"
-                    RadiusX="5"
-                    RadiusY="5"
-                    Stroke="#E2D2DA"/>
-                <TextBox
-                    Name="txtAddress"
-                    HorizontalAlignment="Right"
-                    VerticalAlignment="Center"
-                    Width="280"
-                    Margin="0 0 40 0"
-                    BorderThickness="0"
-                    materialDesign:HintAssist.Hint="Address"
-                    MaxLines="1"
-                    Height="40"
-                    FontSize="17"
-                    FontWeight="SemiBold"
-                    Padding="0"
-                    HorizontalContentAlignment="Left"
-                    VerticalContentAlignment="Center" 
-                    Cursor="Arrow">
-                </TextBox>
-            </Grid>
-            <Grid Grid.Row="6"
-                Width="550" 
-                VerticalAlignment="Top"
-                Margin="10">
-                <Label
-                    HorizontalAlignment="Left"
-                    VerticalAlignment="Center"
-                    Content="Phone"
-                    FontSize="22"
-                    FontWeight="SemiBold"
-                    Margin="40 0 0 0"
-                    Foreground="#57548B">
-                </Label>
-                <Rectangle
-                    HorizontalAlignment="Right"
-                    Width="300"
-                    Margin="0 0 30 0"
-                    StrokeThickness="2"
-                    RadiusX="5"
-                    RadiusY="5"
-                    Stroke="#E2D2DA"/>
-                <TextBox
-                    x:Name="txtPhone"
-                    HorizontalAlignment="Right"
-                    VerticalAlignment="Center"
-                    Width="280"
-                    Margin="0 0 40 0"
-                    BorderThickness="0"
-                    materialDesign:HintAssist.Hint="Phone number"
-                    MaxLines="1"
-                    Height="40"
-                    FontSize="17"
-                    MaxLength="10"
-                    FontWeight="SemiBold"
-                    Padding="0"
-                    HorizontalContentAlignment="Left"
-                    VerticalContentAlignment="Center" 
-                    Cursor="Arrow">
-                    <i:Interaction.Triggers>
-                        <i:EventTrigger EventName="PreviewTextInput" >
-                            <ei:CallMethodAction TargetObject="{Binding }"
-                                                 MethodName="NumberValidationTextBox" />
-                        </i:EventTrigger>
-                    </i:Interaction.Triggers>
-                </TextBox>
-            </Grid>
-            <Grid Grid.Row="8"
-                Width="550" 
-                VerticalAlignment="Top"
-                Margin="10">
-                <Label
-                    HorizontalAlignment="Left"
-                    VerticalAlignment="Center"
-                    Content="Checkin"
-                    FontSize="22"
-                    FontWeight="SemiBold"
-                    Margin="40 0 0 0"
-                    Foreground="#57548B">
-                </Label>
-                <DatePicker
-                    x:Name="txtCheckin"
-                    HorizontalAlignment="Right"
-                    VerticalAlignment="Center"
-                    Width="280"
-                    Margin="0 0 40 0"
-                    materialDesign:HintAssist.Hint="Day checkin"
-                    Height="40"
-                    BorderThickness="0"
-                    FontSize="17"
-                    FontWeight="SemiBold"
-                    Padding="0"
-                    HorizontalContentAlignment="Left"
-                    VerticalContentAlignment="Center" 
-                    Cursor="Arrow">
-                </DatePicker>
-                <Rectangle
-                    HorizontalAlignment="Right"
-                    Width="300"
-                    Margin="0 0 30 0"
-                    StrokeThickness="2"
-                    RadiusX="5"
-                    RadiusY="5"
-                    Stroke="#E2D2DA"/>
-            </Grid>
-            <Grid Grid.Row="9"
-                Width="550" 
-                VerticalAlignment="Top"
-                Margin="10">
-                <Label
-                    HorizontalAlignment="Left"
-                    VerticalAlignment="Center"
-                    Content="Debt"
-                    FontSize="22"
-                    FontWeight="SemiBold"
-                    Margin="40 0 0 0"
-                    Foreground="#57548B">
-                </Label>
-                <Rectangle
-                    HorizontalAlignment="Right"
-                    Width="300"
-                    Margin="0 0 30 0"
-                    StrokeThickness="2"
-                    RadiusX="5"
-                    RadiusY="5"
-                    Stroke="#E2D2DA"/>
-                <TextBox
-                    x:Name="txtDebt"
-                    HorizontalAlignment="Right"
-                    VerticalAlignment="Center"
-                    Width="280"
-                    Margin="0 0 40 0"
-                    BorderThickness="0"
-                    materialDesign:HintAssist.Hint="Debt"
-                    MaxLines="1"
-                    Height="40"
-                    FontSize="17"
-                    FontWeight="SemiBold"
-                    Padding="0"
-                    HorizontalContentAlignment="Left"
-                    VerticalContentAlignment="Center" 
-                    Cursor="Arrow">
-                    <i:Interaction.Triggers>
-                        <i:EventTrigger EventName="PreviewTextInput" >
-                            <ei:CallMethodAction TargetObject="{Binding }"
-                                                 MethodName="NumberValidationTextBox" />
-                        </i:EventTrigger>
-                        <i:EventTrigger EventName="TextChanged">
-                            <i:InvokeCommandAction Command="{Binding SeparateThousandsCommand}" 
-                                                   CommandParameter="{Binding ElementName=txtDebt}"/>
-                        </i:EventTrigger>
-                    </i:Interaction.Triggers>
-                </TextBox>
-            </Grid>
-            <Grid Grid.Row="7"
-                Width="550" 
-                VerticalAlignment="Top"
-                Margin="10">
-                <Label
-                    HorizontalAlignment="Left"
-                    VerticalAlignment="Center"
-                    Content="Mail"
-                    FontSize="22"
-                    FontWeight="SemiBold"
-                    Margin="40 0 0 0"
-                    Foreground="#57548B">
-                </Label>
-                <Rectangle
-                    HorizontalAlignment="Right"
-                    Width="300"
-                    Margin="0 0 30 0"
-                    StrokeThickness="2"
-                    RadiusX="5"
-                    RadiusY="5"
-                    Stroke="#E2D2DA"/>
-                <TextBox
-                    x:Name="txtEmail"
-                    HorizontalAlignment="Right"
-                    VerticalAlignment="Center"
-                    Width="280"
-                    Margin="0 0 40 0"
-                    BorderThickness="0"
-                    materialDesign:HintAssist.Hint="Mail"
-                    MaxLines="1"
-                    Height="40"
-                    FontSize="17"
-                    FontWeight="SemiBold"
-                    Padding="0"
-                    HorizontalContentAlignment="Left"
-                    VerticalContentAlignment="Center" 
-                    Cursor="Arrow">
-                </TextBox>
-            </Grid>
-            <Grid Grid.Row="10" 
-                    VerticalAlignment="Top"
-                  Margin="0,0">
-                <Button 
-                    x:Name="btnSave"
-                    HorizontalAlignment="Left"
-                    Width="110"
-                    Height="38"
-                    Content="Save"
-                    BorderThickness="0"
-                    Foreground="#57548B"
-                    Background="#F79BB5"
-                    FontSize="22"
-                    Cursor="Hand"
-                    FontWeight="SemiBold"
-                    Command="{Binding SaveStoreCommand}"
-                    CommandParameter="{Binding ElementName=wdAddstore}"
-                    Margin="284,0,0,0">
-                </Button>
-                <Button 
-                    x:Name="btnClose"
-                    HorizontalAlignment="Right"
-                    Width="110"
-                    Height="38"
-                    Content="Close"
-                    BorderThickness="0"
-                    Cursor="Hand"
-                    Background="#F0F0F0"
-                    Foreground="#57548B"
-                    FontSize="22"
-                    FontWeight="SemiBold"
-                    Command="{Binding CloseStoreWindowCommand}"
-                    CommandParameter="{Binding ElementName=wdAddstore}" 
-                    Margin="0,0,44,0">
-                </Button>
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0"
+                    Width="500" 
+                    VerticalAlignment="Center">
+                    <Label
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Content="Phone"
+                        FontSize="22"
+                        FontWeight="SemiBold"
+                        Margin="10 0 0 0"
+                        Foreground="#57548B">
+                    </Label>
+                    <Rectangle
+                        HorizontalAlignment="Right"
+                        Width="350"
+                        Margin="0 0 30 0"
+                        StrokeThickness="2"
+                        RadiusX="5"
+                        RadiusY="5"
+                        Stroke="#E2D2DA"/>
+                    <TextBox
+                        x:Name="txtPhone"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Center"
+                        Width="330"
+                        Margin="0 0 40 0"
+                        BorderThickness="0"
+                        materialDesign:HintAssist.Hint="Enter your phone number"
+                        MaxLines="1"
+                        Height="40"
+                        FontSize="17"
+                        MaxLength="10"
+                        FontWeight="SemiBold"
+                        Padding="0"
+                        HorizontalContentAlignment="Left"
+                        VerticalContentAlignment="Center" 
+                        Validation.ErrorTemplate="{StaticResource textBoxErrorTemplate}"
+                        >
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="PreviewTextInput" >
+                                <ei:CallMethodAction TargetObject="{Binding }"
+                                                MethodName="NumberValidationTextBox" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                        <TextBox.Text>
+                            <Binding Path="PhoneNumber" Source="{StaticResource Agency}" UpdateSourceTrigger="PropertyChanged" Mode="OneWayToSource">
+                                <Binding.ValidationRules>
+                                    <vd:NotNullValidation ErrorMessage="Please enter phone number"/>
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox.Text>
+                    </TextBox>
+                </Grid>
+                <Grid Grid.Row="1"
+                    Width="500" 
+                    VerticalAlignment="Center">
+                    <Label
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Content="Email"
+                        FontSize="22"
+                        FontWeight="SemiBold"
+                        Margin="10 0 0 0"
+                        Foreground="#57548B">
+                    </Label>
+                    <Rectangle
+                        HorizontalAlignment="Right"
+                        Width="350"
+                        Margin="0 0 30 0"
+                        StrokeThickness="2"
+                        RadiusX="5"
+                        RadiusY="5"
+                        Stroke="#E2D2DA"/>
+                    <TextBox
+                        x:Name="txtEmail"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Center"
+                        Width="330"
+                        Margin="0 0 40 0"
+                        BorderThickness="0"
+                        materialDesign:HintAssist.Hint="Enter your email"
+                        MaxLines="1"
+                        Height="40"
+                        FontSize="17"
+                        FontWeight="SemiBold"
+                        Padding="0"
+                        HorizontalContentAlignment="Left"
+                        VerticalContentAlignment="Center" 
+                        Validation.ErrorTemplate="{StaticResource textBoxErrorTemplate}">
+                        <TextBox.Text>
+                            <Binding Path="Email" Source="{StaticResource Agency}" UpdateSourceTrigger="PropertyChanged" Mode="OneWayToSource">
+                                <Binding.ValidationRules>
+                                    <vd:NotNullValidation ErrorMessage="Please enter enter your email"/>
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox.Text>
+                    </TextBox>
+                </Grid>
+                <Grid Grid.Row="2"
+                    Width="500" 
+                    VerticalAlignment="Center">
+                    <Label
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Content="Checkin"
+                        FontSize="22"
+                        FontWeight="SemiBold"
+                        Margin="10 0 0 0"
+                        Foreground="#57548B">
+                    </Label>
+                    <DatePicker
+                        x:Name="dpCheckin"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Center"
+                        Width="330"
+                        Margin="0 0 40 0"
+                        materialDesign:HintAssist.Hint="Enter day checkin"
+                        Height="40"
+                        BorderThickness="0"
+                        FontSize="17"
+                        FontWeight="SemiBold"
+                        Padding="0"
+                        Validation.ErrorTemplate="{StaticResource textBoxErrorTemplate}"
+                        HorizontalContentAlignment="Left"
+                        VerticalContentAlignment="Center" >
+                        <DatePicker.SelectedDate>
+                            <Binding Path="CheckIn" Source="{StaticResource Agency}" UpdateSourceTrigger="PropertyChanged" Mode="OneWayToSource">
+                                <Binding.ValidationRules>
+                                    <vd:PickersValidation ErrorMessageNull="Please enter date checkin!"></vd:PickersValidation>
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </DatePicker.SelectedDate>
+                    </DatePicker>
+                    <Rectangle
+                        HorizontalAlignment="Right"
+                        Width="350"
+                        Margin="0 0 30 0"
+                        StrokeThickness="2"
+                        RadiusX="5"
+                        RadiusY="5"
+                        Stroke="#E2D2DA"/>
+                </Grid>
+                <Grid Grid.Row="3"
+                    Width="500" 
+                    VerticalAlignment="Center">
+                    <Label
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Content="Debt"
+                        FontSize="22"
+                        FontWeight="SemiBold"
+                        Margin="10 0 0 0"
+                        Foreground="#57548B">
+                    </Label>
+                    <Rectangle
+                        HorizontalAlignment="Right"
+                        Width="350"
+                        Margin="0 0 30 0"
+                        StrokeThickness="2"
+                        RadiusX="5"
+                        RadiusY="5"
+                        Stroke="#E2D2DA"/>
+                    <TextBox
+                        x:Name="txtDebt"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Center"
+                        MaxLength="15"
+                        Width="330"
+                        Margin="0 0 40 0"
+                        BorderThickness="0"
+                        materialDesign:HintAssist.Hint="Enter debt"
+                        MaxLines="1"
+                        Height="40"
+                        FontSize="17"
+                        FontWeight="SemiBold"
+                        Padding="0"
+                        HorizontalContentAlignment="Left"
+                        VerticalContentAlignment="Center"                
+                        Validation.ErrorTemplate="{StaticResource textBoxErrorTemplate}"
+                        >
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="PreviewTextInput" >
+                                <ei:CallMethodAction TargetObject="{Binding }"
+                                                MethodName="NumberValidationTextBox" />
+                            </i:EventTrigger>
+                            <i:EventTrigger EventName="TextChanged">
+                                <i:InvokeCommandAction Command="{Binding SeparateThousandsCommand}" 
+                                                CommandParameter="{Binding ElementName=txtDebt}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                        <TextBox.Text>
+                            <Binding Path="Debt" Source="{StaticResource Agency}" UpdateSourceTrigger="PropertyChanged" Mode="OneWayToSource">
+                                <Binding.ValidationRules>
+                                    <vd:NotNullValidation ErrorMessage="Please enter debt"/>
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox.Text>
+                    </TextBox>
+                </Grid>
             </Grid>
         </Grid>
+        <Grid Grid.Row="2">
+            <Button 
+                x:Name="btnSave"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Center"
+                Margin="680 0 0 0"
+                Width="110"
+                Height="38"
+                Content="Save"
+                BorderThickness="0"
+                Foreground="#57548B"
+                Background="#F79BB5"
+                FontSize="22"
+                Cursor="Hand"
+                FontWeight="SemiBold"
+                Command="{Binding SaveStoreCommand}"
+                CommandParameter="{Binding ElementName=wdAddstore}">
+            </Button>
+            <Button 
+                x:Name="btnClose"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Center"
+                Margin="830 0 0 0"
+                Width="110"
+                Height="38"
+                Content="Close"
+                BorderThickness="0"
+                Cursor="Hand"
+                Background="#F0F0F0"
+                Foreground="#57548B"
+                FontSize="22"
+                FontWeight="SemiBold"
+                Command="{Binding CloseStoreWindowCommand}"
+                CommandParameter="{Binding ElementName=wdAddstore}">
+            </Button>
+        </Grid>
+        <!--<Grid Grid.Row="1"
+            Width="550" 
+            VerticalAlignment="Top"
+            Margin="10">
+            <Label
+                HorizontalAlignment="Left"
+                VerticalAlignment="Center"
+                Content="ID"
+                FontSize="22"
+                FontWeight="SemiBold"
+                Margin="40 0 0 0"
+                Foreground="#57548B">
+            </Label>
+            <Rectangle
+                HorizontalAlignment="Right"
+                Width="300"
+                Margin="0 0 30 0"
+                StrokeThickness="2"
+                RadiusX="5"
+                RadiusY="5"
+                Stroke="#E2D2DA"/>
+            <TextBox
+                Name="txtID"
+                IsEnabled="False"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Center"
+                Width="280"
+                Margin="0 0 40 0"
+                BorderThickness="0"
+                materialDesign:HintAssist.Hint="Auto ID"
+                MaxLines="1"
+                Height="40"
+                FontSize="17"
+                FontWeight="SemiBold"
+                Padding="0"
+                HorizontalContentAlignment="Left"
+                VerticalContentAlignment="Center" 
+                Cursor="Arrow">
+
+            </TextBox>
+        </Grid>
+        <Grid Grid.Row="2"
+            Width="550" 
+            VerticalAlignment="Top"
+            Margin="10">
+            <Label
+                HorizontalAlignment="Left"
+                VerticalAlignment="Center"
+                Content="Name"
+                FontSize="22"
+                FontWeight="SemiBold"
+                Margin="40 0 0 0"
+                Foreground="#57548B">
+            </Label>
+            <Rectangle
+                HorizontalAlignment="Right"
+                Width="300"
+                Margin="0 0 30 0"
+                StrokeThickness="2"
+                RadiusX="5"
+                RadiusY="5"
+                Stroke="#E2D2DA"/>
+            <TextBox
+                Name="txtName"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Center"
+                Width="280"
+                Margin="0 0 40 0"
+                BorderThickness="0"
+                materialDesign:HintAssist.Hint="Enter your agency name"
+                MaxLines="1"
+                Height="40"
+                FontSize="17"
+                FontWeight="SemiBold"
+                Padding="0"
+                HorizontalContentAlignment="Left"
+                VerticalContentAlignment="Center" 
+                Cursor="Arrow"
+                Validation.ErrorTemplate="{StaticResource textBoxErrorTemplate}">
+                <TextBox.Text>
+                    <Binding Path="Name" Source="{StaticResource Agency}" UpdateSourceTrigger="PropertyChanged" Mode="OneWayToSource">
+                        <Binding.ValidationRules>
+                            <vd:NotNullValidation ErrorMessage="Please enter agency name"/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
+        </Grid>
+        <Grid Grid.Row="3"
+            Width="550" 
+            VerticalAlignment="Top"
+            Margin="10">
+            <Label
+                HorizontalAlignment="Left"
+                VerticalAlignment="Center"
+                Content="Species"
+                FontSize="22"
+                FontWeight="SemiBold"
+                Margin="40 0 0 0"
+                Foreground="#57548B">
+            </Label>
+            <Rectangle
+                HorizontalAlignment="Right"
+                Width="300"
+                Margin="0 0 30 0"
+                StrokeThickness="2"
+                RadiusX="5"
+                RadiusY="5"
+                Stroke="#E2D2DA"/>
+            <ComboBox
+                Name="cbbSpecies"
+                Style="{StaticResource MaterialDesignOutlinedComboBox}"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Center"
+                Width="300"
+                Margin="0 0 30 0"
+                BorderThickness="0"
+                materialDesign:HintAssist.Hint="Choose your type"
+                ItemsSource="{Binding Path= ListType}"
+                SelectedValuePath="ID"
+                DisplayMemberPath="Name"
+                Height="40"
+                FontSize="17"
+                FontWeight="SemiBold"
+                Padding="10 0 10 0"
+                HorizontalContentAlignment="Left"
+                VerticalContentAlignment="Center" 
+                Cursor="Arrow">
+            </ComboBox>
+        </Grid>
+        <Grid Grid.Row="4"
+            Width="550" 
+            VerticalAlignment="Top"
+            Margin="10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="339*"/>
+                <ColumnDefinition Width="211*"/>
+            </Grid.ColumnDefinitions>
+            <Label
+                HorizontalAlignment="Left"
+                VerticalAlignment="Center"
+                Content="District"
+                FontSize="22"
+                FontWeight="SemiBold"
+                Margin="40,1,0,1"
+                Foreground="#57548B">
+            </Label>
+            <Rectangle
+                HorizontalAlignment="Right"
+                Width="300"
+                Margin="0 0 30 0"
+                StrokeThickness="2"
+                RadiusX="5"
+                RadiusY="5"
+                Stroke="#E2D2DA" Grid.ColumnSpan="2"/>
+            <ComboBox
+                Name="cbDistrict"
+                Style="{StaticResource MaterialDesignOutlinedComboBox}"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Center"
+                Width="300"
+                Margin="0 0 30 0"
+                BorderThickness="0"
+                materialDesign:HintAssist.Hint="Choose your district"
+                Height="40"
+                FontSize="17"
+                FontWeight="SemiBold"
+                Padding="10 0 10 0"
+                Background="Transparent"
+                HorizontalContentAlignment="Left"
+                VerticalContentAlignment="Center"
+                Cursor="Arrow" Grid.ColumnSpan="2">
+            </ComboBox>
+            <TextBox
+                Name="txtDistrict"
+                Visibility="Hidden"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Center"
+                Width="280"
+                Margin="0 0 40 0"
+                BorderThickness="0"
+                materialDesign:HintAssist.Hint="District"
+                MaxLines="1"
+                Height="40"
+                FontSize="17"
+                FontWeight="SemiBold"
+                Padding="0"
+                HorizontalContentAlignment="Left"
+                VerticalContentAlignment="Center" 
+                Cursor="Arrow" Grid.ColumnSpan="2">
+            </TextBox>
+            <Button
+                x:Name="changeWayChooseDistrict"
+                Height="25"
+                Width="25"
+                Background="Transparent"
+                HorizontalAlignment="Right"
+                BorderBrush="{x:Null}"
+                Margin="0,8"
+                Padding="0"
+                Command="{Binding OpenAddDistrictCommand}"
+                CommandParameter="{Binding ElementName=wdAddstore}" Grid.Column="1">
+                <materialDesign:PackIcon
+                    Kind="AddCircleOutline"
+                    Width="25"
+                    Height="25"
+                    Padding="0"
+                    Foreground="Gray"/>
+            </Button>
+        </Grid>
+        <Grid Grid.Row="5"
+            Width="550" 
+            VerticalAlignment="Top"
+            Margin="10">
+            <Label
+                HorizontalAlignment="Left"
+                VerticalAlignment="Center"
+                Content="Address"
+                FontSize="22"
+                FontWeight="SemiBold"
+                Margin="40 0 0 0"
+                Foreground="#57548B">
+            </Label>
+            <Rectangle
+                HorizontalAlignment="Right"
+                Width="300"
+                Margin="0 0 30 0"
+                StrokeThickness="2"
+                RadiusX="5"
+                RadiusY="5"
+                Stroke="#E2D2DA"/>
+            <TextBox
+                Name="txtAddress"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Center"
+                Width="280"
+                Margin="0 0 40 0"
+                BorderThickness="0"
+                materialDesign:HintAssist.Hint="Enter your address"
+                MaxLines="1"
+                Height="40"
+                FontSize="17"
+                FontWeight="SemiBold"
+                Padding="0"
+                HorizontalContentAlignment="Left"
+                VerticalContentAlignment="Center" 
+                Cursor="Arrow"
+                Validation.ErrorTemplate="{StaticResource textBoxErrorTemplate}">
+                <TextBox.Text>
+                    <Binding Path="Name" Source="{StaticResource Agency}" UpdateSourceTrigger="PropertyChanged" Mode="OneWayToSource">
+                        <Binding.ValidationRules>
+                            <vd:NotNullValidation ErrorMessage="Please enter address"/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
+        </Grid>
+        <Grid Grid.Row="6"
+            Width="550" 
+            VerticalAlignment="Top"
+            Margin="10">
+            <Label
+                HorizontalAlignment="Left"
+                VerticalAlignment="Center"
+                Content="Phone"
+                FontSize="22"
+                FontWeight="SemiBold"
+                Margin="40 0 0 0"
+                Foreground="#57548B">
+            </Label>
+            <Rectangle
+                HorizontalAlignment="Right"
+                Width="300"
+                Margin="0 0 30 0"
+                StrokeThickness="2"
+                RadiusX="5"
+                RadiusY="5"
+                Stroke="#E2D2DA"/>
+            <TextBox
+                x:Name="txtPhone"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Center"
+                Width="280"
+                Margin="0 0 40 0"
+                BorderThickness="0"
+                materialDesign:HintAssist.Hint="Enter your phone number"
+                MaxLines="1"
+                Height="40"
+                FontSize="17"
+                MaxLength="10"
+                FontWeight="SemiBold"
+                Padding="0"
+                HorizontalContentAlignment="Left"
+                VerticalContentAlignment="Center" 
+                Validation.ErrorTemplate="{StaticResource textBoxErrorTemplate}"
+                Cursor="Arrow">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="PreviewTextInput" >
+                        <ei:CallMethodAction TargetObject="{Binding }"
+                                                MethodName="NumberValidationTextBox" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+                <TextBox.Text>
+                    <Binding Path="Name" Source="{StaticResource Agency}" UpdateSourceTrigger="PropertyChanged" Mode="OneWayToSource">
+                        <Binding.ValidationRules>
+                            <vd:NotNullValidation ErrorMessage="Please enter phone number"/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
+        </Grid>
+        <Grid Grid.Row="7"
+            Width="550" 
+            VerticalAlignment="Top"
+            Margin="10">
+            <Label
+                HorizontalAlignment="Left"
+                VerticalAlignment="Center"
+                Content="Mail"
+                FontSize="22"
+                FontWeight="SemiBold"
+                Margin="40 0 0 0"
+                Foreground="#57548B">
+            </Label>
+            <Rectangle
+                HorizontalAlignment="Right"
+                Width="300"
+                Margin="0 0 30 0"
+                StrokeThickness="2"
+                RadiusX="5"
+                RadiusY="5"
+                Stroke="#E2D2DA"/>
+            <TextBox
+                x:Name="txtEmail"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Center"
+                Width="280"
+                Margin="0 0 40 0"
+                BorderThickness="0"
+                materialDesign:HintAssist.Hint="Enter your email"
+                MaxLines="1"
+                Height="40"
+                FontSize="17"
+                FontWeight="SemiBold"
+                Padding="0"
+                HorizontalContentAlignment="Left"
+                VerticalContentAlignment="Center" 
+                Cursor="Arrow"
+                Validation.ErrorTemplate="{StaticResource textBoxErrorTemplate}">
+                <TextBox.Text>
+                    <Binding Path="Name" Source="{StaticResource Agency}" UpdateSourceTrigger="PropertyChanged" Mode="OneWayToSource">
+                        <Binding.ValidationRules>
+                            <vd:NotNullValidation ErrorMessage="Please enter enter your email"/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
+        </Grid>
+        <Grid Grid.Row="8"
+            Width="550" 
+            VerticalAlignment="Top"
+            Margin="10">
+            <Label
+                HorizontalAlignment="Left"
+                VerticalAlignment="Center"
+                Content="Checkin"
+                FontSize="22"
+                FontWeight="SemiBold"
+                Margin="40 0 0 0"
+                Foreground="#57548B">
+            </Label>
+            <DatePicker
+                x:Name="dpCheckin"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Center"
+                Width="280"
+                Margin="0 0 40 0"
+                materialDesign:HintAssist.Hint="Enter day checkin"
+                Height="40"
+                BorderThickness="0"
+                FontSize="17"
+                FontWeight="SemiBold"
+                Padding="0"
+                Validation.ErrorTemplate="{StaticResource textBoxErrorTemplate}"
+                HorizontalContentAlignment="Left"
+                VerticalContentAlignment="Center" 
+                Cursor="Arrow">
+                <DatePicker.SelectedDate>
+                    <Binding Path="Startingdate" Source="{StaticResource Agency}" UpdateSourceTrigger="PropertyChanged" Mode="OneWayToSource">
+                        <Binding.ValidationRules>
+                            <vd:PickersValidation ErrorMessageNull="Please enter date checkin!"></vd:PickersValidation>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </DatePicker.SelectedDate>
+            </DatePicker>
+            <Rectangle
+                HorizontalAlignment="Right"
+                Width="300"
+                Margin="0 0 30 0"
+                StrokeThickness="2"
+                RadiusX="5"
+                RadiusY="5"
+                Stroke="#E2D2DA"/>
+        </Grid>
+        <Grid Grid.Row="9"
+            Width="550" 
+            VerticalAlignment="Top"
+            Margin="10">
+            <Label
+                HorizontalAlignment="Left"
+                VerticalAlignment="Center"
+                Content="Debt"
+                FontSize="22"
+                FontWeight="SemiBold"
+                Margin="40 0 0 0"
+                Foreground="#57548B">
+            </Label>
+            <Rectangle
+                HorizontalAlignment="Right"
+                Width="300"
+                Margin="0 0 30 0"
+                StrokeThickness="2"
+                RadiusX="5"
+                RadiusY="5"
+                Stroke="#E2D2DA"/>
+            <TextBox
+                x:Name="txtDebt"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Center"
+                MaxLength="15"
+                Width="280"
+                Margin="0 0 40 0"
+                BorderThickness="0"
+                materialDesign:HintAssist.Hint="Enter debt"
+                MaxLines="1"
+                Height="40"
+                FontSize="17"
+                FontWeight="SemiBold"
+                Padding="0"
+                HorizontalContentAlignment="Left"
+                VerticalContentAlignment="Center"                
+                Validation.ErrorTemplate="{StaticResource textBoxErrorTemplate}"
+                Cursor="Arrow">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="PreviewTextInput" >
+                        <ei:CallMethodAction TargetObject="{Binding }"
+                                                MethodName="NumberValidationTextBox" />
+                    </i:EventTrigger>
+                    <i:EventTrigger EventName="TextChanged">
+                        <i:InvokeCommandAction Command="{Binding SeparateThousandsCommand}" 
+                                                CommandParameter="{Binding ElementName=txtDebt}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+                <TextBox.Text>
+                    <Binding Path="Name" Source="{StaticResource Agency}" UpdateSourceTrigger="PropertyChanged" Mode="OneWayToSource">
+                        <Binding.ValidationRules>
+                            <vd:NotNullValidation ErrorMessage="Please enter debt"/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
+        </Grid>
+        <Grid Grid.Row="10" 
+            Margin="0,0">
+            <Button 
+                x:Name="btnSave"
+                HorizontalAlignment="Left"
+                Width="110"
+                Height="38"
+                Content="Save"
+                BorderThickness="0"
+                Foreground="#57548B"
+                Background="#F79BB5"
+                FontSize="22"
+                Cursor="Hand"
+                FontWeight="SemiBold"
+                Command="{Binding SaveStoreCommand}"
+                CommandParameter="{Binding ElementName=wdAddstore}"
+                Margin="300,0,0,0">
+            </Button>
+            <Button 
+                x:Name="btnClose"
+                HorizontalAlignment="Right"
+                Width="110"
+                Height="38"
+                Content="Close"
+                BorderThickness="0"
+                Cursor="Hand"
+                Background="#F0F0F0"
+                Foreground="#57548B"
+                FontSize="22"
+                FontWeight="SemiBold"
+                Command="{Binding CloseStoreWindowCommand}"
+                CommandParameter="{Binding ElementName=wdAddstore}" 
+                Margin="0,0,110,0">
+            </Button>
+        </Grid>-->
     </Grid>
 </Window>

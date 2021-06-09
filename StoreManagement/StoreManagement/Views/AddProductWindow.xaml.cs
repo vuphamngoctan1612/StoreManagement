@@ -22,6 +22,10 @@ namespace StoreManagement.Views
         public AddProductWindow()
         {
             InitializeComponent();
+
+            this.txtName.Text = null;
+            this.cbbUnits.Text = null;
+            this.txtPrice.Text = null;
         }
     }
 }
