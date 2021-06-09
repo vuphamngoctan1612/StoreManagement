@@ -6,11 +6,11 @@
         xmlns:local="clr-namespace:StoreManagement.Views" 
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
         mc:Ignorable="d"
         DataContext="{StaticResource StoreVM}"
         Background="White"
-        
-        Title="Thêm đại lý" 
+        Title="Add agency" 
         Height="780" 
         Width="680"
         ResizeMode="CanMinimize"
@@ -19,7 +19,7 @@
     <Grid Margin="0">
         <Grid
             Width="580"
-            Height="780" 
+            Height="700" 
             HorizontalAlignment="Right"
             Margin="0,30,40,37">
             <Grid.RowDefinitions>
@@ -69,8 +69,8 @@
                     Width="300"
                     Margin="0 0 30 0"
                     StrokeThickness="2"
-                    RadiusX="10"
-                    RadiusY="10"
+                    RadiusX="5"
+                    RadiusY="5"
                     Stroke="#E2D2DA"/>
                 <TextBox
                     Name="txtID"
@@ -80,7 +80,7 @@
                     Width="280"
                     Margin="0 0 40 0"
                     BorderThickness="0"
-                    materialDesign:HintAssist.Hint="Mã tự động"
+                    materialDesign:HintAssist.Hint="Auto ID"
                     MaxLines="1"
                     Height="40"
                     FontSize="17"
@@ -110,8 +110,8 @@
                     Width="300"
                     Margin="0 0 30 0"
                     StrokeThickness="2"
-                    RadiusX="10"
-                    RadiusY="10"
+                    RadiusX="5"
+                    RadiusY="5"
                     Stroke="#E2D2DA"/>
                 <TextBox
                     Name="txtName"
@@ -120,7 +120,7 @@
                     Width="280"
                     Margin="0 0 40 0"
                     BorderThickness="0"
-                    materialDesign:HintAssist.Hint="Tên đại lý"
+                    materialDesign:HintAssist.Hint="Name"
                     MaxLines="1"
                     Height="40"
                     FontSize="17"
@@ -150,24 +150,25 @@
                     Width="300"
                     Margin="0 0 30 0"
                     StrokeThickness="2"
-                    RadiusX="10"
-                    RadiusY="10"
+                    RadiusX="5"
+                    RadiusY="5"
                     Stroke="#E2D2DA"/>
                 <ComboBox
-                    Name="cbbSpecies"
+                    Name="txtSpecies"
+                    Style="{StaticResource MaterialDesignOutlinedComboBox}"
                     HorizontalAlignment="Right"
                     VerticalAlignment="Center"
-                    Width="280"
-                    Margin="0 0 40 0"
+                    Width="300"
+                    Margin="0 0 30 0"
                     BorderThickness="0"
-                    materialDesign:HintAssist.Hint="Loại đại lý"
+                    materialDesign:HintAssist.Hint="Type"
                     ItemsSource="{Binding Path= ListType}"
                     SelectedValuePath="ID"
                     DisplayMemberPath="Name"
                     Height="40"
                     FontSize="17"
                     FontWeight="SemiBold"
-                    Padding="0"
+                    Padding="10 0 10 0"
                     HorizontalContentAlignment="Left"
                     VerticalContentAlignment="Center" 
                     Cursor="Arrow">
@@ -177,13 +178,17 @@
                 Width="550" 
                 VerticalAlignment="Top"
                 Margin="10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="339*"/>
+                    <ColumnDefinition Width="211*"/>
+                </Grid.ColumnDefinitions>
                 <Label
                     HorizontalAlignment="Left"
                     VerticalAlignment="Center"
                     Content="District"
                     FontSize="22"
                     FontWeight="SemiBold"
-                    Margin="40 0 0 0"
+                    Margin="40,1,0,1"
                     Foreground="#57548B">
                 </Label>
                 <Rectangle
@@ -191,17 +196,36 @@
                     Width="300"
                     Margin="0 0 30 0"
                     StrokeThickness="2"
-                    RadiusX="10"
-                    RadiusY="10"
-                    Stroke="#E2D2DA"/>
+                    RadiusX="5"
+                    RadiusY="5"
+                    Stroke="#E2D2DA" Grid.ColumnSpan="2"/>
+                <ComboBox
+                    Name="cbDistrict"
+                    Style="{StaticResource MaterialDesignOutlinedComboBox}"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Center"
+                    Width="300"
+                    Margin="0 0 30 0"
+                    BorderThickness="0"
+                    materialDesign:HintAssist.Hint="District"
+                    Height="40"
+                    FontSize="17"
+                    FontWeight="SemiBold"
+                    Padding="10 0 10 0"
+                    Background="Transparent"
+                    HorizontalContentAlignment="Left"
+                    VerticalContentAlignment="Center"
+                    Cursor="Arrow" Grid.ColumnSpan="2">
+                </ComboBox>
                 <TextBox
                     Name="txtDistrict"
+                    Visibility="Hidden"
                     HorizontalAlignment="Right"
                     VerticalAlignment="Center"
                     Width="280"
                     Margin="0 0 40 0"
                     BorderThickness="0"
-                    materialDesign:HintAssist.Hint="Quận"
+                    materialDesign:HintAssist.Hint="District"
                     MaxLines="1"
                     Height="40"
                     FontSize="17"
@@ -209,8 +233,26 @@
                     Padding="0"
                     HorizontalContentAlignment="Left"
                     VerticalContentAlignment="Center" 
-                    Cursor="Arrow">
+                    Cursor="Arrow" Grid.ColumnSpan="2">
                 </TextBox>
+                <Button
+                    x:Name="changeWayChooseDistrict"
+                    Height="25"
+                    Width="25"
+                    Background="Transparent"
+                    HorizontalAlignment="Right"
+                    BorderBrush="{x:Null}"
+                    Margin="0,8"
+                    Padding="0"
+                    Command="{Binding ChangeWayChooseDistrictCommand}"
+                    CommandParameter="{Binding ElementName=wdAddstore}" Grid.Column="1">
+                    <materialDesign:PackIcon
+                        Kind="AddCircleOutline"
+                        Width="25"
+                        Height="25"
+                        Padding="0"
+                        Foreground="Gray"/>
+                </Button>
             </Grid>
             <Grid Grid.Row="5"
                 Width="550" 
@@ -230,8 +272,8 @@
                     Width="300"
                     Margin="0 0 30 0"
                     StrokeThickness="2"
-                    RadiusX="10"
-                    RadiusY="10"
+                    RadiusX="5"
+                    RadiusY="5"
                     Stroke="#E2D2DA"/>
                 <TextBox
                     Name="txtAddress"
@@ -240,7 +282,7 @@
                     Width="280"
                     Margin="0 0 40 0"
                     BorderThickness="0"
-                    materialDesign:HintAssist.Hint="Địa chỉ"
+                    materialDesign:HintAssist.Hint="Address"
                     MaxLines="1"
                     Height="40"
                     FontSize="17"
@@ -269,8 +311,8 @@
                     Width="300"
                     Margin="0 0 30 0"
                     StrokeThickness="2"
-                    RadiusX="10"
-                    RadiusY="10"
+                    RadiusX="5"
+                    RadiusY="5"
                     Stroke="#E2D2DA"/>
                 <TextBox
                     x:Name="txtPhone"
@@ -279,15 +321,22 @@
                     Width="280"
                     Margin="0 0 40 0"
                     BorderThickness="0"
-                    materialDesign:HintAssist.Hint="Số điện thoại"
+                    materialDesign:HintAssist.Hint="Phone number"
                     MaxLines="1"
                     Height="40"
                     FontSize="17"
+                    MaxLength="10"
                     FontWeight="SemiBold"
                     Padding="0"
                     HorizontalContentAlignment="Left"
                     VerticalContentAlignment="Center" 
                     Cursor="Arrow">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="PreviewTextInput" >
+                            <ei:CallMethodAction TargetObject="{Binding }"
+                                                 MethodName="NumberValidationTextBox" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
                 </TextBox>
             </Grid>
             <Grid Grid.Row="8"
@@ -304,12 +353,12 @@
                     Foreground="#57548B">
                 </Label>
                 <DatePicker
-                    x:Name="dtCheckin"
+                    x:Name="txtCheckin"
                     HorizontalAlignment="Right"
                     VerticalAlignment="Center"
                     Width="280"
                     Margin="0 0 40 0"
-                    materialDesign:HintAssist.Hint="Ngày đăng ký"
+                    materialDesign:HintAssist.Hint="Day checkin"
                     Height="40"
                     BorderThickness="0"
                     FontSize="17"
@@ -324,8 +373,8 @@
                     Width="300"
                     Margin="0 0 30 0"
                     StrokeThickness="2"
-                    RadiusX="10"
-                    RadiusY="10"
+                    RadiusX="5"
+                    RadiusY="5"
                     Stroke="#E2D2DA"/>
             </Grid>
             <Grid Grid.Row="9"
@@ -346,8 +395,8 @@
                     Width="300"
                     Margin="0 0 30 0"
                     StrokeThickness="2"
-                    RadiusX="10"
-                    RadiusY="10"
+                    RadiusX="5"
+                    RadiusY="5"
                     Stroke="#E2D2DA"/>
                 <TextBox
                     x:Name="txtDebt"
@@ -356,7 +405,7 @@
                     Width="280"
                     Margin="0 0 40 0"
                     BorderThickness="0"
-                    materialDesign:HintAssist.Hint="Khoản nợ"
+                    materialDesign:HintAssist.Hint="Debt"
                     MaxLines="1"
                     Height="40"
                     FontSize="17"
@@ -366,9 +415,13 @@
                     VerticalContentAlignment="Center" 
                     Cursor="Arrow">
                     <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="PreviewTextInput" >
+                            <ei:CallMethodAction TargetObject="{Binding }"
+                                                 MethodName="NumberValidationTextBox" />
+                        </i:EventTrigger>
                         <i:EventTrigger EventName="TextChanged">
-                            <i:InvokeCommandAction Command="{Binding SeparateThousandsCommand}"
-                                                   CommandParameter="{Binding ElementName=txtAmount}"/>
+                            <i:InvokeCommandAction Command="{Binding SeparateThousandsCommand}" 
+                                                   CommandParameter="{Binding ElementName=txtDebt}"/>
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
                 </TextBox>
@@ -391,8 +444,8 @@
                     Width="300"
                     Margin="0 0 30 0"
                     StrokeThickness="2"
-                    RadiusX="10"
-                    RadiusY="10"
+                    RadiusX="5"
+                    RadiusY="5"
                     Stroke="#E2D2DA"/>
                 <TextBox
                     x:Name="txtEmail"
@@ -410,12 +463,6 @@
                     HorizontalContentAlignment="Left"
                     VerticalContentAlignment="Center" 
                     Cursor="Arrow">
-                    <i:Interaction.Triggers>
-                        <i:EventTrigger EventName="TextChanged">
-                            <i:InvokeCommandAction Command="{Binding SeparateThousandsCommand}"
-                                                   CommandParameter="{Binding ElementName=txtAmount}"/>
-                        </i:EventTrigger>
-                    </i:Interaction.Triggers>
                 </TextBox>
             </Grid>
             <Grid Grid.Row="10" 

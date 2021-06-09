@@ -10,19 +10,20 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace StoreManagement.Resources.UserControls
+namespace StoreManagement.Views
 {
     /// <summary>
-    /// Interaction logic for BillHomeUC.xaml
+    /// Interaction logic for AddUnitsWindow.xaml
     /// </summary>
-    public partial class BillHomeUC : UserControl
+    public partial class AddUnitsWindow : Window
     {
-        public BillHomeUC()
+        public bool isSaveSucceed { get; set; }
+        public AddUnitsWindow()
         {
             InitializeComponent();
+            isSaveSucceed = false;
         }
     }
 }

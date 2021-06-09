@@ -25,12 +25,17 @@ namespace StoreManagement.Models
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<Account> Accounts { get; set; }
         public virtual DbSet<Agency> Agencies { get; set; }
         public virtual DbSet<Invoice> Invoices { get; set; }
         public virtual DbSet<InvoiceInfo> InvoiceInfoes { get; set; }
         public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<Receipt> Receipts { get; set; }
+        public virtual DbSet<StockReceipt> StockReceipts { get; set; }
+        public virtual DbSet<StockReceiptInfo> StockReceiptInfoes { get; set; }
         public virtual DbSet<TypeOfAgency> TypeOfAgencies { get; set; }
+        public virtual DbSet<District> Districts { get; set; }
+        public virtual DbSet<Unit> Units { get; set; }
     }
 }

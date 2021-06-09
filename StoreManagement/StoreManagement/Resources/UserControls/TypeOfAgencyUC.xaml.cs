@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace StoreManagement.Views
+namespace StoreManagement.Resources.UserControls
 {
     /// <summary>
-    /// Interaction logic for usStores.xaml
+    /// Interaction logic for TypeOfAgencyUC.xaml
     /// </summary>
-    public partial class usStores : UserControl
+    public partial class TypeOfAgencyUC : UserControl
     {
-        public usStores()
+        public TypeOfAgencyUC()
         {
             InitializeComponent();
         }

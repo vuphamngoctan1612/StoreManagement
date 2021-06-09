@@ -8,71 +8,77 @@
              x:Name="StoreUC"
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              mc:Ignorable="d" 
-             d:DesignHeight="350" d:DesignWidth="280"
+             d:DesignHeight="350" d:DesignWidth="250"
              BorderBrush="#FCE5EC"
-             BorderThickness="1">
-    <Grid
+             BorderThickness="0">
+    <Border
+        BorderBrush="LightGray"
+        BorderThickness="0"
+        Background="#FCE5EC"
+        CornerRadius="5"
+        Padding="1">
+        <Grid
         Background="#FFF7F9">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="80"></RowDefinition>
-            <RowDefinition></RowDefinition>
-            <RowDefinition></RowDefinition>
-            <RowDefinition></RowDefinition>
-            <RowDefinition></RowDefinition>
-            <RowDefinition Height="30"></RowDefinition>
-        </Grid.RowDefinitions>
-        <Grid 
+            <Grid.RowDefinitions>
+                <RowDefinition Height="80"></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition Height="30"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid 
             Grid.Row="0">
-            <Rectangle
-                Width="250"
+                <Rectangle
+                Width="220"
                 Height="50"
                 RadiusX="15"
                 RadiusY="15"
                 Stroke="#FF8CAE"
                 Fill="#FF8CAE">
-            </Rectangle>
-            <materialDesign:PackIcon 
+                </Rectangle>
+                <materialDesign:PackIcon 
                 VerticalAlignment="Center"
                 Kind="AccountMultiple"
                 Height="25"
                 Width="25"
-                Margin="42 0 0 0" 
+                Margin="30 0 0 0" 
                 Foreground="#504D85"
                 HorizontalAlignment="Left">
-            </materialDesign:PackIcon>
-            <TextBlock
+                </materialDesign:PackIcon>
+                <TextBlock
                 x:Name="txbID"
                 Visibility="Hidden"/>
-            <TextBlock
+                <TextBlock
                 x:Name="AgencyName"
                 Text="TN Agency"
                 FontSize="22"
                 FontWeight="SemiBold"
                 Foreground="#504D85" 
-                Margin="85 0 0 0"
-                HorizontalAlignment="Left" 
+                Margin="0 0 0 0"
+                HorizontalAlignment="Center" 
                 VerticalAlignment="Center"/>
-        </Grid>
-        <Grid
+            </Grid>
+            <Grid
             Grid.Row="1">
-            <Ellipse
+                <Ellipse
                 Height="30"
                 Width="30"
                 Fill="#81BCF2" 
                 HorizontalAlignment="Left" 
                 VerticalAlignment="Center"
-                Margin="40 0 0 0">
-            </Ellipse>
-            <materialDesign:PackIcon
+                Margin="30 0 0 0">
+                </Ellipse>
+                <materialDesign:PackIcon
                 HorizontalAlignment="Left"
                 VerticalAlignment="Center"
                 Height="25"
                 Width="25"
-                Margin="42.4 0 0 0"
+                Margin="32.4 0 0 0"
                 Foreground="#504D85"
                 Kind="Phone">
-            </materialDesign:PackIcon>
-            <TextBlock
+                </materialDesign:PackIcon>
+                <TextBlock
                 x:Name="txbAgencyPhone"
                 Text="0862768062"
                 FontSize="22"
@@ -80,27 +86,27 @@
                 Margin="85 0 0 0"
                 HorizontalAlignment="Left" 
                 VerticalAlignment="Center"/>
-        </Grid>
-        <Grid
+            </Grid>
+            <Grid
             Grid.Row="2">
-            <Ellipse
+                <Ellipse
                 Height="30"
                 Width="30"
                 Fill="#F5EFA8" 
                 HorizontalAlignment="Left" 
                 VerticalAlignment="Center"
-                Margin="40 0 0 0">
-            </Ellipse>
-            <materialDesign:PackIcon
+                Margin="30 0 0 0">
+                </Ellipse>
+                <materialDesign:PackIcon
                 HorizontalAlignment="Left"
                 VerticalAlignment="Center"
                 Height="25"
                 Width="25"
-                Margin="42.4 0 0 0"
+                Margin="32.4 0 0 0"
                 Foreground="#504D85"
                 Kind="MapMarker">
-            </materialDesign:PackIcon>
-            <TextBlock
+                </materialDesign:PackIcon>
+                <TextBlock
                 x:Name="txbAgencyPosition"
                 Text="TP.Hồ Chí Minh"
                 FontSize="22"
@@ -108,27 +114,27 @@
                 Margin="85 0 0 0"
                 HorizontalAlignment="Left" 
                 VerticalAlignment="Center"/>
-        </Grid>
-        <Grid
+            </Grid>
+            <Grid
             Grid.Row="3">
-            <Ellipse
+                <Ellipse
                 Height="30"
                 Width="30"
                 Fill="#FF93BE" 
                 HorizontalAlignment="Left" 
                 VerticalAlignment="Center"
-                Margin="40 0 0 0">
-            </Ellipse>
-            <materialDesign:PackIcon
+                Margin="30 0 0 0">
+                </Ellipse>
+                <materialDesign:PackIcon
                 HorizontalAlignment="Left"
                 VerticalAlignment="Center"
                 Height="25"
                 Width="25"
-                Margin="42.4 0 0 0"
+                Margin="32.4 0 0 0"
                 Foreground="#504D85"
                 Kind="Layers">
-            </materialDesign:PackIcon>
-            <TextBlock
+                </materialDesign:PackIcon>
+                <TextBlock
                 x:Name="txbAgencyType"
                 Text="Special"
                 FontSize="22"
@@ -136,27 +142,27 @@
                 Margin="85 0 0 0"
                 HorizontalAlignment="Left" 
                 VerticalAlignment="Center"/>
-        </Grid>
-        <Grid
+            </Grid>
+            <Grid
             Grid.Row="4">
-            <Ellipse
+                <Ellipse
                 Height="30"
                 Width="30"
                 Fill="#78D1E4" 
                 HorizontalAlignment="Left" 
                 VerticalAlignment="Center"
-                Margin="40 0 0 0">
-            </Ellipse>
-            <materialDesign:PackIcon
+                Margin="30 0 0 0">
+                </Ellipse>
+                <materialDesign:PackIcon
                 HorizontalAlignment="Left"
                 VerticalAlignment="Center"
                 Height="25"
                 Width="25"
-                Margin="42.4 0 0 0"
+                Margin="32.4 0 0 0"
                 Foreground="#504D85"
                 Kind="CalendarRange">
-            </materialDesign:PackIcon>
-            <TextBlock
+                </materialDesign:PackIcon>
+                <TextBlock
                 x:Name="txbAgencyDate"
                 Text="13/04/2020"
                 FontSize="22"
@@ -164,10 +170,10 @@
                Margin="85 0 0 0"
                 HorizontalAlignment="Left" 
                 VerticalAlignment="Center"/>
-        </Grid>
-        <Grid
+            </Grid>
+            <Grid
             Grid.Row="5">
-            <materialDesign:PackIcon
+                <materialDesign:PackIcon
                 Kind="ChevronDoubleRight"
                 VerticalAlignment="Center"
                 HorizontalAlignment="Right"
@@ -175,7 +181,7 @@
                 Cursor="Hand"
                 Height="20"
                 Width="20"/>
-            <Button
+                <Button
                 x:Name="btnShowInfo"
                 BorderBrush="{x:Null}"
                 Background="{x:Null}"
@@ -186,14 +192,15 @@
                 Margin="5"
                 FontStyle="Italic"
                 FontSize="12">
-                <i:Interaction.Triggers>
-                    <i:EventTrigger EventName="Click">
-                        <i:InvokeCommandAction Command="{Binding OpenEditStoreWindowCommand}" 
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click">
+                            <i:InvokeCommandAction Command="{Binding OpenEditStoreWindowCommand}" 
                                    CommandParameter="{Binding ElementName=StoreUC}"/>
-                    </i:EventTrigger>
-                </i:Interaction.Triggers>
-            </Button>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </Button>
 
+            </Grid>
         </Grid>
-    </Grid>
+    </Border>
 </UserControl>

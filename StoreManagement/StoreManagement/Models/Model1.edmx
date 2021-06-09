@@ -1,0 +1,370 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="STOREMANAGEMENTModel1.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="ACCOUNT">
+          <Key>
+            <PropertyRef Name="USERNAME" />
+          </Key>
+          <Property Name="USERNAME" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="PASSWORD" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="BILL">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="STOREID" Type="int" />
+          <Property Name="CHECKOUT" Type="date" />
+          <Property Name="TOTAL" Type="bigint" />
+        </EntityType>
+        <EntityType Name="BILLINFO">
+          <Key>
+            <PropertyRef Name="BILLID" />
+            <PropertyRef Name="GOODSID" />
+          </Key>
+          <Property Name="BILLID" Type="int" Nullable="false" />
+          <Property Name="GOODSID" Type="int" Nullable="false" />
+          <Property Name="COUNT" Type="int" />
+        </EntityType>
+        <EntityType Name="GOODS">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="NAME" Type="nvarchar" MaxLength="100" />
+          <Property Name="UNIT" Type="nvarchar" MaxLength="100" />
+          <Property Name="COSTPRICE" Type="bigint" />
+          <Property Name="PRICE" Type="bigint" />
+          <Property Name="COUNT" Type="int" />
+        </EntityType>
+        <EntityType Name="STORE">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="NAME" Type="nvarchar" MaxLength="100" />
+          <Property Name="TYPEOFSTORE" Type="int" />
+          <Property Name="PHONE" Type="varchar" MaxLength="10" />
+          <Property Name="ADDRESS" Type="nvarchar" MaxLength="100" />
+          <Property Name="DISTRICT" Type="nvarchar" MaxLength="100" />
+          <Property Name="CHECKIN" Type="date" />
+          <Property Name="DEBT" Type="bigint" />
+        </EntityType>
+        <EntityType Name="TYPEOFSTORE">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="NAME" Type="nvarchar" MaxLength="100" />
+          <Property Name="MAXOFDEBT" Type="bigint" />
+        </EntityType>
+        <Association Name="FK_BillInfoBill">
+          <End Role="BILL" Type="Self.BILL" Multiplicity="1" />
+          <End Role="BILLINFO" Type="Self.BILLINFO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BILL">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="BILLINFO">
+              <PropertyRef Name="BILLID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BillInfoGoods">
+          <End Role="GOODS" Type="Self.GOODS" Multiplicity="1" />
+          <End Role="BILLINFO" Type="Self.BILLINFO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GOODS">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="BILLINFO">
+              <PropertyRef Name="GOODSID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BillStore">
+          <End Role="STORE" Type="Self.STORE" Multiplicity="0..1" />
+          <End Role="BILL" Type="Self.BILL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="STORE">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="BILL">
+              <PropertyRef Name="STOREID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StoreOfType">
+          <End Role="TYPEOFSTORE" Type="Self.TYPEOFSTORE" Multiplicity="0..1" />
+          <End Role="STORE" Type="Self.STORE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TYPEOFSTORE">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="STORE">
+              <PropertyRef Name="TYPEOFSTORE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="STOREMANAGEMENTModel1StoreContainer">
+          <EntitySet Name="ACCOUNT" EntityType="Self.ACCOUNT" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BILL" EntityType="Self.BILL" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BILLINFO" EntityType="Self.BILLINFO" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GOODS" EntityType="Self.GOODS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="STORE" EntityType="Self.STORE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TYPEOFSTORE" EntityType="Self.TYPEOFSTORE" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_BillInfoBill" Association="Self.FK_BillInfoBill">
+            <End Role="BILL" EntitySet="BILL" />
+            <End Role="BILLINFO" EntitySet="BILLINFO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BillInfoGoods" Association="Self.FK_BillInfoGoods">
+            <End Role="GOODS" EntitySet="GOODS" />
+            <End Role="BILLINFO" EntitySet="BILLINFO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BillStore" Association="Self.FK_BillStore">
+            <End Role="STORE" EntitySet="STORE" />
+            <End Role="BILL" EntitySet="BILL" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StoreOfType" Association="Self.FK_StoreOfType">
+            <End Role="TYPEOFSTORE" EntitySet="TYPEOFSTORE" />
+            <End Role="STORE" EntitySet="STORE" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="STOREMANAGEMENTModel1" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="ACCOUNT">
+          <Key>
+            <PropertyRef Name="USERNAME" />
+          </Key>
+          <Property Name="USERNAME" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PASSWORD" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="BILL">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="STOREID" Type="Int32" />
+          <Property Name="CHECKOUT" Type="DateTime" Precision="0" />
+          <Property Name="TOTAL" Type="Int64" />
+          <NavigationProperty Name="BILLINFOes" Relationship="Self.FK_BillInfoBill" FromRole="BILL" ToRole="BILLINFO" />
+          <NavigationProperty Name="STORE" Relationship="Self.FK_BillStore" FromRole="BILL" ToRole="STORE" />
+        </EntityType>
+        <EntityType Name="BILLINFO">
+          <Key>
+            <PropertyRef Name="BILLID" />
+            <PropertyRef Name="GOODSID" />
+          </Key>
+          <Property Name="BILLID" Type="Int32" Nullable="false" />
+          <Property Name="GOODSID" Type="Int32" Nullable="false" />
+          <Property Name="COUNT" Type="Int32" />
+          <NavigationProperty Name="BILL" Relationship="Self.FK_BillInfoBill" FromRole="BILLINFO" ToRole="BILL" />
+          <NavigationProperty Name="GOOD" Relationship="Self.FK_BillInfoGoods" FromRole="BILLINFO" ToRole="GOODS" />
+        </EntityType>
+        <EntityType Name="GOOD">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="NAME" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="UNIT" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="COSTPRICE" Type="Int64" />
+          <Property Name="PRICE" Type="Int64" />
+          <Property Name="COUNT" Type="Int32" />
+          <NavigationProperty Name="BILLINFOes" Relationship="Self.FK_BillInfoGoods" FromRole="GOODS" ToRole="BILLINFO" />
+        </EntityType>
+        <EntityType Name="STORE">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="NAME" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="TYPEOFSTORE" Type="Int32" />
+          <Property Name="PHONE" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="ADDRESS" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="DISTRICT" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="CHECKIN" Type="DateTime" Precision="0" />
+          <Property Name="DEBT" Type="Int64" />
+          <NavigationProperty Name="BILLs" Relationship="Self.FK_BillStore" FromRole="STORE" ToRole="BILL" />
+          <NavigationProperty Name="TYPEOFSTORE1" Relationship="Self.FK_StoreOfType" FromRole="STORE" ToRole="TYPEOFSTORE" />
+        </EntityType>
+        <EntityType Name="TYPEOFSTORE">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="NAME" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="MAXOFDEBT" Type="Int64" />
+          <NavigationProperty Name="STOREs" Relationship="Self.FK_StoreOfType" FromRole="TYPEOFSTORE" ToRole="STORE" />
+        </EntityType>
+        <Association Name="FK_BillInfoBill">
+          <End Role="BILL" Type="Self.BILL" Multiplicity="1" />
+          <End Role="BILLINFO" Type="Self.BILLINFO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BILL">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="BILLINFO">
+              <PropertyRef Name="BILLID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BillStore">
+          <End Role="STORE" Type="Self.STORE" Multiplicity="0..1" />
+          <End Role="BILL" Type="Self.BILL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="STORE">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="BILL">
+              <PropertyRef Name="STOREID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BillInfoGoods">
+          <End Role="GOODS" Type="Self.GOOD" Multiplicity="1" />
+          <End Role="BILLINFO" Type="Self.BILLINFO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GOODS">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="BILLINFO">
+              <PropertyRef Name="GOODSID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StoreOfType">
+          <End Role="TYPEOFSTORE" Type="Self.TYPEOFSTORE" Multiplicity="0..1" />
+          <End Role="STORE" Type="Self.STORE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TYPEOFSTORE">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="STORE">
+              <PropertyRef Name="TYPEOFSTORE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="STOREMANAGEMENTEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="ACCOUNTs" EntityType="Self.ACCOUNT" />
+          <EntitySet Name="BILLs" EntityType="Self.BILL" />
+          <EntitySet Name="BILLINFOes" EntityType="Self.BILLINFO" />
+          <EntitySet Name="GOODS" EntityType="Self.GOOD" />
+          <EntitySet Name="STOREs" EntityType="Self.STORE" />
+          <EntitySet Name="TYPEOFSTOREs" EntityType="Self.TYPEOFSTORE" />
+          <AssociationSet Name="FK_BillInfoBill" Association="Self.FK_BillInfoBill">
+            <End Role="BILL" EntitySet="BILLs" />
+            <End Role="BILLINFO" EntitySet="BILLINFOes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BillStore" Association="Self.FK_BillStore">
+            <End Role="STORE" EntitySet="STOREs" />
+            <End Role="BILL" EntitySet="BILLs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BillInfoGoods" Association="Self.FK_BillInfoGoods">
+            <End Role="GOODS" EntitySet="GOODS" />
+            <End Role="BILLINFO" EntitySet="BILLINFOes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StoreOfType" Association="Self.FK_StoreOfType">
+            <End Role="TYPEOFSTORE" EntitySet="TYPEOFSTOREs" />
+            <End Role="STORE" EntitySet="STOREs" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="STOREMANAGEMENTModel1StoreContainer" CdmEntityContainer="STOREMANAGEMENTEntities">
+          <EntitySetMapping Name="ACCOUNTs">
+            <EntityTypeMapping TypeName="STOREMANAGEMENTModel1.ACCOUNT">
+              <MappingFragment StoreEntitySet="ACCOUNT">
+                <ScalarProperty Name="USERNAME" ColumnName="USERNAME" />
+                <ScalarProperty Name="PASSWORD" ColumnName="PASSWORD" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BILLs">
+            <EntityTypeMapping TypeName="STOREMANAGEMENTModel1.BILL">
+              <MappingFragment StoreEntitySet="BILL">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="STOREID" ColumnName="STOREID" />
+                <ScalarProperty Name="CHECKOUT" ColumnName="CHECKOUT" />
+                <ScalarProperty Name="TOTAL" ColumnName="TOTAL" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BILLINFOes">
+            <EntityTypeMapping TypeName="STOREMANAGEMENTModel1.BILLINFO">
+              <MappingFragment StoreEntitySet="BILLINFO">
+                <ScalarProperty Name="BILLID" ColumnName="BILLID" />
+                <ScalarProperty Name="GOODSID" ColumnName="GOODSID" />
+                <ScalarProperty Name="COUNT" ColumnName="COUNT" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GOODS">
+            <EntityTypeMapping TypeName="STOREMANAGEMENTModel1.GOOD">
+              <MappingFragment StoreEntitySet="GOODS">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="NAME" ColumnName="NAME" />
+                <ScalarProperty Name="UNIT" ColumnName="UNIT" />
+                <ScalarProperty Name="COSTPRICE" ColumnName="COSTPRICE" />
+                <ScalarProperty Name="PRICE" ColumnName="PRICE" />
+                <ScalarProperty Name="COUNT" ColumnName="COUNT" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="STOREs">
+            <EntityTypeMapping TypeName="STOREMANAGEMENTModel1.STORE">
+              <MappingFragment StoreEntitySet="STORE">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="NAME" ColumnName="NAME" />
+                <ScalarProperty Name="TYPEOFSTORE" ColumnName="TYPEOFSTORE" />
+                <ScalarProperty Name="PHONE" ColumnName="PHONE" />
+                <ScalarProperty Name="ADDRESS" ColumnName="ADDRESS" />
+                <ScalarProperty Name="DISTRICT" ColumnName="DISTRICT" />
+                <ScalarProperty Name="CHECKIN" ColumnName="CHECKIN" />
+                <ScalarProperty Name="DEBT" ColumnName="DEBT" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TYPEOFSTOREs">
+            <EntityTypeMapping TypeName="STOREMANAGEMENTModel1.TYPEOFSTORE">
+              <MappingFragment StoreEntitySet="TYPEOFSTORE">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="NAME" ColumnName="NAME" />
+                <ScalarProperty Name="MAXOFDEBT" ColumnName="MAXOFDEBT" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

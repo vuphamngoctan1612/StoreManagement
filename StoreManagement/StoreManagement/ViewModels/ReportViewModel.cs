@@ -172,7 +172,7 @@ namespace StoreManagement.ViewModels
             {
                 new ColumnSeries
                 {
-                    Title = "Revenue",
+                    Title = "Total",
                     Values = this.GetTotalByMonth(month, year)
                 },
                 new ColumnSeries
@@ -182,7 +182,7 @@ namespace StoreManagement.ViewModels
                 }
             };
             Labels = this.GetDayInMonth(month, year);
-            Formatter = value => string.Format("{0:N0}", value);
+            Formatter = value => ConvertToString(value);
         }
 
         private void LoadTop3Agency(HomeWindow para)
@@ -226,17 +226,22 @@ namespace StoreManagement.ViewModels
             {
                 new ColumnSeries
                 {
-                    Title = "Revenue",
+                    Title = "Total",
                     Values = this.GetTotalByMonth(month, year)
                 },
                 new ColumnSeries
                 {
                     Title  = "Debt",
                     Values = this.GetDebtByMonth(month, year)
+                },
+                new ColumnSeries
+                {
+                    Title = "Cost",
+                    Values = this.GetCostByMonth(month, year)
                 }
             };
             Labels = this.GetDayInMonth(month, year);
-            Formatter = value => string.Format("{0:N0}", value);
+            Formatter = value => ConvertToString(value);
         }
         private void LoadChartByYear(string year)
         {
@@ -245,17 +250,22 @@ namespace StoreManagement.ViewModels
             {
                 new ColumnSeries
                 {
-                    Title = "Revenue",
+                    Title = "Total",
                     Values = this.GetTotalByYear(year)
                 },
                 new ColumnSeries
                 {
                     Title  = "Debt",
                     Values = this.GetDebtByYear(year)
+                },
+                new ColumnSeries
+                {
+                    Title  = "Cost",
+                    Values = this.GetCostByYear(year)
                 }
             };
             Labels = this.GetMonthInYear(year);
-            Formatter = value => string.Format("{0:N0}", value);
+            Formatter = value => ConvertToString(value);
         }
         private void LoadChartByQuarter(string year)
         {
@@ -264,17 +274,22 @@ namespace StoreManagement.ViewModels
             {
                 new ColumnSeries
                 {
-                    Title = "Revenue",
+                    Title = "Total",
                     Values = this.GetTotalByQuarter(year)
                 },
                 new ColumnSeries
                 {
                     Title  = "Debt",
                     Values = this.GetDebtByQuarter(year)
+                },
+                new ColumnSeries
+                {
+                    Title  = "Cost",
+                    Values = this.GetCostByQuarter(year)
                 }
             };
             Labels = this.GetQuarterInYear(year);
-            Formatter = value => string.Format("{0:N0}", value);
+            Formatter = value => ConvertToString(value);
         }
         #endregion
         #region For Live Chart
@@ -308,7 +323,11 @@ namespace StoreManagement.ViewModels
             {
                 string query = string.Format("SELECT DAY(CHECKOUT) AS DAY FROM Invoice " +
                     "WHERE MONTH(CHECKOUT) = {0} AND YEAR(CHECKOUT) = {1} " +
-                    "GROUP BY DAY(CHECKOUT)", month, year);
+                    "GROUP BY DAY(CHECKOUT) " +
+                    "UNION " +
+                    "SELECT DAY(CHECKIN) AS DAY FROM StockReceipt " +
+                    "WHERE MONTH(CHECKIN) = {0} AND YEAR(CHECKIN) = {1} " +
+                    "GROUP BY DAY(CHECKIN)", month, year);
                 temp = DataProvider.Instance.DB.Database.SqlQuery<Int32>(query).ToList();
                 foreach (var item in temp)
                 {
@@ -328,9 +347,13 @@ namespace StoreManagement.ViewModels
 
             try
             {
-                string query = string.Format("SELECT MONTH(CHECKOUT) AS MONTH FROM Invoice " +
-                        "WHERE YEAR(CHECKOUT) = {0} " +
-                        "GROUP BY MONTH(CHECKOUT)", year);
+                string query = string.Format("SELECT MONTH(CHECKOUT) AS DAY FROM Invoice " +
+                    "WHERE YEAR(CHECKOUT) = {0} " +
+                    "GROUP BY MONTH(CHECKOUT) " +
+                    "UNION " +
+                    "SELECT MONTH(CHECKIN) AS DAY FROM StockReceipt " +
+                    "WHERE YEAR(CHECKIN) = {0} " +
+                    "GROUP BY MONTH(CHECKIN)", year);
                 temp = DataProvider.Instance.DB.Database.SqlQuery<Int32>(query).ToList();
 
                 foreach (Int32 item in temp)
@@ -353,7 +376,11 @@ namespace StoreManagement.ViewModels
             {
                 string query = string.Format("SELECT DATEPART(QUARTER, CHECKOUT) AS QUARTER FROM Invoice " +
                     "WHERE YEAR(CHECKOUT) = {0} " +
-                    "GROUP BY DATEPART(QUARTER, CHECKOUT)", year);
+                    "GROUP BY DATEPART(QUARTER, CHECKOUT) " +
+                    "UNION " +
+                    "SELECT DATEPART(QUARTER, CHECKIN) AS QUARTER FROM StockReceipt " +
+                    "WHERE YEAR(CHECKIN) = {0} " +
+                    "GROUP BY DATEPART(QUARTER, CHECKIN)", year);
                 temp = DataProvider.Instance.DB.Database.SqlQuery<Int32>(query).ToList();
 
                 foreach (Int32 item in temp)
@@ -441,6 +468,79 @@ namespace StoreManagement.ViewModels
             }
         }
 
+        private ChartValues<double> GetCostByMonth(string month, string year)
+        {
+            ChartValues<double> res = new ChartValues<double>();
+            List<Int64> temp = new List<Int64>();
+
+            try
+            {
+                string query = string.Format("SELECT SUM(TOTAL) AS TOTAL FROM StockReceipt " +
+                    "WHERE MONTH(CHECKIN) = {0} AND YEAR(CHECKIN) = {1} " +
+                    "GROUP BY DAY(CHECKIN)", month, year);
+
+                temp = DataProvider.Instance.DB.Database.SqlQuery<Int64>(query).ToList();
+
+                foreach (Int64 item in temp)
+                {
+                    res.Add((double.Parse(item.ToString())));
+                }
+                return res;
+            }
+            catch
+            {
+                return res;
+            }
+        }
+        private ChartValues<double> GetCostByYear(string year)
+        {
+            ChartValues<double> res = new ChartValues<double>();
+            List<Int64> temp = new List<Int64>();
+
+            try
+            {
+                string query = string.Format("SELECT SUM(TOTAL) AS TOTAL FROM StockReceipt " +
+                    "WHERE YEAR(CHECKIN) = {0} " +
+                    "GROUP BY MONTH(CHECKIN)", year);
+
+                temp = DataProvider.Instance.DB.Database.SqlQuery<Int64>(query).ToList();
+
+                foreach (Int64 item in temp)
+                {
+                    res.Add((double.Parse(item.ToString())));
+                }
+                return res;
+            }
+            catch
+            {
+                return res;
+            }
+        }
+        private ChartValues<double> GetCostByQuarter(string year)
+        {
+            ChartValues<double> res = new ChartValues<double>();
+            List<Int64> temp = new List<Int64>();
+
+            try
+            {
+                string query = string.Format("SELECT SUM(TOTAL) AS TOTAL FROM StockReceipt " +
+                    "WHERE YEAR(CHECKIN) = {0} " +
+                    "GROUP BY DATEPART(QUARTER, CHECKIN)", year);
+
+                temp = DataProvider.Instance.DB.Database.SqlQuery<Int64>(query).ToList();
+
+                foreach (Int64 item in temp)
+                {
+                    res.Add((double.Parse(item.ToString())));
+                }
+                return res;
+            }
+            catch
+            {
+                return res;
+            }
+        }
+
         private ChartValues<double> GetTotalByMonth(string month, string year)
         {
             ChartValues<double> res = new ChartValues<double>();
@@ -448,9 +548,8 @@ namespace StoreManagement.ViewModels
 
             try
             {
-                string query = string.Format("SELECT SUM(Total) FROM InvoiceInfo " +
-                    "JOIN Invoice ON InvoiceInfo.InvoiceID = Invoice.ID " +
-                    "WHERE MONTH(Checkout) = {0} AND YEAR(CHECKOUT) = {1} " +
+                string query = string.Format("SELECT SUM(Total) AS TOTAL FROM Invoice " +
+                    "WHERE MONTH(CHECKOUT) = {0} AND YEAR(CHECKOUT) = {1} " +
                     "GROUP BY DAY(CHECKOUT)", month, year);
 
                 temp = DataProvider.Instance.DB.Database.SqlQuery<Int64>(query).ToList();
@@ -473,10 +572,9 @@ namespace StoreManagement.ViewModels
 
             try
             {
-                string query = string.Format("SELECT SUM(Total) FROM InvoiceInfo " +
-                    "JOIN Invoice ON InvoiceInfo.InvoiceID = Invoice.ID " +
+                string query = string.Format("SELECT SUM(Total) AS TOTAL FROM Invoice " +
                     "WHERE YEAR(CHECKOUT) = {0} " +
-                    "GROUP BY MONTH(Checkout)", year);
+                    "GROUP BY MONTH(CHECKOUT)", year);
 
                 temp = DataProvider.Instance.DB.Database.SqlQuery<Int64>(query).ToList();
 
@@ -498,8 +596,7 @@ namespace StoreManagement.ViewModels
 
             try
             {
-                string query = string.Format("SELECT SUM(Total) FROM InvoiceInfo " +
-                    "JOIN Invoice ON InvoiceInfo.InvoiceID = Invoice.ID " +
+                string query = string.Format("SELECT SUM(Total) AS TOTAL FROM Invoice " +
                     "WHERE YEAR(CHECKOUT) = {0} " +
                     "GROUP BY DATEPART(QUARTER, CHECKOUT)", year);
                 temp = DataProvider.Instance.DB.Database.SqlQuery<Int64>(query).ToList();

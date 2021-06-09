@@ -9,13 +9,15 @@ using System.Windows.Input;
 using StoreManagement.Views;
 using System.Windows.Controls;
 using System.Windows.Media;
+using System.Windows;
 
 namespace StoreManagement.ViewModels
 {
     public class HomeViewModel : BaseViewModel
     {
         private string uid;
-
+        public bool Isloaded = false;
+       
         public ICommand SwitchTabCommand { get; set; }
         public ICommand GetUidCommand { get; set; }
 
@@ -47,6 +49,7 @@ namespace StoreManagement.ViewModels
             para.rec_btn_Menu_Bill.Fill = transparent;
             para.rec_btn_Menu_Report.Fill = transparent;
             para.rec_btn_Menu_Setting.Fill = transparent;
+            para.rec_btn_Menu_Business.Fill = transparent;
 
             switch (index)
             {

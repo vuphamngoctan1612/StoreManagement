@@ -13,21 +13,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace StoreManagement.Views
+namespace StoreManagement.Resources.UserControls
 {
     /// <summary>
-    /// Interaction logic for usAccountSetting.xaml
+    /// Interaction logic for AgencyControlUC.xaml
     /// </summary>
-    public partial class usAccountSetting : UserControl
+    public partial class AgencyControlUC : UserControl
     {
-        public usAccountSetting()
+        public AgencyControlUC()
         {
             InitializeComponent();
-        }
-
-        private void btLogin_Click(object sender, RoutedEventArgs e)
-        {
-
         }
     }
 }
