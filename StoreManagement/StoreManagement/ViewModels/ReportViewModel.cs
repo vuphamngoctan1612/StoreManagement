@@ -205,7 +205,7 @@ namespace StoreManagement.ViewModels
 
 
         #region Load Chart
-        private void LoadChartByAgency()
+        public void LoadChartByAgency()
         {
             AxisXTitle = "Agency";
             SeriesCollection = new SeriesCollection
@@ -219,7 +219,7 @@ namespace StoreManagement.ViewModels
             Labels = this.GetTop5AgencyByMonth();
             Formatter = value => ConvertToString(value);
         }
-        private void LoadChartByProduct()
+        public void LoadChartByProduct()
         {
             AxisXTitle = "Prodcut";
             SeriesCollection = new SeriesCollection
