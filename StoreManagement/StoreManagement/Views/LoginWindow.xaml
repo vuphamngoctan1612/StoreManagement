@@ -92,16 +92,8 @@
                 VerticalAlignment="Top" 
                 HorizontalAlignment="Left"
                 VerticalContentAlignment="Center"
-                Validation.ErrorTemplate="{StaticResource textBoxErrorTemplate2}"
                 FontSize="30"
                 materialDesign:HintAssist.Hint="Username">
-                <TextBox.Text>
-                    <Binding Path="Username" Source="{StaticResource Account}" UpdateSourceTrigger="PropertyChanged" Mode="OneWayToSource">
-                        <Binding.ValidationRules>
-                            <vd:NotNullValidation ErrorMessage="Please enter username"/>
-                        </Binding.ValidationRules>
-                    </Binding>
-                </TextBox.Text>
             </TextBox>
             <Rectangle
                 Fill="White" 
@@ -123,16 +115,8 @@
                 VerticalAlignment="Top" 
                 HorizontalAlignment="Left"
                 VerticalContentAlignment="Center"
-                FontSize="30"                
-                Validation.ErrorTemplate="{StaticResource textBoxErrorTemplate2}"
+                FontSize="30"
                 materialDesign:HintAssist.Hint="Password">
-                <PasswordBox.DataContext>
-                    <Binding Path="Name" Source="{StaticResource AccountVM}" UpdateSourceTrigger="PropertyChanged" Mode="OneWayToSource">
-                        <Binding.ValidationRules>
-                            <vd:NotNullValidation ErrorMessage="Please enter password"/>
-                        </Binding.ValidationRules>
-                    </Binding>
-                </PasswordBox.DataContext>
             </PasswordBox>
             <Button 
                 x:Name="btLogin" 

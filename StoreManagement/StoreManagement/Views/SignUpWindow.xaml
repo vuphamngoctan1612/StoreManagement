@@ -136,15 +136,7 @@
                         FontWeight="SemiBold"
                         Padding="0"
                         HorizontalContentAlignment="Left"
-                        VerticalContentAlignment="Center"
-                        Validation.ErrorTemplate="{StaticResource textBoxErrorTemplate}">
-                        <TextBox.Text>
-                            <Binding Path="DisplayName" Source="{StaticResource Account}" UpdateSourceTrigger="PropertyChanged" Mode="OneWayToSource">
-                                <Binding.ValidationRules>
-                                    <vd:NotNullValidation ErrorMessage="Please enter your displayname!"/>
-                                </Binding.ValidationRules>
-                            </Binding>
-                        </TextBox.Text>
+                        VerticalContentAlignment="Center">
                     </TextBox>
                 </Grid>
                 <Grid Grid.Row="1"
@@ -181,20 +173,7 @@
                         FontWeight="SemiBold"
                         Padding="0"
                         HorizontalContentAlignment="Left"
-                        VerticalContentAlignment="Center"
-                        Validation.ErrorTemplate="{StaticResource textBoxErrorTemplate}">
-                        <TextBox.Text>
-                            <Binding Path="Username" Source="{StaticResource Account}" UpdateSourceTrigger="PropertyChanged" Mode="OneWayToSource">
-                                <Binding.ValidationRules>
-                                    <vd:TextBoxValidation 
-                                        ErrorMessage="Use only letters (a -> z, A->Z) or digits (0 -> 9)" 
-                                        ErrorMessageNull="Please enter your username!"/>
-                                    <vd:ExistValidation 
-                                        ErrorMessage="Username already exists!" 
-                                        ElementName="UserName"/>
-                                </Binding.ValidationRules>
-                            </Binding>
-                        </TextBox.Text>
+                        VerticalContentAlignment="Center">
                     </TextBox>
                 </Grid>
                 <Grid Grid.Row="2"

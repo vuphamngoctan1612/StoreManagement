@@ -22,8 +22,6 @@ namespace StoreManagement.Views
         public SignUpWindow()
         {
             InitializeComponent();
-            this.txtUsername.Text = null;
-            this.displayname.Text = null;
         }
     }
 }

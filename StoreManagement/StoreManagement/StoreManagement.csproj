@@ -95,6 +95,7 @@
     </Compile>
     <Compile Include="Converter.cs" />
     <Compile Include="CurrentAccount.cs" />
+    <Compile Include="CustomMessageBox.cs" />
     <Compile Include="Models\Account.cs">
       <DependentUpon>AgencyManagement_Entities.tt</DependentUpon>
     </Compile>
@@ -181,6 +182,7 @@
     <Compile Include="Resources\UserControls\TypeOfAgencyUC.xaml.cs">
       <DependentUpon>TypeOfAgencyUC.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Util.cs" />
     <Compile Include="Validations\DateBookingValidation.cs" />
     <Compile Include="Validations\ExistValidation.cs" />
     <Compile Include="Validations\NotExistValidation.cs" />
@@ -217,6 +219,9 @@
     </Compile>
     <Compile Include="Views\ChangePasswordWindow.xaml.cs">
       <DependentUpon>ChangePasswordWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CustomMessageBoxWindow.xaml.cs">
+      <DependentUpon>CustomMessageBoxWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\HomeWindow.xaml.cs">
       <DependentUpon>HomeWindow.xaml</DependentUpon>
@@ -360,6 +365,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\CustomMessageBoxWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\HomeWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -399,6 +408,11 @@
       <DependentUpon>AgencyManagement_Entities.edmx</DependentUpon>
       <LastGenOutput>AgencyManagement_Entities.cs</LastGenOutput>
     </Content>
+    <Resource Include="Resources\Images\error.png" />
+    <Resource Include="Resources\Images\help.png" />
+    <Resource Include="Resources\Images\info.png" />
+    <Resource Include="Resources\Images\succes.png" />
+    <Resource Include="Resources\Images\warning.png" />
     <Resource Include="Resources\Images\default.jpg" />
     <Resource Include="Resources\Images\logo.png" />
   </ItemGroup>

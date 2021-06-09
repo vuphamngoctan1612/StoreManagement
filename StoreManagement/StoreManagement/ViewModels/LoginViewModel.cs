@@ -42,13 +42,14 @@ namespace StoreManagement.ViewModels
             //check username
             if (String.IsNullOrEmpty(parameter.txtUser.Text))
             {
+                CustomMessageBox.Show("Please enter your username!", "Notify", MessageBoxButton.OK, MessageBoxImage.Warning);
                 parameter.txtUser.Focus();
-                parameter.txtUser.Text = "";
                 return;
             }
             //check password
             if (String.IsNullOrEmpty(parameter.txtPassword.Password))
             {
+                CustomMessageBox.Show("Please enter your password!", "Notify", MessageBoxButton.OK, MessageBoxImage.Warning);
                 parameter.txtPassword.Focus();
                 return;
             }
@@ -77,7 +78,7 @@ namespace StoreManagement.ViewModels
             }
             else
             {
-                MessageBox.Show("Sai tên đăng nhập hoặc mật khẩu!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
+                CustomMessageBox.Show("Username or password is not valid!", "Notify", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
     }

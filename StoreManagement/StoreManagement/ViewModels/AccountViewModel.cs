@@ -185,21 +185,32 @@ namespace StoreManagement.ViewModels
         {
             if (string.IsNullOrEmpty(para.txtUsername.Text))
             {
+                CustomMessageBox.Show("Please enter your username!", "Notify", MessageBoxButton.OK, MessageBoxImage.Warning);
                 para.txtUsername.Focus();
                 return;
             }
             if (string.IsNullOrEmpty(para.pwbPassword.Password))
             {
+                CustomMessageBox.Show("Please enter your password!", "Notify", MessageBoxButton.OK, MessageBoxImage.Warning);
                 para.pwbPassword.Focus();
                 return;
             }
             if (string.IsNullOrEmpty(para.pwbNewPassword.Password))
             {
+                CustomMessageBox.Show("Please enter your new password!", "Notify", MessageBoxButton.OK, MessageBoxImage.Warning);
                 para.pwbPassword.Focus();
                 return;
             }
             if (string.IsNullOrEmpty(para.pwbConfirmNewPassword.Password))
             {
+                CustomMessageBox.Show("Please enter your confirm password!", "Notify", MessageBoxButton.OK, MessageBoxImage.Warning);
+                para.pwbConfirmNewPassword.Focus();
+                return;
+            }
+
+            if (para.pwbNewPassword.Password != para.pwbConfirmNewPassword.Password)
+            {
+                CustomMessageBox.Show("Password does not match!", "Notify", MessageBoxButton.OK, MessageBoxImage.Error);
                 para.pwbConfirmNewPassword.Focus();
                 return;
             }
@@ -210,17 +221,12 @@ namespace StoreManagement.ViewModels
             var checkAcc = DataProvider.Instance.DB.Accounts.Where(p => p.Username == username && p.Password == password).Count();
             if(checkAcc <= 0)
             {
+                CustomMessageBox.Show("Username or password is not valid!", "Notify", MessageBoxButton.OK, MessageBoxImage.Error);
                 para.pwbPassword.Focus();
                 return;
             }
             else
             {
-                if (para.pwbNewPassword.Password != para.pwbConfirmNewPassword.Password)
-                {
-                    para.pwbConfirmNewPassword.Focus();
-                    return;
-                }
-
                 Account account = DataProvider.Instance.DB.Accounts.SingleOrDefault(p => p.Username == username);
                 string newPassword = MD5Hash(para.pwbNewPassword.Password);
                 if (account != null)

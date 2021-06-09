@@ -22,8 +22,6 @@ namespace StoreManagement.Views
         public LoginWindow()
         {
             InitializeComponent();
-            this.txtUser.Text = null;
-            this.txtPassword.Password = null;
         }
     }
 }

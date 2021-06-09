@@ -68,32 +68,32 @@ namespace StoreManagement.ViewModels
             }
             if (String.IsNullOrEmpty(parameter.displayname.Text))
             {
+                CustomMessageBox.Show("Please enter your display name!", "Notify", MessageBoxButton.OK, MessageBoxImage.Warning);
                 parameter.displayname.Focus();
-                parameter.displayname.Text = "";
                 return;
             }
             if (String.IsNullOrEmpty(parameter.txtUsername.Text))
             {
+                CustomMessageBox.Show("Please enter your username!", "Notify", MessageBoxButton.OK, MessageBoxImage.Warning);
                 parameter.txtUsername.Focus();
-                parameter.txtUsername.Text = "";
                 return;
             }
             if (String.IsNullOrEmpty(parameter.pwbPassword.Password))
             {
-                MessageBox.Show("Vui lòng nhập mật khẩu!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
+                CustomMessageBox.Show("Please enter your password!", "Notify", MessageBoxButton.OK, MessageBoxImage.Warning);
                 parameter.pwbPassword.Focus();
                 return;
             }
             if (String.IsNullOrEmpty(parameter.pwbPasswordConfirm.Password))
             {
-                MessageBox.Show("Vui lòng xác thực mật khẩu!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
+                CustomMessageBox.Show("Please enter your confirm password!", "Notify", MessageBoxButton.OK, MessageBoxImage.Warning);
                 parameter.pwbPasswordConfirm.Focus();
                 return;
             }
 
             if (parameter.pwbPassword.Password != parameter.pwbPasswordConfirm.Password)
             {
-                MessageBox.Show("Mật khẩu không trùng khớp!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
+                CustomMessageBox.Show("Password does not match!", "Notify", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
 
@@ -120,7 +120,7 @@ namespace StoreManagement.ViewModels
             }
             catch
             {
-                MessageBox.Show("Tài khoản đã tồn tại! Vui lòng nhập tài khoản khác", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
+                CustomMessageBox.Show("Username already exists! Please enter other account", "Notify", MessageBoxButton.OK, MessageBoxImage.Error);
                 parameter.txtUsername.Focus();
                 return;
             }
