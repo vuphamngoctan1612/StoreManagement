@@ -25,7 +25,6 @@ namespace StoreManagement.ViewModels
         //private bool isExisted;
         public HomeWindow HomeWindow { get; set; }
         private string imageFileName;
-        private string tempUsername;
         public ICommand DeleteAccountCommand { get; set; }
         public ICommand UpdateAccountCommand { get; set; }
         public ICommand LoadAccountOnWindowCommand { get; set; }
@@ -198,7 +197,7 @@ namespace StoreManagement.ViewModels
             if (string.IsNullOrEmpty(para.pwbNewPassword.Password))
             {
                 CustomMessageBox.Show("Please enter your new password!", "Notify", MessageBoxButton.OK, MessageBoxImage.Warning);
-                para.pwbPassword.Focus();
+                para.pwbNewPassword.Focus();
                 return;
             }
             if (string.IsNullOrEmpty(para.pwbConfirmNewPassword.Password))
