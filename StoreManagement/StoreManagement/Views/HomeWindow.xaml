@@ -923,7 +923,7 @@
                             HorizontalAlignment="Center"
                             Margin="0">
                             <StackPanel
-                                Width="600"
+                                Width="800"
                                 Height="50"
                                 Orientation="Horizontal"
                                 VerticalAlignment="Top"
@@ -948,10 +948,96 @@
                                     Margin="0,0,0,0" >
                                     <ComboBoxItem Content="Agency"/>
                                     <ComboBoxItem Content="Product"/>
+                                    <ComboBoxItem Content="Total And Debt"/>
                                     <i:Interaction.Triggers>
                                         <i:EventTrigger EventName="SelectionChanged">
                                             <i:InvokeCommandAction Command="{Binding SelectedTypeChangeCommand}" 
                                            CommandParameter="{Binding ElementName=wdHome}"/>
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>
+                                </ComboBox>
+                                <ComboBox
+                                    DataContext="{StaticResource ReportVM}"
+                                    x:Name="cboSelectPeriod"
+                                    Foreground="#504D85"
+                                    materialDesign:ComboBoxAssist.ClassicMode="true"
+                                    FontSize="16"
+                                    FontWeight="Medium" 
+                                    Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+                                    materialDesign:HintAssist.Hint="Chọn chu kỳ"
+                                    Width="160" 
+                                    Height="40" 
+                                    HorizontalAlignment="Left" 
+                                    VerticalAlignment="Top"
+                                    HorizontalContentAlignment="Left"
+                                    VerticalContentAlignment="Center" 
+                                    Padding="3,0,0,0" 
+                                    Margin="40 0 0 0">
+                                    <i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="SelectionChanged">
+                                            <i:InvokeCommandAction Command="{Binding SelectedPeriodChangedCommand}" 
+                                           CommandParameter="{Binding ElementName=wdHome}"/>
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>
+                                    <ComboBoxItem 
+                                        Content="Theo tháng"
+                                        Foreground="#504D85"/>
+                                    <ComboBoxItem 
+                                        Content="Theo quý"
+                                        Foreground="#504D85"/>
+                                    <ComboBoxItem 
+                                        Content="Theo năm"
+                                        Foreground="#504D85"/>
+                                </ComboBox>
+                                <ComboBox
+                                    x:Name="cboSelectTime"
+                                    DataContext="{StaticResource ReportVM}"
+                                    ItemsSource="{Binding ItemSourceTime, Mode=TwoWay}"
+                                    materialDesign:ComboBoxAssist.ClassicMode="true"
+                                    FontSize="16"
+                                    FontWeight="Medium" 
+                                    Foreground="#504D85"
+                                    Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+                                    materialDesign:HintAssist.Hint="Chọn"
+                                    Width="160" 
+                                    Height="40" 
+                                    HorizontalAlignment="Left" 
+                                    VerticalAlignment="Top"
+                                    HorizontalContentAlignment="Left"
+                                    VerticalContentAlignment="Center" 
+                                    Padding="3,0,0,0" 
+                                    Margin="40,0,0,0" >
+                                    <i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="SelectionChanged">
+                                            <i:InvokeCommandAction Command="{Binding SelectedTimeChangeCommand}" 
+                                           CommandParameter="{Binding ElementName=wdHome}"/>
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>
+                                </ComboBox>
+                                <ComboBox
+                                    x:Name="cboSelectYear"
+                                    DataContext="{StaticResource ReportVM}"
+                                    ItemsSource="{Binding ItemSourceTime2, Mode=TwoWay}"
+                                    materialDesign:ComboBoxAssist.ClassicMode="true"
+                                    FontSize="16"
+                                    FontWeight="Medium" 
+                                    Foreground="#504D85"
+                                    Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+                                    materialDesign:HintAssist.Hint="Chọn năm"
+                                    Width="160" 
+                                    Height="40" 
+                                    HorizontalAlignment="Left" 
+                                    VerticalAlignment="Top"
+                                    HorizontalContentAlignment="Left"
+                                    VerticalContentAlignment="Center" 
+                                    Padding="3,0,0,0" 
+                                    Margin="40,0,0,0" >
+                                    <i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="SelectionChanged">
+                                            <i:InvokeCommandAction Command="{Binding SelectedTimeChangeCommand}" 
+                                           CommandParameter="{Binding ElementName=wdHome}"/>
+                                            <i:InvokeCommandAction Command="{Binding SelectedYearChangeCommand}"
+                                                                    CommandParameter="{Binding ElementName=wdHome}"/>
                                         </i:EventTrigger>
                                     </i:Interaction.Triggers>
                                 </ComboBox>

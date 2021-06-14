@@ -67,6 +67,13 @@ create table Units
 
 	constraint PK_Units primary key(ID)
 )
+insert into Units
+values(3,'Hộp')
+Alter table Product
+add UnitsID int
+update Product
+set UnitsID = 1
+
 
 create table Invoice
 (
@@ -131,6 +138,8 @@ create table District
 
 	constraint PK_District primary key(Name)
 )
+
+insert into District values('Quận 1',2)
 
 alter table Agency add constraint FK_District foreign key(District) references District(Name)
 go
@@ -198,3 +207,13 @@ insert into Invoice values (16,4,'2021-1-25', 290000, 2900000)
 --INSERT INTO InvoiceInfo VALUES (2, 2,3, 450000)
 --INSERT INTO InvoiceInfo VALUES (2, 3,3, 600000)
 --INSERT INTO InvoiceInfo VALUES (2, 4,3, 1000000)
+SELECT TOP 5 Agency.ID FROM Agency 
+JOIN Invoice ON Agency.ID = Invoice.AgencyID 
+WHERE MONTH(checkout) = 5 and YEAR(checkout) = 2021
+GROUP BY Agency.ID 
+ORDER BY SUM(INVOICE.TOTAL) DESC
+
+select  sum(Total) as Total from Invoice 
+WHERE YEAR(checkout) = 2021 and DATEPART(QUARTER, CHECKOUT) = 2
+group by AgencyID 
+order by Total DESC 
