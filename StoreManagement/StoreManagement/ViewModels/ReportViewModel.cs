@@ -374,6 +374,10 @@ namespace StoreManagement.ViewModels
 
             para.cboSelectTypeOfChart.Text = "Total And Debt";
 
+            para.cboSelectPeriod.Text = "Theo tháng";
+
+            para.cboSelectTime.Text = "Tháng " + month;
+
             para.cboSelectYear.Visibility = System.Windows.Visibility.Hidden;
 
             LoadChartByMonth(month, year);
