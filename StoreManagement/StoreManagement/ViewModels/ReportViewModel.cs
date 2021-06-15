@@ -219,8 +219,15 @@ namespace StoreManagement.ViewModels
         {
             if (para.cboSelectYear.SelectedIndex != -1)
             {
-                string[] tmp = this.HomeWindow.cboSelectTime.SelectedValue.ToString().Split(' ');
-                string currentMonth = tmp[1];
+                string currentMonth;
+                if (para.cboSelectTime.SelectedIndex != -1)
+                {
+                    string[] tmp = this.HomeWindow.cboSelectTime.SelectedValue.ToString().Split(' ');
+                    currentMonth = tmp[1];
+                } else
+                {
+                    currentMonth = DateTime.Now.Month.ToString();
+                }
                 string[] tmpyear = this.HomeWindow.cboSelectYear.SelectedValue.ToString().Split(' ');
                 string selectedYear = tmpyear[1];
                 string currenYear = DateTime.Now.Year.ToString();

@@ -217,3 +217,15 @@ select  sum(Total) as Total from Invoice
 WHERE YEAR(checkout) = 2021 and DATEPART(QUARTER, CHECKOUT) = 2
 group by AgencyID 
 order by Total DESC 
+SELECT TOP 5 Product.ID FROM Product
+JOIN InvoiceInfo ON Product.ID = InvoiceInfo.ProductID
+JOIN Invoice ON Invoice.ID = InvoiceInfo.InvoiceID
+WHERE MONTH(Checkout) = 5 and YEAR(Checkout) = 2021
+GROUP BY Product.ID
+ORDER BY SUM(InvoiceInfo.TOTAL) DESC
+select sum(InvoiceInfo.Total) as total from InvoiceInfo 
+                                            JOIN Invoice ON Invoice.ID = InvoiceInfo.InvoiceID 
+                                            WHERE YEAR(CHECKOUT) = 2021
+                                            group by ProductID 
+                                            order by Total DESC 
+select * from InvoiceInfo
