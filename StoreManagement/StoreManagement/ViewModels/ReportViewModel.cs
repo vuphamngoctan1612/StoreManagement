@@ -372,19 +372,11 @@ namespace StoreManagement.ViewModels
 
             para.cboSelectTypeOfChart.IsEnabled = true;
 
-            para.cboSelectTypeOfChart.Text = "Agency";
+            para.cboSelectTypeOfChart.Text = "Total And Debt";
 
-            AxisXTitle = "Agency";
-            SeriesCollection = new SeriesCollection
-            {
-                new ColumnSeries
-                {
-                    Title = "Total",
-                    Values = this.GetTotalOfTop5AgenciesByMonth(month, year)
-                }
-            };
-            Labels = this.GetTop5AgencyByMonth(month, year);
-            Formatter = value => ConvertToString(value);
+            para.cboSelectYear.Visibility = System.Windows.Visibility.Hidden;
+
+            LoadChartByMonth(month, year);
         }
 
 

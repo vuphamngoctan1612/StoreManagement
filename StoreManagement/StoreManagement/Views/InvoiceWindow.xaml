@@ -170,6 +170,7 @@
                 HorizontalAlignment="Right"
                 Margin="200,20"/>
             <TextBlock 
+                x:Name="txbRetainerText"
                 Text="Trả trước"
                 Width="80"
                 TextAlignment="Left"
@@ -180,6 +181,7 @@
                 HorizontalAlignment="Right"
                 Margin="200,55"/>
             <TextBlock 
+                x:Name="txbChangeText"
                 Text="Còn lại"
                 Foreground="#263238"
                 Width="80"
@@ -232,6 +234,7 @@
                 HorizontalAlignment="Right"
                 Margin="60,20"/>
             <TextBlock 
+                x:Name="txbRetainerVND"
                 Text="VND"
                 TextAlignment="Right"
                 Foreground="#263238"
@@ -241,6 +244,7 @@
                 HorizontalAlignment="Right"
                 Margin="60,55"/>
             <TextBlock 
+                x:Name="txbChangeVND"
                 Text="VND"
                 Foreground="#263238"
                 TextAlignment="Right"

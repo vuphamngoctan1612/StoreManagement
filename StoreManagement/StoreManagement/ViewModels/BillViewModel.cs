@@ -38,8 +38,8 @@ namespace StoreManagement.ViewModels
         public ICommand GetUidCommand { get; set; }
         public ICommand SearchAgencyCommand { get; set; }
         public ICommand ClearCommand { get; set; }
+        public ICommand InitCommand { get; set; }
 
-        public static void EnableCollectionSynchronization(System.Collections.IEnumerable collection, object context, System.Windows.Data.CollectionSynchronizationCallback synchronizationCallback) { }
 
 
         public BillViewModel()
@@ -54,7 +54,37 @@ namespace StoreManagement.ViewModels
             OpenReceiptWindowCommand = new RelayCommand<ReceiptBillUC>((para) => true, (para) => OpenReceiptWindow(para));
             ExportExcelCommand = new RelayCommand<HomeWindow>((para) => true, (para) => ExportExcel(para));
             ClearCommand = new RelayCommand<HomeWindow>((para) => true, (para) => Clear(para));
+            InitCommand = new RelayCommand<HomeWindow>((para) => true, (para) => Init(para));
+        }
 
+        public void Init(HomeWindow para)
+        {
+            this.HomeWindow = para;
+            this.HomeWindow.stkBill.Children.Clear();
+            List<Invoice> invoices = new List<Invoice>();
+            invoices = DataProvider.Instance.DB.Invoices.ToList<Invoice>();
+            foreach (Invoice invoice in invoices)
+            {
+                InvoiceUC invoiceUC = new InvoiceUC();
+                invoiceUC.InvoiceID.Text = invoice.ID.ToString();
+                invoiceUC.AgencyName.Text = invoice.Agency.Name.ToString();
+                invoiceUC.CheckOut.Text = invoice.Checkout.Value.ToShortDateString();
+                invoiceUC.Debt.Text = ConvertToString(invoice.Debt);
+                total += invoice.Total;
+                this.HomeWindow.stkBill.Children.Add(invoiceUC);
+            }
+            this.HomeWindow.textCollect.Text = ConvertToString(total);
+            this.HomeWindow.comboBoxBill.Text = "Releasing Bill";
+            status = 1;
+            this.HomeWindow.InvoiceTable.Visibility = System.Windows.Visibility.Visible;
+            this.HomeWindow.stkBill.Visibility = System.Windows.Visibility.Visible;
+            this.HomeWindow.stkReceiptBill.Visibility = System.Windows.Visibility.Hidden;
+            this.HomeWindow.stkStockReceipt.Visibility = System.Windows.Visibility.Hidden;
+            this.HomeWindow.ColumnHeaderBill.Visibility = System.Windows.Visibility.Visible;
+            this.HomeWindow.ScrollInvoice.Visibility = System.Windows.Visibility.Visible;
+            this.HomeWindow.ScrollReceipt.Visibility = System.Windows.Visibility.Hidden;
+            this.HomeWindow.ScrollStockReceipt.Visibility = System.Windows.Visibility.Hidden;
+            this.HomeWindow.LastBlock.Text = "Debt";
         }
 
         public void Clear(HomeWindow para)
@@ -146,11 +176,11 @@ namespace StoreManagement.ViewModels
                 int id = int.Parse(para.InvoiceID.Text);
                 stockReceipt = (StockReceipt)DataProvider.Instance.DB.StockReceipts.Where(x => x.ID == id).First();
                 List<StockReceiptInfo> stockReceiptInfos = stockReceipt.StockReceiptInfoes.ToList();
-                InvoiceBillWindow invoiceWindow = new InvoiceBillWindow();
+                InvoiceWindow invoiceWindow = new InvoiceWindow();
                 invoiceWindow.txbName.Text = "Our company";
                 invoiceWindow.txbAddress.Text = "University of Infomation Technology";
-                invoiceWindow.txbInvoiceID.Text = stockReceipt.ID.ToString();
-                invoiceWindow.txbInvoiceDate.Text = stockReceipt.CheckIn.Value.ToShortDateString();
+                invoiceWindow.txbIDinvoice.Text = stockReceipt.ID.ToString();
+                invoiceWindow.txbDate.Text = stockReceipt.CheckIn.Value.ToShortDateString();
                 foreach (StockReceiptInfo stockReceiptInfo in stockReceiptInfos)
                 {
                     BillUC billUC = new BillUC();
@@ -158,19 +188,19 @@ namespace StoreManagement.ViewModels
                     no++;
                     billUC.UnitName.Text = stockReceiptInfo.Product.Name.ToString();
                     billUC.UnitName.Text = stockReceiptInfo.Product.Name.ToString();
-                    billUC.Unit.Text = stockReceiptInfo.Product.Unit.ToString();
+                    billUC.Unit.Text = stockReceiptInfo.Product.Unit.Name.ToString();
                     billUC.Amount.Text = stockReceiptInfo.Amount.ToString();
                     billUC.Price.Text = stockReceiptInfo.Product.ExportPrice.ToString();
                     billUC.Total.Text = ConvertToString(stockReceiptInfo.Price);
-                    invoiceWindow.stkListInvoiceInfos.Children.Add(billUC);
+                    invoiceWindow.stkListProductChosenInvoice.Children.Add(billUC);
                 }
                 invoiceWindow.txbTotal.Text = ConvertToString(stockReceipt.Total);
-                invoiceWindow.txbDebt.Visibility = System.Windows.Visibility.Hidden;
-                invoiceWindow.txbPrepay.Visibility = System.Windows.Visibility.Hidden;
-                invoiceWindow.textPre.Visibility = System.Windows.Visibility.Hidden;
-                invoiceWindow.textPreVND.Visibility = System.Windows.Visibility.Hidden;
-                invoiceWindow.textRest.Visibility = System.Windows.Visibility.Hidden;
-                invoiceWindow.textRestVND.Visibility = System.Windows.Visibility.Hidden;
+                invoiceWindow.txbRetainer.Visibility = System.Windows.Visibility.Hidden;
+                invoiceWindow.txbRetainerText.Visibility = System.Windows.Visibility.Hidden;
+                invoiceWindow.txbRetainerVND.Visibility = System.Windows.Visibility.Hidden;
+                invoiceWindow.txbChange.Visibility = System.Windows.Visibility.Hidden;
+                invoiceWindow.txbChangeText.Visibility = System.Windows.Visibility.Hidden;
+                invoiceWindow.txbChangeVND.Visibility = System.Windows.Visibility.Hidden;
                 invoiceWindow.ShowDialog();
             }
             else
@@ -180,12 +210,12 @@ namespace StoreManagement.ViewModels
                 int id = int.Parse(para.InvoiceID.Text);
                 invoice = (Invoice)DataProvider.Instance.DB.Invoices.Where(x => x.ID == id).First();
                 List<InvoiceInfo> invoiceInfos = invoice.InvoiceInfoes.ToList();
-                InvoiceBillWindow invoiceWindow = new InvoiceBillWindow();
+                InvoiceWindow invoiceWindow = new InvoiceWindow();
                 invoiceWindow.txbName.Text = invoice.Agency.Name;
                 invoiceWindow.txbAddress.Text = invoice.Agency.Address;
                 invoiceWindow.txbPhone.Text = invoice.Agency.PhoneNumber;
-                invoiceWindow.txbInvoiceID.Text = invoice.ID.ToString();
-                invoiceWindow.txbInvoiceDate.Text = invoice.Checkout.Value.ToShortDateString();
+                invoiceWindow.txbIDinvoice.Text = invoice.ID.ToString();
+                invoiceWindow.txbDate.Text = invoice.Checkout.Value.ToShortDateString();
                 foreach (InvoiceInfo invoiceInfo in invoiceInfos)
                 {
                     Product product = new Product();
@@ -193,15 +223,15 @@ namespace StoreManagement.ViewModels
                     billUC.ID.Text = no.ToString();
                     no++;
                     billUC.UnitName.Text = invoiceInfo.Product.Name.ToString();
-                    billUC.Unit.Text = invoiceInfo.Product.Unit.ToString();
+                    billUC.Unit.Text = invoiceInfo.Product.Unit.Name.ToString();
                     billUC.Amount.Text = invoiceInfo.Amount.ToString();
                     billUC.Price.Text = invoiceInfo.Product.ExportPrice.ToString();
                     billUC.Total.Text = ConvertToString(invoiceInfo.Total);
-                    invoiceWindow.stkListInvoiceInfos.Children.Add(billUC);
+                    invoiceWindow.stkListProductChosenInvoice.Children.Add(billUC);
                 }
                 invoiceWindow.txbTotal.Text = ConvertToString(invoice.Total);
-                invoiceWindow.txbPrepay.Text = ConvertToString((invoice.Total - invoice.Debt));
-                invoiceWindow.txbDebt.Text = ConvertToString(invoice.Debt);
+                invoiceWindow.txbRetainer.Text = ConvertToString((invoice.Total - invoice.Debt));
+                invoiceWindow.txbChange.Text = ConvertToString(invoice.Debt);
                 invoiceWindow.ShowDialog();
             }
         }

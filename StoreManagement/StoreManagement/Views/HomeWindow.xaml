@@ -2123,13 +2123,9 @@
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="Loaded">
                         <i:InvokeCommandAction 
-                                            Command="{Binding LoadBillCommand}"
+                                            Command="{Binding InitCommand}"
                                             CommandParameter="{Binding ElementName=wdHome}"/>
-                    </i:EventTrigger>
-                    <i:EventTrigger EventName="Loaded">
-                        <i:InvokeCommandAction 
-                                            Command="{Binding LoadReceiptBillCommand}"
-                                            CommandParameter="{Binding ElementName=wdHome}"/>
+                        
                     </i:EventTrigger>
                     <i:EventTrigger EventName="Loaded">
                         <i:InvokeCommandAction 
