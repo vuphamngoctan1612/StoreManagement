@@ -18,6 +18,7 @@
     <models:Agency x:Key="Agency"/>
     <models:Account x:Key="Account"/>
     <models:District x:Key="District"/>
+    <models:TypeOfAgency x:Key="TypeOfAgency"/>
 
     <ControlTemplate x:Key="textBoxErrorTemplate">
         <StackPanel>

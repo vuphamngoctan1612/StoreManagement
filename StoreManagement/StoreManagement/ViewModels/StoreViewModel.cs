@@ -388,7 +388,9 @@ namespace StoreManagement.ViewModels
             int typeA = int.Parse(store.TypeOfAgency.ToString());
             TypeOfAgency type = (TypeOfAgency)DataProvider.Instance.DB.TypeOfAgencies.Where(x => x.ID == typeA).First();
 
+            this.ListType = DataProvider.Instance.DB.TypeOfAgencies.ToList();
             AddStoreWindow wd = new AddStoreWindow();
+            LoadListDistrict(wd);
             wd.txtID.Text = store.ID.ToString();
             wd.txtName.Text = store.Name.ToString();
             wd.txtAddress.Text = store.Address.ToString();
@@ -419,6 +421,7 @@ namespace StoreManagement.ViewModels
 
         private void OpenAddStoreWindow()
         {
+            this.ListType = DataProvider.Instance.DB.TypeOfAgencies.ToList();
             AddStoreWindow wd = new AddStoreWindow();
             LoadListDistrict(wd);
             try

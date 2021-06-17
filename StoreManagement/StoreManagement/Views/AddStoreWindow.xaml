@@ -185,7 +185,7 @@
                         VerticalContentAlignment="Center"
                         Validation.ErrorTemplate="{StaticResource comboBoxErrorTemplate}">
                         <ComboBox.Text>
-                            <Binding Path="TypeOfAgency" Source="{StaticResource Agency}" UpdateSourceTrigger="PropertyChanged" Mode="OneWayToSource">
+                            <Binding Path="Name" Source="{StaticResource TypeOfAgency}" UpdateSourceTrigger="PropertyChanged" Mode="OneWayToSource">
                                 <Binding.ValidationRules>
                                     <vd:NotNullValidation ErrorMessage="Please choose item"/>
                                 </Binding.ValidationRules>
@@ -231,7 +231,7 @@
                         VerticalContentAlignment="Center"
                         Validation.ErrorTemplate="{StaticResource comboBoxErrorTemplate}">
                         <ComboBox.Text>
-                            <Binding Path="District" Source="{StaticResource Agency}" UpdateSourceTrigger="PropertyChanged" Mode="OneWayToSource">
+                            <Binding Path="Name" Source="{StaticResource District}" UpdateSourceTrigger="PropertyChanged" Mode="OneWayToSource">
                                 <Binding.ValidationRules>
                                     <vd:NotNullValidation ErrorMessage="Please choose item"/>
                                 </Binding.ValidationRules>
