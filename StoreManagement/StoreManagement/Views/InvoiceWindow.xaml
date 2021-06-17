@@ -171,6 +171,7 @@
                 Margin="200,20"/>
             <TextBlock 
                 Text="Retainer"
+                x:Name="txbRetainerText"
                 Width="80"
                 TextAlignment="Left"
                 Foreground="#263238"
@@ -181,6 +182,7 @@
                 Margin="200,55"/>
             <TextBlock 
                 Text="Excess cash"
+                x:Name="txbChangeText"
                 Foreground="#263238"
                 Width="80"
                 TextAlignment="Left"
@@ -232,6 +234,7 @@
                 HorizontalAlignment="Right"
                 Margin="60,20"/>
             <TextBlock 
+                x:Name="txbRetainerVND"
                 Text="VND"
                 TextAlignment="Right"
                 Foreground="#263238"
@@ -241,6 +244,7 @@
                 HorizontalAlignment="Right"
                 Margin="60,55"/>
             <TextBlock 
+                x:Name="txbChangeVND"
                 Text="VND"
                 Foreground="#263238"
                 TextAlignment="Right"
