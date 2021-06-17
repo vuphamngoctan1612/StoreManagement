@@ -6,7 +6,8 @@
         xmlns:local="clr-namespace:StoreManagement.Views" 
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
-        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
+        xmlns:vd="clr-namespace:StoreManagement.Validations"
         mc:Ignorable="d"
         DataContext="{StaticResource ProductVM}"
         Background="White"
@@ -138,6 +139,7 @@
                         Stroke="#E2D2DA"/>
                     <TextBox
                         Name="txtName"
+                        Background="Transparent"
                         materialDesign:HintAssist.Hint="Enter your product name"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Center"
@@ -151,7 +153,15 @@
                         Padding="0"
                         HorizontalContentAlignment="Left"
                         VerticalContentAlignment="Center" 
-                        Cursor="Arrow">
+                        Validation.ErrorTemplate="{StaticResource textBoxErrorTemplate}"
+                        >
+                        <TextBox.Text>
+                            <Binding Path="Name" Source="{StaticResource Product}" UpdateSourceTrigger="PropertyChanged" Mode="OneWayToSource">
+                                <Binding.ValidationRules>
+                                    <vd:NotNullValidation ErrorMessage="Please enter product name"/>
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox.Text>
                     </TextBox>
                 </Grid>
                 <Grid Grid.Row="2"
@@ -192,9 +202,9 @@
                             Background="{x:Null}"
                             FocusVisualStyle="{x:Null}"
                             Height="35"
-                            Width="330"
-                            Margin="2.5 0 0 0"
-                            Padding="10 0 15 0"
+                            Width="320"
+                            Margin="10 0 0 0"
+                            Padding="0 0 15 0"
                             BorderThickness="0"
                             FontSize="17"
                             FontWeight="SemiBold"
@@ -202,8 +212,16 @@
                             materialDesign:HintAssist.Hint="Select your units"
                             DisplayMemberPath="Name"
                             Visibility="Visible"
+                            Validation.ErrorTemplate="{StaticResource textBoxErrorTemplate}"
                             ItemsSource="{Binding ItemsSourceUnits, Mode=TwoWay}"
                             SelectedItem="{Binding SelectedUnits}">
+                            <ComboBox.Text>
+                                <Binding Path="Name" Source="{StaticResource Units}" UpdateSourceTrigger="PropertyChanged" Mode="OneWayToSource">
+                                    <Binding.ValidationRules>
+                                        <vd:NotNullValidation ErrorMessage="Please choose item"/>
+                                    </Binding.ValidationRules>
+                                </Binding>
+                            </ComboBox.Text>
                         </ComboBox>
                     </Border>
                     <materialDesign:PackIcon
@@ -266,8 +284,9 @@
                         FontWeight="SemiBold"
                         Padding="0"
                         HorizontalContentAlignment="Left"
-                        VerticalContentAlignment="Center" 
-                        Cursor="Arrow">
+                        VerticalContentAlignment="Center"
+                        Validation.ErrorTemplate="{StaticResource textBoxErrorTemplate}"
+                        >
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="TextChanged">
                                 <i:InvokeCommandAction
@@ -280,6 +299,13 @@
                                     MethodName="NumberValidationTextBox" />
                             </i:EventTrigger>
                         </i:Interaction.Triggers>
+                        <TextBox.Text>
+                            <Binding Path="Name" Source="{StaticResource Product}" UpdateSourceTrigger="PropertyChanged" Mode="OneWayToSource">
+                                <Binding.ValidationRules>
+                                    <vd:NotNullValidation ErrorMessage="Please enter price"/>
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox.Text>
                     </TextBox>
                 </Grid>
                 <Grid Grid.Row="4">

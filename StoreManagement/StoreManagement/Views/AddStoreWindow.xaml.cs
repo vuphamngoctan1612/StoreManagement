@@ -22,6 +22,15 @@ namespace StoreManagement.Views
         public AddStoreWindow()
         {
             InitializeComponent();
+
+            this.txtName.Text = null;
+            this.txtAddress.Text = null;
+            this.txtPhone.Text = null;
+            this.txtEmail.Text = null;
+            this.dpCheckin.SelectedDate = null;
+            this.txtDebt.Text = null;
+            this.cbbSpecies.Text = null;
+            this.cbDistrict.Text = null;
         }
     }
 }

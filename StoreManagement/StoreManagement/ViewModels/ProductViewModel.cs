@@ -91,21 +91,25 @@ namespace StoreManagement.ViewModels
             if (string.IsNullOrEmpty(para.txtProductName.Text))
             {
                 para.txtProductName.Focus();
+                para.txtProductName.Text = "";
                 return;
             }
             if (string.IsNullOrEmpty(para.cbbUnits.Text))
             {
                 para.cbbUnits.Focus();
+                para.cbbUnits.Text = "";
                 return;
             }
             if (string.IsNullOrEmpty(para.txtImportPrice.Text))
             {
                 para.txtImportPrice.Focus();
+                para.txtImportPrice.Text = "";
                 return;
             }
             if (string.IsNullOrEmpty(para.txtAmount.Text))
             {
                 para.txtAmount.Focus();
+                para.txtAmount.Text = "";
                 return;
             }
 
@@ -261,16 +265,19 @@ namespace StoreManagement.ViewModels
             if (string.IsNullOrEmpty(para.txtName.Text))
             {
                 para.txtName.Focus();
+                para.txtName.Text = "";
                 return;
             }
             if (string.IsNullOrEmpty(para.cbbUnits.Text))
             {
                 para.cbbUnits.Focus();
+                para.cbbUnits.Text = "";
                 return;
             }
             if (string.IsNullOrEmpty(para.txtPrice.Text))
             {
-                para.cbbUnits.Focus();
+                para.txtPrice.Focus();
+                para.txtPrice.Text = "";
                 return;
             }
 

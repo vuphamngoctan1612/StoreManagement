@@ -15,13 +15,18 @@ using System.Windows.Shapes;
 namespace StoreManagement.Views
 {
     /// <summary>
-    /// Interaction logic for LoginWindow.xaml
+    /// Interaction logic for AddDistrictWindow.xaml
     /// </summary>
-    public partial class LoginWindow : Window
+    public partial class AddDistrictWindow : Window
     {
-        public LoginWindow()
+        public bool isSucceed { get; set; }
+
+        public AddDistrictWindow()
         {
             InitializeComponent();
+            this.txtName.Text = null;
+
+            this.isSucceed = false;
         }
     }
 }
