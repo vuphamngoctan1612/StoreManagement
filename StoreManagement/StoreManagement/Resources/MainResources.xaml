@@ -6,8 +6,10 @@
     <viewmodels:SignUpViewModel x:Key="SignUpVM"></viewmodels:SignUpViewModel>
     <viewmodels:StoreViewModel x:Key="StoreVM"></viewmodels:StoreViewModel>
     <viewmodels:HomeViewModel x:Key="HomeVM"></viewmodels:HomeViewModel>
+    <viewmodels:BillViewModel x:Key="BillVM"></viewmodels:BillViewModel>
     <viewmodels:ProductViewModel x:Key="ProductVM"></viewmodels:ProductViewModel>
     <viewmodels:ReportViewModel x:Key="ReportVM"></viewmodels:ReportViewModel>
+    <viewmodels:AgencyReportViewModel x:Key="AgencyReportVM"></viewmodels:AgencyReportViewModel>
     <viewmodels:BusinessViewModel x:Key="BusinessVM"/>
     <viewmodels:SettingViewModel x:Key="SettingVM"/>
     <viewmodels:AccountViewModel x:Key="AccountVM"></viewmodels:AccountViewModel>

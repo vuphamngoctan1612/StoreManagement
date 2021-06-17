@@ -189,6 +189,21 @@ namespace StoreManagement.ViewModels
             wdInvoice.ShowDialog();
 
             ReloadBusiness();
+            //update today's sales result
+            ReportViewModel reportViewModel = new ReportViewModel();
+            reportViewModel.LoadSales(para);
+            //reload chart
+            reportViewModel.LoadChartByAgency();
+            reportViewModel.LoadChartByProduct();
+            //update invoices, stock, receipt
+            BillViewModel billViewModel = new BillViewModel();
+            billViewModel.LoadBill(para);
+            billViewModel.LoadStockReceipt(para);
+            billViewModel.LoadReceiptBill(para);
+            //update agency report
+            AgencyReportViewModel agencyReportViewModel = new AgencyReportViewModel();
+            agencyReportViewModel.LoadSalesReport(para);
+            agencyReportViewModel.LoadDebtsReport(para);
         }
 
         private void ReloadBusiness()
