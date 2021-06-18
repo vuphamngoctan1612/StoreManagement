@@ -7,7 +7,7 @@
              xmlns:local="clr-namespace:StoreManagement.Resources.UserControls"
              mc:Ignorable="d" 
              d:DesignHeight="45" d:DesignWidth="1070"
-             Background="WhiteSmoke">
+             Background="White">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"></RowDefinition>
@@ -26,7 +26,6 @@
                                Text="No."
                                FontFamily="Segoe UI"
                                FontSize="22"
-                               FontWeight="Bold"
                                Foreground="#57548B"
                                HorizontalAlignment="Center" 
                                VerticalAlignment="Center">
@@ -37,7 +36,6 @@
                                Text="Agency"
                                FontFamily="Segoe UI"
                                FontSize="22"
-                               FontWeight="Bold"
                                Foreground="#57548B"
                                HorizontalAlignment="Center" 
                                VerticalAlignment="Center">
@@ -48,7 +46,6 @@
                                Text="Original Debt"
                                FontFamily="Segoe UI"
                                FontSize="22"
-                               FontWeight="Bold"
                                Foreground="#57548B"
                                Margin="0,0,0,0" 
                                HorizontalAlignment="Center" 
@@ -60,7 +57,6 @@
                                Text="Cost Overrun"
                                FontFamily="Segoe UI"
                                FontSize="22"
-                               FontWeight="Bold"
                                Foreground="#57548B"
                                HorizontalAlignment="Center" 
                                VerticalAlignment="Center">
@@ -71,7 +67,6 @@
                                Text="Total"
                                FontFamily="Segoe UI"
                                FontSize="22"
-                               FontWeight="Bold"
                                Foreground="#57548B"
                                HorizontalAlignment="Center" 
                                VerticalAlignment="Center">
@@ -80,7 +75,8 @@
         </Grid>
         <Grid Grid.Row="1"
               Width="1070"
-              Background="#F2F2F2">
+              Background="#F2F2F2"
+              Height="1">
         </Grid>
     </Grid>
 </UserControl>

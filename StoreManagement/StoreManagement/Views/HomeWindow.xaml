@@ -2416,6 +2416,7 @@
                             HorizontalScrollBarVisibility="Disabled" 
                             Margin="0 70 0 0"
                             HorizontalAlignment="Left" 
+                            Background="WhiteSmoke"
                             Style="{StaticResource FavsScrollViewer}"
                             VerticalScrollBarVisibility="Auto">
 
@@ -2432,6 +2433,7 @@
                             HorizontalScrollBarVisibility="Disabled" 
                             Margin="0 70 0 0"
                             HorizontalAlignment="Left" 
+                            Background="WhiteSmoke"
                             Style="{StaticResource FavsScrollViewer}"
                             VerticalScrollBarVisibility="Auto"
                         >
@@ -2448,6 +2450,7 @@
                             HorizontalScrollBarVisibility="Disabled" 
                             Margin="0 70 0 0"
                             HorizontalAlignment="Left" 
+                            Background="WhiteSmoke"
                             Style="{StaticResource FavsScrollViewer}"
                             VerticalScrollBarVisibility="Auto">
                         <StackPanel x:Name="stkStockReceipt"
@@ -2820,6 +2823,7 @@
                             HorizontalScrollBarVisibility="Disabled" 
                             Margin="0"
                             HorizontalAlignment="Left" 
+                            Background="WhiteSmoke"
                             Style="{StaticResource FavsScrollViewer}"
                             VerticalScrollBarVisibility="Auto"
                             Visibility="Hidden">
@@ -2835,6 +2839,7 @@
                             HorizontalScrollBarVisibility="Disabled" 
                             Margin="0"
                             HorizontalAlignment="Left" 
+                            Background="WhiteSmoke"
                             Style="{StaticResource FavsScrollViewer}"
                             VerticalScrollBarVisibility="Auto"
                             Visibility="Hidden">

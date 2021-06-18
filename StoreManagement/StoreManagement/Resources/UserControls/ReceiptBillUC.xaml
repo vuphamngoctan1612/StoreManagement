@@ -9,7 +9,7 @@
              x:Name="displayReceiptBill"
              mc:Ignorable="d" 
              d:DesignHeight="45" d:DesignWidth="1070"
-             Background="WhiteSmoke"
+             Background="White"
              Padding="1"
              DataContext="{StaticResource BillVM}">
     <Grid>
@@ -85,6 +85,7 @@
             </Grid>
         </Grid>
         <Grid Grid.Row="1"
+            Height="1"
             Width="1070"
             Background="#F2F2F2">
         </Grid>

@@ -378,6 +378,8 @@ namespace StoreManagement.ViewModels
 
             para.cboSelectTime.Text = "Tháng " + month;
 
+            para.cboSelectYear.Text = "Năm " + year;
+
             para.cboSelectYear.Visibility = System.Windows.Visibility.Hidden;
 
             LoadChartByMonth(month, year);
