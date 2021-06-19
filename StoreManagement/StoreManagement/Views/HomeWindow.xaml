@@ -594,7 +594,7 @@
             <Grid Grid.Row="1"
                 x:Name="grdBody_Main"
                 DataContext="{StaticResource ReportVM}"
-                Visibility="Visible">
+                Visibility="Hidden">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="2"></RowDefinition>
                     <RowDefinition Height="70"></RowDefinition>
@@ -1078,10 +1078,6 @@
                 Grid.Row="1"
                 DataContext="{StaticResource StoreVM}"
                 x:Name="grdBody_Store"
-                Height="690"
-                Width="1140"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Bottom"
                 Visibility="Hidden">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="Loaded">
@@ -1090,117 +1086,115 @@
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="3"></RowDefinition>
-                    <RowDefinition Height="110"></RowDefinition>
+                    <RowDefinition Height="2"></RowDefinition>
+                    <RowDefinition Height="60"></RowDefinition>
                     <RowDefinition></RowDefinition>
                 </Grid.RowDefinitions>
                 <Grid Grid.Row="0"
                     Background="#FBA1BB">
                 </Grid>
                 <Grid Grid.Row="1">
-                    <Border
-                        Background="{x:Null}"
-                        CornerRadius="8"
-                        BorderBrush="#FBA1BB"
-                        BorderThickness="1"
-                        Height="32"
-                        Width="200"
-                        HorizontalAlignment="Left"
-                        VerticalAlignment="Center"
-                        Margin="280,0">
-                        <ComboBox
-                            Name="cbbStore_Store"
-                            HorizontalAlignment="Center"
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1.5*"></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="0">
+                        <Rectangle 
+		                    HorizontalAlignment="Left" 
+		                    VerticalAlignment="Center"
+		                    Stroke="#FCE5EC"
+		                    Fill="#FCE5EC"
+		                    Margin="30 10 0 0"
+		                    Height="40"
+		                    Width ="300"
+		                    RadiusX="5"
+		                    RadiusY="5"
+                        />
+                        <TextBox
+                            x:Name="txtSearchAgency"
+                            Height="35"
+                            Width="250"
+                            materialDesign:HintAssist.Hint="Search agency"
+                            FontSize="22"
+                            FontWeight="Regular"
+                            BorderBrush="#FCE5EC"
+                            HorizontalAlignment="Left"
                             VerticalAlignment="Center"
-                            Height="40"
-                            Width="240"
-                            Style="{StaticResource MaterialDesignOutlinedComboBox}"
-                            Background="Transparent"
-                            Foreground="#504D85"
-                            BorderThickness="0"
-                            FontSize="18"
-                            FontWeight="SemiBold"
-                            Padding="0"
-                            HorizontalContentAlignment="Center"
-                            VerticalContentAlignment="Center" 
-                            Cursor="Arrow"
-                            ScrollViewer.VerticalScrollBarVisibility="Visible">
-                            <ComboBoxItem HorizontalContentAlignment="Center">List detail</ComboBoxItem>
-                            <ComboBoxItem HorizontalContentAlignment="Center">Paging</ComboBoxItem>
+                            Margin="40 10 0 0">
                             <i:Interaction.Triggers>
-                                <i:EventTrigger EventName="SelectionChanged">
-                                    <i:InvokeCommandAction Command="{Binding ChangeWayShowAgencyCommand}" 
+                                <i:EventTrigger EventName="TextChanged">
+                                    <i:InvokeCommandAction Command="{Binding SearchAgencyCommand}" 
                                                        CommandParameter="{Binding ElementName=wdHome}"/>
                                 </i:EventTrigger>
                             </i:Interaction.Triggers>
+                        </TextBox>
+                        <materialDesign:PackIcon
+		                    Kind="Magnify"
+		                    Width="40"
+		                    Height="35"
+		                    HorizontalAlignment="Left" 
+                            VerticalAlignment="Center"
+		                    Margin="290 10 0 0"/>
+                        <ComboBox
+                            Name="cbbStore_Store"
+                            materialDesign:ComboBoxAssist.ClassicMode="true"
+                            FontSize="17"
+                            FontWeight="Medium" 
+                            Background="Transparent"
+                            Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+                            materialDesign:ColorZoneAssist.Mode="Custom" 
+                            materialDesign:HintAssist.Hint="View mode"
+                            Width="200" 
+                            Height="50" 
+                            Padding="5,0,0,5" 
+                            Margin="400,0,0,0"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Center">
+                            <ComboBoxItem Content="List detail"></ComboBoxItem>
+                            <ComboBoxItem Content="Paging"></ComboBoxItem>
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="SelectionChanged">
+                                    <i:InvokeCommandAction
+                                        Command="{Binding ChangeWayShowAgencyCommand}" 
+                                        CommandParameter="{Binding ElementName=wdHome}"/>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
                         </ComboBox>
-                    </Border>
-                    <Button 
-                        x:Name="btnAddAgency"
-                        Width="112"
-                        Height="32"
-                        Background="#F79BB5"
-                        Uid="0"
-                        FocusVisualStyle="{x:Null}"
-                        BorderBrush="{x:Null}"
-                        Cursor="Hand"
-                        Foreground="#504D85"
-                        HorizontalAlignment="Right" 
-                        VerticalAlignment="Center"
-                        Content="Add agency"
-                        FontFamily="Segoe UI"
-                        Margin="0,25,60,25"
-                        Style="{StaticResource MaterialDesignRaisedButton}"
-                        ToolTip="Add agency"
-                        Command="{Binding OpenAddStoreWindowCommand}"
-                        CommandParameter="{Binding ElementName=wdHome}" Grid.Column="1">
-                    </Button>
-                    <TextBox
-                        x:Name="txtSearchAgency"
-                        VerticalAlignment="Center"
-                        HorizontalAlignment="Left"
-                        Height="32"
-                        Width="200"
-                        materialDesign:HintAssist.Hint="Search agency"
-                        FontSize="16"
-                        FontFamily="Poppins"
-                        FontWeight="Regular"
-                        BorderBrush="#F79BB5"
-                        HorizontalContentAlignment="Center"
-                        VerticalContentAlignment="Center"
-                        Style="{StaticResource MaterialDesignTextBox}"  
-                        materialDesign:TextFieldAssist.TextFieldCornerRadius="8"
-                        BorderThickness="1"
-                        Margin="60,25,0,25">
-                        <i:Interaction.Triggers>
-                            <i:EventTrigger EventName="TextChanged">
-                                <i:InvokeCommandAction Command="{Binding SearchAgencyCommand}" 
-                                                       CommandParameter="{Binding ElementName=wdHome}"/>
-                            </i:EventTrigger>
-                        </i:Interaction.Triggers>
-                    </TextBox>
-                    <materialDesign:PackIcon
-                        Kind="Search"
-                        Height="25"
-                        Width="25"
-                        Foreground="#F79BB5"
-                        HorizontalAlignment="Left"
-                        VerticalAlignment="Center"
-                        Margin="230,0"/>
+                    </Grid>
+                    <Grid Grid.Column="1">
+                        <Button
+                            x:Name="btnAddAgency"
+                            Background="#F79BB5"
+                            Uid="0"
+                            FocusVisualStyle="{x:Null}"
+                            BorderBrush="{x:Null}"
+                            Cursor="Hand"
+                            Foreground="#504D85"
+                            HorizontalAlignment="Right" 
+                            VerticalAlignment="Center"
+                            Content="Add agency"
+                            Margin="0 0 31.8 0"
+                            Style="{StaticResource MaterialDesignRaisedButton}"
+                            Command="{Binding OpenAddStoreWindowCommand}"
+                            CommandParameter="{Binding ElementName=wdHome}">
+                        </Button>
+                    </Grid>
                 </Grid>
                 <Grid Grid.Row="2">
                     <Grid
                         x:Name="grdListStore_Store"
-                        HorizontalAlignment="Center"
+                        Height="590"
                         Width="1070"
+                        Margin="0 10 0 0"
+                        Background="#FCE5EC" 
+                        VerticalAlignment="Top"
                         Visibility="Hidden">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="45"></RowDefinition>
                             <RowDefinition></RowDefinition>
                         </Grid.RowDefinitions>
                         <Grid Grid.Row="0"
-                            Background="#FF9CB9"
-                              Margin="0">
+                            Background="#FF9CB9">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="200"></ColumnDefinition>
                                 <ColumnDefinition Width="150"></ColumnDefinition>
@@ -1273,8 +1267,6 @@
                                 Margin="0"
                                 HorizontalAlignment="Left" 
                                 Style="{StaticResource FavsScrollViewer}"
-                                Width="1070" 
-                                Height="500"
                                 VerticalAlignment="Top"
                                 VerticalScrollBarVisibility="Auto">
                                 <StackPanel 
@@ -1286,7 +1278,7 @@
                     </Grid>
                     <Grid
                         x:Name="grdList3Store_Store"
-                        Visibility="Visible">
+                        Visibility="Hidden">
                         <Grid.RowDefinitions>
                             <RowDefinition></RowDefinition>
                             <RowDefinition Height="110"></RowDefinition>
@@ -1357,7 +1349,7 @@
             <Grid Grid.Row="1"                 
                 DataContext="{StaticResource ProductVM}"
                 x:Name="grdBody_Product"
-                Visibility="Hidden">
+                Visibility="Visible">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="Loaded">
                         <i:InvokeCommandAction 
@@ -1366,7 +1358,7 @@
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="3"></RowDefinition>
+                    <RowDefinition Height="2"></RowDefinition>
                     <RowDefinition Height="60"></RowDefinition>
                     <RowDefinition></RowDefinition>
                 </Grid.RowDefinitions>
@@ -1386,8 +1378,8 @@
                             Margin="30 10 0 0"
                             Height="40"
                             Width ="300"
-                            RadiusX="10"
-                            RadiusY="10"/>
+                            RadiusX="5"
+                            RadiusY="5"/>
                         <materialDesign:PackIcon
                             Kind="Magnify"
                             Width="40"
@@ -1404,7 +1396,6 @@
                             Margin="40 10 0 0"
                             materialDesign:HintAssist.Hint="Search product"
                             FontSize="22"
-                            FontFamily="Poppins"
                             FontWeight="Regular"
                             BorderBrush="#FCE5EC">
                             <i:Interaction.Triggers>
@@ -1424,7 +1415,7 @@
                             Margin="0 0 30 0">
                             <Button
                                 x:Name="btnAddProduct"
-                                Margin="0 10 15 0"
+                                Margin="0 10 2 0"
                                 FocusVisualStyle="{x:Null}"
                                 BorderBrush="{x:Null}"
                                 Cursor="Hand"
@@ -1437,7 +1428,7 @@
                                 Command="{Binding AddProductWindowCommand}"
                                 CommandParameter="{Binding ElementName=wdHome}">
                             </Button>
-                            <Button
+                            <!--<Button
                                 x:Name="btnImportProduct"
                                 Margin="15 10 0 0"
                                 HorizontalAlignment="Left"
@@ -1454,7 +1445,7 @@
                                 CommandParameter="{Binding ElementName=wdHome}"
                                 Style="{StaticResource MaterialDesignRaisedButton}">
 
-                            </Button>
+                            </Button>-->
                         </StackPanel>
                     </Grid>
                 </Grid>
@@ -1558,11 +1549,6 @@
                 Grid.Row="1"
                 DataContext="{StaticResource BusinessVM}"
                 x:Name="grdBody_Business"
-                Background="White"
-                Height="710"
-                Width="1140"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Bottom"
                 Visibility="Hidden">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="Loaded">
@@ -2116,9 +2102,6 @@
             <Grid Grid.Row="1"
                 x:Name="grdBody_Bill"
                 DataContext="{StaticResource BillVM}"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Bottom"
-                Margin="0 0 0 0"
                 Visibility="Hidden">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="Loaded">
@@ -2134,7 +2117,7 @@
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="3"></RowDefinition>
+                    <RowDefinition Height="2"></RowDefinition>
                     <RowDefinition Height="60"></RowDefinition>
                     <RowDefinition Height="*"></RowDefinition>
                 </Grid.RowDefinitions>
@@ -2464,15 +2447,10 @@
             <!--Body report-->
             <Grid Grid.Row="1"
                 x:Name="grdBody_Report"
-                Background="White"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Bottom"
                 Visibility="Hidden"
-                Margin="0 0 0 0"
-                Height="665"
                 DataContext="{StaticResource AgencyReportVM}">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="3"></RowDefinition>
+                    <RowDefinition Height="2"></RowDefinition>
                     <RowDefinition Height="60"></RowDefinition>
                     <RowDefinition Height="60"></RowDefinition>
                     <RowDefinition Height="50"></RowDefinition>
@@ -2851,12 +2829,7 @@
             <Grid
                 Grid.Row="1"
                 x:Name="grdBody_AccountSetting"
-                Height="710"
-                Width="1140"
-                Background="White"
-                HorizontalAlignment="Left"
                 DataContext="{StaticResource SettingVM}"
-                VerticalAlignment="Bottom"
                 Visibility="Hidden">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="Loaded">

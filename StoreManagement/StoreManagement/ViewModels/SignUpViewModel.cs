@@ -55,7 +55,7 @@ namespace StoreManagement.ViewModels
                 if (para.Children.Count > 1)
                 {
                     para.Children.Remove(para.Children[0]);
-                    para.Children.Remove(para.Children[1]);
+                    para.Children.Remove(para.Children[0]);
                 }
             }
         }
@@ -66,40 +66,50 @@ namespace StoreManagement.ViewModels
             {
                 return;
             }
-            if (String.IsNullOrEmpty(parameter.displayname.Text))
+            if (string.IsNullOrEmpty(parameter.displayname.Text))
             {
                 CustomMessageBox.Show("Please enter your display name!", "Notify", MessageBoxButton.OK, MessageBoxImage.Warning);
                 parameter.displayname.Focus();
                 return;
             }
-            if (String.IsNullOrEmpty(parameter.txtUsername.Text))
+            if (string.IsNullOrEmpty(parameter.txtUsername.Text))
             {
                 CustomMessageBox.Show("Please enter your username!", "Notify", MessageBoxButton.OK, MessageBoxImage.Warning);
                 parameter.txtUsername.Focus();
                 return;
             }
-            if (String.IsNullOrEmpty(parameter.pwbPassword.Password))
+            if (string.IsNullOrEmpty(parameter.pwbPassword.Password))
             {
                 CustomMessageBox.Show("Please enter your password!", "Notify", MessageBoxButton.OK, MessageBoxImage.Warning);
                 parameter.pwbPassword.Focus();
                 return;
             }
-            if (String.IsNullOrEmpty(parameter.pwbPasswordConfirm.Password))
+            if (string.IsNullOrEmpty(parameter.pwbPasswordConfirm.Password))
             {
                 CustomMessageBox.Show("Please enter your confirm password!", "Notify", MessageBoxButton.OK, MessageBoxImage.Warning);
                 parameter.pwbPasswordConfirm.Focus();
+                return;
+            }
+            if (parameter.grdImage.Background == null)
+            {
+                CustomMessageBox.Show("Please select your avatar", "Notify", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
 
             if (parameter.pwbPassword.Password != parameter.pwbPasswordConfirm.Password)
             {
                 CustomMessageBox.Show("Password does not match!", "Notify", MessageBoxButton.OK, MessageBoxImage.Error);
+                parameter.pwbPasswordConfirm.Focus();
                 return;
             }
 
             try
             {
+                string displayName = parameter.displayname.Text;
+                string username = parameter.txtUsername.Text;
+                string password = MD5Hash(parameter.pwbPassword.Password);
                 byte[] imgByteArr;
+
                 if (imageFileName == null)
                 {
                     imgByteArr = Converter.Instance.ConvertImageToBytes(@"..\..\Resources\Images\default.jpg");
@@ -109,28 +119,29 @@ namespace StoreManagement.ViewModels
                     imgByteArr = Converter.Instance.ConvertImageToBytes(imageFileName);
                 }
 
-                Account acc = new Account();
-                acc.Username = parameter.txtUsername.Text;
-                acc.Password = MD5Hash(parameter.pwbPassword.Password);
-                acc.DisplayName = parameter.displayname.Text;
-                acc.Image = imgByteArr;
-                DataProvider.Instance.DB.Accounts.Add(acc);
+                Account account = new Account();
+                account.DisplayName = displayName;
+                account.Username = username;
+                account.Password = password;
+                account.Image = imgByteArr;
+
+                DataProvider.Instance.DB.Accounts.Add(account);
                 DataProvider.Instance.DB.SaveChanges();
                 this.isSucceed = true;
+
+                CustomMessageBox.Show("Successful account registration!", "Notify", MessageBoxButton.OK, MessageBoxImage.Asterisk);
+
+                parameter.Close();
             }
             catch
             {
-                CustomMessageBox.Show("Username already exists! Please enter other account", "Notify", MessageBoxButton.OK, MessageBoxImage.Error);
+                this.isSucceed = false;
                 parameter.txtUsername.Focus();
                 return;
+
+                //CustomMessageBox.Show("Username already exists! Please enter other account", "Notify", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-            finally
-            {
-                if (this.isSucceed)
-                {
-                    parameter.Close();
-                }
-            }
+
         }
 
         private void CloseWindow(SignUpWindow para)
