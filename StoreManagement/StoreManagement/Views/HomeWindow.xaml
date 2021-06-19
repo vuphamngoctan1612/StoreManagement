@@ -2410,59 +2410,70 @@
                             FontWeight="SemiBold"/>
                         </Grid>
                     </Grid>
-                    <ScrollViewer 
+                    <Grid
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Top"
+                        Margin="0 120 0 0"
+                        Background="WhiteSmoke"
+                        Grid.Row="2">
+                        <ScrollViewer 
                             x:Name="ScrollInvoice"
-                            Grid.Row="2"
                             HorizontalScrollBarVisibility="Disabled" 
-                            Margin="0 70 0 0"
-                            HorizontalAlignment="Left" 
-                            Background="WhiteSmoke"
-                            Style="{StaticResource FavsScrollViewer}"
-                            VerticalScrollBarVisibility="Auto">
-
-                        <StackPanel x:Name="stkBill"
-                                Width="1060"
-                                HorizontalAlignment="Left"
-                                VerticalAlignment="Top"
-                                Margin="0 50 0 0" 
-                                Visibility="Hidden"/>
-                    </ScrollViewer>
-                    <ScrollViewer 
-                            x:Name="ScrollReceipt"
                             Grid.Row="2"
-                            HorizontalScrollBarVisibility="Disabled" 
-                            Margin="0 70 0 0"
+                            Margin="0 0 0 0"
                             HorizontalAlignment="Left" 
                             Background="WhiteSmoke"
                             Style="{StaticResource FavsScrollViewer}"
                             VerticalScrollBarVisibility="Auto"
-                        >
-                        <StackPanel x:Name="stkReceiptBill"
+                            Visibility="Hidden">
+
+                            <StackPanel x:Name="stkBill"
                                 Width="1060"
                                 HorizontalAlignment="Left"
                                 VerticalAlignment="Top"
-                                Margin="0 50 0 0"
-                                Visibility="Hidden"/>
-                    </ScrollViewer>
-                    <ScrollViewer 
-                            x:Name="ScrollStockReceipt"
-                            Grid.Row="2"
+                                Margin="0 0 0 0" 
+                                Visibility="Hidden"
+                                Background="WhiteSmoke"/>
+                        </ScrollViewer>
+                        <ScrollViewer 
+                            x:Name="ScrollReceipt"
                             HorizontalScrollBarVisibility="Disabled" 
-                            Margin="0 70 0 0"
+                            Grid.Row="2"
+                            Margin="0 0 0 0"
                             HorizontalAlignment="Left" 
                             Background="WhiteSmoke"
                             Style="{StaticResource FavsScrollViewer}"
-                            VerticalScrollBarVisibility="Auto">
-                        <StackPanel x:Name="stkStockReceipt"
+                            VerticalScrollBarVisibility="Auto"
+                            Visibility="Hidden"
+                        >
+                            <StackPanel x:Name="stkReceiptBill"
                                 Width="1060"
                                 HorizontalAlignment="Left"
                                 VerticalAlignment="Top"
-                                Margin="0 50 0 0"
+                                Margin="0 0 0 0"
+                                Background="WhiteSmoke"
                                 Visibility="Hidden"/>
-                    </ScrollViewer>
-
+                        </ScrollViewer>
+                        <ScrollViewer 
+                            x:Name="ScrollStockReceipt"
+                            HorizontalScrollBarVisibility="Disabled" 
+                            Grid.Row="2"
+                            Margin="0 0 0 0"
+                            HorizontalAlignment="Left" 
+                            Background="WhiteSmoke"
+                            Style="{StaticResource FavsScrollViewer}"
+                            VerticalScrollBarVisibility="Auto"
+                            Visibility="Hidden">
+                            <StackPanel x:Name="stkStockReceipt"
+                                Width="1060"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Top"
+                                Margin="0 0 0 0"
+                                Background="WhiteSmoke"
+                                Visibility="Hidden"/>
+                        </ScrollViewer>
+                    </Grid>
                 </Grid>
-
             </Grid>
             <!--Body report-->
             <Grid Grid.Row="1"
@@ -2474,11 +2485,17 @@
                 Margin="0 0 0 0"
                 Height="665"
                 DataContext="{StaticResource AgencyReportVM}">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="Loaded">
+                        <i:InvokeCommandAction Command="{Binding InitCommand}"
+                                               CommandParameter="{Binding ElementName=wdHome}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="3"></RowDefinition>
                     <RowDefinition Height="60"></RowDefinition>
                     <RowDefinition Height="60"></RowDefinition>
-                    <RowDefinition Height="50"></RowDefinition>
+                    <RowDefinition Height="60"></RowDefinition>
                     <RowDefinition Height="*"></RowDefinition>
                 </Grid.RowDefinitions>
                 <Grid Grid.Row="0"
@@ -2676,7 +2693,7 @@
                     <materialDesign:Card x:Name="cardSalesReport"
                              Height="50"
                              Width="1050"
-                             Margin="30,0,0,0"
+                             Margin="30,10,0,0"
                              HorizontalAlignment="Left"
                              VerticalAlignment="Top"
                              Padding="8"
@@ -2695,7 +2712,7 @@
                                 <TextBlock Text="No."
                                FontFamily="Segoe UI"
                                FontSize="25"
-                               FontWeight="Bold"
+                               FontWeight="DemiBold"
                                Foreground="#57548B"
                                HorizontalAlignment="Center" 
                                VerticalAlignment="Center">
@@ -2705,7 +2722,7 @@
                                 <TextBlock Text="Agency"
                                FontFamily="Segoe UI"
                                FontSize="25"
-                               FontWeight="Bold"
+                               FontWeight="DemiBold"
                                Foreground="#57548B"
                                HorizontalAlignment="Center" 
                                VerticalAlignment="Center">
@@ -2715,7 +2732,7 @@
                                 <TextBlock Text="Number Of Bills"
                                FontFamily="Segoe UI"
                                FontSize="25"
-                               FontWeight="Bold"
+                               FontWeight="DemiBold"
                                Foreground="#57548B"
                                Margin="0,0,0,0" 
                                HorizontalAlignment="Center" 
@@ -2726,7 +2743,7 @@
                                 <TextBlock Text="Total"
                                FontFamily="Segoe UI"
                                FontSize="25"
-                               FontWeight="Bold"
+                               FontWeight="DemiBold"
                                Foreground="#57548B"
                                HorizontalAlignment="Center" 
                                VerticalAlignment="Center">
@@ -2736,7 +2753,7 @@
                                 <TextBlock Text="Ratio"
                                FontFamily="Segoe UI"
                                FontSize="25"
-                               FontWeight="Bold"
+                               FontWeight="DemiBold"
                                Foreground="#57548B"
                                HorizontalAlignment="Center" 
                                VerticalAlignment="Center">
@@ -2747,7 +2764,7 @@
                     <materialDesign:Card x:Name="cardDebtAgencyReport"
                              Height="50"
                              Width="1050"
-                             Margin="30,0,0,0"
+                             Margin="30,10,0,0"
                              HorizontalAlignment="Left"
                              VerticalAlignment="Top"
                              Padding="8"
@@ -2766,7 +2783,7 @@
                                 <TextBlock Text="No."
                                FontFamily="Segoe UI"
                                FontSize="25"
-                               FontWeight="Bold"
+                               FontWeight="DemiBold"
                                Foreground="#57548B"
                                HorizontalAlignment="Center" 
                                VerticalAlignment="Center">
@@ -2776,7 +2793,7 @@
                                 <TextBlock Text="Agency"
                                FontFamily="Segoe UI"
                                FontSize="25"
-                               FontWeight="Bold"
+                               FontWeight="DemiBold"
                                Foreground="#57548B"
                                HorizontalAlignment="Center" 
                                VerticalAlignment="Center">
@@ -2786,7 +2803,7 @@
                                 <TextBlock Text="Original Debt"
                                FontFamily="Segoe UI"
                                FontSize="25"
-                               FontWeight="Bold"
+                               FontWeight="DemiBold"
                                Foreground="#57548B"
                                Margin="0,0,0,0" 
                                HorizontalAlignment="Center" 
@@ -2797,7 +2814,7 @@
                                 <TextBlock Text="Cost Overrun"
                                FontFamily="Segoe UI"
                                FontSize="25"
-                               FontWeight="Bold"
+                               FontWeight="DemiBold"
                                Foreground="#57548B"
                                HorizontalAlignment="Center" 
                                VerticalAlignment="Center">
@@ -2807,7 +2824,7 @@
                                 <TextBlock Text="Total"
                                FontFamily="Segoe UI"
                                FontSize="25"
-                               FontWeight="Bold"
+                               FontWeight="DemiBold"
                                Foreground="#57548B"
                                HorizontalAlignment="Center" 
                                VerticalAlignment="Center">
@@ -2816,7 +2833,10 @@
                         </Grid>
                     </materialDesign:Card>
                 </Grid>
-                <Grid Grid.Row="4">
+                <Grid Grid.Row="4"
+                      HorizontalAlignment="Left"
+                      Margin="30 0 50 0"
+                      Background="WhiteSmoke">
                     <ScrollViewer 
                             x:Name="scrollSales"
                             Grid.Row="4"

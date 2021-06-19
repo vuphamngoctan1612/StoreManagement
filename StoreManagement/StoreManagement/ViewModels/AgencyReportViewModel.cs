@@ -6,6 +6,7 @@ using System.Linq;
 using System.Windows.Input;
 using System.Windows;
 using System.Windows.Controls;
+using System;
 
 namespace StoreManagement.ViewModels
 {
@@ -18,6 +19,7 @@ namespace StoreManagement.ViewModels
         public ICommand SwitchCommand { get; set; }
         public ICommand GetUidCommand { get; set; }
         public ICommand SearchAgencyCommand { get; set; }
+        public ICommand InitCommand { get; set; }
         public string CustomFormat { get; set; }
 
         public AgencyReportViewModel()
@@ -27,6 +29,46 @@ namespace StoreManagement.ViewModels
             GetUidCommand = new RelayCommand<Button>((para) => true, (para) => uid = para.Uid);
             SwitchCommand = new RelayCommand<HomeWindow>((para) => true, (para) => Switch(para));
             SearchAgencyCommand = new RelayCommand<HomeWindow>((para) => true, (para) => Search(para));
+            InitCommand = new RelayCommand<HomeWindow>((para) => true, (para) => Init(para));
+        }
+
+        public void Init(HomeWindow para)
+        {
+            para.Date.Text = DateTime.Now.ToString();
+            para.comboBoxReport.SelectedIndex = 0;
+            para.cardSalesReport.Visibility = System.Windows.Visibility.Visible;
+            List<Agency> agencies = DataProvider.Instance.DB.Agencies.ToList<Agency>();
+            para.stkSalesReport.Children.Clear();
+            int check = 0;
+            foreach (Agency agency in agencies)
+            {
+                long? total = 0;
+                long? dept = 0;
+                int count = 0;
+                List<Invoice> invoices = new List<Invoice>();
+                SalesReportUC salesReportUC = new SalesReportUC();
+                salesReportUC.txtNo.Text = agency.ID.ToString();
+                salesReportUC.txtAgency.Text = agency.Name;
+                invoices = agency.Invoices.ToList();
+                foreach (Invoice invoice in invoices)
+                {
+                    try
+                    {
+                        if (invoice.Checkout.Value.Month == para.Date.SelectedDate.Value.Month && invoice.Checkout.Value.Year == para.Date.SelectedDate.Value.Year)
+                        {
+                            total += invoice.Total;
+                            dept += invoice.Debt;
+                            count++;
+                        }
+                    }
+                    catch { }
+                }
+                salesReportUC.txtNumberOfBills.Text = count.ToString();
+                salesReportUC.txtTotal.Text = total.ToString();
+                salesReportUC.txtRatio.Text = (100 * (double)dept / (double)(total + 1)).ToString() + "%";
+                para.stkSalesReport.Children.Add(salesReportUC);
+                check++;
+            }
         }
 
         private void Search(HomeWindow para)
