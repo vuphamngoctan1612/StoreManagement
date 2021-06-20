@@ -365,7 +365,7 @@ namespace StoreManagement.ViewModels
             
         }
 
-        private void InitColumnChart(HomeWindow para)
+        public void InitColumnChart(HomeWindow para)
         {
             string month = DateTime.Now.Month.ToString();
             string year = DateTime.Now.Year.ToString();

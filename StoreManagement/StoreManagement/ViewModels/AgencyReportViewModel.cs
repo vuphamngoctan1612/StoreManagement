@@ -54,7 +54,7 @@ namespace StoreManagement.ViewModels
                 {
                     try
                     {
-                        if (invoice.Checkout.Value.Month == para.Date.SelectedDate.Value.Month && invoice.Checkout.Value.Year == para.Date.SelectedDate.Value.Year)
+                        if (invoice.Checkout.Value.Month == DateTime.Now.Month && invoice.Checkout.Value.Year == DateTime.Now.Year)
                         {
                             total += invoice.Total;
                             dept += invoice.Debt;

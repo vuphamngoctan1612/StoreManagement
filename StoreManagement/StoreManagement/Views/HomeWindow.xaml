@@ -2535,7 +2535,7 @@
                             MaxLines="1"
                             Height="35"
                             FontSize="22"
-                            FontWeight="SemiBold"
+                            FontWeight="DemiBold"
                             Padding="0"
                             HorizontalContentAlignment="Left"
                             VerticalContentAlignment="Center" 
