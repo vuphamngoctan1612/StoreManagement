@@ -23,6 +23,8 @@ namespace StoreManagement.ViewModels
     class SignUpViewModel : BaseViewModel
     {
         private bool isSucceed = false;
+        public bool IsSucceed { get => isSucceed; set => isSucceed = value; }
+
         private string imageFileName;
 
         public ICommand SelectImageCommand { get; set; }
@@ -127,7 +129,7 @@ namespace StoreManagement.ViewModels
 
                 DataProvider.Instance.DB.Accounts.Add(account);
                 DataProvider.Instance.DB.SaveChanges();
-                this.isSucceed = true;
+                this.IsSucceed = true;
 
                 CustomMessageBox.Show("Successful account registration!", "Notify", MessageBoxButton.OK, MessageBoxImage.Asterisk);
 
@@ -135,7 +137,7 @@ namespace StoreManagement.ViewModels
             }
             catch
             {
-                this.isSucceed = false;
+                this.IsSucceed = false;
                 parameter.txtUsername.Focus();
                 return;
 

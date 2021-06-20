@@ -66,7 +66,7 @@
                         Width="260"
                         RadiusX="10"
                         RadiusY="10"
-                        Fill="Transparent">
+                        Fill="#FF9E9F">
                     </Rectangle>
                     <materialDesign:PackIcon
                         x:Name="icnMain"
@@ -594,50 +594,18 @@
             <Grid Grid.Row="1"
                 x:Name="grdBody_Main"
                 DataContext="{StaticResource ReportVM}"
-                Visibility="Hidden">
+                Visibility="Visible">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="2"></RowDefinition>
-                    <RowDefinition Height="70"></RowDefinition>
                     <RowDefinition Height="200"></RowDefinition>
                     <RowDefinition></RowDefinition>
                 </Grid.RowDefinitions>
                 <Grid Grid.Row="0"
                       Background="#FBA1BB">
                 </Grid>
-                <Grid Grid.Row="1">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="40"></RowDefinition>
-                        <RowDefinition Height="30"></RowDefinition>
-                    </Grid.RowDefinitions>
-                    <!--<Grid Grid.Row="0">
-                        <TextBlock
-                            Text="MY STORES"
-                            Foreground="#F97298"
-                            FontSize="25"
-                            FontWeight="SemiBold"
-                            Margin="30 0 0 0"
-                            HorizontalAlignment="Left"
-                            VerticalAlignment="Center">
-                        </TextBlock>
-                    </Grid>
-                    <Grid Grid.Row="1">
-                        <TextBlock
-                            Text="TODAY RANKING"
-                            FontSize="18"
-                            Foreground="#504D85"
-                            FontWeight="SemiBold"
-                            HorizontalAlignment="Left"
-                            VerticalAlignment="Center"
-                            Margin="65 0 0 5">
-                        </TextBlock>
-                    </Grid>-->
-                </Grid>
-                <Grid Grid.Row="2">
+                <Grid Grid.Row="1"
+                      Margin="0 20 0 0">
                     <i:Interaction.Triggers>
-                        <!--<i:EventTrigger EventName="MouseMove">
-                            <i:InvokeCommandAction Command="{Binding LoadSalesResult}" 
-                                               CommandParameter="{Binding ElementName=wdHome}"/>
-                        </i:EventTrigger>-->
                         <i:EventTrigger EventName="Loaded">
                             <i:InvokeCommandAction Command="{Binding LoadSalesResult}" 
                                                CommandParameter="{Binding ElementName=wdHome}"/>
@@ -898,7 +866,8 @@
                         </Grid>
                     </Border>
                 </Grid>
-                <Grid Grid.Row="3">
+                <Grid Grid.Row="2"
+                      Margin="0 20 0 0">
                     <Border
                         BorderThickness="1"
                         Background="White"
@@ -907,7 +876,7 @@
                         VerticalAlignment="Top"
                         Margin="0 10"
                         Width="1100"
-                        Height="400">
+                        Height="450">
                         <Border.Effect>
                             <DropShadowEffect 
                             BlurRadius="8" 
@@ -1349,7 +1318,7 @@
             <Grid Grid.Row="1"                 
                 DataContext="{StaticResource ProductVM}"
                 x:Name="grdBody_Product"
-                Visibility="Visible">
+                Visibility="Hidden">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="Loaded">
                         <i:InvokeCommandAction 

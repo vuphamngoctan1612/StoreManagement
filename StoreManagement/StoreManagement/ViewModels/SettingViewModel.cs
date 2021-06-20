@@ -361,8 +361,6 @@ namespace StoreManagement.ViewModels
 
         private int LimitOfUnit()
         {
-            int max = 0;
-
             List<Product> list = DataProvider.Instance.DB.Products.ToList();
 
             var results = DataProvider.Instance.DB.Products.Where(x => x.IsDelete == false).Select(x => x.Unit).Distinct().ToList();
