@@ -17,6 +17,7 @@ using System.Data;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using Microsoft.Win32;
+using StoreManagement.Validations;
 
 namespace StoreManagement.ViewModels
 {
@@ -105,22 +106,13 @@ namespace StoreManagement.ViewModels
                 return;
             }
 
-            try
+            string displayName = parameter.displayname.Text;
+            string username = parameter.txtUsername.Text;
+            string password = MD5Hash(parameter.pwbPassword.Password);
+            byte[] imgByteArr = Converter.Instance.ConvertImageToBytes(imageFileName);
+
+            if (DataProvider.Instance.DB.Accounts.Where(p=>p.Username == username).Count() == 0)
             {
-                string displayName = parameter.displayname.Text;
-                string username = parameter.txtUsername.Text;
-                string password = MD5Hash(parameter.pwbPassword.Password);
-                byte[] imgByteArr;
-
-                if (imageFileName == null)
-                {
-                    imgByteArr = Converter.Instance.ConvertImageToBytes(@"..\..\Resources\Images\default.jpg");
-                }
-                else
-                {
-                    imgByteArr = Converter.Instance.ConvertImageToBytes(imageFileName);
-                }
-
                 Account account = new Account();
                 account.DisplayName = displayName;
                 account.Username = username;
@@ -132,18 +124,29 @@ namespace StoreManagement.ViewModels
                 this.IsSucceed = true;
 
                 CustomMessageBox.Show("Successful account registration!", "Notify", MessageBoxButton.OK, MessageBoxImage.Asterisk);
-
-                parameter.Close();
             }
-            catch
+            else
             {
                 this.IsSucceed = false;
+                CustomMessageBox.Show("Username already exists! Please enter other account", "Notify", MessageBoxButton.OK, MessageBoxImage.Error);
                 parameter.txtUsername.Focus();
                 return;
-
-                //CustomMessageBox.Show("Username already exists! Please enter other account", "Notify", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            
+            //finally
+            if (this.IsSucceed)
+            {
+                parameter.Close();
             }
 
+            //if (imageFileName == null)
+            //{
+            //    imgByteArr = Converter.Instance.ConvertImageToBytes(@"..\..\Resources\Images\default.jpg");
+            //}
+            //else
+            //{
+            //    imgByteArr = Converter.Instance.ConvertImageToBytes(imageFileName);
+            //}
         }
 
         private void CloseWindow(SignUpWindow para)

@@ -51,8 +51,8 @@
                 Width="300"
                 Margin="0 0 30 0"
                 StrokeThickness="2"
-                RadiusX="10"
-                RadiusY="10"
+                RadiusX="5"
+                RadiusY="5"
                 Stroke="#E2D2DA"/>
             <TextBox
                 Name="txtID"
@@ -90,8 +90,8 @@
                 Width="300"
                 Margin="0 0 30 0"
                 StrokeThickness="2"
-                RadiusX="10"
-                RadiusY="10"
+                RadiusX="5"
+                RadiusY="5"
                 Stroke="#E2D2DA"/>
             <TextBox
                 Name="txtName"
@@ -136,8 +136,8 @@
                 Width="300"
                 Margin="0 0 30 0"
                 StrokeThickness="2"
-                RadiusX="10"
-                RadiusY="10"
+                RadiusX="5"
+                RadiusY="5"
                 Stroke="#E2D2DA"/>
             <TextBox
                 Name="txtDebt"

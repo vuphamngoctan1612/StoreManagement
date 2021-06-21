@@ -59,8 +59,8 @@
                     <Rectangle
                         Stroke="#F79BB5"
                         Opacity="0.7"
-                        RadiusX="10"
-                        RadiusY="10"
+                        RadiusX="5"
+                        RadiusY="5"
                         Height="200"
                         Width="200"
                         StrokeThickness="4"
@@ -119,8 +119,8 @@
                         Width="300"
                         Margin="0 0 30 0"
                         StrokeThickness="2"
-                        RadiusX="10"
-                        RadiusY="10"
+                        RadiusX="5"
+                        RadiusY="5"
                         Stroke="#E2D2DA"/>
                     <TextBox
                         x:Name="displayname"
@@ -156,8 +156,8 @@
                         Width="300"
                         Margin="0 0 30 0"
                         StrokeThickness="2"
-                        RadiusX="10"
-                        RadiusY="10"
+                        RadiusX="5"
+                        RadiusY="5"
                         Stroke="#E2D2DA"/>
                     <TextBox
                         x:Name="txtUsername"
@@ -172,10 +172,9 @@
                         FontSize="17"
                         FontWeight="SemiBold"
                         Padding="0"
-                        Validation.ErrorTemplate="{StaticResource textBoxErrorTemplate}"
                         HorizontalContentAlignment="Left"
                         VerticalContentAlignment="Center">
-                        <TextBox.Text>
+                        <!--<TextBox.Text>
                             <Binding Path="Username" Source="{StaticResource Account}" UpdateSourceTrigger="PropertyChanged" Mode="OneWayToSource">
                                 <Binding.ValidationRules>
                                     <vd:ExistValidation 
@@ -184,7 +183,7 @@
                                     />
                                 </Binding.ValidationRules>
                             </Binding>
-                        </TextBox.Text>
+                        </TextBox.Text>-->
                     </TextBox>
                 </Grid>
                 <Grid Grid.Row="2"
@@ -204,8 +203,8 @@
                         Width="300"
                         Margin="0 0 30 0"
                         StrokeThickness="2"
-                        RadiusX="10"
-                        RadiusY="10"
+                        RadiusX="5"
+                        RadiusY="5"
                         Stroke="#E2D2DA"/>
                     <PasswordBox
                         x:Name="pwbPassword"
@@ -240,8 +239,8 @@
                         Width="300"
                         Margin="0 0 30 0"
                         StrokeThickness="2"
-                        RadiusX="10"
-                        RadiusY="10"
+                        RadiusX="5"
+                        RadiusY="5"
                         Stroke="#E2D2DA"/>
                     <PasswordBox    
                         x:Name="pwbPasswordConfirm"

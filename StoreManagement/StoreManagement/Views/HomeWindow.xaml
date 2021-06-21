@@ -448,42 +448,6 @@
                     </Button>
                 </Grid>
             </StackPanel>
-            <Grid
-                x:Name="grdMenu_Logout"
-                Height="60"
-                Width="300"
-                Margin="0,700,0,0">
-                <materialDesign:PackIcon
-                        x:Name="icnLogout"
-                        Kind="ArrowRightBoldBoxOutline"
-                        Foreground="#504D85"
-                        Width="32" 
-                        Height="32" 
-                        VerticalAlignment="Center" 
-                        Cursor="Hand" 
-                        Margin="243,14,0,14" >
-                </materialDesign:PackIcon>
-                <Button
-                    x:Name="btnLogout"
-                    Uid="5"
-                    Height="40"
-                    Width="115"
-                    Margin="134,10,51,10"
-                    Content="Log out"
-                    Foreground="#504D85"
-                    HorizontalAlignment="Center"
-                    
-                    VerticalAlignment="Center"
-                    BorderBrush="{x:Null}"
-                    Background="{x:Null}"
-                    FontSize="22"
-                    VerticalContentAlignment="Center"
-                    HorizontalContentAlignment="Center"
-                    FontWeight="SemiBold"
-                    Cursor="Hand"
-                    FocusVisualStyle="{x:Null}">
-                </Button>
-            </Grid>
         </Grid>
         <Grid
             x:Name="Main"
@@ -594,7 +558,7 @@
             <Grid Grid.Row="1"
                 x:Name="grdBody_Main"
                 DataContext="{StaticResource ReportVM}"
-                Visibility="Visible">
+                Visibility="Hidden">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="2"></RowDefinition>
                     <RowDefinition Height="200"></RowDefinition>
@@ -1068,17 +1032,16 @@
                         <ColumnDefinition></ColumnDefinition>
                     </Grid.ColumnDefinitions>
                     <Grid Grid.Column="0">
-                        <Rectangle 
-		                    HorizontalAlignment="Left" 
-		                    VerticalAlignment="Center"
-		                    Stroke="#FCE5EC"
-		                    Fill="#FCE5EC"
-		                    Margin="30 10 0 0"
-		                    Height="40"
-		                    Width ="300"
-		                    RadiusX="5"
-		                    RadiusY="5"
-                        />
+                        <Rectangle
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Center"
+                            Width="300"
+                            Height="40"
+                            Margin="30 10 0 0"
+                            StrokeThickness="2"
+                            RadiusX="5"
+                            RadiusY="5"
+                            Stroke="#E2D2DA"/>
                         <TextBox
                             x:Name="txtSearchAgency"
                             Height="35"
@@ -1318,7 +1281,7 @@
             <Grid Grid.Row="1"                 
                 DataContext="{StaticResource ProductVM}"
                 x:Name="grdBody_Product"
-                Visibility="Hidden">
+                Visibility="Visible">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="Loaded">
                         <i:InvokeCommandAction 
@@ -1339,16 +1302,16 @@
                         <ColumnDefinition></ColumnDefinition>
                     </Grid.ColumnDefinitions>
                     <Grid Grid.Column="0">
-                        <Rectangle 
-                            HorizontalAlignment="Left" 
+                        <Rectangle
+                            HorizontalAlignment="Left"
                             VerticalAlignment="Center"
-                            Stroke="#FCE5EC"
-                            Fill="#FCE5EC"
-                            Margin="30 10 0 0"
+                            Width="300"
                             Height="40"
-                            Width ="300"
+                            Margin="30 10 0 0"
+                            StrokeThickness="2"
                             RadiusX="5"
-                            RadiusY="5"/>
+                            RadiusY="5"
+                            Stroke="#E2D2DA"/>
                         <materialDesign:PackIcon
                             Kind="Magnify"
                             Width="40"
@@ -1383,6 +1346,17 @@
                             VerticalAlignment="Center"
                             Margin="0 0 30 0">
                             <Button
+                                x:Name="btnExportExcel"
+                                Margin="0 10 20 0"
+                                FocusVisualStyle="{x:Null}"
+                                BorderBrush="{x:Null}"
+                                Cursor="Hand"
+                                Background="#F79BB5"
+                                Foreground="#504D85"
+                                Content="Export excel"
+                                Style="{StaticResource MaterialDesignRaisedButton}">
+                            </Button>
+                            <Button
                                 x:Name="btnAddProduct"
                                 Margin="0 10 2 0"
                                 FocusVisualStyle="{x:Null}"
@@ -1391,30 +1365,10 @@
                                 Background="#F79BB5"
                                 Foreground="#504D85"
                                 Content="Add product"
-                                FontFamily="Segoe UI"
-                                ToolTip="Thêm sản phẩm"
                                 Style="{StaticResource MaterialDesignRaisedButton}"
                                 Command="{Binding AddProductWindowCommand}"
                                 CommandParameter="{Binding ElementName=wdHome}">
                             </Button>
-                            <!--<Button
-                                x:Name="btnImportProduct"
-                                Margin="15 10 0 0"
-                                HorizontalAlignment="Left"
-                                VerticalAlignment="Center"
-                                FocusVisualStyle="{x:Null}"
-                                BorderBrush="{x:Null}"
-                                Cursor="Hand"
-                                Background="#F79BB5"
-                                Foreground="#504D85"
-                                Content="Import product"
-                                FontFamily="Segoe UI"
-                                ToolTip="Thêm sản phẩm"
-                                Command="{Binding AddImportProductWindowCommand}"
-                                CommandParameter="{Binding ElementName=wdHome}"
-                                Style="{StaticResource MaterialDesignRaisedButton}">
-
-                            </Button>-->
                         </StackPanel>
                     </Grid>
                 </Grid>
