@@ -263,9 +263,6 @@
     <Compile Include="Views\InfoAccountWindow.xaml.cs">
       <DependentUpon>InfoAccountWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\InvoiceBillWindow.xaml.cs">
-      <DependentUpon>InvoiceBillWindow.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\InvoiceWindow.xaml.cs">
       <DependentUpon>InvoiceWindow.xaml</DependentUpon>
     </Compile>
@@ -426,10 +423,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\InfoAccountWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\InvoiceBillWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

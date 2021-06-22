@@ -36,9 +36,9 @@ namespace StoreManagement.ViewModels
 
         private void CheckDate(HomeWindow para)
         {
-            if(DateTime.Now.Month < para.Date.SelectedDate.Value.Month && DateTime.Now.Year < para.Date.SelectedDate.Value.Year)
+            if (DateTime.Compare(DateTime.Now, (DateTime)para.Date.SelectedDate) < 0)
             {
-                MessageBox.Show("can't choose month after this month");
+                CustomMessageBox.Show("Could not select the month at the future!", "Notify", MessageBoxButton.OK, MessageBoxImage.Warning);
                 para.Date.Text = DateTime.Now.ToString();
             }    
         }

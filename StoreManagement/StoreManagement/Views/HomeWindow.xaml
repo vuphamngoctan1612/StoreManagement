@@ -2042,7 +2042,7 @@
             <Grid Grid.Row="1"
                 x:Name="grdBody_Bill"
                 DataContext="{StaticResource BillVM}"
-                Visibility="Hidden">
+                Visibility="Visible">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="Loaded">
                         <i:InvokeCommandAction 
@@ -2367,11 +2367,11 @@
                             Background="WhiteSmoke"
                             Style="{StaticResource FavsScrollViewer}"
                             VerticalScrollBarVisibility="Auto"
-                            Visibility="Hidden">
+                            Visibility="Hidden"
+                            Height="480">
 
                             <StackPanel x:Name="stkBill"
                                 Width="1060"
-                                Height="420"
                                 HorizontalAlignment="Left"
                                 VerticalAlignment="Top"
                                 Margin="0 0 0 0" 
@@ -2388,10 +2388,9 @@
                             Style="{StaticResource FavsScrollViewer}"
                             VerticalScrollBarVisibility="Auto"
                             Visibility="Hidden"
-                        >
+                            Height="480">
                             <StackPanel x:Name="stkReceiptBill"
                                 Width="1060"
-                                Height="420"
                                 HorizontalAlignment="Left"
                                 VerticalAlignment="Top"
                                 Margin="0 0 0 0"
@@ -2407,10 +2406,10 @@
                             Background="WhiteSmoke"
                             Style="{StaticResource FavsScrollViewer}"
                             VerticalScrollBarVisibility="Auto"
-                            Visibility="Hidden">
+                            Visibility="Hidden"
+                            Height="480">
                             <StackPanel x:Name="stkStockReceipt"
                                 Width="1060"
-                                Height="420"
                                 HorizontalAlignment="Left"
                                 VerticalAlignment="Top"
                                 Margin="0 0 0 0"
