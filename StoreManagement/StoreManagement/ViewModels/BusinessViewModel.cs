@@ -197,17 +197,20 @@ namespace StoreManagement.ViewModels
             ReloadBusiness();
             //update today's sales result
             ReportViewModel reportViewModel = new ReportViewModel();
+            reportViewModel.InitColumnChart(para);
             reportViewModel.LoadSales(para);
             //reload chart
             reportViewModel.LoadChartByAgency();
             reportViewModel.LoadChartByProduct();
             //update invoices, stock, receipt
             BillViewModel billViewModel = new BillViewModel();
+            billViewModel.Init(para);
             billViewModel.LoadBill(para);
             billViewModel.LoadStockReceipt(para);
             billViewModel.LoadReceiptBill(para);
             //update agency report
             AgencyReportViewModel agencyReportViewModel = new AgencyReportViewModel();
+            agencyReportViewModel.Init(para);
             agencyReportViewModel.LoadSalesReport(para);
             agencyReportViewModel.LoadDebtsReport(para);
         }
