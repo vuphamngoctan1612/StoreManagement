@@ -105,6 +105,7 @@
                     Stroke="#E2D2DA"/>
                 <ComboBox
                     Name="cbbName"
+                    materialDesign:ComboBoxAssist.ClassicMode="true"
                     materialDesign:HintAssist.Hint="Choose agency"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Center"
