@@ -275,6 +275,9 @@
     <Compile Include="Views\ReceiptBillWindow.xaml.cs">
       <DependentUpon>ReceiptBillWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\ShellOutWindow.xaml.cs">
+      <DependentUpon>ShellOutWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\SignUpWindow.xaml.cs">
       <DependentUpon>SignUpWindow.xaml</DependentUpon>
     </Compile>
@@ -439,6 +442,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ReceiptBillWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ShellOutWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

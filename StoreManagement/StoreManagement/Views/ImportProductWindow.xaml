@@ -252,7 +252,7 @@
                         ItemsSource="{Binding ItemsSourceUnits, Mode=TwoWay}"
                         SelectedItem="{Binding SelectedUnits}">
                         <ComboBox.Text>
-                            <Binding Path="UnitsID" Source="{StaticResource Product}" UpdateSourceTrigger="PropertyChanged" Mode="OneWayToSource">
+                            <Binding Path="Name" Source="{StaticResource Units}" UpdateSourceTrigger="PropertyChanged" Mode="OneWayToSource">
                                 <Binding.ValidationRules>
                                     <vd:NotNullValidation ErrorMessage="Please choose item"/>
                                 </Binding.ValidationRules>

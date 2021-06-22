@@ -5,9 +5,11 @@ using StoreManagement.Views;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Data;
 using System.Data.Entity.Migrations;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -63,6 +65,8 @@ namespace StoreManagement.ViewModels
         public ICommand ImportProductCommand { get; set; }                  //open importproductwindow to add product exist
         public ICommand ImportProduct_SaveCommand { get; set; }
 
+        public ICommand ExportExcelProductCommand { get; set; }
+
         public ProductViewModel()
         {
             LoadProductOnWindowCommand = new RelayCommand<HomeWindow>((para) => true, (para) => LoadProduct(para));
@@ -82,6 +86,87 @@ namespace StoreManagement.ViewModels
             AddImportProductWindowCommand = new RelayCommand<HomeWindow>((para) => true, (para) => OpenImportProductwindow(para));
             CloseImportWindowCommand = new RelayCommand<ImportProductWindow>((para) => true, (para) => CloseImportWindow(para));
             ImportProduct_SaveCommand = new RelayCommand<ImportProductWindow>((para) => true, (para) => Import_SaveProduct(para));
+
+            ExportExcelProductCommand = new RelayCommand<HomeWindow>((para) => true, (para) => ExportExcelProduct(para));
+        }
+
+        public static DataTable ToDataTable<T>(List<T> items)
+        {
+            DataTable dataTable = new DataTable(typeof(T).Name);
+
+            //Get all the properties
+            PropertyInfo[] Props = typeof(T).GetProperties(BindingFlags.Public | BindingFlags.Instance);
+            foreach (PropertyInfo prop in Props)
+            {
+                //Setting column names as Property names
+                dataTable.Columns.Add(prop.Name);
+            }
+            foreach (T item in items)
+            {
+                var values = new object[Props.Length];
+                for (int i = 0; i < Props.Length; i++)
+                {
+                    //inserting property values to datatable rows
+                    values[i] = Props[i].GetValue(item, null);
+                }
+                dataTable.Rows.Add(values);
+            }
+            //put a breakpoint here and check datatable
+            return dataTable;
+        }
+
+        private void ExportExcelProduct(HomeWindow para)
+        {
+            List<Product> list = DataProvider.Instance.DB.Products.Where(x => x.IsDelete == false).ToList();
+
+            if (list.Count == 0)
+            {
+                CustomMessageBox.Show("List product is empty!", "Notify", MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
+
+            SaveFileDialog sfd = new SaveFileDialog() { Filter = "Excel Workbook|*.xlsx" };
+            if (sfd.ShowDialog() == true)
+            {
+                object misValue = System.Reflection.Missing.Value;
+                Microsoft.Office.Interop.Excel.Application application = new Microsoft.Office.Interop.Excel.Application();
+                application.Visible = false;
+                Microsoft.Office.Interop.Excel.Workbook workbook = application.Workbooks.Add(Microsoft.Office.Interop.Excel.XlWBATemplate.xlWBATWorksheet);
+                Microsoft.Office.Interop.Excel.Worksheet worksheet = (Microsoft.Office.Interop.Excel.Worksheet)workbook.ActiveSheet;
+                Microsoft.Office.Interop.Excel.Range cellRange;
+                DataTable data = new DataTable();
+
+                //using (var reader = ObjectReader.Create(this.ListStores))
+                //{
+                //    data.Load(reader);
+                //}
+
+                data = ToDataTable<Product>(list);
+                data.Columns.Remove("Unit");
+                data.Columns.Remove("isdelete");
+                data.Columns.Remove("InvoiceInfoes");
+                data.Columns.Remove("Image");
+                data.Columns.Remove("StockReceiptInfoes");
+
+                worksheet = application.Worksheets.Add(misValue, misValue, misValue, misValue);
+                worksheet.Name = "Product";
+                for (int i = 0; i < data.Columns.Count; i++)
+                {
+                    worksheet.Cells[1, i + 1] = data.Columns[i].ColumnName;
+                }
+                for (int i = 0; i < data.Rows.Count; i++)
+                {
+                    for (int j = 0; j < data.Columns.Count; j++)
+                    {
+                        worksheet.Cells[i + 2, j + 1] = data.Rows[i][j].ToString();
+                    }
+                }
+                cellRange = worksheet.Range[worksheet.Cells[1, 1], worksheet.Cells[data.Rows.Count + 1, data.Columns.Count]];
+                cellRange.EntireColumn.AutoFit();
+                workbook.SaveAs(sfd.FileName);
+                workbook.Close();
+                application.Quit();
+            }
         }
 
         #region Command
@@ -123,7 +208,7 @@ namespace StoreManagement.ViewModels
 
             if (para.Title == "Thêm sản phẩm" && DataProvider.Instance.DB.Products.Where(x => x.IsDelete == false).ToList().Count >= int.Parse(rulesSetting[2]))
             {
-                MessageBox.Show("Exceed the number of product limit");
+                CustomMessageBox.Show("Exceed the number of product limit!", "Notify", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
 
@@ -131,7 +216,7 @@ namespace StoreManagement.ViewModels
             {
                 if (results.Count >= int.Parse(rulesSetting[3]))
                 {
-                    MessageBox.Show("Exceed the number of unit limit");
+                    CustomMessageBox.Show("Exceed the number of unit limit!", "Notify", MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
                 }
             }
@@ -199,7 +284,7 @@ namespace StoreManagement.ViewModels
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                CustomMessageBox.Show(ex.Message, "Notify", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             finally
             {

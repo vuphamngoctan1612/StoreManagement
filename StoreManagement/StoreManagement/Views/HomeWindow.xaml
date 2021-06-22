@@ -558,7 +558,7 @@
             <Grid Grid.Row="1"
                 x:Name="grdBody_Main"
                 DataContext="{StaticResource ReportVM}"
-                Visibility="Hidden">
+                Visibility="Visible">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="2"></RowDefinition>
                     <RowDefinition Height="200"></RowDefinition>
@@ -1095,6 +1095,21 @@
                     </Grid>
                     <Grid Grid.Column="1">
                         <Button
+                            x:Name="btnExportExcelStore"
+                            Background="#F79BB5"
+                            FocusVisualStyle="{x:Null}"
+                            BorderBrush="{x:Null}"
+                            Cursor="Hand"
+                            Foreground="#504D85"
+                            HorizontalAlignment="Right" 
+                            VerticalAlignment="Center"
+                            Content="Export Excel"
+                            Margin="0 0 160 0"
+                            Style="{StaticResource MaterialDesignRaisedButton}"
+                            Command="{Binding ExportExcelStoreCommand}"
+                            CommandParameter="{Binding ElementName=wdHome}">
+                        </Button>
+                        <Button
                             x:Name="btnAddAgency"
                             Background="#F79BB5"
                             Uid="0"
@@ -1210,7 +1225,7 @@
                     </Grid>
                     <Grid
                         x:Name="grdList3Store_Store"
-                        Visibility="Hidden">
+                        Visibility="Visible">
                         <Grid.RowDefinitions>
                             <RowDefinition></RowDefinition>
                             <RowDefinition Height="110"></RowDefinition>
@@ -1281,7 +1296,7 @@
             <Grid Grid.Row="1"                 
                 DataContext="{StaticResource ProductVM}"
                 x:Name="grdBody_Product"
-                Visibility="Visible">
+                Visibility="Hidden">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="Loaded">
                         <i:InvokeCommandAction 
@@ -1354,7 +1369,9 @@
                                 Background="#F79BB5"
                                 Foreground="#504D85"
                                 Content="Export excel"
-                                Style="{StaticResource MaterialDesignRaisedButton}">
+                                Style="{StaticResource MaterialDesignRaisedButton}"
+                                Command="{Binding ExportExcelProductCommand}"
+                                CommandParameter="{Binding ElementName=wdHome}">
                             </Button>
                             <Button
                                 x:Name="btnAddProduct"
@@ -2116,7 +2133,10 @@
                                 FontWeight="Bold"
                                 Visibility="Visible" 
                                 FocusVisualStyle="{x:Null}"
-                                BorderBrush="{x:Null}"></Button>
+                                BorderBrush="{x:Null}"
+                                Command="{Binding ShellOutCommand}"
+                                CommandParameter="{Binding ElementName=wdHome}">
+                        </Button>
                     </Grid>
                     <Grid Grid.Column="4">
                         <Button x:Name="btExcelBill" 
@@ -2588,7 +2608,8 @@
                                     Foreground="#57548B"
                                     FontFamily="Segoe UI"
                                     FontWeight="DemiBold"
-                                    FontSize="22">
+                                    FontSize="22"
+                                    HorizontalContentAlignment="Center">
                                     <i:Interaction.Triggers>
                                         <i:EventTrigger EventName="SelectedDateChanged">
                                             <i:InvokeCommandAction Command="{Binding LoadSalesReportCommand}"
@@ -2991,7 +3012,7 @@
                                         Margin="20,0">
                                         <Grid>
                                             <TextBlock 
-                                                Text="Number of type"
+                                                Text="Number of product"
                                                 Foreground="#504D85"
                                                 FontWeight="SemiBold"
                                                 HorizontalAlignment="Left"
@@ -3031,7 +3052,7 @@
                                         Margin="20,0">
                                         <Grid>
                                             <TextBlock 
-                                                Text="Number of type"
+                                                Text="Number of unit type"
                                                 Foreground="#504D85"
                                                 FontWeight="SemiBold"
                                                 HorizontalAlignment="Left"

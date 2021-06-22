@@ -59,7 +59,7 @@ namespace StoreManagement.ViewModels
             string[] rules = this.cache.Split(' ');
             if (this.ListType.Count >= int.Parse(rules[0]))
             {
-                MessageBox.Show("Over the limit in Setting");
+                CustomMessageBox.Show("Over the limit in Setting!", "Notify", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
             try
@@ -104,7 +104,7 @@ namespace StoreManagement.ViewModels
 
             int count = this.HomeWindow.stkListType_Setting.Children.Count;
 
-            for (int i = 0; i < count-1 ; i++)
+            for (int i = 0; i < count - 1; i++)
             {
                 this.HomeWindow.stkListType_Setting.Children.RemoveAt(0);
             }
@@ -115,7 +115,7 @@ namespace StoreManagement.ViewModels
 
         private void DeleteType(TypeOfAgencyUC para)
         {
-            MessageBoxResult mes = MessageBox.Show("Are you sure?", "Confirm", MessageBoxButton.YesNo);
+            MessageBoxResult mes = CustomMessageBox.Show("Are you sure?", "Confirm", MessageBoxButton.YesNo);
 
             if (mes != MessageBoxResult.Yes)
             {
@@ -128,9 +128,9 @@ namespace StoreManagement.ViewModels
 
             foreach (Agency item in list)
             {
-                if (item.TypeOfAgency == this.ListType[stt-1].ID)
+                if (item.TypeOfAgency == this.ListType[stt - 1].ID)
                 {
-                    MessageBox.Show("You must delete all agencies of this type");
+                    CustomMessageBox.Show("You must delete all agencies of this type!", "Notify", MessageBoxButton.OK, MessageBoxImage.Warning);
                     return;
                 }
             }
@@ -157,7 +157,7 @@ namespace StoreManagement.ViewModels
             AddTypeOfAgencyWindow wd = new AddTypeOfAgencyWindow();
             wd.txtID.Text = this.ListType[stt - 1].ID.ToString();
             wd.txtName.Text = this.ListType[stt - 1].Name;
-            wd.txtDebt.Text = SeparateThousands(this.ListType[stt-1].MaxOfDebt.ToString());
+            wd.txtDebt.Text = SeparateThousands(this.ListType[stt - 1].MaxOfDebt.ToString());
 
             wd.txtName.SelectionStart = wd.txtName.Text.Length;
             wd.txtDebt.SelectionStart = wd.txtDebt.Text.Length;
@@ -189,7 +189,7 @@ namespace StoreManagement.ViewModels
 
             if (para.txtNumberProduct_Setting.Text == rulesSetting[2] && para.txtNumberUnit_Setting.Text == rulesSetting[3])
             {
-                MessageBox.Show("Setting is not change...");
+                CustomMessageBox.Show("Setting is not change...!", "Notify", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
 
@@ -197,8 +197,8 @@ namespace StoreManagement.ViewModels
 
             if (countProduct > int.Parse(para.txtNumberProduct_Setting.Text))
             {
-                string show = string.Format("Number of product must be greater than or equal to than {0}", countProduct);
-                MessageBox.Show(show);
+                string show = string.Format("Number of product must be greater than or equal to than {0}!", countProduct);
+                CustomMessageBox.Show(show, "Notify", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
 
@@ -206,8 +206,8 @@ namespace StoreManagement.ViewModels
 
             if (limit > int.Parse(para.txtNumberUnit_Setting.Text))
             {
-                string show = string.Format("Number of unit must be greater than or equal to than {0}", limit);
-                MessageBox.Show(show);
+                string show = string.Format("Number of unit must be greater than or equal to than {0}!", limit);
+                CustomMessageBox.Show(show, "Notify", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
 
@@ -223,7 +223,7 @@ namespace StoreManagement.ViewModels
             File.AppendAllText(fileName, newCache);
             this.cache = newCache;
 
-            MessageBox.Show("Success");
+            CustomMessageBox.Show("Success", "Notify", MessageBoxButton.OK, MessageBoxImage.Warning);
         }
 
         private void SaveRulesType_Setting(HomeWindow para)
@@ -250,7 +250,7 @@ namespace StoreManagement.ViewModels
 
             if (para.txtNumberType_Setting.Text == rulesSetting[0] && para.txtNumberAgencyinDistrict_Setting.Text == rulesSetting[1])
             {
-                MessageBox.Show("Setting is not change...");
+                CustomMessageBox.Show("Setting is not change...!", "Notify", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
 
@@ -258,8 +258,8 @@ namespace StoreManagement.ViewModels
 
             if (this.ListType.Count > int.Parse(para.txtNumberType_Setting.Text))
             {
-                string show = string.Format("Number of type must be greater than or equal to than {0}", this.ListType.Count);
-                MessageBox.Show(show);
+                string show = string.Format("Number of type must be greater than or equal to than {0}!", this.ListType.Count);
+                CustomMessageBox.Show(show, "Notify", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
 
@@ -267,8 +267,8 @@ namespace StoreManagement.ViewModels
 
             if (limit > int.Parse(para.txtNumberAgencyinDistrict_Setting.Text))
             {
-                string show = string.Format("Number of agency in district must be greater than or equal to than {0}", limit);
-                MessageBox.Show(show);
+                string show = string.Format("Number of agency in district must be greater than or equal to than {0}!", limit);
+                CustomMessageBox.Show(show, "Notify", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
 
@@ -284,7 +284,7 @@ namespace StoreManagement.ViewModels
             File.AppendAllText(fileName, newCache);
             this.cache = newCache;
 
-            MessageBox.Show("Success");
+            CustomMessageBox.Show("Success", "Notify", MessageBoxButton.OK, MessageBoxImage.Warning);
         }
 
         private void LoadSettingWindow(HomeWindow para)
