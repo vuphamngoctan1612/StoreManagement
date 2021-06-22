@@ -20,6 +20,7 @@ namespace StoreManagement.ViewModels
         public ICommand GetUidCommand { get; set; }
         public ICommand SearchAgencyCommand { get; set; }
         public ICommand InitCommand { get; set; }
+        public ICommand CheckDateCommand { get; set; }
         public string CustomFormat { get; set; }
 
         public AgencyReportViewModel()
@@ -30,6 +31,16 @@ namespace StoreManagement.ViewModels
             SwitchCommand = new RelayCommand<HomeWindow>((para) => true, (para) => Switch(para));
             SearchAgencyCommand = new RelayCommand<HomeWindow>((para) => true, (para) => Search(para));
             InitCommand = new RelayCommand<HomeWindow>((para) => true, (para) => Init(para));
+            CheckDateCommand = new RelayCommand<HomeWindow>((para) => true, (para) => CheckDate(para));
+        }
+
+        private void CheckDate(HomeWindow para)
+        {
+            if(DateTime.Now.Month < para.Date.SelectedDate.Value.Month && DateTime.Now.Year < para.Date.SelectedDate.Value.Year)
+            {
+                MessageBox.Show("can't choose month after this month");
+                para.Date.Text = DateTime.Now.ToString();
+            }    
         }
 
         public void Init(HomeWindow para)
@@ -67,7 +78,7 @@ namespace StoreManagement.ViewModels
                     catch { }
                 }
                 salesReportUC.txtNumberOfBills.Text = count.ToString();
-                salesReportUC.txtTotal.Text = total.ToString();
+                salesReportUC.txtTotal.Text = ConvertToString(total);
                 salesReportUC.txtRatio.Text = (100 * (double)dept / (double)(total + 1)).ToString() + "%";
                 para.stkSalesReport.Children.Add(salesReportUC);
                 para.scrollSales.Visibility = Visibility.Visible;
@@ -97,8 +108,8 @@ namespace StoreManagement.ViewModels
                 checkDebt++;
                 if (invoicesDebt.Count != 0)
                 {
-                    debtReportUC.txtOriginalDebt.Text = invoicesDebt.First().Debt.ToString();
-                    debtReportUC.txtCostOverrun.Text = (deptDebt - invoicesDebt.First().Debt).ToString();
+                    debtReportUC.txtOriginalDebt.Text = ConvertToString(invoicesDebt.First().Debt);
+                    debtReportUC.txtCostOverrun.Text = ConvertToString(deptDebt - invoicesDebt.First().Debt);
                 }
                 else
                 {
@@ -179,7 +190,7 @@ namespace StoreManagement.ViewModels
                 {
                     try
                     {
-                        if (invoice.Checkout.Value.Month == DateTime.Now.Month && invoice.Checkout.Value.Year == DateTime.Now.Year)
+                        if (invoice.Checkout.Value.Month == para.Date.SelectedDate.Value.Month && invoice.Checkout.Value.Year == para.Date.SelectedDate.Value.Year)
                         {
                             dept += invoice.Debt;
                             count++;
@@ -190,8 +201,8 @@ namespace StoreManagement.ViewModels
                 check++;
                 if (invoices.Count != 0)
                 {
-                    debtReportUC.txtOriginalDebt.Text = invoices.First().Debt.ToString();
-                    debtReportUC.txtCostOverrun.Text = (dept - invoices.First().Debt).ToString();
+                    debtReportUC.txtOriginalDebt.Text = ConvertToString( invoices.First().Debt);
+                    debtReportUC.txtCostOverrun.Text = ConvertToString(dept - invoices.First().Debt);
                 }
                 else
                 {
@@ -235,7 +246,7 @@ namespace StoreManagement.ViewModels
                     catch { }
                 }
                 salesReportUC.txtNumberOfBills.Text = count.ToString();
-                salesReportUC.txtTotal.Text = total.ToString();
+                salesReportUC.txtTotal.Text = ConvertToString(total);
                 salesReportUC.txtRatio.Text = (100 * (double)dept / (double)(total + 1)).ToString() + "%";
                 this.HomeWindow.stkSalesReport.Children.Add(salesReportUC);
                 check++;

@@ -2701,6 +2701,10 @@
 
                                             </i:InvokeCommandAction>
                                         </i:EventTrigger>
+                                        <i:EventTrigger EventName="SelectedDateChanged">
+                                            <i:InvokeCommandAction Command="{Binding CheckDateCommand}"
+                                                                   CommandParameter="{Binding ElementName=wdHome}"/>
+                                        </i:EventTrigger>
                                     </i:Interaction.Triggers>
 
                                 </DatePicker>
