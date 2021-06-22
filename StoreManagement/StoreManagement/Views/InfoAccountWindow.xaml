@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:StoreManagement.Views"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
-        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" xmlns:vd="clr-namespace:StoreManagement.Validations"
         mc:Ignorable="d"
         x:Name="wdInfoAcc"
         DataContext="{StaticResource AccountVM}"
@@ -144,9 +144,16 @@
                     FontSize="17"
                     FontWeight="SemiBold"
                     Padding="0"
+                    Validation.ErrorTemplate="{StaticResource textBoxErrorTemplate}"
                     HorizontalContentAlignment="Left"
-                    VerticalContentAlignment="Center" 
-                    Cursor="Arrow">
+                    VerticalContentAlignment="Center" >
+                    <TextBox.Text>
+                        <Binding Path="DisplayName" Source="{StaticResource Account}" UpdateSourceTrigger="PropertyChanged" Mode="OneWayToSource">
+                            <Binding.ValidationRules>
+                                <vd:NotNullValidation ErrorMessage="Please enter your display name"/>
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </TextBox.Text>
                 </TextBox>
             </Grid>
             <Grid Grid.Row="2"
@@ -183,9 +190,16 @@
                     FontSize="17"
                     FontWeight="SemiBold"
                     Padding="0"
+                    Validation.ErrorTemplate="{StaticResource textBoxErrorTemplate}"
                     HorizontalContentAlignment="Left"
-                    VerticalContentAlignment="Center" 
-                    Cursor="Arrow">
+                    VerticalContentAlignment="Center" >
+                    <TextBox.Text>
+                        <Binding Path="Location" Source="{StaticResource Account}" UpdateSourceTrigger="PropertyChanged" Mode="OneWayToSource">
+                            <Binding.ValidationRules>
+                                <vd:NotNullValidation ErrorMessage="Please enter your address"/>
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </TextBox.Text>
                 </TextBox>
             </Grid>
             <Grid Grid.Row="3"
@@ -214,6 +228,7 @@
                     materialDesign:HintAssist.Hint="Enter your phone number"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Center"
+                    MaxLength="10"
                     Width="330"
                     Margin="190 0 0 0"
                     BorderThickness="0"
@@ -222,9 +237,23 @@
                     FontSize="17"
                     FontWeight="SemiBold"
                     Padding="0"
+                    Validation.ErrorTemplate="{StaticResource textBoxErrorTemplate}"
                     HorizontalContentAlignment="Left"
-                    VerticalContentAlignment="Center" 
-                    Cursor="Arrow">
+                    VerticalContentAlignment="Center" >
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="PreviewTextInput">
+                            <ei:CallMethodAction 
+                                    TargetObject="{Binding }" 
+                                    MethodName="NumberValidationTextBox" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                    <TextBox.Text>
+                        <Binding Path="PhoneNumber" Source="{StaticResource Account}" UpdateSourceTrigger="PropertyChanged" Mode="OneWayToSource">
+                            <Binding.ValidationRules>
+                                <vd:NotNullValidation ErrorMessage="Please enter your phone number"/>
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </TextBox.Text>
                 </TextBox>
             </Grid>
             <Grid Grid.Row="4">

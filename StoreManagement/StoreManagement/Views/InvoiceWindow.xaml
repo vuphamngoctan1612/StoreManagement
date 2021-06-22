@@ -170,8 +170,8 @@
                 HorizontalAlignment="Right"
                 Margin="200,20"/>
             <TextBlock 
+                Text="Retainer"
                 x:Name="txbRetainerText"
-                Text="Trả trước"
                 Width="80"
                 TextAlignment="Left"
                 Foreground="#263238"
@@ -181,8 +181,8 @@
                 HorizontalAlignment="Right"
                 Margin="200,55"/>
             <TextBlock 
+                Text="Excess cash"
                 x:Name="txbChangeText"
-                Text="Còn lại"
                 Foreground="#263238"
                 Width="80"
                 TextAlignment="Left"

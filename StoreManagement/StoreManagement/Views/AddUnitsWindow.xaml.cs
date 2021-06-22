@@ -24,6 +24,7 @@ namespace StoreManagement.Views
         {
             InitializeComponent();
             isSaveSucceed = false;
+            this.txtName.Text = null;
         }
     }
 }

@@ -26,6 +26,7 @@ namespace StoreManagement.ViewModels
             if (string.IsNullOrEmpty(para.txtName.Text))
             {
                 para.txtName.Focus();
+                para.txtName.Text = "";
                 return;
             }
 

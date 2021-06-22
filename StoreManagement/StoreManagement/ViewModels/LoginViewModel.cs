@@ -28,9 +28,9 @@ namespace StoreManagement.ViewModels
 
         public void OpenSignUpWindow(LoginWindow parameter)
         {
-            SignUpWindow SignUp = new SignUpWindow();
+            SignUpWindow window = new SignUpWindow();
 
-            SignUp.Show();
+            window.ShowDialog();
         }
 
         void Login(LoginWindow parameter)
@@ -42,14 +42,14 @@ namespace StoreManagement.ViewModels
             //check username
             if (String.IsNullOrEmpty(parameter.txtUser.Text))
             {
-                MessageBox.Show("Vui lòng nhập tên đăng nhập!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
+                CustomMessageBox.Show("Please enter your username!", "Notify", MessageBoxButton.OK, MessageBoxImage.Warning);
                 parameter.txtUser.Focus();
                 return;
             }
             //check password
             if (String.IsNullOrEmpty(parameter.txtPassword.Password))
             {
-                MessageBox.Show("Vui lòng nhập mật khẩu!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
+                CustomMessageBox.Show("Please enter your password!", "Notify", MessageBoxButton.OK, MessageBoxImage.Warning);
                 parameter.txtPassword.Focus();
                 return;
             }
@@ -78,7 +78,7 @@ namespace StoreManagement.ViewModels
             }
             else
             {
-                MessageBox.Show("Sai tên đăng nhập hoặc mật khẩu!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
+                CustomMessageBox.Show("Username or password is not valid!", "Notify", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
     }

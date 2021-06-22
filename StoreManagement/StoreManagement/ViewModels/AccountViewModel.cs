@@ -25,7 +25,6 @@ namespace StoreManagement.ViewModels
         //private bool isExisted;
         public HomeWindow HomeWindow { get; set; }
         private string imageFileName;
-        private string tempUsername;
         public ICommand DeleteAccountCommand { get; set; }
         public ICommand UpdateAccountCommand { get; set; }
         public ICommand LoadAccountOnWindowCommand { get; set; }
@@ -101,6 +100,11 @@ namespace StoreManagement.ViewModels
             }
 
             window.ShowDialog();
+            if (window.isSucceed)
+            {
+                imageBrush.ImageSource = Converter.Instance.ConvertByteToBitmapImage(CurrentAccount.Image);
+                this.HomeWindow.grdAcc_Image.Background = imageBrush;
+            }
         }        
         //info account window
         private void InfoAcc_Save(InfoAccountWindow para)
@@ -108,16 +112,19 @@ namespace StoreManagement.ViewModels
             if (string.IsNullOrEmpty(para.txtDisplayName.Text))
             {
                 para.txtDisplayName.Focus();
+                para.txtDisplayName.Text = "";
                 return;
             }
             if (string.IsNullOrEmpty(para.txtLocation.Text))
             {
                 para.txtLocation.Focus();
+                para.txtLocation.Text = "";
                 return;
             }
             if (string.IsNullOrEmpty(para.txtPhoneNumber.Text))
             {
                 para.txtPhoneNumber.Focus();
+                para.txtPhoneNumber.Text = "";
                 return;
             }
 
@@ -127,6 +134,12 @@ namespace StoreManagement.ViewModels
             string phonenumber = para.txtPhoneNumber.Text;
             byte[] imgByteArr;
 
+            if (phonenumber.Length != 10)
+            {
+                MessageBox.Show("not valid");
+                return;
+            }
+
             if (imageFileName == null)
             {
                 imgByteArr = Converter.Instance.ConvertImageToBytes(@"..\..\Resources\Images\default.jpg");
@@ -135,19 +148,30 @@ namespace StoreManagement.ViewModels
             {
                 imgByteArr = Converter.Instance.ConvertImageToBytes(imageFileName);
             }
-
-            Account account = DataProvider.Instance.DB.Accounts.SingleOrDefault(p => p.Username == username);
-            if (account != null)
+            try
             {
-                account.DisplayName = displayname;
-                account.Location = location;
-                account.PhoneNumber = phonenumber;
-                account.Image = imgByteArr;
-                DataProvider.Instance.DB.SaveChanges();
+                Account account = DataProvider.Instance.DB.Accounts.SingleOrDefault(p => p.Username == username);
+                if (account != null)
+                {
+                    account.DisplayName = displayname;
+                    account.Location = location;
+                    account.PhoneNumber = phonenumber;
+                    account.Image = imgByteArr;
+                    DataProvider.Instance.DB.SaveChanges();
 
-                CurrentAccount.Instance.ConvertAccToCurrentAcc(account);
+                    CurrentAccount.Instance.ConvertAccToCurrentAcc(account);
+                    para.isSucceed = true;
+                }
             }
+            catch
+            {
+                para.isSucceed = false;
+            }
+            finally
+            {
 
+            }
+           
 
             para.Close();
         }
@@ -160,21 +184,32 @@ namespace StoreManagement.ViewModels
         {
             if (string.IsNullOrEmpty(para.txtUsername.Text))
             {
+                CustomMessageBox.Show("Please enter your username!", "Notify", MessageBoxButton.OK, MessageBoxImage.Warning);
                 para.txtUsername.Focus();
                 return;
             }
             if (string.IsNullOrEmpty(para.pwbPassword.Password))
             {
+                CustomMessageBox.Show("Please enter your password!", "Notify", MessageBoxButton.OK, MessageBoxImage.Warning);
                 para.pwbPassword.Focus();
                 return;
             }
             if (string.IsNullOrEmpty(para.pwbNewPassword.Password))
             {
-                para.pwbPassword.Focus();
+                CustomMessageBox.Show("Please enter your new password!", "Notify", MessageBoxButton.OK, MessageBoxImage.Warning);
+                para.pwbNewPassword.Focus();
                 return;
             }
             if (string.IsNullOrEmpty(para.pwbConfirmNewPassword.Password))
             {
+                CustomMessageBox.Show("Please enter your confirm password!", "Notify", MessageBoxButton.OK, MessageBoxImage.Warning);
+                para.pwbConfirmNewPassword.Focus();
+                return;
+            }
+
+            if (para.pwbNewPassword.Password != para.pwbConfirmNewPassword.Password)
+            {
+                CustomMessageBox.Show("Password does not match!", "Notify", MessageBoxButton.OK, MessageBoxImage.Error);
                 para.pwbConfirmNewPassword.Focus();
                 return;
             }
@@ -185,17 +220,12 @@ namespace StoreManagement.ViewModels
             var checkAcc = DataProvider.Instance.DB.Accounts.Where(p => p.Username == username && p.Password == password).Count();
             if(checkAcc <= 0)
             {
+                CustomMessageBox.Show("Username or password is not valid!", "Notify", MessageBoxButton.OK, MessageBoxImage.Error);
                 para.pwbPassword.Focus();
                 return;
             }
             else
             {
-                if (para.pwbNewPassword.Password != para.pwbConfirmNewPassword.Password)
-                {
-                    para.pwbConfirmNewPassword.Focus();
-                    return;
-                }
-
                 Account account = DataProvider.Instance.DB.Accounts.SingleOrDefault(p => p.Username == username);
                 string newPassword = MD5Hash(para.pwbNewPassword.Password);
                 if (account != null)

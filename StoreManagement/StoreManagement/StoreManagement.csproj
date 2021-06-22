@@ -119,6 +119,7 @@
     </Compile>
     <Compile Include="Converter.cs" />
     <Compile Include="CurrentAccount.cs" />
+    <Compile Include="CustomMessageBox.cs" />
     <Compile Include="Models\Account.cs">
       <DependentUpon>AgencyManagement_Entities.tt</DependentUpon>
     </Compile>
@@ -211,10 +212,20 @@
     <Compile Include="Resources\UserControls\TypeOfAgencyUC.xaml.cs">
       <DependentUpon>TypeOfAgencyUC.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Util.cs" />
+    <Compile Include="Validations\DateBookingValidation.cs" />
+    <Compile Include="Validations\ExistValidation.cs" />
+    <Compile Include="Validations\NotExistValidation.cs" />
+    <Compile Include="Validations\NotNullValidation.cs" />
+    <Compile Include="Validations\NumberValidation.cs" />
+    <Compile Include="Validations\PickersValidation.cs" />
+    <Compile Include="Validations\RangeOfNumberValidation.cs" />
+    <Compile Include="Validations\TextBoxValidation.cs" />
     <Compile Include="ViewModels\AccountViewModel.cs" />
     <Compile Include="ViewModels\AgencyReportViewModel.cs" />
     <Compile Include="ViewModels\BillViewModel.cs" />
     <Compile Include="ViewModels\BusinessViewModel.cs" />
+    <Compile Include="ViewModels\DistrictViewModel.cs" />
     <Compile Include="ViewModels\ProductViewModel.cs" />
     <Compile Include="ViewModels\ReportViewModel.cs" />
     <Compile Include="ViewModels\SettingViewModel.cs" />
@@ -222,6 +233,9 @@
     <Compile Include="ViewModels\SQLConnection.cs" />
     <Compile Include="ViewModels\StoreViewModel.cs" />
     <Compile Include="ViewModels\UnitsViewModel.cs" />
+    <Compile Include="Views\AddDistrictWindow.xaml.cs">
+      <DependentUpon>AddDistrictWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\AddProductWindow.xaml.cs">
       <DependentUpon>AddProductWindow.xaml</DependentUpon>
     </Compile>
@@ -236,6 +250,9 @@
     </Compile>
     <Compile Include="Views\ChangePasswordWindow.xaml.cs">
       <DependentUpon>ChangePasswordWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CustomMessageBoxWindow.xaml.cs">
+      <DependentUpon>CustomMessageBoxWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\HomeWindow.xaml.cs">
       <DependentUpon>HomeWindow.xaml</DependentUpon>
@@ -365,6 +382,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\AddDistrictWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\AddProductWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -386,6 +407,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\AddTypeOfAgencyWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\CustomMessageBoxWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -436,6 +461,11 @@
       <DependentUpon>AgencyManagement_Entities.edmx</DependentUpon>
       <LastGenOutput>AgencyManagement_Entities.cs</LastGenOutput>
     </Content>
+    <Resource Include="Resources\Images\error.png" />
+    <Resource Include="Resources\Images\help.png" />
+    <Resource Include="Resources\Images\info.png" />
+    <Resource Include="Resources\Images\succes.png" />
+    <Resource Include="Resources\Images\warning.png" />
     <Resource Include="Resources\Images\default.jpg" />
     <Resource Include="Resources\Images\logo.png" />
   </ItemGroup>

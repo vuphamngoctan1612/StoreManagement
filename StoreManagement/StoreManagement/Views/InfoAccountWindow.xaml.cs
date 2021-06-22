@@ -19,9 +19,16 @@ namespace StoreManagement.Views
     /// </summary>
     public partial class InfoAccountWindow : Window
     {
+        public bool isSucceed { get; set; }
         public InfoAccountWindow()
         {
             InitializeComponent();
+
+            this.txtDisplayName.Text = null;
+            this.txtLocation.Text = null;
+            this.txtPhoneNumber.Text = null;
+
+            this.isSucceed = false;
         }
     }
 }

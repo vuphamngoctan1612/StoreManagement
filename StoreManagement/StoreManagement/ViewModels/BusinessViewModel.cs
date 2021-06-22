@@ -3,6 +3,7 @@ using StoreManagement.Resources.UserControls;
 using StoreManagement.Views;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -185,6 +186,11 @@ namespace StoreManagement.ViewModels
                 DataProvider.Instance.DB.InvoiceInfoes.Add(invInfo);
             }
 
+            DataProvider.Instance.DB.SaveChanges();
+
+            Agency updateAgency = DataProvider.Instance.DB.Agencies.Where(x => x.ID == inv.AgencyID).First();
+            updateAgency.Debt += inv.Debt;
+            DataProvider.Instance.DB.Agencies.AddOrUpdate(updateAgency);
             DataProvider.Instance.DB.SaveChanges();
             wdInvoice.ShowDialog();
 

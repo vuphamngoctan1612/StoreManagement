@@ -72,6 +72,8 @@ namespace StoreManagement.ViewModels
             }
             finally
             {
+                wd.txtName.Text = null;
+                wd.txtDebt.Text = null;
                 wd.ShowDialog();
             }
         }
@@ -81,11 +83,13 @@ namespace StoreManagement.ViewModels
             if (String.IsNullOrEmpty(para.txtName.Text))
             {
                 para.txtName.Focus();
+                para.txtName.Text = "";
                 return;
             }
             if (String.IsNullOrEmpty(para.txtDebt.Text))
             {
                 para.txtDebt.Focus();
+                para.txtDebt.Text = "";
                 return;
             }
 
