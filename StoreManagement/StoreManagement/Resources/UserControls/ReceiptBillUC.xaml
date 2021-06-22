@@ -28,41 +28,41 @@
             <Grid>
                 <TextBlock
                 x:Name="ReceiptID"
-                Foreground="#504D85"
                 VerticalAlignment="Center"
                 HorizontalAlignment="Center"
                 Text="1"
-                FontSize="22"></TextBlock>
+                FontSize="18" 
+                FontWeight="SemiBold" ></TextBlock>
             </Grid>
             <Grid
             Grid.Column="1">
                 <TextBlock
                 x:Name="AgencyName"
-                Foreground="#504D85"
                 VerticalAlignment="Center"
                 HorizontalAlignment="Center"
                 Text="Mì"
-                FontSize="22"></TextBlock>
+                FontSize="18" 
+                FontWeight="SemiBold" ></TextBlock>
             </Grid>
             <Grid
                 Grid.Column="2">
                 <TextBlock
                 x:Name="CheckOut"
-                Foreground="#504D85"
                 VerticalAlignment="Center"
                 HorizontalAlignment="Center"
                 Text="Gói"
-                FontSize="22"></TextBlock>
+                FontSize="18" 
+                FontWeight="SemiBold" ></TextBlock>
             </Grid>
             <Grid
                 Grid.Column="3">
                 <TextBlock
                 x:Name="Amount"
-                Foreground="#504D85"
                 VerticalAlignment="Center"
                 HorizontalAlignment="Center"
                 Text="10"
-                FontSize="22"></TextBlock>
+                FontSize="18" 
+                FontWeight="SemiBold" ></TextBlock>
             </Grid>
             <Grid Grid.Column="4">
                 <Button

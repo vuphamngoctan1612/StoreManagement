@@ -36,10 +36,11 @@ namespace StoreManagement.ViewModels
         {
             para.Date.Text = DateTime.Now.ToString();
             para.comboBoxReport.SelectedIndex = 0;
-            para.cardSalesReport.Visibility = System.Windows.Visibility.Visible;
+            para.cardSalesReport.Visibility = Visibility.Visible;
             List<Agency> agencies = DataProvider.Instance.DB.Agencies.ToList<Agency>();
             para.stkSalesReport.Children.Clear();
             int check = 0;
+            int checkDebt = 0;
             foreach (Agency agency in agencies)
             {
                 long? total = 0;
@@ -47,6 +48,8 @@ namespace StoreManagement.ViewModels
                 int count = 0;
                 List<Invoice> invoices = new List<Invoice>();
                 SalesReportUC salesReportUC = new SalesReportUC();
+                salesReportUC.Width = 1070;
+                salesReportUC.Height = 45;
                 salesReportUC.txtNo.Text = agency.ID.ToString();
                 salesReportUC.txtAgency.Text = agency.Name;
                 invoices = agency.Invoices.ToList();
@@ -67,7 +70,36 @@ namespace StoreManagement.ViewModels
                 salesReportUC.txtTotal.Text = total.ToString();
                 salesReportUC.txtRatio.Text = (100 * (double)dept / (double)(total + 1)).ToString() + "%";
                 para.stkSalesReport.Children.Add(salesReportUC);
+                para.scrollSales.Visibility = Visibility.Visible;
                 check++;
+                //
+                long? deptDebt = 0;
+                int countDebt = 0;
+                List<Invoice> invoicesDebt = new List<Invoice>();
+                DebtReportUC debtReportUC = new DebtReportUC();
+                debtReportUC.Height = 45;
+                debtReportUC.Width = 1070;
+                debtReportUC.txtNo.Text = agency.ID.ToString();
+                debtReportUC.txtAgency.Text = agency.Name;
+                invoicesDebt = agency.Invoices.ToList();
+                foreach (Invoice invoice in invoicesDebt)
+                {
+                    try
+                    {
+                        if (invoice.Checkout.Value.Month == DateTime.Now.Month && invoice.Checkout.Value.Year == DateTime.Now.Year)
+                        {
+                            dept += invoice.Debt;
+                            countDebt++;
+                        }
+                    }
+                    catch { }
+                }
+                checkDebt++;
+                debtReportUC.txtOriginalDebt.Text = invoicesDebt.First().Debt.ToString();
+                debtReportUC.txtCostOverrun.Text = (deptDebt - invoicesDebt.First().Debt).ToString();
+                debtReportUC.txtTotal.Text = dept.ToString();
+
+                para.stkDebtReport.Children.Add(debtReportUC);
             }
         }
 
@@ -130,6 +162,8 @@ namespace StoreManagement.ViewModels
                 int count = 0;
                 List<Invoice> invoices = new List<Invoice>();
                 DebtReportUC debtReportUC = new DebtReportUC();
+                debtReportUC.Height = 45;
+                debtReportUC.Width = 1070;
                 debtReportUC.txtNo.Text = agency.ID.ToString();
                 debtReportUC.txtAgency.Text = agency.Name;
                 invoices = agency.Invoices.ToList();
@@ -166,6 +200,8 @@ namespace StoreManagement.ViewModels
                 int count = 0;
                 List<Invoice> invoices = new List<Invoice>();
                 SalesReportUC salesReportUC = new SalesReportUC();
+                salesReportUC.Width = 1070;
+                salesReportUC.Height = 45;
                 salesReportUC.txtNo.Text = agency.ID.ToString();
                 salesReportUC.txtAgency.Text = agency.Name;
                 invoices = agency.Invoices.ToList();
