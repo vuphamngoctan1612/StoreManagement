@@ -95,8 +95,16 @@ namespace StoreManagement.ViewModels
                     catch { }
                 }
                 checkDebt++;
-                debtReportUC.txtOriginalDebt.Text = invoicesDebt.First().Debt.ToString();
-                debtReportUC.txtCostOverrun.Text = (deptDebt - invoicesDebt.First().Debt).ToString();
+                if (invoicesDebt.First().Debt.ToString() != null)
+                {
+                    debtReportUC.txtOriginalDebt.Text = invoicesDebt.First().Debt.ToString();
+                    debtReportUC.txtCostOverrun.Text = (deptDebt - invoicesDebt.First().Debt).ToString();
+                }
+                else
+                {
+                    debtReportUC.txtOriginalDebt.Text = "0";
+                    debtReportUC.txtCostOverrun.Text = "0";
+                }
                 debtReportUC.txtTotal.Text = dept.ToString();
 
                 para.stkDebtReport.Children.Add(debtReportUC);
