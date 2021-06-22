@@ -81,7 +81,7 @@ namespace StoreManagement.ViewModels
                 debtReportUC.Width = 1070;
                 debtReportUC.txtNo.Text = agency.ID.ToString();
                 debtReportUC.txtAgency.Text = agency.Name;
-                invoicesDebt = agency.Invoices.ToList();
+                invoicesDebt = DataProvider.Instance.DB.Invoices.Where(x => x.AgencyID == agency.ID).ToList();
                 foreach (Invoice invoice in invoicesDebt)
                 {
                     try
@@ -95,7 +95,7 @@ namespace StoreManagement.ViewModels
                     catch { }
                 }
                 checkDebt++;
-                if (invoicesDebt.First().Debt.ToString() != null)
+                if (invoicesDebt.Count != 0)
                 {
                     debtReportUC.txtOriginalDebt.Text = invoicesDebt.First().Debt.ToString();
                     debtReportUC.txtCostOverrun.Text = (deptDebt - invoicesDebt.First().Debt).ToString();
@@ -174,12 +174,12 @@ namespace StoreManagement.ViewModels
                 debtReportUC.Width = 1070;
                 debtReportUC.txtNo.Text = agency.ID.ToString();
                 debtReportUC.txtAgency.Text = agency.Name;
-                invoices = agency.Invoices.ToList();
+                invoices = DataProvider.Instance.DB.Invoices.Where(x => x.AgencyID == agency.ID).ToList();
                 foreach (Invoice invoice in invoices)
                 {
                     try
                     {
-                        if (invoice.Checkout.Value.Month == para.Date.SelectedDate.Value.Month && invoice.Checkout.Value.Year == para.Date.SelectedDate.Value.Year)
+                        if (invoice.Checkout.Value.Month == DateTime.Now.Month && invoice.Checkout.Value.Year == DateTime.Now.Year)
                         {
                             dept += invoice.Debt;
                             count++;
@@ -188,8 +188,16 @@ namespace StoreManagement.ViewModels
                     catch { }
                 }
                 check++;
-                debtReportUC.txtOriginalDebt.Text = invoices.First().Debt.ToString();
-                debtReportUC.txtCostOverrun.Text = (dept - invoices.First().Debt).ToString();
+                if (invoices.Count != 0)
+                {
+                    debtReportUC.txtOriginalDebt.Text = invoices.First().Debt.ToString();
+                    debtReportUC.txtCostOverrun.Text = (dept - invoices.First().Debt).ToString();
+                }
+                else
+                {
+                    debtReportUC.txtOriginalDebt.Text = "0";
+                    debtReportUC.txtCostOverrun.Text = "0";
+                }
                 debtReportUC.txtTotal.Text = dept.ToString();
 
                 this.HomeWindow.stkDebtReport.Children.Add(debtReportUC);
