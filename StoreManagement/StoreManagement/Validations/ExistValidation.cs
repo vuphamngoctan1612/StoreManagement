@@ -29,7 +29,7 @@ namespace StoreManagement.Validations
             }
             switch (ElementName)
             {
-                case "UserName":
+                case "Username":
                     if (isExistUserName(value.ToString()))
                     {
                         result = new ValidationResult(false, this.ErrorMessage);

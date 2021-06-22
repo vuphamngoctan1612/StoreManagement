@@ -178,6 +178,7 @@
                     Margin="30 0 0 10">
                     <Button 
                         x:Name="btnSave"
+                        IsDefault="True"
                         HorizontalAlignment="Left"
                         HorizontalContentAlignment="Center"
                         VerticalAlignment="Center"

@@ -515,6 +515,7 @@
         <Grid Grid.Row="2">
             <Button 
                 x:Name="btnSave"
+                IsDefault="True"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Center"
                 Margin="680 0 0 0"

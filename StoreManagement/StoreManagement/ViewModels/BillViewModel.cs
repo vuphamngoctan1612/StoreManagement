@@ -24,7 +24,7 @@ namespace StoreManagement.ViewModels
         private int status = 0;
         private long? total = 0;
         private long? pay = 0;
-
+        public List<Agency> ListAgency = DataProvider.Instance.DB.Agencies.Where(x => x.IsDelete == false).ToList();
 
         public HomeWindow HomeWindow { get; set; }
         public ICommand OpenInvoiceWindowCommand { get; set; }
@@ -39,7 +39,11 @@ namespace StoreManagement.ViewModels
         public ICommand SearchAgencyCommand { get; set; }
         public ICommand ClearCommand { get; set; }
         public ICommand InitCommand { get; set; }
-
+        public ICommand ShellOutCommand { get; set; }
+        public ICommand ChooseAgencyCommand { get; set; }
+        public ICommand PaymentShellOutCommand { get; set; }
+        public ICommand PayCommand { get; set; }
+        public ICommand CloseWindowCommand { get; set; }
 
 
         public BillViewModel()
@@ -55,6 +59,144 @@ namespace StoreManagement.ViewModels
             ExportExcelCommand = new RelayCommand<HomeWindow>((para) => true, (para) => ExportExcel(para));
             ClearCommand = new RelayCommand<HomeWindow>((para) => true, (para) => Clear(para));
             InitCommand = new RelayCommand<HomeWindow>((para) => true, (para) => Init(para));
+            ShellOutCommand = new RelayCommand<HomeWindow>((para) => true, (para) => ShellOut(para));
+            SeparateThousandsCommand = new RelayCommand<TextBox>((para) => true, (para) => SeparateThousands(para));
+            ChooseAgencyCommand = new RelayCommand<ShellOutWindow>((para) => true, (para) => ChooseAgency(para));
+            PaymentShellOutCommand = new RelayCommand<ShellOutWindow>((para) => true, (para) =>
+            {
+                SeparateThousands(para.txtPayment);
+                LimitPayment(para);
+            });
+            PayCommand = new RelayCommand<ShellOutWindow>((para) => true, (para) => PayReceiptBill(para));
+            CloseWindowCommand = new RelayCommand<ShellOutWindow>((para) => true, (para) => para.Close());
+        }
+
+        private void PayReceiptBill(ShellOutWindow para)
+        {
+            if (string.IsNullOrWhiteSpace(para.cbbName.Text))
+            {
+                para.cbbName.Text = "";
+                para.cbbName.Focus();
+                return;
+            }
+            if (string.IsNullOrEmpty(para.txtPayment.Text))
+            {
+                para.txtPayment.Text = "";
+                para.txtPayment.Focus();
+                return;
+            }
+
+
+            if (ConvertToNumber(para.txtPayment.Text) != 0)
+            {
+                Receipt newitem = new Receipt();
+                newitem.ID = int.Parse(para.txtID.Text);
+                newitem.AgencyID = this.ListAgency[para.cbbName.SelectedIndex].ID;
+                newitem.Date = DateTime.Now;
+                newitem.Amount = ConvertToNumber(para.txtPayment.Text);
+                newitem.Message = para.txtMessage.Text;
+                DataProvider.Instance.DB.Receipts.Add(newitem);
+                DataProvider.Instance.DB.SaveChanges();
+
+                Agency agency = DataProvider.Instance.DB.Agencies.Where(x => x.ID == newitem.AgencyID).First();
+                agency.Debt -= newitem.Amount;
+                DataProvider.Instance.DB.Agencies.AddOrUpdate(agency);
+                DataProvider.Instance.DB.SaveChanges();
+
+                ReportViewModel reportViewModel = new ReportViewModel();
+                reportViewModel.InitColumnChart(this.HomeWindow);
+                reportViewModel.LoadSales(this.HomeWindow);
+
+                reportViewModel.LoadChartByAgency();
+                reportViewModel.LoadChartByProduct();
+
+                Init(this.HomeWindow);
+                LoadBill(this.HomeWindow);
+                LoadStockReceipt(this.HomeWindow);
+                LoadReceiptBill(this.HomeWindow);
+
+                AgencyReportViewModel agencyReportViewModel = new AgencyReportViewModel();
+                agencyReportViewModel.Init(this.HomeWindow);
+                agencyReportViewModel.LoadSalesReport(this.HomeWindow);
+                agencyReportViewModel.LoadDebtsReport(this.HomeWindow);
+
+                para.Close();
+            } 
+            else
+            {
+                CustomMessageBox.Show("Payment must be greater than 0!", "Notify", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
+        }
+
+        private void LimitPayment(ShellOutWindow para)
+        {
+            if (para.txtDebt.Text.Length > 0)
+            {
+                if (para.txtPayment.Text.Length > 0)
+                {
+                    long debt = ConvertToNumber(para.txtDebt.Text);
+                    long payment = ConvertToNumber(para.txtPayment.Text);
+                    if (payment > debt)
+                    {
+                        CustomMessageBox.Show("Payment can't overcome debt!", "Notify", MessageBoxButton.OK, MessageBoxImage.Warning);
+                        para.txtPayment.Text = "0";
+                    }
+                }
+                else
+                    para.txtPayment.Text = "0";
+            }
+            else
+            {
+                para.cbbName.Focus();
+                para.txtPayment.Text = "0";
+            }
+        }
+
+        private void ChooseAgency(ShellOutWindow para)
+        {
+            int idAgency = this.ListAgency[para.cbbName.SelectedIndex].ID;
+            Agency item = DataProvider.Instance.DB.Agencies.Where(x => x.ID == idAgency).First();
+
+            para.txtDebt.Text = SeparateThousands(item.Debt.ToString());
+            para.txtAddress.Text = item.Address;
+        }
+
+        private void ShellOut(HomeWindow para)
+        {
+
+            ShellOutWindow wd = new ShellOutWindow();
+            LoadListAgency(wd);
+
+            if (DataProvider.Instance.DB.Receipts.Count() > 0)
+            {
+                Receipt receipt = DataProvider.Instance.DB.Receipts.ToList().Last();
+                wd.txtID.Text = (receipt.ID + 1).ToString();
+            }
+            else
+            {
+                wd.txtID.Text = "1";
+            }
+            wd.ShowDialog();
+        }
+
+        private void LoadListAgency(ShellOutWindow para)
+        {
+            ListAgency = DataProvider.Instance.DB.Agencies.Where(x => x.IsDelete == false).ToList();
+
+            para.cbbName.ItemsSource = this.ListAgency;
+            para.cbbName.SelectedValuePath = "ID";
+            para.cbbName.DisplayMemberPath = "Name";
+        }
+
+        private String SeparateThousands(String txt)
+        {
+            if (!string.IsNullOrEmpty(txt))
+            {
+                System.Globalization.CultureInfo culture = new System.Globalization.CultureInfo("en-US");
+                ulong valueBefore = ulong.Parse(ConvertToNumber(txt).ToString(), System.Globalization.NumberStyles.AllowThousands);
+                txt = String.Format(culture, "{0:N0}", valueBefore);
+            }
+            return txt;
         }
 
         public void Init(HomeWindow para)
@@ -97,7 +239,7 @@ namespace StoreManagement.ViewModels
         {
             if (status == 0)
             {
-                MessageBox.Show("Click Releasing Bill, Receipt Bill or Stock Receipt first");
+                CustomMessageBox.Show("Click Releasing Bill, Receipt Bill or Stock Receipt first!", "Notify", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
             SaveFileDialog sfd = new SaveFileDialog() { Filter = "Excel Workbook|*.xlsx" };
@@ -152,6 +294,8 @@ namespace StoreManagement.ViewModels
                     }
                 }
                 workbook.SaveAs(sfd.FileName);
+                workbook.Close();
+                application.Quit();
             }
         }
         private void OpenReceiptWindow(ReceiptBillUC para)
@@ -293,7 +437,9 @@ namespace StoreManagement.ViewModels
                 receiptBillUC.CheckOut.Text = receipt.Date.Value.ToShortDateString();
                 receiptBillUC.Amount.Text = ConvertToString(receipt.Amount);
                 this.HomeWindow.stkReceiptBill.Children.Add(receiptBillUC);
+                total += receipt.Amount;
             }
+            this.HomeWindow.textCollect.Text = ConvertToString(total);
         }
         public void LoadStockReceipt(HomeWindow para)
         {

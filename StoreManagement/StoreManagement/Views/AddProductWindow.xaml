@@ -95,8 +95,8 @@
                         Width="340"
                         Margin="100 0 0 0"
                         StrokeThickness="2"
-                        RadiusX="10"
-                        RadiusY="10"
+                        RadiusX="5"
+                        RadiusY="5"
                         Stroke="#E2D2DA"/>
                     <TextBox
                         Name="txtID"
@@ -134,8 +134,8 @@
                         Width="340"
                         Margin="100 0 0 0"
                         StrokeThickness="2"
-                        RadiusX="10"
-                        RadiusY="10"
+                        RadiusX="5"
+                        RadiusY="5"
                         Stroke="#E2D2DA"/>
                     <TextBox
                         Name="txtName"
@@ -192,7 +192,7 @@
                         BorderThickness="2"
                         Width="340"
                         Margin="150 0 0 0"
-                        CornerRadius="10">
+                        CornerRadius="5">
                         <ComboBox
                             Name="cbbUnits"
                             IsEditable="False"
@@ -266,8 +266,8 @@
                         Width="340"
                         Margin="100 0 0 0"
                         StrokeThickness="2"
-                        RadiusX="10"
-                        RadiusY="10"
+                        RadiusX="5"
+                        RadiusY="5"
                         Stroke="#E2D2DA"/>
                     <TextBox
                         x:Name="txtPrice"
@@ -317,6 +317,7 @@
                         Margin="0 30 0 30">
                         <Button 
                             x:Name="btnSave"
+                            IsDefault="True"
                             HorizontalAlignment="Left"
                             HorizontalContentAlignment="Center"
                             VerticalAlignment="Center"

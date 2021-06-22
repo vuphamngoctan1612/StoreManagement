@@ -110,16 +110,26 @@ namespace StoreManagement.ViewModels
         {
             if (para.txbIDAgencyPayment.Text == "-1")
             {
-                MessageBox.Show("Please choose agency");
+                CustomMessageBox.Show("Please choose agency!", "Notify", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
             if (ListProductChosen.Count == 0)
             {
-                MessageBox.Show("Please choose product");
+                CustomMessageBox.Show("Please choose product!", "Notify", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
 
-            MessageBoxResult mes = MessageBox.Show("Are you sure?", "Confirm", MessageBoxButton.YesNo);
+            int idAgency = int.Parse(this.HomeWindow.txbIDAgencyPayment.Text);
+            Agency agency = DataProvider.Instance.DB.Agencies.Where(x => x.ID == idAgency).First();
+            long total = (long)(ConvertToNumber(this.HomeWindow.TotalFeeofProductChosenPayment.Text) * 1.02);
+            TypeOfAgency type = DataProvider.Instance.DB.TypeOfAgencies.Where(x => x.ID == agency.TypeOfAgency).First();
+            if ((total + agency.Debt > type.MaxOfDebt))
+            {
+                CustomMessageBox.Show("Debt limit!", "Error!", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            MessageBoxResult mes = CustomMessageBox.Show("Are you sure?", "Confirm", MessageBoxButton.YesNo, MessageBoxImage.Information);
 
             if (mes != MessageBoxResult.Yes)
             {
@@ -169,7 +179,7 @@ namespace StoreManagement.ViewModels
             inv.AgencyID = int.Parse(this.HomeWindow.txbIDAgencyPayment.Text);
             inv.Checkout = DateTime.Parse(wdInvoice.txbDate.Text);
             inv.Debt = ConvertToNumber(wdInvoice.txbChange.Text);
-            inv.Total = ConvertToNumber(wdInvoice.txbTotal.Text);
+            inv.Total = (long)(ConvertToNumber(wdInvoice.txbTotal.Text) * 1.02);
 
             DataProvider.Instance.DB.Invoices.Add(inv);
 
@@ -184,6 +194,11 @@ namespace StoreManagement.ViewModels
                 invInfo.Total = ConvertToNumber(item.txbTotal.Text);
 
                 DataProvider.Instance.DB.InvoiceInfoes.Add(invInfo);
+
+                Product product = new Product();
+                product = DataProvider.Instance.DB.Products.Where(x => x.ID == invInfo.ProductID).First();
+                product.Count -= invInfo.Amount;
+                DataProvider.Instance.DB.Products.AddOrUpdate(product);
             }
 
             DataProvider.Instance.DB.SaveChanges();
@@ -245,7 +260,7 @@ namespace StoreManagement.ViewModels
 
             if (String.IsNullOrEmpty(para.Text))
             {
-                MessageBox.Show("Please choose aagency");
+                CustomMessageBox.Show("Please choose agency!", "Notify", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
             else
             {

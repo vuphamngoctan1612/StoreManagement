@@ -1,13 +1,17 @@
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.Entity.Migrations;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using FastMember;
+using Microsoft.Win32;
 using StoreManagement.Models;
 using StoreManagement.Resources.UserControls;
 using StoreManagement.Views;
@@ -37,6 +41,7 @@ namespace StoreManagement.ViewModels
         public ICommand ChangeWayShowAgencyCommand { get; set; }
         public ICommand EditAgencyCommand { get; set; }
         public ICommand OpenAddDistrictCommand { get; set; }
+        public ICommand ExportExcelStoreCommand { get; set; }
 
         public StoreViewModel()
         {
@@ -45,7 +50,7 @@ namespace StoreManagement.ViewModels
             PageNumber = 1;
             string query = "SELECT * FROM AGENCY WHERE ISDELETE = 0";
             this.ListStores = DataProvider.Instance.DB.Agencies.SqlQuery(query).ToList();
-            LoadStoreOnWindowCommand = new RelayCommand<HomeWindow>((para) => true, (para) => Load3Stores(para, this.ListStores, PageNumber));
+            LoadStoreOnWindowCommand = new RelayCommand<HomeWindow>((para) => true, (para) => Load3Stores(para, PageNumber));
             NextPageStoresCommand = new RelayCommand<HomeWindow>((para) => true, (para) => {
                 PageNumber = LoadNextPage(PageNumber);
                 ReLoad3Stores(this.HomeWindow, this.ListStores, PageNumber);
@@ -64,6 +69,86 @@ namespace StoreManagement.ViewModels
             ChangeWayShowAgencyCommand = new RelayCommand<HomeWindow>((para) => true, (para) => ChangeWayShowAgency(para));
             EditAgencyCommand = new RelayCommand<TextBlock>((para) => true, (para) => OpenEditStoreWindow(para.Text));
             OpenAddDistrictCommand = new RelayCommand<AddStoreWindow>((para) => true, (para) => OpenAddDistrictWindow(para));
+            ExportExcelStoreCommand = new RelayCommand<HomeWindow>((para) => true, (para) => ExportExcelStore(para));
+        }
+
+        public static DataTable ToDataTable<T>(List<T> items)
+        {
+            DataTable dataTable = new DataTable(typeof(T).Name);
+
+            //Get all the properties
+            PropertyInfo[] Props = typeof(T).GetProperties(BindingFlags.Public | BindingFlags.Instance);
+            foreach (PropertyInfo prop in Props)
+            {
+                //Setting column names as Property names
+                dataTable.Columns.Add(prop.Name);
+            }
+            foreach (T item in items)
+            {
+                var values = new object[Props.Length];
+                for (int i = 0; i < Props.Length; i++)
+                {
+                    //inserting property values to datatable rows
+                    values[i] = Props[i].GetValue(item, null);
+                }
+                dataTable.Rows.Add(values);
+            }
+            //put a breakpoint here and check datatable
+            return dataTable;
+        }
+
+        private void ExportExcelStore(HomeWindow para)
+        {
+            this.ListStores = DataProvider.Instance.DB.Agencies.Where(x => x.IsDelete == false).ToList();
+
+            if (this.ListStores.Count == 0)
+            {
+                CustomMessageBox.Show("List agency is empty!", "Notify", MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
+
+            SaveFileDialog sfd = new SaveFileDialog() { Filter = "Excel Workbook|*.xlsx" };
+            if (sfd.ShowDialog() == true)
+            {
+                object misValue = System.Reflection.Missing.Value;
+                Microsoft.Office.Interop.Excel.Application application = new Microsoft.Office.Interop.Excel.Application();
+                application.Visible = false;
+                Microsoft.Office.Interop.Excel.Workbook workbook = application.Workbooks.Add(Microsoft.Office.Interop.Excel.XlWBATemplate.xlWBATWorksheet);
+                Microsoft.Office.Interop.Excel.Worksheet worksheet = (Microsoft.Office.Interop.Excel.Worksheet)workbook.ActiveSheet;
+                Microsoft.Office.Interop.Excel.Range cellRange;
+                DataTable data = new DataTable();
+
+                //using (var reader = ObjectReader.Create(this.ListStores))
+                //{
+                //    data.Load(reader);
+                //}
+
+                data = ToDataTable<Agency>(this.ListStores);
+                data.Columns.Remove("district1");
+                data.Columns.Remove("isdelete");
+                data.Columns.Remove("invoices");
+                data.Columns.Remove("typeofagency1");
+                data.Columns.Remove("receipts");
+
+                worksheet = application.Worksheets.Add(misValue, misValue, misValue, misValue);
+                worksheet.Name = "Agency";
+                for (int i = 0; i < data.Columns.Count; i++)
+                {
+                    worksheet.Cells[1, i + 1] = data.Columns[i].ColumnName;
+                }
+                for (int i = 0; i < data.Rows.Count; i++)
+                {
+                    for (int j = 0; j < data.Columns.Count; j++)
+                    {
+                        worksheet.Cells[i + 2, j + 1] = data.Rows[i][j].ToString();
+                    }
+                }
+                cellRange = worksheet.Range[worksheet.Cells[1, 1], worksheet.Cells[data.Rows.Count + 1, data.Columns.Count]];
+                cellRange.EntireColumn.AutoFit();
+                workbook.SaveAs(sfd.FileName);
+                workbook.Close();
+                application.Quit();
+            }
         }
 
         private void OpenAddDistrictWindow(AddStoreWindow para)
@@ -100,7 +185,7 @@ namespace StoreManagement.ViewModels
             }
             else
             {
-                Load3Stores(this.HomeWindow, ListStores, PageNumber);
+                Load3Stores(this.HomeWindow, PageNumber);
                 para.grdListStore_Store.Visibility = Visibility.Hidden;
                 para.grdList3Store_Store.Visibility = Visibility.Visible;
             }
@@ -157,7 +242,7 @@ namespace StoreManagement.ViewModels
 
                 if (String.IsNullOrEmpty(this.HomeWindow.txtSearchAgency.Text))
                 {
-                    Load3Stores(para, this.ListStores, PageNumber);
+                    Load3Stores(para, PageNumber);
                 }
                 else
                 {
@@ -179,7 +264,7 @@ namespace StoreManagement.ViewModels
 
                                 StoreControlUC uc = new StoreControlUC();
                                 uc.Height = 350;
-                                uc.Width = 280;
+                                uc.Width = 250;
                                 uc.txbID.Text = ListStores[pos].ID.ToString();
                                 uc.AgencyName.Text = ListStores[pos].Name.ToString();
                                 uc.txbAgencyPhone.Text = ListStores[pos].PhoneNumber.ToString();
@@ -302,7 +387,7 @@ namespace StoreManagement.ViewModels
                 {
                     if (int.Parse(rulesSetting[1]) <= number)
                     {
-                        MessageBox.Show("Number of agency in this district is full");
+                        CustomMessageBox.Show("Number of agency in this district is full!", "Notify", MessageBoxButton.OK, MessageBoxImage.Warning);
                         return;
                     }
                 }
@@ -311,16 +396,16 @@ namespace StoreManagement.ViewModels
             {
                 if (int.Parse(rulesSetting[1]) <= number)
                 {
-                    MessageBox.Show("Number of agency in this district is full");
+                    CustomMessageBox.Show("Number of agency in this district is full!", "Notify", MessageBoxButton.OK, MessageBoxImage.Warning);
                     return;
                 }
-            }            
+            }
 
             TypeOfAgency type = (TypeOfAgency)DataProvider.Instance.DB.TypeOfAgencies.Where(x => x.Name == para.cbbSpecies.Text).First();
 
             if (type.MaxOfDebt < ConvertToNumber(para.txtDebt.Text))
             {
-                MessageBox.Show("Debt limit.");
+                CustomMessageBox.Show("Debt limit!", "Notify", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
             try
@@ -356,20 +441,20 @@ namespace StoreManagement.ViewModels
                     updateDistrict.NumberAgencyInDistrict += 1;
                     DataProvider.Instance.DB.Districts.AddOrUpdate(updateDistrict);
                     DataProvider.Instance.DB.SaveChanges();
-                }    
+                }
                 DataProvider.Instance.DB.Agencies.AddOrUpdate(item);
                 DataProvider.Instance.DB.SaveChanges();
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                CustomMessageBox.Show(ex.Message, "Notify", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             finally
             {
                 if (this.HomeWindow.grdList3Store_Store.Visibility == Visibility.Visible)
                 {
                     PageNumber = 1;
-                    Load3Stores(this.HomeWindow, this.ListStores, PageNumber);
+                    Load3Stores(this.HomeWindow, PageNumber);
                 }
                 else
                 {
@@ -441,7 +526,7 @@ namespace StoreManagement.ViewModels
             }
         }
 
-        private void Load3Stores(HomeWindow para, List<Agency> listStores, int pageNumber)
+        public void Load3Stores(HomeWindow para, int pageNumber)
         {
             this.HomeWindow = para;
 

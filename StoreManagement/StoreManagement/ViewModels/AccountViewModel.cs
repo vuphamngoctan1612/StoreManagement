@@ -88,7 +88,7 @@ namespace StoreManagement.ViewModels
             window.txtLocation.SelectionStart = window.txtLocation.Text.Length;
 
             window.txtPhoneNumber.Text = CurrentAccount.PhoneNumber;
-            window.txtLocation.SelectionStart = window.txtLocation.Text.Length;
+            window.txtPhoneNumber.SelectionStart = window.txtPhoneNumber.Text.Length;
 
             imageBrush.ImageSource = Converter.Instance.ConvertByteToBitmapImage(CurrentAccount.Image);
             window.grdImage.Background = imageBrush;
@@ -104,6 +104,7 @@ namespace StoreManagement.ViewModels
             {
                 imageBrush.ImageSource = Converter.Instance.ConvertByteToBitmapImage(CurrentAccount.Image);
                 this.HomeWindow.grdAcc_Image.Background = imageBrush;
+                this.HomeWindow.menu_Acc_DisplayName.Header = CurrentAccount.DisplayName;
             }
         }        
         //info account window
@@ -136,13 +137,14 @@ namespace StoreManagement.ViewModels
 
             if (phonenumber.Length != 10)
             {
-                MessageBox.Show("not valid");
+                CustomMessageBox.Show("Phone number is not valid!", "Notify", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
 
             if (imageFileName == null)
             {
-                imgByteArr = Converter.Instance.ConvertImageToBytes(@"..\..\Resources\Images\default.jpg");
+                imgByteArr = CurrentAccount.Image;
+                //imgByteArr = Converter.Instance.ConvertImageToBytes(@"..\..\Resources\Images\default.jpg");
             }
             else
             {
@@ -163,15 +165,11 @@ namespace StoreManagement.ViewModels
                     para.isSucceed = true;
                 }
             }
-            catch
+            catch (Exception ex)
             {
                 para.isSucceed = false;
+                CustomMessageBox.Show(ex.Message, "Notify", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-            finally
-            {
-
-            }
-           
 
             para.Close();
         }
