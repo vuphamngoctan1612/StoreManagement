@@ -7,7 +7,8 @@
              xmlns:local="clr-namespace:StoreManagement.Resources.UserControls"
              mc:Ignorable="d" 
              d:DesignHeight="45" d:DesignWidth="1070"
-             Background="WhiteSmoke">
+             Background="White"
+             Padding="1">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"></RowDefinition>
@@ -25,9 +26,8 @@
                 <TextBlock x:Name="txtNo"
                                Text="No."
                                FontFamily="Segoe UI"
-                               FontSize="22"
-                               FontWeight="Bold"
-                               Foreground="#57548B"
+                           FontSize="18" 
+                FontWeight="SemiBold" 
                                HorizontalAlignment="Center" 
                                VerticalAlignment="Center">
                 </TextBlock>
@@ -36,9 +36,8 @@
                 <TextBlock x:Name="txtAgency"
                                Text="Agency"
                                FontFamily="Segoe UI"
-                               FontSize="22"
-                               FontWeight="Bold"
-                               Foreground="#57548B"
+                              FontSize="18" 
+                FontWeight="SemiBold" 
                                HorizontalAlignment="Center" 
                                VerticalAlignment="Center">
                 </TextBlock>
@@ -47,9 +46,8 @@
                 <TextBlock x:Name="txtNumberOfBills"
                                Text="Number Of Bills"
                                FontFamily="Segoe UI"
-                               FontSize="22"
-                               FontWeight="Bold"
-                               Foreground="#57548B"
+                               FontSize="18" 
+                FontWeight="SemiBold" 
                                Margin="0,0,0,0" 
                                HorizontalAlignment="Center" 
                                VerticalAlignment="Center">
@@ -59,9 +57,8 @@
                 <TextBlock x:Name="txtTotal"
                                Text="Total"
                                FontFamily="Segoe UI"
-                               FontSize="22"
-                               FontWeight="Bold"
-                               Foreground="#57548B"
+                               FontSize="18" 
+                FontWeight="SemiBold" 
                                HorizontalAlignment="Center" 
                                VerticalAlignment="Center">
                 </TextBlock>
@@ -70,9 +67,8 @@
                 <TextBlock x:Name="txtRatio"
                                Text="Ratio"
                                FontFamily="Segoe UI"
-                               FontSize="22"
-                               FontWeight="Bold"
-                               Foreground="#57548B"
+                               FontSize="18" 
+                FontWeight="SemiBold" 
                                HorizontalAlignment="Center" 
                                VerticalAlignment="Center">
                 </TextBlock>
@@ -80,6 +76,7 @@
         </Grid>
         <Grid Grid.Row="1"
               Width="1070"
+              Height="1"
               Background="#F2F2F2">
         </Grid>
     </Grid>

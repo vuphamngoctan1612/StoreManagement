@@ -365,7 +365,7 @@ namespace StoreManagement.ViewModels
             
         }
 
-        private void InitColumnChart(HomeWindow para)
+        public void InitColumnChart(HomeWindow para)
         {
             string month = DateTime.Now.Month.ToString();
             string year = DateTime.Now.Year.ToString();
@@ -377,6 +377,8 @@ namespace StoreManagement.ViewModels
             para.cboSelectPeriod.Text = "Theo tháng";
 
             para.cboSelectTime.Text = "Tháng " + month;
+
+            para.cboSelectYear.Text = "Năm " + year;
 
             para.cboSelectYear.Visibility = System.Windows.Visibility.Hidden;
 
