@@ -22,6 +22,9 @@ namespace StoreManagement.Views
         public ShellOutWindow()
         {
             InitializeComponent();
+
+            this.cbbName.Text = null;
+            this.txtPayment.Text = null;
         }
     }
 }

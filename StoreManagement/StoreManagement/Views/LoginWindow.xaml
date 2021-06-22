@@ -132,6 +132,7 @@
                 Margin="35 365 0 0"
                 VerticalAlignment="Top"
                 HorizontalAlignment="Left"
+                IsDefault="True"
                 Cursor="Hand"
                 Command="{Binding LoginCommand}"
                 CommandParameter="{Binding ElementName=wdLogin}">

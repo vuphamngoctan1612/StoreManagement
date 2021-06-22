@@ -263,7 +263,8 @@
                     VerticalAlignment="Center"
                     Margin="0 0 0 30">
                     <Button 
-                        x:Name="btSignUp"
+                        x:Name="btSignUp"                        
+                        IsDefault="True"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Center"
                         Margin="240 0 0 0"

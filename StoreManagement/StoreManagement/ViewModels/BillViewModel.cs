@@ -73,6 +73,20 @@ namespace StoreManagement.ViewModels
 
         private void PayReceiptBill(ShellOutWindow para)
         {
+            if (string.IsNullOrWhiteSpace(para.cbbName.Text))
+            {
+                para.cbbName.Text = "";
+                para.cbbName.Focus();
+                return;
+            }
+            if (string.IsNullOrEmpty(para.txtPayment.Text))
+            {
+                para.txtPayment.Text = "";
+                para.txtPayment.Focus();
+                return;
+            }
+
+
             if (ConvertToNumber(para.txtPayment.Text) != 0)
             {
                 Receipt newitem = new Receipt();
@@ -107,7 +121,8 @@ namespace StoreManagement.ViewModels
                 agencyReportViewModel.LoadDebtsReport(this.HomeWindow);
 
                 para.Close();
-            } else
+            } 
+            else
             {
                 CustomMessageBox.Show("Payment must be greater than 0!", "Notify", MessageBoxButton.OK, MessageBoxImage.Warning);
             }

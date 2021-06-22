@@ -115,7 +115,7 @@
                     FontSize="16"
                     FontWeight="SemiBold"
                     Padding="10"
-                    Validation.ErrorTemplate="{StaticResource textBoxErrorTemplate}"
+                    Validation.ErrorTemplate="{StaticResource textBoxErrorTemplate2}"
                     HorizontalContentAlignment="Left"
                     VerticalContentAlignment="Center"
                     ItemsSource="{Binding Path=ListAgency, Mode=OneWay}"
@@ -127,7 +127,13 @@
                                                 CommandParameter="{Binding ElementName=wdShellOut}"/>
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
-
+                    <ComboBox.Text>
+                        <Binding Path="Name" Source="{StaticResource Units}" UpdateSourceTrigger="PropertyChanged" Mode="OneWayToSource">
+                            <Binding.ValidationRules>
+                                <vd:NotNullValidation ErrorMessage="Please choose item"/>
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </ComboBox.Text>
                 </ComboBox>
             </Grid>
             <Grid Grid.Row="2"
@@ -247,9 +253,16 @@
                     FontSize="16"
                     FontWeight="SemiBold"
                     Padding="10"
-                    Validation.ErrorTemplate="{StaticResource textBoxErrorTemplate}"
+                    Validation.ErrorTemplate="{StaticResource textBoxErrorTemplate2}"
                     HorizontalContentAlignment="Left"
                     VerticalContentAlignment="Center">
+                    <TextBox.Text>
+                        <Binding Path="Name" Source="{StaticResource Product}" UpdateSourceTrigger="PropertyChanged" Mode="OneWayToSource">
+                            <Binding.ValidationRules>
+                                <vd:NotNullValidation ErrorMessage="Please enter payment"/>
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </TextBox.Text>
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="PreviewTextInput" >
                             <ei:CallMethodAction TargetObject="{Binding }"
@@ -310,13 +323,14 @@
                     Width="450"
                     Margin="20 10 0 0">
                     <Button 
-                        x:Name="btnPay"
+                        x:Name="btnPay"                        
+                        IsDefault="True"
                         HorizontalAlignment="Left"
                         HorizontalContentAlignment="Center"
                         VerticalAlignment="Center"
                         Width="110"
                         Height="35"
-                        Margin="170 0 0 0"
+                        Margin="185 0 0 0"
                         Content="Pay"
                         BorderThickness="0"
                         Foreground="#57548B"
@@ -336,7 +350,7 @@
                         VerticalAlignment="Center"
                         Width="110"
                         Height="35"
-                        Margin="300 0 0 0"
+                        Margin="315 0 0 0"
                         Content="Close"
                         BorderThickness="0"
                         Cursor="Hand"

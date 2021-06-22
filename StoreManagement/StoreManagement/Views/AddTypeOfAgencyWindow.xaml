@@ -178,6 +178,7 @@
             VerticalAlignment="Center">
             <Button 
                 x:Name="btnSave"
+                IsDefault="True"
                 HorizontalAlignment="Left"
                 Width="110"
                 Height="38"
