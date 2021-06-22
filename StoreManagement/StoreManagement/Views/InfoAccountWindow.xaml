@@ -87,8 +87,8 @@
                     Width="350"
                     Margin="180 0 0 0"
                     StrokeThickness="2"
-                    RadiusX="10"
-                    RadiusY="10"
+                    RadiusX="5"
+                    RadiusY="5"
                     Stroke="#E2D2DA">
                 </Rectangle>
                 <TextBox
@@ -127,8 +127,8 @@
                     Width="350"
                     Margin="180 0 0 0"
                     StrokeThickness="2"
-                    RadiusX="10"
-                    RadiusY="10"
+                    RadiusX="5"
+                    RadiusY="5"
                     Stroke="#E2D2DA">
                 </Rectangle>
                 <TextBox
@@ -173,8 +173,8 @@
                     Width="350"
                     Margin="180 0 0 0"
                     StrokeThickness="2"
-                    RadiusX="10"
-                    RadiusY="10"
+                    RadiusX="5"
+                    RadiusY="5"
                     Stroke="#E2D2DA">
                 </Rectangle>
                 <TextBox
@@ -219,8 +219,8 @@
                     Width="350"
                     Margin="180 0 0 0"
                     StrokeThickness="2"
-                    RadiusX="10"
-                    RadiusY="10"
+                    RadiusX="5"
+                    RadiusY="5"
                     Stroke="#E2D2DA">
                 </Rectangle>
                 <TextBox

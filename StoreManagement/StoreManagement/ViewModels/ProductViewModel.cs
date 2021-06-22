@@ -286,21 +286,21 @@ namespace StoreManagement.ViewModels
                 int id = int.Parse(para.txtID.Text);
                 string name = para.txtName.Text;
                 long price = ConvertToNumber(para.txtPrice.Text);
-
-                byte[] imgByteArr;
-                if (imageFileName == null)
-                {
-                    imgByteArr = Converter.Instance.ConvertImageToBytes(@"..\..\Resources\Images\default.jpg");
-                }
-                else
-                {
-                    imgByteArr = Converter.Instance.ConvertImageToBytes(imageFileName);
-                }
+                byte[] imgByteArr;                
 
                 Product product;
                 //update product
                 if (para.Title == "Update info product")
                 {
+                    if (imageFileName == null)
+                    {
+                        imgByteArr = DataProvider.Instance.DB.Products.Where(x => x.ID == id).First().Image;
+                    }
+                    else
+                    {
+                        imgByteArr = Converter.Instance.ConvertImageToBytes(imageFileName);
+                    }
+
                     product = DataProvider.Instance.DB.Products.Where(x => x.ID == id).First();
                     product.ID = id;
                     product.Name = name;
@@ -311,6 +311,15 @@ namespace StoreManagement.ViewModels
                 //add product                
                 else
                 {
+                    if (imageFileName == null)
+                    {
+                        imgByteArr = Converter.Instance.ConvertImageToBytes(@"..\..\Resources\Images\default.jpg");
+                    }
+                    else
+                    {
+                        imgByteArr = Converter.Instance.ConvertImageToBytes(imageFileName);
+                    }
+
                     product = new Product();
                     product.ID = id;
                     product.Name = name;
@@ -327,7 +336,7 @@ namespace StoreManagement.ViewModels
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                CustomMessageBox.Show(ex.Message, "Notify", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             finally
             {
