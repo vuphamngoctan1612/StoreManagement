@@ -2423,7 +2423,8 @@
             <Grid Grid.Row="1"
                 x:Name="grdBody_Report"
                 Visibility="Hidden"
-                DataContext="{StaticResource AgencyReportVM}">
+                DataContext="{StaticResource AgencyReportVM}"
+                  Margin="10 0 0 0">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="Loaded">
                         <i:InvokeCommandAction Command="{Binding InitCommand}"
@@ -2556,7 +2557,7 @@
 
                     <materialDesign:Card x:Name="cardTitleSalesReport"
                              Height="60"
-                             Width="1070"
+                             Width="1040"
                              Margin="30,0,0,0"
                              HorizontalAlignment="Left"
                              VerticalAlignment="Top"
