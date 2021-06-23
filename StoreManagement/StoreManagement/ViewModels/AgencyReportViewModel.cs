@@ -79,7 +79,7 @@ namespace StoreManagement.ViewModels
                 }
                 salesReportUC.txtNumberOfBills.Text = count.ToString();
                 salesReportUC.txtTotal.Text = ConvertToString(total);
-                salesReportUC.txtRatio.Text = (100 * (double)dept / (double)(total + 1)).ToString() + "%";
+                salesReportUC.txtRatio.Text = (100 * (double)dept / (double)(total + 1)).ToString("0.00") + "%";
                 para.stkSalesReport.Children.Add(salesReportUC);
                 para.scrollSales.Visibility = Visibility.Visible;
                 check++;
@@ -247,7 +247,7 @@ namespace StoreManagement.ViewModels
                 }
                 salesReportUC.txtNumberOfBills.Text = count.ToString();
                 salesReportUC.txtTotal.Text = ConvertToString(total);
-                salesReportUC.txtRatio.Text = (100 * (double)dept / (double)(total + 1)).ToString() + "%";
+                salesReportUC.txtRatio.Text = (100 * (double)dept / (double)(total + 1)).ToString("0.00") + "%";
                 this.HomeWindow.stkSalesReport.Children.Add(salesReportUC);
                 check++;
             }

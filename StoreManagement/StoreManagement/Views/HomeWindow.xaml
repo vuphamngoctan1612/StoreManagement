@@ -2638,7 +2638,7 @@
                 <Grid Grid.Row="3">
                     <materialDesign:Card x:Name="cardSalesReport"
                              Height="50"
-                             Width="1040"
+                             Width="1035"
                              Margin="30,10,0,0"
                              HorizontalAlignment="Left"
                              VerticalAlignment="Top"
@@ -2709,7 +2709,7 @@
                     </materialDesign:Card>
                     <materialDesign:Card x:Name="cardDebtAgencyReport"
                              Height="50"
-                             Width="1040"
+                             Width="1035"
                              Margin="30,10,0,0"
                              HorizontalAlignment="Left"
                              VerticalAlignment="Top"
