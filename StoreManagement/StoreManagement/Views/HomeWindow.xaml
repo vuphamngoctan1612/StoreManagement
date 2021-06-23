@@ -2163,7 +2163,7 @@
                 <Grid Grid.Row="2"
                       x:Name="InvoiceTable"
                       Height="590"
-                      Width="1060"
+                      Width="1040"
                       Margin="30 10 0 0"
                       VerticalAlignment="Top"
                       Visibility="Visible">
@@ -2276,7 +2276,7 @@
                                     FontSize="16"
                                     FontFamily="Segoe UI"
                                     Foreground="Gray"
-                                    Visibility="Visible" Margin="0,0,10,0"></TextBlock>
+                                    Visibility="Visible" Margin="0,0,30,0"></TextBlock>
                             </Grid>
                             <Grid Grid.Row="1">
                                 <TextBlock 
@@ -2288,7 +2288,7 @@
                                 FontFamily="Segoe UI"
                                 Foreground="#FF0033"
                                 FontWeight="Medium"
-                                    Margin="0,0,10,0"
+                                    Margin="0,0,30,0"
                                 Visibility="Visible"></TextBlock>
                             </Grid>
                         </Grid>
