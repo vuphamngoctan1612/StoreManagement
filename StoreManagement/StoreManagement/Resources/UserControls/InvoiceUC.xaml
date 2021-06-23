@@ -23,7 +23,7 @@
                 <ColumnDefinition Width="220"></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
-                <ColumnDefinition Width="60"></ColumnDefinition>
+                <ColumnDefinition Width="80"></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <Grid>
                 <TextBlock
@@ -75,6 +75,7 @@
                     Foreground="#504D85"
                     Width="60"
                     Height="45"
+                    Margin="0 0 20 0"
                     Command="{Binding OpenInvoiceWindowCommand}"
                     CommandParameter="{Binding ElementName=displayInvoiceUC}">
                     <materialDesign:PackIcon
