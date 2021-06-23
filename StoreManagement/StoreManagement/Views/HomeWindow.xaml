@@ -2042,7 +2042,7 @@
             <Grid Grid.Row="1"
                 x:Name="grdBody_Bill"
                 DataContext="{StaticResource BillVM}"
-                Visibility="Visible">
+                Visibility="Hidden">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="Loaded">
                         <i:InvokeCommandAction 
@@ -2603,6 +2603,7 @@
                                 <DatePicker
                                     x:Name="Date"
                                     Height="50"
+                                    Width="150"
                                     Background="#FBCCDA"
                                     Foreground="#57548B"
                                     FontFamily="Segoe UI"
