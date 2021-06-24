@@ -222,16 +222,16 @@ namespace StoreManagement.ViewModels
                 string currentMonth;
                 if (para.cboSelectTime.SelectedIndex != -1)
                 {
-                    string[] tmp = this.HomeWindow.cboSelectTime.SelectedValue.ToString().Split(' ');
-                    currentMonth = tmp[1];
+                    //string[] tmp = this.HomeWindow.cboSelectTime.SelectedValue.ToString().Split(' ');
+                    currentMonth = this.HomeWindow.cboSelectTime.SelectedValue.ToString();
                 } else
                 {
                     currentMonth = DateTime.Now.Month.ToString();
                 }
-                string[] tmpyear = this.HomeWindow.cboSelectYear.SelectedValue.ToString().Split(' ');
-                string selectedYear = tmpyear[1];
-                string currenYear = DateTime.Now.Year.ToString();
-                int quarter = this.HomeWindow.cboSelectTime.SelectedIndex + 1;
+                //string[] tmpyear = this.HomeWindow.cboSelectYear.SelectedValue.ToString().Split(' ');
+                string selectedYear = this.HomeWindow.cboSelectYear.SelectedValue.ToString();
+                //string currenYear = DateTime.Now.Year.ToString();
+                //int quarter = this.HomeWindow.cboSelectTime.SelectedIndex + 1;
                 if (type == 0)
                 {
                     this.LoadChartByAgencyAndYearMonth(currentMonth, selectedYear);
@@ -253,12 +253,12 @@ namespace StoreManagement.ViewModels
                 //int currentMonth = DateTime.Now.Month;
                 for (int i = 0; i < MonthInYear.Length; i++)
                 {
-                    this.ItemSourceTime.Add(string.Format("Tháng {0}", MonthInYear[i].ToString()));
+                    this.ItemSourceTime.Add(string.Format("{0}", MonthInYear[i].ToString()));
                 }
                 string[] Year = this.GetYear();
                 for (int i = 0; i < Year.Length; i++)
                 {
-                    this.ItemSourceTime2.Add(string.Format("Năm {0}", Year[i].ToString()));
+                    this.ItemSourceTime2.Add(string.Format("{0}", Year[i].ToString()));
                 }
                 if (type != 2)
                     para.cboSelectYear.Visibility = System.Windows.Visibility.Visible;
@@ -270,8 +270,8 @@ namespace StoreManagement.ViewModels
                     string[] Year = this.GetYear();
                     for (int i = 0; i < Year.Length; i++)
                     {
-                        this.ItemSourceTime.Add(string.Format("Năm {0}", Year[i].ToString()));
-                        this.ItemSourceTime2.Add(string.Format("Năm {0}", Year[i].ToString()));
+                        this.ItemSourceTime.Add(string.Format("{0}", Year[i].ToString()));
+                        this.ItemSourceTime2.Add(string.Format("{0}", Year[i].ToString()));
                     }
                 }
                 else
@@ -279,12 +279,12 @@ namespace StoreManagement.ViewModels
                     string[] Year = this.GetYear();
                     for (int i = 0; i < Year.Length; i++)
                     {
-                        this.ItemSourceTime2.Add(string.Format("Năm {0}", Year[i].ToString()));
+                        this.ItemSourceTime2.Add(string.Format("{0}", Year[i].ToString()));
                     }
                     for(int i = 1; i < 5; i++)
                     {
 
-                        this.ItemSourceTime.Add(string.Format("Quý {0}", i.ToString()));
+                        this.ItemSourceTime.Add(string.Format("{0}", i.ToString()));
                     }
                     para.cboSelectYear.Visibility = System.Windows.Visibility.Visible;
                 }
@@ -294,10 +294,12 @@ namespace StoreManagement.ViewModels
                 string[] Year = this.GetYear();
                 for (int i = 0; i < Year.Length; i++)
                 {
-                    this.ItemSourceTime.Add(string.Format("Năm {0}", Year[i].ToString()));
+                    this.ItemSourceTime.Add(string.Format("{0}", Year[i].ToString()));
                 }
-                if(type != 2)
+                if (type != 2)
+                {
                     para.cboSelectYear.Visibility = System.Windows.Visibility.Hidden;
+                }
             }    
             
         }
@@ -309,8 +311,8 @@ namespace StoreManagement.ViewModels
             {
                 if (this.HomeWindow.cboSelectTime.SelectedIndex != -1)
                 {
-                    string[] tmp = this.HomeWindow.cboSelectTime.SelectedValue.ToString().Split(' ');
-                    string currentMonth = tmp[1];
+                    //string[] tmp = this.HomeWindow.cboSelectTime.SelectedValue.ToString().Split(' ');
+                    string currentMonth = this.HomeWindow.cboSelectTime.SelectedValue.ToString();
                     string currenYear = DateTime.Now.Year.ToString();
                     if (type == 0)
                     {
@@ -321,15 +323,17 @@ namespace StoreManagement.ViewModels
                         this.LoadChartByProductYearMonth(currentMonth, currenYear);
                     } 
                     else
+                    {
                         this.LoadChartByMonth(currentMonth, currenYear);
+                    }
                 }
             }
             else if (this.HomeWindow.cboSelectPeriod.SelectedIndex == 1) //theo quy
             {
                 if (this.HomeWindow.cboSelectTime.SelectedIndex != -1)
                 {
-                    string[] tmp = this.HomeWindow.cboSelectTime.SelectedValue.ToString().Split(' ');
-                    string selectedYear = tmp[1];
+                    //string[] tmp = this.HomeWindow.cboSelectTime.SelectedValue.ToString().Split(' ');
+                    string selectedYear = this.HomeWindow.cboSelectTime.SelectedValue.ToString();
                     string currenYear = DateTime.Now.Year.ToString();
                     int quarter = this.HomeWindow.cboSelectTime.SelectedIndex + 1;
                     if (type == 0)
@@ -348,8 +352,8 @@ namespace StoreManagement.ViewModels
             {
                 if (this.HomeWindow.cboSelectTime.SelectedIndex != -1)
                 {
-                    string[] tmp = this.HomeWindow.cboSelectTime.SelectedValue.ToString().Split(' ');
-                    string selectedYear = tmp[1];
+                    //string[] tmp = this.HomeWindow.cboSelectTime.SelectedValue.ToString().Split(' ');
+                    string selectedYear = this.HomeWindow.cboSelectTime.SelectedValue.ToString();
                     if (type == 0)
                     {
                         this.LoadChartByAgencyAndYear(selectedYear);
@@ -374,18 +378,16 @@ namespace StoreManagement.ViewModels
 
             para.cboSelectTypeOfChart.Text = "Total And Debt";
 
-            para.cboSelectPeriod.Text = "Theo tháng";
+            para.cboSelectPeriod.Text = "Monthly";
 
-            para.cboSelectTime.Text = "Tháng " + month;
+            para.cboSelectTime.Text =month;
 
-            para.cboSelectYear.Text = "Năm " + year;
+            para.cboSelectYear.Text =year;
 
             para.cboSelectYear.Visibility = System.Windows.Visibility.Hidden;
 
             LoadChartByMonth(month, year);
         }
-
-
 
         #region Load Chart
         public void LoadChartByAgency()

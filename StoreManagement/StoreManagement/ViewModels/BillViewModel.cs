@@ -457,7 +457,7 @@ namespace StoreManagement.ViewModels
                 pay += stockReceipt.Total;
                 this.HomeWindow.stkStockReceipt.Children.Add(invoiceUC);
             }
-            this.HomeWindow.textPay.Text = "-" + ConvertToString(pay);
+            this.HomeWindow.textPay.Text = ConvertToString(pay);
         }
         private void Switch(HomeWindow para)
         {
