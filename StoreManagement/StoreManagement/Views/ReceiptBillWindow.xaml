@@ -141,7 +141,8 @@
                     Padding="0"
                     HorizontalContentAlignment="Left"
                     VerticalContentAlignment="Center" 
-                    Cursor="Arrow">
+                    Cursor="Arrow"
+                    IsEnabled="False">
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="TextChanged">
                             <i:InvokeCommandAction Command="{Binding SeparateThousandsCommand}" CommandParameter="{Binding ElementName=txtAmount}"/>
@@ -173,7 +174,8 @@
                     Padding="0"
                     HorizontalContentAlignment="Left"
                     VerticalContentAlignment="Center" 
-                    Cursor="Arrow">
+                    Cursor="Arrow"
+                    IsEnabled="False">
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="TextChanged">
                             <i:InvokeCommandAction Command="{Binding SeparateThousandsCommand}" CommandParameter="{Binding ElementName=txtAmount}"/>
@@ -205,7 +207,8 @@
                     Padding="0"
                     HorizontalContentAlignment="Left"
                     VerticalContentAlignment="Center" 
-                    Cursor="Arrow">
+                    Cursor="Arrow"
+                    IsEnabled="False">
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="TextChanged">
                             <i:InvokeCommandAction Command="{Binding SeparateThousandsCommand}" CommandParameter="{Binding ElementName=txtAmount}"/>
@@ -237,7 +240,8 @@
                     Padding="0"
                     HorizontalContentAlignment="Left"
                     VerticalContentAlignment="Center" 
-                    Cursor="Arrow">
+                    Cursor="Arrow"
+                    IsEnabled="False">
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="TextChanged">
                             <i:InvokeCommandAction Command="{Binding SeparateThousandsCommand}" CommandParameter="{Binding ElementName=txtAmount}"/>
@@ -268,7 +272,8 @@
                     Padding="0"
                     HorizontalContentAlignment="Left"
                     VerticalContentAlignment="Center" 
-                    Cursor="Arrow">
+                    Cursor="Arrow"
+                    IsEnabled="False">
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="TextChanged">
                             <i:InvokeCommandAction Command="{Binding SeparateThousandsCommand}" CommandParameter="{Binding ElementName=txtAmount}"/>
