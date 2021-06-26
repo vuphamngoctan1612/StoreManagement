@@ -539,15 +539,19 @@ namespace StoreManagement.ViewModels
         }
         private void DeleteProduct(ProductControlUC para)
         {
-            Product product = new Product();
-            int id = int.Parse(para.txbID.Text);
-            product = (Product)DataProvider.Instance.DB.Products.Where(x => x.ID == id).First();
+            MessageBoxResult res = CustomMessageBox.Show("Are you sure?", "Notify", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (res == MessageBoxResult.Yes)
+            {
+                Product product = new Product();
+                int id = int.Parse(para.txbID.Text);
+                product = (Product)DataProvider.Instance.DB.Products.Where(x => x.ID == id).First();
 
-            product.IsDelete = true;
-            DataProvider.Instance.DB.Products.AddOrUpdate(product);
-            DataProvider.Instance.DB.SaveChanges();
+                product.IsDelete = true;
+                DataProvider.Instance.DB.Products.AddOrUpdate(product);
+                DataProvider.Instance.DB.SaveChanges();
 
-            this.HomeWindow.stkProducts.Children.Remove(para);
+                this.HomeWindow.stkProducts.Children.Remove(para);
+            }            
         }
 
         private void OpenAddUnitsWindow(ComboBox para)

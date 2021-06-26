@@ -443,6 +443,12 @@
                                 </Binding.ValidationRules>
                             </Binding>
                         </DatePicker.SelectedDate>
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="SelectedDateChanged">
+                                <i:InvokeCommandAction Command="{Binding CheckDateCommand}"
+                                                                   CommandParameter="{Binding ElementName=wdAddstore}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
                     </DatePicker>
                     <Rectangle
                         HorizontalAlignment="Right"
