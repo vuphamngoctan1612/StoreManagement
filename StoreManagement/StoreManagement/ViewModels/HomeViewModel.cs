@@ -82,6 +82,8 @@ namespace StoreManagement.ViewModels
                 case 6:
                     para.grdBody_AccountSetting.Visibility = System.Windows.Visibility.Visible;
                     para.rec_btn_Menu_Setting.Fill = (Brush)new BrushConverter().ConvertFrom("#FF9E9F");
+                    SettingViewModel settingViewModel = new SettingViewModel();
+                    settingViewModel.Reload(para);
                     break;
                 default:
                     break;

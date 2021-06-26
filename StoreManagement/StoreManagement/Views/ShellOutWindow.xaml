@@ -256,7 +256,8 @@
                     Padding="10"
                     Validation.ErrorTemplate="{StaticResource textBoxErrorTemplate2}"
                     HorizontalContentAlignment="Left"
-                    VerticalContentAlignment="Center">
+                    VerticalContentAlignment="Center"
+                    MaxLength="15">
                     <TextBox.Text>
                         <Binding Path="Name" Source="{StaticResource Product}" UpdateSourceTrigger="PropertyChanged" Mode="OneWayToSource">
                             <Binding.ValidationRules>
