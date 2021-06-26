@@ -202,7 +202,7 @@ namespace StoreManagement.ViewModels
                     catch { }
                 }
                 check++;
-                if (invoices.Count != 0)
+                if (invoicesAfter.Count != 0)
                 {
                     debtReportUC.txtOriginalDebt.Text = ConvertToString( invoicesAfter.First().Debt);
                     debtReportUC.txtCostOverrun.Text = ConvertToString(dept - invoicesAfter.First().Debt);
