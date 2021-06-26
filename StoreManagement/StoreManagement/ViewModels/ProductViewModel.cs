@@ -232,7 +232,7 @@ namespace StoreManagement.ViewModels
 
                 if (imageFileName == null)
                 {
-                    imgByteArr = Converter.Instance.ConvertImageToBytes(@"..\..\Resources\Images\default.jpg");
+                    imgByteArr = DataProvider.Instance.DB.Products.Where(x => x.ID == productID).First().Image;
                 }
                 else
                 {
@@ -240,31 +240,14 @@ namespace StoreManagement.ViewModels
                 }
 
                 Product product;
-                //exits product
-                if (para.Title == "Import exits product")
-                {
-                    product = DataProvider.Instance.DB.Products.Where(p => p.ID == productID).First();
-                    product.ID = productID;
-                    product.Name = productName;
-                    product.UnitsID = selectedUnits.ID;
-                    product.ImportPrice = importPrice;
-                    product.Count += amount;
-                    product.Image = imgByteArr;
-                    product.IsDelete = false;
-                }
-                //import new product
-                else
-                {
-                    product = new Product();
-                    product.ID = productID;
-                    product.Name = productName;
-                    product.UnitsID = selectedUnits.ID;
-                    product.ImportPrice = importPrice;
-                    product.ExportPrice = 0;
-                    product.Count = amount;
-                    product.Image = imgByteArr;
-                    product.IsDelete = false;
-                }
+                product = DataProvider.Instance.DB.Products.Where(p => p.ID == productID).First();
+                product.ID = productID;
+                product.Name = productName;
+                product.UnitsID = selectedUnits.ID;
+                product.ImportPrice = importPrice;
+                product.Count += amount;
+                product.Image = imgByteArr;
+                product.IsDelete = false;
 
                 StockReceiptInfo stockReceiptInfo = new StockReceiptInfo();
                 stockReceiptInfo.StockReceiptID = stockReceiptID;
@@ -371,7 +354,7 @@ namespace StoreManagement.ViewModels
                 int id = int.Parse(para.txtID.Text);
                 string name = para.txtName.Text;
                 long price = ConvertToNumber(para.txtPrice.Text);
-                byte[] imgByteArr;                
+                byte[] imgByteArr;
 
                 Product product;
                 //update product
@@ -551,13 +534,13 @@ namespace StoreManagement.ViewModels
                 DataProvider.Instance.DB.SaveChanges();
 
                 this.HomeWindow.stkProducts.Children.Remove(para);
-            }            
+            }
         }
 
         private void OpenAddUnitsWindow(ComboBox para)
         {
             AddUnitsWindow window = new AddUnitsWindow();
-            
+
             try
             {
                 int id = DataProvider.Instance.DB.Units.Max(p => p.ID) + 1;
@@ -574,7 +557,7 @@ namespace StoreManagement.ViewModels
                 {
                     this.InitItemsSourceUnits();
                 }
-            }            
+            }
         }
         public void LoadProduct(HomeWindow para)
         {
