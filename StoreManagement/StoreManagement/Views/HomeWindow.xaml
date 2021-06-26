@@ -2813,19 +2813,20 @@
                                                CommandParameter="{Binding ElementName=wdHome}"/>
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
-                <ScrollViewer
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="2"></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0"
+                    Background="#FBA1BB"/>
+                <Grid Grid.Row="1">
+                    <ScrollViewer
                     HorizontalScrollBarVisibility="Disabled" 
                     Margin="0,20"
                     Style="{StaticResource FavsScrollViewer}"
                     VerticalScrollBarVisibility="Auto">
-                    <StackPanel>
-                        <TextBlock
-                            Text="Setting"
-                            FontSize="40"
-                            Foreground="#504D85"
-                            FontWeight="SemiBold"
-                            HorizontalAlignment="Center"/>
-                        <TextBlock
+                        <StackPanel>
+                            <TextBlock
                             Text="Type of Agency"
                             Foreground="#504D85"
                             FontSize="30"
@@ -2833,29 +2834,29 @@
                             HorizontalAlignment="Left"
                             Margin="50,30,0,0"
                             FontWeight="SemiBold"/>
-                        <Expander
+                            <Expander
                             HorizontalAlignment="Stretch"
                             Header="Rules"
                             Foreground="#F68D7D"
                             FontSize="14"
                             Margin="40,0"
                             Background="Transparent">
-                            <Grid
+                                <Grid
                             Height="125">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="390"></ColumnDefinition>
-                                    <ColumnDefinition Width="410"></ColumnDefinition>
-                                    <ColumnDefinition></ColumnDefinition>
-                                </Grid.ColumnDefinitions>
-                                <Grid Grid.Column="0">
-                                    <Border 
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="390"></ColumnDefinition>
+                                        <ColumnDefinition Width="410"></ColumnDefinition>
+                                        <ColumnDefinition></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid Grid.Column="0">
+                                        <Border 
                                         BorderBrush="DarkGray"
                                         Background="White"
                                         BorderThickness="1,1,1,1"
                                         CornerRadius="8"
                                         Margin="20,0">
-                                        <Grid>
-                                            <TextBlock 
+                                            <Grid>
+                                                <TextBlock 
                                                 Text="Number of type"
                                                 Foreground="#504D85"
                                                 FontWeight="SemiBold"
@@ -2863,11 +2864,11 @@
                                                 VerticalAlignment="Top"
                                                 FontSize="20"
                                                 Margin="30,15"/>
-                                            <Grid
+                                                <Grid
                                                 Background="Gray"
                                                 Height="1"
                                                 Width="300"/>
-                                            <TextBox
+                                                <TextBox
                                                 x:Name="txtNumberType_Setting"
                                                 Height="40"
                                                 Width="350"
@@ -2876,26 +2877,31 @@
                                                 VerticalAlignment="Bottom"
                                                 Margin="0,15"
                                                 FontSize="18"
+                                                    MaxLength="4"
                                                 BorderBrush="{x:Null}">
-                                                <i:Interaction.Triggers>
-                                                    <i:EventTrigger EventName="PreviewTextInput" >
-                                                        <ei:CallMethodAction TargetObject="{Binding}"
+                                                    <i:Interaction.Triggers>
+                                                        <i:EventTrigger EventName="PreviewTextInput" >
+                                                            <ei:CallMethodAction TargetObject="{Binding}"
                                                      MethodName="NumberValidationTextBox" />
-                                                    </i:EventTrigger>
-                                                </i:Interaction.Triggers>
-                                            </TextBox>
-                                        </Grid>
-                                    </Border>
-                                </Grid>
-                                <Grid Grid.Column="1">
-                                    <Border 
+                                                        </i:EventTrigger>
+                                                        <i:EventTrigger EventName="TextChanged">
+                                                            <i:InvokeCommandAction Command="{Binding SeparateThousandsCommand}" 
+                                                       CommandParameter="{Binding ElementName=txtNumberType_Setting}"/>
+                                                        </i:EventTrigger>
+                                                    </i:Interaction.Triggers>
+                                                </TextBox>
+                                            </Grid>
+                                        </Border>
+                                    </Grid>
+                                    <Grid Grid.Column="1">
+                                        <Border 
                                         BorderBrush="DarkGray"
                                         Background="White"
                                         BorderThickness="1,1,1,1"
                                         CornerRadius="8"
                                         Margin="30,0">
-                                        <Grid>
-                                            <TextBlock 
+                                            <Grid>
+                                                <TextBlock 
                                                 Text="Number of agency in district"
                                                 Foreground="#504D85"
                                                 HorizontalAlignment="Left"
@@ -2903,11 +2909,11 @@
                                                 Margin="30,15"
                                                 FontWeight="SemiBold"
                                                 FontSize="20"/>
-                                            <Grid
+                                                <Grid
                                                 Background="Gray"
                                                 Height="1"
                                                 Width="300"/>
-                                            <TextBox
+                                                <TextBox
                                                 x:Name="txtNumberAgencyinDistrict_Setting"
                                                 Height="40"
                                                 Width="350"
@@ -2916,19 +2922,24 @@
                                                 VerticalAlignment="Bottom"
                                                 BorderBrush="{x:Null}"
                                                 FontSize="18"
-                                                Margin="0,15">
-                                                <i:Interaction.Triggers>
-                                                    <i:EventTrigger EventName="PreviewTextInput" >
-                                                        <ei:CallMethodAction TargetObject="{Binding}"
+                                                Margin="0,15"
+                                                    MaxLength="4">
+                                                    <i:Interaction.Triggers>
+                                                        <i:EventTrigger EventName="PreviewTextInput" >
+                                                            <ei:CallMethodAction TargetObject="{Binding}"
                                                      MethodName="NumberValidationTextBox" />
-                                                    </i:EventTrigger>
-                                                </i:Interaction.Triggers>
-                                            </TextBox>
-                                        </Grid>
-                                    </Border>
-                                </Grid>
-                                <Grid Grid.Column="2">
-                                    <Button
+                                                        </i:EventTrigger>
+                                                        <i:EventTrigger EventName="TextChanged">
+                                                            <i:InvokeCommandAction Command="{Binding SeparateThousandsCommand}" 
+                                                       CommandParameter="{Binding ElementName=txtNumberAgencyinDistrict_Setting}"/>
+                                                        </i:EventTrigger>
+                                                    </i:Interaction.Triggers>
+                                                </TextBox>
+                                            </Grid>
+                                        </Border>
+                                    </Grid>
+                                    <Grid Grid.Column="2">
+                                        <Button
                                         x:Name="btnSaveRulesType_Setting"
                                         Height="30"
                                         Width="110"
@@ -2940,22 +2951,22 @@
                                         Margin="0,10"
                                         Command="{Binding SaveRulesType_SettingCommand}"
                                         CommandParameter="{Binding ElementName=wdHome}"/>
+                                    </Grid>
                                 </Grid>
-                            </Grid>
-                        </Expander>
-                        <Expander
+                            </Expander>
+                            <Expander
                             HorizontalAlignment="Stretch"
                             Header="List type"
                             Foreground="#F68D7D"
                             FontSize="14"
                             Margin="40,0"
                             Background="Transparent">
-                            <StackPanel
+                                <StackPanel
                                 x:Name="stkListType_Setting"
                                 Orientation="Vertical"
                                 TextBlock.Foreground="{DynamicResource MaterialDesignBody}"
                                 Margin="24,8,24,16">
-                                <Button
+                                    <Button
                                     x:Name="btnOpenAddType_Setting"
                                     Height="40"
                                     Width="1000"
@@ -2967,9 +2978,9 @@
                                     Foreground="LightGray"
                                     Visibility="Visible"
                                     Command="{Binding OpenAddTypeCommand}"/>
-                            </StackPanel>
-                        </Expander>
-                        <TextBlock
+                                </StackPanel>
+                            </Expander>
+                            <TextBlock
                             Text="Product"
                             Foreground="#504D85"
                             FontSize="30"
@@ -2977,29 +2988,29 @@
                             HorizontalAlignment="Left"
                             Margin="50,30,0,0"
                             FontWeight="SemiBold"/>
-                        <Expander
+                            <Expander
                             HorizontalAlignment="Stretch"
                             Header="Rules"
                             Foreground="#F68D7D"
                             FontSize="14"
                             Margin="40,0"
                             Background="Transparent">
-                            <Grid
+                                <Grid
                                 Height="125">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="390"></ColumnDefinition>
-                                    <ColumnDefinition Width="410"></ColumnDefinition>
-                                    <ColumnDefinition></ColumnDefinition>
-                                </Grid.ColumnDefinitions>
-                                <Grid Grid.Column="0">
-                                    <Border 
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="390"></ColumnDefinition>
+                                        <ColumnDefinition Width="410"></ColumnDefinition>
+                                        <ColumnDefinition></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid Grid.Column="0">
+                                        <Border 
                                         BorderBrush="DarkGray"
                                         Background="White"
                                         BorderThickness="1,1,1,1"
                                         CornerRadius="8"
                                         Margin="20,0">
-                                        <Grid>
-                                            <TextBlock 
+                                            <Grid>
+                                                <TextBlock 
                                                 Text="Number of product"
                                                 Foreground="#504D85"
                                                 FontWeight="SemiBold"
@@ -3007,11 +3018,11 @@
                                                 VerticalAlignment="Top"
                                                 FontSize="20"
                                                 Margin="30,15"/>
-                                            <Grid
+                                                <Grid
                                                 Background="Gray"
                                                 Height="1"
                                                 Width="300"/>
-                                            <TextBox
+                                                <TextBox
                                                 x:Name="txtNumberProduct_Setting"
                                                 Height="40"
                                                 Width="350"
@@ -3020,26 +3031,31 @@
                                                 VerticalAlignment="Bottom"
                                                 Margin="0,15"
                                                 FontSize="18"
-                                                BorderBrush="{x:Null}">
-                                                <i:Interaction.Triggers>
-                                                    <i:EventTrigger EventName="PreviewTextInput" >
-                                                        <ei:CallMethodAction TargetObject="{Binding}"
+                                                BorderBrush="{x:Null}"
+                                                    MaxLength="4">
+                                                    <i:Interaction.Triggers>
+                                                        <i:EventTrigger EventName="PreviewTextInput" >
+                                                            <ei:CallMethodAction TargetObject="{Binding}"
                                                      MethodName="NumberValidationTextBox" />
-                                                    </i:EventTrigger>
-                                                </i:Interaction.Triggers>
-                                            </TextBox>
-                                        </Grid>
-                                    </Border>
-                                </Grid>
-                                <Grid Grid.Column="1">
-                                    <Border 
+                                                        </i:EventTrigger>
+                                                        <i:EventTrigger EventName="TextChanged">
+                                                            <i:InvokeCommandAction Command="{Binding SeparateThousandsCommand}" 
+                                                       CommandParameter="{Binding ElementName=txtNumberProduct_Setting}"/>
+                                                        </i:EventTrigger>
+                                                    </i:Interaction.Triggers>
+                                                </TextBox>
+                                            </Grid>
+                                        </Border>
+                                    </Grid>
+                                    <Grid Grid.Column="1">
+                                        <Border 
                                         BorderBrush="DarkGray"
                                         Background="White"
                                         BorderThickness="1,1,1,1"
                                         CornerRadius="8"
                                         Margin="20,0">
-                                        <Grid>
-                                            <TextBlock 
+                                            <Grid>
+                                                <TextBlock 
                                                 Text="Number of unit type"
                                                 Foreground="#504D85"
                                                 FontWeight="SemiBold"
@@ -3047,11 +3063,11 @@
                                                 VerticalAlignment="Top"
                                                 FontSize="20"
                                                 Margin="30,15"/>
-                                            <Grid
+                                                <Grid
                                                 Background="Gray"
                                                 Height="1"
                                                 Width="300"/>
-                                            <TextBox
+                                                <TextBox
                                                 x:Name="txtNumberUnit_Setting"
                                                 Height="40"
                                                 Width="350"
@@ -3060,19 +3076,24 @@
                                                 VerticalAlignment="Bottom"
                                                 Margin="0,15"
                                                 FontSize="18"
-                                                BorderBrush="{x:Null}">
-                                                <i:Interaction.Triggers>
-                                                    <i:EventTrigger EventName="PreviewTextInput" >
-                                                        <ei:CallMethodAction TargetObject="{Binding}"
+                                                BorderBrush="{x:Null}"
+                                                    MaxLength="4">
+                                                    <i:Interaction.Triggers>
+                                                        <i:EventTrigger EventName="PreviewTextInput" >
+                                                            <ei:CallMethodAction TargetObject="{Binding}"
                                                      MethodName="NumberValidationTextBox" />
-                                                    </i:EventTrigger>
-                                                </i:Interaction.Triggers>
-                                            </TextBox>
-                                        </Grid>
-                                    </Border>
-                                </Grid>
-                                <Grid Grid.Column="2">
-                                    <Button
+                                                        </i:EventTrigger>
+                                                        <i:EventTrigger EventName="TextChanged">
+                                                            <i:InvokeCommandAction Command="{Binding SeparateThousandsCommand}" 
+                                                       CommandParameter="{Binding ElementName=txtNumberUnit_Setting}"/>
+                                                        </i:EventTrigger>
+                                                    </i:Interaction.Triggers>
+                                                </TextBox>
+                                            </Grid>
+                                        </Border>
+                                    </Grid>
+                                    <Grid Grid.Column="2">
+                                        <Button
                                         x:Name="btnSaveRulesProduct_Setting"
                                         Height="30"
                                         Width="110"
@@ -3084,11 +3105,12 @@
                                         Margin="0,10"
                                         Command="{Binding SaveRulesProduct_SettingCommand}"
                                         CommandParameter="{Binding ElementName=wdHome}"/>
+                                    </Grid>
                                 </Grid>
-                            </Grid>
-                        </Expander>
-                    </StackPanel>
-                </ScrollViewer>
+                            </Expander>
+                        </StackPanel>
+                    </ScrollViewer>
+                </Grid>
             </Grid>
         </Grid>
     </Grid>

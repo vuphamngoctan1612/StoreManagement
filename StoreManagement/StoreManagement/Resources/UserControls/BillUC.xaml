@@ -22,7 +22,7 @@
             <Grid>
                 <TextBlock
                 x:Name="ID"
-                Foreground="#504D85"
+                FontWeight="SemiBold"
                 VerticalAlignment="Center"
                 HorizontalAlignment="Center"
                 Text="1"
@@ -32,9 +32,11 @@
             Grid.Column="1">
                 <TextBlock
                 x:Name="UnitName"
-                Foreground="#504D85"
+                FontWeight="SemiBold"
                 VerticalAlignment="Center"
                 HorizontalAlignment="Center"
+                Width="150"
+                TextWrapping="Wrap"
                 Text="Mì"
                 FontSize="18"></TextBlock>
             </Grid>
@@ -42,7 +44,7 @@
             Grid.Column="2">
                 <TextBlock
                 x:Name="Unit"
-                Foreground="#504D85"
+                FontWeight="SemiBold"
                 VerticalAlignment="Center"
                 HorizontalAlignment="Center"
                 Text="Gói"
@@ -52,7 +54,7 @@
             Grid.Column="3">
                 <TextBlock
                 x:Name="Amount"
-                Foreground="#504D85"
+                FontWeight="SemiBold"
                 VerticalAlignment="Center"
                 HorizontalAlignment="Center"
                 Text="10"
@@ -62,7 +64,7 @@
             Grid.Column="4">
                 <TextBlock
                 x:Name="Price"
-                Foreground="#504D85"
+                FontWeight="SemiBold"
                 VerticalAlignment="Center"
                 HorizontalAlignment="Center"
                 Text="10,000"
@@ -72,7 +74,7 @@
             Grid.Column="5">
                 <TextBlock
                 x:Name="Total"
-                Foreground="#504D85"
+                FontWeight="SemiBold"
                 VerticalAlignment="Center"
                 HorizontalAlignment="Center"
                 Text="100,000"

@@ -168,7 +168,7 @@
                 FontWeight="SemiBold"
                 VerticalAlignment="Top"
                 HorizontalAlignment="Right"
-                Margin="200,20"/>
+                Margin="230,20"/>
             <TextBlock 
                 Text="Retainer"
                 x:Name="txbRetainerText"
@@ -179,18 +179,18 @@
                 FontWeight="SemiBold"
                 VerticalAlignment="Center"
                 HorizontalAlignment="Right"
-                Margin="200,55"/>
+                Margin="230,55"/>
             <TextBlock 
                 Text="Excess cash"
                 x:Name="txbChangeText"
                 Foreground="#263238"
-                Width="80"
+                Width="85"
                 TextAlignment="Left"
                 FontSize="16"
                 FontWeight="SemiBold"
                 VerticalAlignment="Bottom"
                 HorizontalAlignment="Right"
-                Margin="200,20"/>
+                Margin="225,20"/>
             <TextBlock 
                 x:Name="txbTotal"
                 Text="9999999"

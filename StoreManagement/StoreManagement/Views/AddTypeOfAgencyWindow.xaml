@@ -151,6 +151,7 @@
                 FontSize="17"
                 FontWeight="SemiBold"
                 Padding="0"
+                MaxLength="15"
                 HorizontalContentAlignment="Left"
                 VerticalContentAlignment="Center" 
                 Validation.ErrorTemplate="{StaticResource textBoxErrorTemplate}"

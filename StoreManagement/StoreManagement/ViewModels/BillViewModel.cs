@@ -331,10 +331,9 @@ namespace StoreManagement.ViewModels
                     billUC.ID.Text = no.ToString();
                     no++;
                     billUC.UnitName.Text = stockReceiptInfo.Product.Name.ToString();
-                    billUC.UnitName.Text = stockReceiptInfo.Product.Name.ToString();
                     billUC.Unit.Text = stockReceiptInfo.Product.Unit.Name.ToString();
-                    billUC.Amount.Text = stockReceiptInfo.Amount.ToString();
-                    billUC.Price.Text = stockReceiptInfo.Product.ExportPrice.ToString();
+                    billUC.Amount.Text = ConvertToString(stockReceiptInfo.Amount);
+                    billUC.Price.Text = ConvertToString(stockReceiptInfo.Product.ExportPrice);
                     billUC.Total.Text = ConvertToString(stockReceiptInfo.Price);
                     invoiceWindow.stkListProductChosenInvoice.Children.Add(billUC);
                 }
@@ -368,14 +367,18 @@ namespace StoreManagement.ViewModels
                     no++;
                     billUC.UnitName.Text = invoiceInfo.Product.Name.ToString();
                     billUC.Unit.Text = invoiceInfo.Product.Unit.Name.ToString();
-                    billUC.Amount.Text = invoiceInfo.Amount.ToString();
-                    billUC.Price.Text = invoiceInfo.Product.ExportPrice.ToString();
+                    billUC.Amount.Text = ConvertToString(invoiceInfo.Amount);
+                    billUC.Price.Text = ConvertToString(invoiceInfo.Product.ExportPrice);
                     billUC.Total.Text = ConvertToString(invoiceInfo.Total);
                     invoiceWindow.stkListProductChosenInvoice.Children.Add(billUC);
                 }
                 invoiceWindow.txbTotal.Text = ConvertToString(invoice.Total);
-                invoiceWindow.txbRetainer.Text = ConvertToString((invoice.Total - invoice.Debt));
-                invoiceWindow.txbChange.Text = ConvertToString(invoice.Debt);
+                invoiceWindow.txbRetainer.Visibility = System.Windows.Visibility.Hidden;
+                invoiceWindow.txbRetainerText.Visibility = System.Windows.Visibility.Hidden;
+                invoiceWindow.txbRetainerVND.Visibility = System.Windows.Visibility.Hidden;
+                invoiceWindow.txbChange.Visibility = System.Windows.Visibility.Hidden;
+                invoiceWindow.txbChangeText.Visibility = System.Windows.Visibility.Hidden;
+                invoiceWindow.txbChangeVND.Visibility = System.Windows.Visibility.Hidden;
                 invoiceWindow.ShowDialog();
             }
         }
