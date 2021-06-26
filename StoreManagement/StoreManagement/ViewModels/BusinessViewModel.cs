@@ -143,7 +143,7 @@ namespace StoreManagement.ViewModels
                 return;
             }
 
-            MessageBoxResult mes = CustomMessageBox.Show("Are you sure?", "Confirm", MessageBoxButton.YesNo, MessageBoxImage.Information);
+            MessageBoxResult mes = CustomMessageBox.Show("Are you sure?", "Confirm", MessageBoxButton.YesNo, MessageBoxImage.Question);
 
             if (mes != MessageBoxResult.Yes)
             {
@@ -174,6 +174,10 @@ namespace StoreManagement.ViewModels
             wdInvoice.txbName.Text = this.HomeWindow.txbAgencyinPayment.Text;
             wdInvoice.txbPhone.Text = this.HomeWindow.txbPhoneNumberinPayment.Text;
             wdInvoice.txbAddress.Text = this.HomeWindow.txbAddressinPayment.Text;
+            wdInvoice.txbExcess.Visibility = Visibility.Visible;
+            wdInvoice.txbExcessText.Visibility = Visibility.Visible;
+            wdInvoice.txbExcessVND.Visibility = Visibility.Visible;
+            wdInvoice.txbExcess.Text = this.HomeWindow.txbExcessCash.Text;
 
             try
             {
@@ -261,6 +265,7 @@ namespace StoreManagement.ViewModels
             this.HomeWindow.TotalFeeofProductChosenPayment.Text = "0";
             this.HomeWindow.txtRetainerPaymment.Text = "0";
             this.HomeWindow.txbChangePayment.Text = "0";
+            this.HomeWindow.txbExcessCash.Text = "0";
             this.HomeWindow.cbSearchAgency.ItemsSource = this.ListAgency;
             this.HomeWindow.cbSearchAgency.SelectedValuePath = "ID";
             this.HomeWindow.cbSearchAgency.DisplayMemberPath = "Name";
@@ -297,9 +302,14 @@ namespace StoreManagement.ViewModels
                 long total = ConvertToNumber(this.HomeWindow.TotalFeeofProductChosenPayment.Text);
 
                 if (retainer <= total)
+                {
                     this.HomeWindow.txbChangePayment.Text = SeparateThousands((total - retainer).ToString());
+                }
                 else
-                    para.Text = "0";
+                {
+                    this.HomeWindow.txbExcessCash.Text = SeparateThousands((retainer - total).ToString());
+                    this.HomeWindow.txbChangePayment.Text = "0";
+                }
             }
             else
                 para.Text = "0";
