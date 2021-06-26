@@ -63,6 +63,20 @@ namespace StoreManagement.ViewModels
                 para.tb_main.Text = "1";
             }
 
+            if (para.tb_main.Text == "0")
+                para.cmdDown.IsEnabled = false;
+            else
+                para.cmdDown.IsEnabled = true;
+
+            int id = int.Parse(para.txbID.Text);
+            if (DataProvider.Instance.DB.Products.Where(x => x.ID == id).First().Count < int.Parse(para.tb_main.Text))
+            {
+                CustomMessageBox.Show("Not enough product", "Notify", MessageBoxButton.OK, MessageBoxImage.Warning);
+                para.tb_main.Text = DataProvider.Instance.DB.Products.Where(x => x.ID == id).First().Count.ToString();
+                return;
+            }
+
+
             int total = (int)ConvertToNumber(para.txbPrice.Text.ToString()) * int.Parse(para.tb_main.Text.ToString());
             para.txbTotal.Text = SeparateThousands(total.ToString());
 
@@ -321,6 +335,12 @@ namespace StoreManagement.ViewModels
             bool flag = true;
             int id = int.Parse(para.txbId.Text);
 
+            if (DataProvider.Instance.DB.Products.Where(x => x.ID == id).First().Count < 1)
+            {
+                CustomMessageBox.Show("No inventory in stock", "Notify", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
             if (ListProductChosen != null)
             {
                 foreach (Product item in ListProductChosen)
@@ -358,6 +378,11 @@ namespace StoreManagement.ViewModels
                 {
                     if (item.txbID.Text == id.ToString())
                     {
+                        if (DataProvider.Instance.DB.Products.Where(x => x.ID == id).First().Count == int.Parse(item.tb_main.Text))
+                        {
+                            CustomMessageBox.Show("Not enough product", "Notify", MessageBoxButton.OK, MessageBoxImage.Warning);
+                            return;
+                        }
                         int amount = int.Parse(item.tb_main.Text) + 1;
                         long total = ConvertToNumber(item.txbPrice.Text) * amount;
                         item.tb_main.Text = amount.ToString();

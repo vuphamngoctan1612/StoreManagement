@@ -558,7 +558,7 @@
             <Grid Grid.Row="1"
                 x:Name="grdBody_Main"
                 DataContext="{StaticResource ReportVM}"
-                Visibility="Hidden">
+                Visibility="Visible">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="2"></RowDefinition>
                     <RowDefinition Height="210"></RowDefinition>
@@ -2804,7 +2804,7 @@
                 Grid.Row="1"
                 x:Name="grdBody_AccountSetting"
                 DataContext="{StaticResource SettingVM}"
-                Visibility="Visible">
+                Visibility="Hidden">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="Loaded">
                         <i:InvokeCommandAction Command="{Binding LoadSettingWindowCommand}" 

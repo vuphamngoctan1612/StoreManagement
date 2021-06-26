@@ -576,7 +576,7 @@ namespace StoreManagement.ViewModels
                 }
             }            
         }
-        private void LoadProduct(HomeWindow para)
+        public void LoadProduct(HomeWindow para)
         {
             this.HomeWindow = para;
             this.HomeWindow.stkProducts.Children.Clear();
