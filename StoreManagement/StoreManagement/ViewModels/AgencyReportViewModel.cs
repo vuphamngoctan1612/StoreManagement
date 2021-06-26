@@ -180,12 +180,14 @@ namespace StoreManagement.ViewModels
                 long? dept = 0;
                 int count = 0;
                 List<Invoice> invoices = new List<Invoice>();
+                List<Invoice> invoicesAfter = new List<Invoice>();
                 DebtReportUC debtReportUC = new DebtReportUC();
                 debtReportUC.Height = 45;
                 debtReportUC.Width = 1070;
                 debtReportUC.txtNo.Text = agency.ID.ToString();
                 debtReportUC.txtAgency.Text = agency.Name;
                 invoices = DataProvider.Instance.DB.Invoices.Where(x => x.AgencyID == agency.ID).ToList();
+                
                 foreach (Invoice invoice in invoices)
                 {
                     try
@@ -194,6 +196,7 @@ namespace StoreManagement.ViewModels
                         {
                             dept += invoice.Debt;
                             count++;
+                            invoicesAfter.Add(invoice);
                         }
                     }
                     catch { }
@@ -201,15 +204,15 @@ namespace StoreManagement.ViewModels
                 check++;
                 if (invoices.Count != 0)
                 {
-                    debtReportUC.txtOriginalDebt.Text = ConvertToString( invoices.First().Debt);
-                    debtReportUC.txtCostOverrun.Text = ConvertToString(dept - invoices.First().Debt);
+                    debtReportUC.txtOriginalDebt.Text = ConvertToString( invoicesAfter.First().Debt);
+                    debtReportUC.txtCostOverrun.Text = ConvertToString(dept - invoicesAfter.First().Debt);
                 }
                 else
                 {
                     debtReportUC.txtOriginalDebt.Text = "0";
                     debtReportUC.txtCostOverrun.Text = "0";
                 }
-                debtReportUC.txtTotal.Text = dept.ToString();
+                debtReportUC.txtTotal.Text = ConvertToString(dept);
 
                 this.HomeWindow.stkDebtReport.Children.Add(debtReportUC);
             }
