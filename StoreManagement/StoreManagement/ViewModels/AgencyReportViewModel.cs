@@ -87,6 +87,7 @@ namespace StoreManagement.ViewModels
                 long? deptDebt = 0;
                 int countDebt = 0;
                 List<Invoice> invoicesDebt = new List<Invoice>();
+                List<Invoice> invoicesDebtAfter = new List<Invoice>();
                 DebtReportUC debtReportUC = new DebtReportUC();
                 debtReportUC.Height = 45;
                 debtReportUC.Width = 1070;
@@ -101,15 +102,16 @@ namespace StoreManagement.ViewModels
                         {
                             dept += invoice.Debt;
                             countDebt++;
+                            invoicesDebtAfter.Add(invoice);
                         }
                     }
                     catch { }
                 }
                 checkDebt++;
-                if (invoicesDebt.Count != 0)
+                if (invoicesDebtAfter.Count != 0)
                 {
-                    debtReportUC.txtOriginalDebt.Text = ConvertToString(invoicesDebt.First().Debt);
-                    debtReportUC.txtCostOverrun.Text = ConvertToString(deptDebt - invoicesDebt.First().Debt);
+                    debtReportUC.txtOriginalDebt.Text = ConvertToString(invoicesDebtAfter.First().Debt);
+                    debtReportUC.txtCostOverrun.Text = ConvertToString(deptDebt - invoicesDebtAfter.First().Debt);
                 }
                 else
                 {
