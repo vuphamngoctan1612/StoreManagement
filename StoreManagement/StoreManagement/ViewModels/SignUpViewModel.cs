@@ -17,18 +17,26 @@ using System.Data;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using Microsoft.Win32;
+using StoreManagement.Validations;
 
 namespace StoreManagement.ViewModels
 {
     class SignUpViewModel : BaseViewModel
     {
+        private bool isSucceed = false;
+        public bool IsSucceed { get => isSucceed; set => isSucceed = value; }
+
         private string imageFileName;
+
         public ICommand SelectImageCommand { get; set; }
         public ICommand SignUpCommand { get; set; }
+        public ICommand CloseWindowCommand { get; set; }
+
         public SignUpViewModel()
         {
             SignUpCommand = new RelayCommand<SignUpWindow>((parameter) => true, (parameter) => SignUp(parameter));
             SelectImageCommand = new RelayCommand<Grid>((para) => true, (para) => ChooseImage(para));
+            CloseWindowCommand = new RelayCommand<SignUpWindow>((para) => true, (para) => CloseWindow(para));
         }
 
         private void ChooseImage(Grid para)
@@ -50,7 +58,7 @@ namespace StoreManagement.ViewModels
                 if (para.Children.Count > 1)
                 {
                     para.Children.Remove(para.Children[0]);
-                    para.Children.Remove(para.Children[1]);
+                    para.Children.Remove(para.Children[0]);
                 }
             }
         }
@@ -61,73 +69,89 @@ namespace StoreManagement.ViewModels
             {
                 return;
             }
-            //check username
-            if (String.IsNullOrEmpty(parameter.txtUsername.Text))
+            if (string.IsNullOrEmpty(parameter.displayname.Text))
             {
-                MessageBox.Show("Vui lòng nhập tên đăng nhập", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
-                parameter.txtUsername.Focus();
-                return;
-            }
-            //check displayname
-            if (String.IsNullOrEmpty(parameter.displayname.Text))
-            {
-                MessageBox.Show("Vui lòng nhập tên ", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
+                CustomMessageBox.Show("Please enter your display name!", "Notify", MessageBoxButton.OK, MessageBoxImage.Warning);
                 parameter.displayname.Focus();
                 return;
             }
-
-            //Check password
-            if (String.IsNullOrEmpty(parameter.pwbPassword.Text))
+            if (string.IsNullOrEmpty(parameter.txtUsername.Text))
             {
-                MessageBox.Show("Vui lòng nhập mật khẩu!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
+                CustomMessageBox.Show("Please enter your username!", "Notify", MessageBoxButton.OK, MessageBoxImage.Warning);
+                parameter.txtUsername.Focus();
+                return;
+            }
+            if (string.IsNullOrEmpty(parameter.pwbPassword.Password))
+            {
+                CustomMessageBox.Show("Please enter your password!", "Notify", MessageBoxButton.OK, MessageBoxImage.Warning);
                 parameter.pwbPassword.Focus();
                 return;
             }
-            if (String.IsNullOrEmpty(parameter.pwbPasswordConfirm.Text))
+            if (string.IsNullOrEmpty(parameter.pwbPasswordConfirm.Password))
             {
-                MessageBox.Show("Vui lòng xác thực mật khẩu!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
+                CustomMessageBox.Show("Please enter your confirm password!", "Notify", MessageBoxButton.OK, MessageBoxImage.Warning);
                 parameter.pwbPasswordConfirm.Focus();
                 return;
             }
-            if (parameter.pwbPassword.Text != parameter.pwbPasswordConfirm.Text)
+            if (parameter.grdImage.Background == null)
             {
-                MessageBox.Show("Mật khẩu không trùng khớp!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
+                CustomMessageBox.Show("Please select your avatar", "Notify", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
 
-            //try
-            //{
-                byte[] imgByteArr;
-                if (imageFileName == null)
-                {
-                    imgByteArr = Converter.Instance.ConvertImageToBytes(@"..\..\Resources\Images\default.jpg");
-                }
-                else
-                {
-                    imgByteArr = Converter.Instance.ConvertImageToBytes(imageFileName);
-                }
+            if (parameter.pwbPassword.Password != parameter.pwbPasswordConfirm.Password)
+            {
+                CustomMessageBox.Show("Password does not match!", "Notify", MessageBoxButton.OK, MessageBoxImage.Error);
+                parameter.pwbPasswordConfirm.Focus();
+                return;
+            }
 
-                Account acc = new Account();
-                acc.Username = parameter.txtUsername.Text;
-                acc.Password = MD5Hash(parameter.pwbPassword.Text);
-                acc.DisplayName = parameter.displayname.Text;
-                acc.Image = imgByteArr;
-                DataProvider.Instance.DB.Accounts.Add(acc);
+            string displayName = parameter.displayname.Text;
+            string username = parameter.txtUsername.Text;
+            string password = MD5Hash(parameter.pwbPassword.Password);
+            byte[] imgByteArr = Converter.Instance.ConvertImageToBytes(imageFileName);
+
+            if (DataProvider.Instance.DB.Accounts.Where(p=>p.Username == username).Count() == 0)
+            {
+                Account account = new Account();
+                account.DisplayName = displayName;
+                account.Username = username;
+                account.Password = password;
+                account.Image = imgByteArr;
+
+                DataProvider.Instance.DB.Accounts.Add(account);
                 DataProvider.Instance.DB.SaveChanges();
-            //}
-            //catch
-            //{
-            //    MessageBox.Show("Tài khoản đã tồn tại! Vui lòng nhập tài khoản khác", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
-            //    parameter.txtUsername.Focus();
-            //    return;
-            //}
+                this.IsSucceed = true;
+
+                CustomMessageBox.Show("Successful account registration!", "Notify", MessageBoxButton.OK, MessageBoxImage.Asterisk);
+            }
+            else
+            {
+                this.IsSucceed = false;
+                CustomMessageBox.Show("Username already exists! Please enter other account", "Notify", MessageBoxButton.OK, MessageBoxImage.Error);
+                parameter.txtUsername.Focus();
+                return;
+            }
+            
             //finally
+            if (this.IsSucceed)
+            {
+                parameter.Close();
+            }
+
+            //if (imageFileName == null)
             //{
-            //    //parameter.Close();
+            //    imgByteArr = Converter.Instance.ConvertImageToBytes(@"..\..\Resources\Images\default.jpg");
             //}
+            //else
+            //{
+            //    imgByteArr = Converter.Instance.ConvertImageToBytes(imageFileName);
+            //}
+        }
 
-
-
+        private void CloseWindow(SignUpWindow para)
+        {
+            para.Close();
         }
     }
 }

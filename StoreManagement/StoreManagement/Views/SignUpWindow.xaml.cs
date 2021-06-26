@@ -23,10 +23,5 @@ namespace StoreManagement.Views
         {
             InitializeComponent();
         }
-
-        private void btSignUp_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
     }
 }

@@ -11,35 +11,39 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:StoreManagement.Views" xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:local="clr-namespace:StoreManagement.Views" 
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" 
+        xmlns:vd="clr-namespace:StoreManagement.Validations"
+        xmlns:util="clr-namespace:StoreManagement"
         mc:Ignorable="d"
-        WindowStyle="SingleBorderWindow"
         DataContext="{StaticResource LoginVM}"
-        Title="Login" 
+        Title="Login"
+        ResizeMode="CanMinimize"
         Height="810" 
         Width="1440" 
         x:Name="wdLogin"
-        WindowStartupLocation="CenterScreen">
-    
-    
+        WindowStartupLocation="CenterScreen">   
     <Grid>
         <Grid.Background>
-            <LinearGradientBrush EndPoint="0.5,1" 
-                                 MappingMode="RelativeToBoundingBox"
-                                 StartPoint="0.5,0">
-                <GradientStop Color="#B2F3C9D5" 
-                              Offset="1"/>
-                <GradientStop Color="#00FBE8E9" 
-                              Offset="1"/>
+            <LinearGradientBrush 
+                EndPoint="0.5,1" 
+                MappingMode="RelativeToBoundingBox"
+                StartPoint="0.5,0">
+                <GradientStop
+                    Color="#B2F3C9D5" 
+                    Offset="1"/>
+                <GradientStop 
+                    Color="#00FBE8E9" 
+                    Offset="1"/>
             </LinearGradientBrush>
         </Grid.Background>
-       
-        <Ellipse Height="1620" 
-                 Width="1620"
-                 Margin="-681,-10,0,0"
-                 VerticalAlignment="Top" 
-                 HorizontalAlignment="Left"
-                 StrokeThickness ="390" >
+        <Ellipse 
+            Height="1520" 
+            Width="1520"
+            Margin="-650,0,0,0"
+            VerticalAlignment="Top" 
+            HorizontalAlignment="Left"
+            StrokeThickness ="300">
             <Ellipse.Stroke>
                 <RadialGradientBrush>
                     <GradientStop Color="#3FFFFFFF"
@@ -48,180 +52,131 @@
                 </RadialGradientBrush>
             </Ellipse.Stroke>
         </Ellipse>
-        <Grid Margin="0,0,-0.4,0" >
-            <TextBlock Style="{StaticResource MaterialDesignHeadline4TextBlock}"
-                   Text="Hi There!"
-                   Height="90"
-                   Width="400" 
-                   Margin="939,84,0,0"
-                   VerticalAlignment="Top"
-                   HorizontalAlignment="Left"
-                   TextAlignment="Center"
-                   FontFamily="Segoe UI"
-                   FontSize="70" 
-                   FontWeight="Bold"
-                   Foreground="#F97299"
-                   >
-           
-        </TextBlock>
-            <Button x:Name="btLogin" 
+        <Grid 
+            Margin="0 0 40 0"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Center"
+            Width="500"
+            Height="580">
+            <Rectangle
+                RadiusX="10"
+                RadiusY="10"
+                Fill="#FDE6EA">
+            </Rectangle>
+            <TextBlock
+                Style="{StaticResource MaterialDesignHeadline4TextBlock}"
+                Text="Hi There!"
+                VerticalAlignment="Top"
+                HorizontalAlignment="Center"
+                FontFamily="Segoe UI"
+                FontSize="65" 
+                FontWeight="Bold"
+                Foreground="#F97299">
+            </TextBlock>
+            <Rectangle
+                Fill="White" 
+                Height="80" 
+                Width="400"
+                RadiusX="7"
+                RadiusY="7"
+                Margin="35 140 0 0"
+                VerticalAlignment="Top" 
+                HorizontalAlignment="Left">
+            </Rectangle>
+            <TextBox
+                x:Name="txtUser"
+                Height="80" 
+                Width="360"
+                BorderThickness="0"
+                Margin="55 140 0 0"
+                VerticalAlignment="Top" 
+                HorizontalAlignment="Left"
+                VerticalContentAlignment="Center"
+                FontSize="30"
+                materialDesign:HintAssist.Hint="Username">
+            </TextBox>
+            <Rectangle
+                Fill="White" 
+                Height="80" 
+                Width="400"
+                RadiusX="7"
+                RadiusY="7"
+                Margin="35 250 0 0"
+                VerticalAlignment="Top" 
+                HorizontalAlignment="Left">
+            </Rectangle>
+            <PasswordBox
+                x:Name="txtPassword"
+                Background="White" 
+                Height="80" 
+                Width="360"
+                BorderThickness="0"
+                Margin="55 250 0 0"
+                VerticalAlignment="Top" 
+                HorizontalAlignment="Left"
+                VerticalContentAlignment="Center"
+                FontSize="30"
+                materialDesign:HintAssist.Hint="Password">
+            </PasswordBox>
+            <Button 
+                x:Name="btLogin" 
                 Style="{StaticResource MaterialDesignRaisedButton}"
-                Height="100" 
+                Height="80" 
                 Width="400" 
-                   
-                    Background="#F79BB5"
-                materialDesign:ButtonAssist.CornerRadius="24"
-                ToolTip="MaterialDesignRaisedButton with Round Corners" 
-                Margin="942,457,0,0" 
-                HorizontalContentAlignment="Center" 
-                HorizontalAlignment="Left"
+                Content="Ready to sign in"
+                FontSize="30"
+                Foreground="#57548B"
+                Background="#F79BB5"
+                materialDesign:ButtonAssist.CornerRadius="7"
+                BorderThickness="0"
+                Margin="35 365 0 0"
                 VerticalAlignment="Top"
-                    Command="{Binding LoginCommand}"
-                    CommandParameter="{Binding ElementName=wdLogin}">
-                
-                <TextBlock Text="Ready to sign in" 
-                       FontFamily="Segoe UI" 
-                       FontSize="30" 
-                       Width="216" 
-                       Height="45" 
-                            Foreground="#57548B"/>
+                HorizontalAlignment="Left"
+                IsDefault="True"
+                Cursor="Hand"
+                Command="{Binding LoginCommand}"
+                CommandParameter="{Binding ElementName=wdLogin}">
             </Button>
-            <TextBox x:Name="txtUser"
-                     
-                 Style="{StaticResource MaterialDesignTextBox}"
-                 Height="100" 
-                 Width="400"
-                 Background="White" 
-                 materialDesign:TextFieldAssist.TextFieldCornerRadius="24"
-                 Margin="939,209,0,0"
-                 HorizontalContentAlignment="Center" 
-                 VerticalAlignment="Top" 
-                 HorizontalAlignment="Left"
-                 FontFamily="Segoe UI"
-                 FontSize="30" 
-                 Text="{Binding Username}"
-                     materialDesign:HintAssist.Hint="Username"
-                     
-                 VerticalContentAlignment="Center"
-                     >
-            </TextBox>
-            <TextBox x:Name="txtPassword"
-                 Style="{StaticResource MaterialDesignTextBox}"
-                 Height="100" 
-                 Width="400" 
-                 Background="White" 
-                 materialDesign:TextFieldAssist.TextFieldCornerRadius="24"
-                 Margin="939,332,0,0" HorizontalContentAlignment="Center"
-                 VerticalAlignment="Top" 
-                 HorizontalAlignment="Left"
-                 VerticalContentAlignment="Center"
-                 FontFamily="Segoe UI"
-                 FontSize="30" 
-                Text="{Binding txtPassword}"
-                      materialDesign:HintAssist.Hint="Password">
-                
-                
-             
-            </TextBox>
-            <TextBlock Style="{StaticResource MaterialDesignHeadline4TextBlock}"
-                   Text="Remember your account" 
-                   Height="33" 
-                   Width="277" 
-                   Margin="1000,582,0,0" 
-                   VerticalAlignment="Top"
-                   HorizontalAlignment="Left"
-                   TextAlignment="Left"
-                   FontFamily="Segoe UI"
-                   FontSize="22"
-                   FontWeight="Bold"
-                   Foreground="#6F6C99"
-                   >
-           
-        </TextBlock>
-            <TextBlock Style="{StaticResource MaterialDesignHeadline4TextBlock}"
-                   Text="New around here ?" 
-                   Height="33"
-                   Width="220" 
-                   Margin="1000,623,0,0"
-                   VerticalAlignment="Top"
-                   HorizontalAlignment="Left"
-                   TextAlignment="Left"
-                   FontFamily="Segoe UI"
-                   FontSize="25"
-                   Foreground="Gray"
-                   >
-            
-        </TextBlock>
-            <Button x:Name="btSignUp"
-                Style="{StaticResource MaterialDesignFlatButton}"
-                Height="56" 
-                Width="150"
-                ToolTip="MaterialDesignFlatButton"
-                Margin="1209,610,0,0" 
-                HorizontalContentAlignment="Left"
-                HorizontalAlignment="Left"
+            <TextBlock
+                Style="{StaticResource MaterialDesignHeadline4TextBlock}"
+                Text="New around here ?"
+                Margin="80 485 0 0"
                 VerticalAlignment="Top"
+                HorizontalAlignment="Left"
+                TextAlignment="Left"
+                FontFamily="Segoe UI"
+                FontSize="25"
+                Foreground="Gray">
+            </TextBlock>
+            <Button
+                x:Name="btSignUp"
+                Height="45"
+                Margin="290 480 0 0"
+                VerticalAlignment="Top"
+                HorizontalAlignment="Left"
                 Content="Sign Up" 
                 FontSize="25"
                 FontFamily="Segoe UI"
-                Foreground="#F97299"
-               
-                 Command="{Binding OpenSignUpWindowCommand}"
-                    CommandParameter="{Binding ElementName=SignUp}">
-                
+                Cursor="Hand"
+                BorderThickness="0"
+                Foreground="#F97299"  
+                Background="Transparent"
+                FocusVisualStyle="{x:Null}"
+                Command="{Binding OpenSignUpWindowCommand}"
+                CommandParameter="{Binding ElementName=SignUp}">
             </Button>
-        <CheckBox x:Name="cbRemember" 
-                  Margin ="950,589,0,0"
-                  HorizontalAlignment="Left"
-                  VerticalAlignment="Top" 
-                  VerticalContentAlignment="Center" 
-                  HorizontalContentAlignment="Center"
-                  RenderTransformOrigin="0.5,0.5">
-            <CheckBox.RenderTransform>
-                <TransformGroup>
-                    <ScaleTransform ScaleX="2" 
-                                    ScaleY="2"/>
-                </TransformGroup>
-            </CheckBox.RenderTransform>
-            <CheckBox.Background>
-                <LinearGradientBrush EndPoint="0.5,1"
-                                     StartPoint="0.5,0">
-                        <GradientStop Color="#57548B"/>
-                </LinearGradientBrush>
-            </CheckBox.Background>
-        </CheckBox>
-           
-       
-        </Grid>
-        <TextBlock Style="{StaticResource MaterialDesignHeadline4TextBlock}" 
-                   Text="AGENCY MANAGEMENT" 
-                   Height="147.53" 
-                   Width="1133" 
-                   Margin="-103,617.7,0,0"
-                   VerticalAlignment="Top"
-                   HorizontalAlignment="Left" 
-                   TextAlignment="Center"
-                   FontFamily="Segoe UI" 
-                   FontSize="70" 
-                   FontWeight="Bold"
-                   Foreground="#6F6C99"
-                   >
-           
+        </Grid>        
+        <TextBlock
+            Style="{StaticResource MaterialDesignHeadline4TextBlock}" 
+            Text="AGENCY MANAGEMENT"
+            Margin="50 0 0 50"
+            VerticalAlignment="Bottom"
+            HorizontalAlignment="Left" 
+            TextAlignment="Center"
+            FontFamily="Segoe UI" 
+            FontSize="70" 
+            FontWeight="Bold"
+            Foreground="#6F6C99">
         </TextBlock>
-        <TextBlock Style="{StaticResource MaterialDesignHeadline4TextBlock}" 
-                   Text="AGENCY MANAGEMENT" 
-                   Height="105" 
-                   Width="800" 
-                   Margin="12,686,0,0"
-                   VerticalAlignment="Top" 
-                   HorizontalAlignment="Left" 
-                   TextAlignment="Center"
-                   FontFamily="Segoe UI"
-                   FontSize="70" 
-                   FontWeight="Bold"
-                   Foreground="#E2E2E8"
-                   >
-         </TextBlock>
-       
     </Grid>
 </Window>

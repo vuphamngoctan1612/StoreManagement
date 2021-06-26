@@ -1,0 +1,279 @@
+﻿<Window x:Class="StoreManagement.Views.ReceiptBillWindow"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:StoreManagement.Views"
+        mc:Ignorable="d"
+        x:Name="wdReceiptBill"
+        DataContext="{StaticResource BillVM}"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="CanMinimize"
+        Title="ReceiptBillWindow" Height="600" Width="700">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="80"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <TextBlock
+                Text="Receipt Bill" 
+                VerticalAlignment="Center" 
+                HorizontalAlignment="Center" 
+                FontFamily="Segoe UI"
+                FontSize="35" 
+                FontWeight="Bold"
+                Foreground="#504D85"/>
+        </Grid>
+        <Grid Grid.Row="1"
+              Margin="0 15 0 0">
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition Height="1.3*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0">
+                <TextBlock 
+                    Text="Agency name"
+                    Margin="60,0,0,0"
+                    VerticalAlignment="Center" 
+                    HorizontalAlignment="Left" 
+                    FontSize="22" 
+                    FontWeight="SemiBold"
+                    Foreground="#504D85"/>
+                <Rectangle
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Width="350"
+                    Height="40"
+                    Margin="250 0 0 0"
+                    StrokeThickness="2"
+                    RadiusX="5"
+                    RadiusY="5"
+                    Stroke="#E2D2DA"/>
+                <TextBox
+                    x:Name="txtAgencyName"
+                    IsEnabled="False"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Width="330"
+                    Margin="260 0 0 0"
+                    BorderThickness="0"
+                    materialDesign:HintAssist.Hint="Enter agency name"
+                    MaxLines="1"
+                    Height="40"
+                    FontSize="17"
+                    FontWeight="SemiBold"
+                    Padding="0"
+                    HorizontalContentAlignment="Left"
+                    VerticalContentAlignment="Center" >
+                </TextBox>
+            </Grid>
+            <Grid Grid.Row="1">
+                <TextBlock 
+                    Text="Phone number"
+                    Margin="60,0,0,0"
+                    VerticalAlignment="Center" 
+                    HorizontalAlignment="Left" 
+                    FontSize="22" 
+                    FontWeight="SemiBold"
+                    Foreground="#504D85"/>
+                <Rectangle
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Width="350"
+                    Height="40"
+                    Margin="250 0 0 0"
+                    StrokeThickness="2"
+                    RadiusX="5"
+                    RadiusY="5"
+                    Stroke="#E2D2DA"/>
+                <TextBox
+                    x:Name="txtPhoneNumber"
+                    IsEnabled="False"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Width="330"
+                    Margin="260 0 0 0"
+                    BorderThickness="0"
+                    materialDesign:HintAssist.Hint="Enter phone Number"
+                    MaxLines="1"
+                    Height="40"
+                    FontSize="17"
+                    FontWeight="SemiBold"
+                    Padding="0"
+                    HorizontalContentAlignment="Left"
+                    VerticalContentAlignment="Center" >
+                </TextBox>
+            </Grid>
+            <Grid Grid.Row="2">
+                <TextBlock 
+                    Text="Address"
+                    Margin="60,0,0,0"
+                    VerticalAlignment="Center" 
+                    HorizontalAlignment="Left" 
+                    FontSize="22" 
+                    FontWeight="SemiBold"
+                    Foreground="#504D85"/>
+                <Rectangle
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Width="350"
+                    Height="40"
+                    Margin="250 0 0 0"
+                    StrokeThickness="2"
+                    RadiusX="5"
+                    RadiusY="5"
+                    Stroke="#E2D2DA"/>
+                <TextBox
+                    x:Name="txtAddress"
+                    IsEnabled="False"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Width="330"
+                    Margin="260 0 0 0"
+                    BorderThickness="0"
+                    materialDesign:HintAssist.Hint="Enter address"
+                    MaxLines="1"
+                    Height="40"
+                    FontSize="17"
+                    FontWeight="SemiBold"
+                    Padding="0"
+                    HorizontalContentAlignment="Left"
+                    VerticalContentAlignment="Center" >
+                </TextBox>
+            </Grid>
+            <Grid Grid.Row="3">
+                <TextBlock 
+                    Text="Email"
+                    Margin="60,0,0,0"
+                    VerticalAlignment="Center" 
+                    HorizontalAlignment="Left" 
+                    FontSize="22" 
+                    FontWeight="SemiBold"
+                    Foreground="#504D85"/>
+                <Rectangle
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Width="350"
+                    Height="40"
+                    Margin="250 0 0 0"
+                    StrokeThickness="2"
+                    RadiusX="5"
+                    RadiusY="5"
+                    Stroke="#E2D2DA"/>
+                <TextBox
+                    x:Name="txtEmail"
+                    IsEnabled="False"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Width="330"
+                    Margin="260 0 0 0"
+                    BorderThickness="0"
+                    materialDesign:HintAssist.Hint="Enter email"
+                    MaxLines="1"
+                    Height="40"
+                    FontSize="17"
+                    FontWeight="SemiBold"
+                    Padding="0"
+                    HorizontalContentAlignment="Left"
+                    VerticalContentAlignment="Center" >
+                </TextBox>
+            </Grid>
+            <Grid Grid.Row="4">
+                <TextBlock 
+                    Text="Proceeds"
+                    Margin="60,0,0,0"
+                    VerticalAlignment="Center" 
+                    HorizontalAlignment="Left" 
+                    FontSize="22" 
+                    FontWeight="SemiBold"
+                    Foreground="#504D85"/>
+                <Rectangle
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Width="350"
+                    Height="40"
+                    Margin="250 0 0 0"
+                    StrokeThickness="2"
+                    RadiusX="5"
+                    RadiusY="5"
+                    Stroke="#E2D2DA"/>
+                <TextBox
+                    x:Name="txtProceed"
+                    IsEnabled="False"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Width="330"
+                    Margin="260 0 0 0"
+                    BorderThickness="0"
+                    materialDesign:HintAssist.Hint="Proceed"
+                    Height="40"
+                    FontSize="17"
+                    FontWeight="SemiBold"
+                    Padding="0"
+                    HorizontalContentAlignment="Left"
+                    VerticalContentAlignment="Center" >
+                </TextBox>
+            </Grid>
+            <Grid Grid.Row="5">
+                <TextBlock 
+                    Text="Date"
+                    Margin="60,0,0,0"
+                    VerticalAlignment="Center" 
+                    HorizontalAlignment="Left" 
+                    FontSize="22" 
+                    FontWeight="SemiBold"
+                    Foreground="#504D85"/>
+                <Rectangle
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Width="350"
+                    Height="40"
+                    Margin="250 0 0 0"
+                    StrokeThickness="2"
+                    RadiusX="5"
+                    RadiusY="5"
+                    Stroke="#E2D2DA"/>
+                <DatePicker
+                    x:Name="dateCheckout"
+                    IsEnabled="False"
+                    Width="330"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    BorderThickness="0"
+                    Margin="260 5 0 0"
+                    FontSize="17"
+                    materialDesign:HintAssist.Hint="Pick Date"/>
+            </Grid>
+            <Grid Grid.Row="6">
+                <Button 
+                    x:Name="btnClose"
+                    HorizontalAlignment="Left"
+                    HorizontalContentAlignment="Center"
+                    VerticalAlignment="Center"
+                    Width="110"
+                    Height="35"
+                    Margin="450 0 0 0"
+                    Content="Close"
+                    BorderThickness="0"
+                    Cursor="Hand"
+                    Background="#F0F0F0"
+                    FocusVisualStyle="{x:Null}"
+                    Foreground="#57548B"
+                    FontSize="22"
+                    FontWeight="SemiBold"
+                    Command="{Binding CloseReceiptBillWindowCommand}"
+                    CommandParameter="{Binding ElementName=wdReceiptBill}">
+                </Button>
+            </Grid>
+        </Grid>
+    </Grid>
+</Window>
+    

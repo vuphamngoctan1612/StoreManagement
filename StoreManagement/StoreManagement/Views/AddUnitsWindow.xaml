@@ -1,0 +1,178 @@
+﻿<Window x:Class="StoreManagement.Views.AddUnitsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:StoreManagement.Views"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
+        xmlns:vd="clr-namespace:StoreManagement.Validations"
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
+        x:Name="wdAddUnits"
+        ResizeMode="CanMinimize"
+        Title="AddUnitsWindow" 
+        DataContext="{StaticResource UnitsVM}"
+        Height="350" 
+        Width="550">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"></RowDefinition>
+            <RowDefinition Height="2.5*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <TextBlock
+                Text="Add units"
+                FontSize="30"
+                FontWeight="SemiBold"
+                Foreground="#504D85"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center">                
+            </TextBlock>
+        </Grid>
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition Height="1.5*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0"
+                Width="450" 
+                Margin="0 0 0 0"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center">
+                <Label
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Content="ID"
+                    FontSize="22"
+                    FontWeight="SemiBold"
+                    Margin="0 0 0 0"
+                    Foreground="#57548B">
+                </Label>
+                <Rectangle
+                    HorizontalAlignment="Left"
+                    Width="280"
+                    Margin="150 0 0 0"
+                    StrokeThickness="2"
+                    RadiusX="5"
+                    RadiusY="5"
+                    Stroke="#E2D2DA"/>
+                <TextBox
+                    Name="txtID"
+                    IsEnabled="False"
+                    materialDesign:HintAssist.Hint="Automatic"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Width="260"
+                    Margin="160 0 0 0"
+                    BorderThickness="0"
+                    MaxLines="1"
+                    Height="40"
+                    FontSize="17"
+                    FontWeight="SemiBold"
+                    Padding="0"
+                    HorizontalContentAlignment="Left"
+                    VerticalContentAlignment="Center">
+                </TextBox>
+            </Grid>
+            <Grid Grid.Row="1"
+                Width="450" 
+                Margin="0 0 0 0"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center">
+                <Label
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Content="Units name"
+                    FontSize="22"
+                    FontWeight="SemiBold"
+                    Margin="0 0 0 0"
+                    Foreground="#57548B">
+                </Label>
+                <Rectangle
+                    HorizontalAlignment="Left"
+                    Width="280"
+                    Margin="150 0 0 0"
+                    StrokeThickness="2"
+                    RadiusX="5"
+                    RadiusY="5"
+                    Stroke="#E2D2DA"/>
+                <TextBox
+                    Name="txtName"
+                    materialDesign:HintAssist.Hint="Enter your units name"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Width="260"
+                    Margin="160 0 0 0"
+                    BorderThickness="0"
+                    MaxLines="1"
+                    Height="40"
+                    FontSize="17"
+                    FontWeight="SemiBold"
+                    Padding="0"
+                    Validation.ErrorTemplate="{StaticResource textBoxErrorTemplate}"
+                    HorizontalContentAlignment="Left"
+                    VerticalContentAlignment="Center">
+                    <TextBox.Text>
+                        <Binding Path="Name" Source="{StaticResource Units}" UpdateSourceTrigger="PropertyChanged" Mode="OneWayToSource">
+                            <Binding.ValidationRules>
+                                <vd:NotNullValidation ErrorMessage="Please enter units name"/>
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </TextBox.Text>
+                </TextBox>
+            </Grid>
+            <Grid Grid.Row="2">
+                <Grid
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Height="40"
+                    Width="450"
+                    Margin="20 10 0 0">
+                    <Button 
+                        x:Name="btnSave"
+                        IsDefault="True"
+                        HorizontalAlignment="Left"
+                        HorizontalContentAlignment="Center"
+                        VerticalAlignment="Center"
+                        Width="110"
+                        Height="35"
+                        Margin="170 0 0 0"
+                        Content="Save"
+                        BorderThickness="0"
+                        Foreground="#57548B"
+                        Background="#F79BB5"
+                        FontSize="22"
+                        Cursor="Hand"
+                        FocusVisualStyle="{x:Null}"
+                        FontWeight="SemiBold"
+                        Visibility="Visible"
+                        Command="{Binding SaveCommand}"
+                        CommandParameter="{Binding ElementName=wdAddUnits}">
+                    </Button>
+                    <Button 
+                        x:Name="btnClose"
+                        HorizontalAlignment="Left"
+                        HorizontalContentAlignment="Center"
+                        VerticalAlignment="Center"
+                        Width="110"
+                        Height="35"
+                        Margin="300 0 0 0"
+                        Content="Close"
+                        BorderThickness="0"
+                        Cursor="Hand"
+                        Background="#F0F0F0"
+                        FocusVisualStyle="{x:Null}"
+                        Foreground="#57548B"
+                        FontSize="22"
+                        FontWeight="SemiBold"
+                        Command="{Binding CloseWindowCommand}"
+                        CommandParameter="{Binding ElementName=wdAddUnits}">
+                    </Button>
+                </Grid>
+            </Grid>
+        </Grid>
+    </Grid>
+</Window>

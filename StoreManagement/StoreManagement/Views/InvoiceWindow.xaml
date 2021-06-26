@@ -168,59 +168,85 @@
                 FontWeight="SemiBold"
                 VerticalAlignment="Top"
                 HorizontalAlignment="Right"
-                Margin="200,20"/>
+                Margin="230,25"/>
             <TextBlock 
-                Text="Trả trước"
+                Text="Retainer"
+                x:Name="txbRetainerText"
                 Width="80"
                 TextAlignment="Left"
                 Foreground="#263238"
                 FontSize="16"
                 FontWeight="SemiBold"
-                VerticalAlignment="Center"
+                VerticalAlignment="Top"
                 HorizontalAlignment="Right"
-                Margin="200,55"/>
+                Margin="230,48"/>
             <TextBlock 
-                Text="Còn lại"
+                Text="Excess debt"
+                x:Name="txbChangeText"
                 Foreground="#263238"
-                Width="80"
+                Width="85"
                 TextAlignment="Left"
                 FontSize="16"
                 FontWeight="SemiBold"
                 VerticalAlignment="Bottom"
                 HorizontalAlignment="Right"
-                Margin="200,20"/>
+                Margin="225,43"/>
+            <TextBlock 
+                Text="Excess cash"
+                x:Name="txbExcessText"
+                Foreground="#263238"
+                Width="85"
+                TextAlignment="Left"
+                FontSize="16"
+                FontWeight="SemiBold"
+                VerticalAlignment="Bottom"
+                HorizontalAlignment="Right"
+                Visibility="Hidden"
+                Margin="225,20"/>
             <TextBlock 
                 x:Name="txbTotal"
                 Text="9999999"
-                Width="80"
+                Width="120"
                 TextAlignment="Right"
                 Foreground="#263238"
                 FontSize="16"
                 FontWeight="SemiBold"
                 VerticalAlignment="Top"
                 HorizontalAlignment="Right"
-                Margin="100,20"/>
+                Margin="100,25"/>
             <TextBlock 
                 x:Name="txbRetainer"
                 Text="9999999"
-                Width="80"
+                Width="120"
                 TextAlignment="Right"
                 Foreground="#263238"
                 FontSize="16"
                 FontWeight="SemiBold"
-                VerticalAlignment="Center"
+                VerticalAlignment="Top"
                 HorizontalAlignment="Right"
-                Margin="100,55"/>
+                Margin="100,48"/>
             <TextBlock 
                 x:Name="txbChange"
                 Text="9999999"
                 Foreground="#263238"
-                Width="80"
+                Width="120"
                 TextAlignment="Right"
                 FontSize="16"
                 FontWeight="SemiBold"
                 VerticalAlignment="Bottom"
                 HorizontalAlignment="Right"
+                Margin="100,43"/>
+            <TextBlock 
+                x:Name="txbExcess"
+                Text="9999999"
+                Foreground="#263238"
+                Width="120"
+                TextAlignment="Right"
+                FontSize="16"
+                FontWeight="SemiBold"
+                VerticalAlignment="Bottom"
+                HorizontalAlignment="Right"
+                Visibility="Hidden"
                 Margin="100,20"/>
             <TextBlock 
                 Text="VND"
@@ -230,17 +256,19 @@
                 FontWeight="SemiBold"
                 VerticalAlignment="Top"
                 HorizontalAlignment="Right"
-                Margin="60,20"/>
+                Margin="60,25"/>
             <TextBlock 
+                x:Name="txbRetainerVND"
                 Text="VND"
                 TextAlignment="Right"
                 Foreground="#263238"
                 FontSize="16"
                 FontWeight="SemiBold"
-                VerticalAlignment="Center"
+                VerticalAlignment="Top"
                 HorizontalAlignment="Right"
-                Margin="60,55"/>
+                Margin="60,48"/>
             <TextBlock 
+                x:Name="txbChangeVND"
                 Text="VND"
                 Foreground="#263238"
                 TextAlignment="Right"
@@ -248,6 +276,17 @@
                 FontWeight="SemiBold"
                 VerticalAlignment="Bottom"
                 HorizontalAlignment="Right"
+                Margin="60,43"/>
+            <TextBlock 
+                x:Name="txbExcessVND"
+                Text="VND"
+                Foreground="#263238"
+                TextAlignment="Right"
+                FontSize="16"
+                FontWeight="SemiBold"
+                VerticalAlignment="Bottom"
+                HorizontalAlignment="Right"
+                Visibility="Hidden"
                 Margin="60,20"/>
         </Grid>
     </Grid>

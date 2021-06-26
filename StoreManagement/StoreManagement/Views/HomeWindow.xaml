@@ -6,7 +6,7 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:controls="clr-namespace:StoreManagement.Resources.UserControls"
         xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf" 
-        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions" xmlns:vd="clr-namespace:StoreManagement.Validations"
         mc:Ignorable="d"
         Title="Agency Management"
         Height="810"
@@ -66,7 +66,7 @@
                         Width="260"
                         RadiusX="10"
                         RadiusY="10"
-                        Fill="Transparent">
+                        Fill="#FF9E9F">
                     </Rectangle>
                     <materialDesign:PackIcon
                         x:Name="icnMain"
@@ -207,9 +207,7 @@
                         FontWeight="SemiBold" 
                         Padding="75,0,0,0" 
                         Cursor="Hand" 
-                        FocusVisualStyle="{x:Null}"
-                        Command="{Binding OpenProductsWindowCommand}"
-                        CommandParameter="{Binding ElementName=wdHome}">
+                        FocusVisualStyle="{x:Null}">
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="Click">
                                 <i:InvokeCommandAction Command="{Binding SwitchTabCommand}"
@@ -450,42 +448,6 @@
                     </Button>
                 </Grid>
             </StackPanel>
-            <Grid
-                x:Name="grdMenu_Logout"
-                Height="60"
-                Width="300"
-                Margin="0,700,0,0">
-                <materialDesign:PackIcon
-                        x:Name="icnLogout"
-                        Kind="ArrowRightBoldBoxOutline"
-                        Foreground="#504D85"
-                        Width="32" 
-                        Height="32" 
-                        VerticalAlignment="Center" 
-                        Cursor="Hand" 
-                        Margin="243,14,0,14" >
-                </materialDesign:PackIcon>
-                <Button
-                    x:Name="btnLogout"
-                    Uid="5"
-                    Height="40"
-                    Width="115"
-                    Margin="134,10,51,10"
-                    Content="Log out"
-                    Foreground="#504D85"
-                    HorizontalAlignment="Center"
-                    
-                    VerticalAlignment="Center"
-                    BorderBrush="{x:Null}"
-                    Background="{x:Null}"
-                    FontSize="22"
-                    VerticalContentAlignment="Center"
-                    HorizontalContentAlignment="Center"
-                    FontWeight="SemiBold"
-                    Cursor="Hand"
-                    FocusVisualStyle="{x:Null}">
-                </Button>
-            </Grid>
         </Grid>
         <Grid
             x:Name="Main"
@@ -591,76 +553,278 @@
                     </Menu>
                 </Grid>
             </Grid>
-            
+
             <!--Body main-->
             <Grid Grid.Row="1"
                 x:Name="grdBody_Main"
                 DataContext="{StaticResource ReportVM}"
-                Visibility="Visible">                
+                Visibility="Visible">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="2"></RowDefinition>
-                    <RowDefinition Height="70"></RowDefinition>
-                    <RowDefinition Height="200"></RowDefinition>
+                    <RowDefinition Height="210"></RowDefinition>
                     <RowDefinition></RowDefinition>
                 </Grid.RowDefinitions>
                 <Grid Grid.Row="0"
                       Background="#FBA1BB">
                 </Grid>
-                <Grid Grid.Row="1">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="40"></RowDefinition>
-                        <RowDefinition Height="30"></RowDefinition>
-                    </Grid.RowDefinitions>
-                    <Grid Grid.Row="0">
-                        <TextBlock
-                            Text="MY STORES"
-                            Foreground="#F97298"
-                            FontSize="25"
-                            FontWeight="SemiBold"
-                            Margin="30 0 0 0"
-                            HorizontalAlignment="Left"
-                            VerticalAlignment="Center">
-                        </TextBlock>
-                    </Grid>
-                    <Grid Grid.Row="1">
-                        <TextBlock
-                            Text="TODAY RANKING"
-                            FontSize="18"
-                            Foreground="#504D85"
-                            FontWeight="SemiBold"
-                            HorizontalAlignment="Left"
-                            VerticalAlignment="Center"
-                            Margin="65 0 0 5">
-                        </TextBlock>
-                    </Grid>
-                </Grid>
-                <Grid Grid.Row="2">
+                <Grid Grid.Row="1"
+                      Margin="0 0 0 0">
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="Loaded">
-                            <i:InvokeCommandAction Command="{Binding LoadTop3AgencyCommand}" 
+                            <i:InvokeCommandAction Command="{Binding LoadSalesResult}" 
                                                CommandParameter="{Binding ElementName=wdHome}"/>
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
                     <WrapPanel  
-                            x:Name="wpBody_Main_TopAgency"
-                            Width="1100"
-                            Height="200"
-                            HorizontalAlignment="Center"
-                            VerticalAlignment="Center"
-                            ScrollViewer.VerticalScrollBarVisibility="Auto" 
-                            ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
-                            Margin="0">
+                        x:Name="wpBody_Main_TopAgency"
+                        Width="1100"
+                        Height="200"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        ScrollViewer.VerticalScrollBarVisibility="Auto" 
+                        ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
+                        Margin="0"
+                        Visibility="Visible">
                     </WrapPanel>
+                    <!--<Border.Effect>
+                            <DropShadowEffect 
+                                BlurRadius="8" 
+                                ShadowDepth="1.5" 
+                                Direction="270"
+                                Color="{StaticResource MaterialDesignShadow}" 
+                                Opacity=".42"/>
+                        </Border.Effect>-->
+                    <Grid
+                        x:Name="grid_today"
+                        Width="1100"
+                        Height="200"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="50"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="0">
+                            <TextBlock
+                                Text="Today's sales result"
+                                FontStyle="Normal"
+                                FontSize="25" 
+                                FontWeight="Bold"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                Margin="20 0"
+                                Foreground="#504D85"/>
+                        </Grid>
+                        <Grid Grid.Row="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="275"/>
+                                <ColumnDefinition Width="275"/>
+                                <ColumnDefinition Width="275"/>
+                                <ColumnDefinition Width="275"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid Grid.Column="0">
+                                <Border
+                                    BorderThickness="1"
+                                    CornerRadius="8"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Width="255"
+                                    Height="120"
+                                    Background="#FFFFFF">
+                                    <Border.Effect>
+                                        <DropShadowEffect 
+                                            BlurRadius="8" 
+                                            ShadowDepth="1.5" 
+                                            Direction="270"
+                                            Color="{StaticResource MaterialDesignShadow}" 
+                                            Opacity=".42"/>
+                                    </Border.Effect>
+                                    <Grid>
+                                        <TextBlock
+                                            Text="Total sales today"
+                                            FontSize="14"
+                                            Foreground="#9098B1"
+                                            VerticalAlignment="Top"
+                                            HorizontalAlignment="Left"
+                                            Margin="15 10"/>
+                                        <TextBlock
+                                            x:Name="txb_today_total"
+                                            Text="0"
+                                            FontStyle="Normal"
+                                            FontSize="26" 
+                                            FontWeight="SemiBold"
+                                            HorizontalAlignment="Left"
+                                            VerticalAlignment="Center"
+                                            Margin="15"
+                                            Foreground="#504D85"
+                                            />
+                                    </Grid>
+                                </Border>
+                            </Grid>
+                            <Grid Grid.Column="1">
+                                <Border
+                                    BorderThickness="1"
+                                    Background="White"
+                                    CornerRadius="8"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Width="255"
+                                    Height="120">
+                                    <Border.Effect>
+                                        <DropShadowEffect 
+                                            BlurRadius="8" 
+                                            ShadowDepth="1.5" 
+                                            Direction="270"
+                                            Color="{StaticResource MaterialDesignShadow}" 
+                                            Opacity=".42"/>
+                                    </Border.Effect>
+                                    <Grid>
+                                        <TextBlock
+                                            Text="Total bill today"
+                                            FontSize="14"
+                                            Foreground="#9098B1"
+                                            VerticalAlignment="Top"
+                                            HorizontalAlignment="Left"
+                                            Margin="15 10"/>
+                                        <TextBlock
+                                            x:Name="txb_today_bill"
+                                            Text="0"
+                                            FontStyle="Normal"
+                                            FontSize="26" 
+                                            FontWeight="SemiBold"
+                                            HorizontalAlignment="Left"
+                                            VerticalAlignment="Center"
+                                            Margin="15"
+                                            Foreground="#504D85"/>
+                                    </Grid>
+                                </Border>
+                            </Grid>
+                            <Grid Grid.Column="2">
+                                <Border
+                                    BorderThickness="1"
+                                    Background="White"
+                                    CornerRadius="8"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Width="255"
+                                    Height="120">
+                                    <Border.Effect>
+                                        <DropShadowEffect 
+                                            BlurRadius="8" 
+                                            ShadowDepth="1.5" 
+                                            Direction="270"
+                                            Color="{StaticResource MaterialDesignShadow}" 
+                                            Opacity="0.42"/>
+                                    </Border.Effect>
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="40"/>
+                                            <RowDefinition Height="*"/>
+                                            <RowDefinition Height="40"/>
+                                        </Grid.RowDefinitions>
+                                        <Grid Grid.Row="0">
+                                            <TextBlock
+                                                Text="Compare with yesterday"
+                                                FontSize="14"
+                                                Foreground="#9098B1"
+                                                VerticalAlignment="Top"
+                                                HorizontalAlignment="Left"
+                                                Margin="15 10"/>
+                                        </Grid>
+                                        <Grid Grid.Row="1">
+                                            <TextBlock
+                                                x:Name="txb_yesterday_compare"
+                                                Text="0"
+                                                FontSize="26" 
+                                                FontWeight="SemiBold"
+                                                HorizontalAlignment="Left"
+                                                VerticalAlignment="Center"
+                                                Margin="15 0 0 0"
+                                                Foreground="#504D85"/>
+                                        </Grid>
+                                        <Grid Grid.Row="2">
+                                            <TextBlock
+                                                x:Name="yesterday_compare"
+                                                Text="oqhphugeqpugeup"
+                                                FontSize="14"
+                                                Foreground="#2BB596"
+                                                VerticalAlignment="Top"
+                                                HorizontalAlignment="Left"
+                                                Margin="15 10" />
+                                        </Grid>
+                                    </Grid>
+                                </Border>
+                            </Grid>
+                            <Grid Grid.Column="3">
+                                <Border
+                                    BorderThickness="1"
+                                    Background="White"
+                                    CornerRadius="8"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Margin="0 0"
+                                    Width="255"
+                                    Height="120">
+                                    <Border.Effect>
+                                        <DropShadowEffect 
+                                            BlurRadius="8" 
+                                            ShadowDepth="1.5" 
+                                            Direction="270"
+                                            Color="{StaticResource MaterialDesignShadow}" 
+                                            Opacity=".42"/>
+                                    </Border.Effect>
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="40"/>
+                                            <RowDefinition Height="*"/>
+                                            <RowDefinition Height="40"/>
+                                        </Grid.RowDefinitions>
+                                        <Grid Grid.Row="0">
+                                            <TextBlock
+                                                Text="Compare with last month"
+                                                FontSize="14"
+                                                Foreground="#9098B1"
+                                                VerticalAlignment="Top"
+                                                HorizontalAlignment="Left"
+                                                Margin="15 10"/>
+                                        </Grid>
+                                        <Grid Grid.Row="1">
+                                            <TextBlock
+                                                x:Name="txb_month_compare"
+                                                Text="0"
+                                                FontSize="26" 
+                                                FontWeight="SemiBold"
+                                                HorizontalAlignment="Left"
+                                                VerticalAlignment="Center"
+                                                Margin="15 0 0 0"
+                                                Foreground="#504D85"/>
+                                        </Grid>
+                                        <Grid Grid.Row="2">
+                                            <TextBlock
+                                                x:Name="month_compare"
+                                                Text="oqhphugeqpugeup"
+                                                FontSize="14"
+                                                Foreground="#2BB596"
+                                                VerticalAlignment="Top"
+                                                HorizontalAlignment="Left"
+                                                Margin="15 10"/>
+                                        </Grid>
+                                    </Grid>
+                                </Border>
+                            </Grid>
+                        </Grid>
+                    </Grid>
                 </Grid>
-                <Grid Grid.Row="3">
+                <Grid Grid.Row="2"
+                      Margin="0 5 0 0">
                     <Border
                         BorderThickness="1"
                         Background="White"
                         CornerRadius="2"
                         HorizontalAlignment="Center"
-                        VerticalAlignment="Center"
-                        Width="1100"
-                        Height="400">
+                        VerticalAlignment="Top"
+                        Width="1080"
+                        Height="460">
                         <Border.Effect>
                             <DropShadowEffect 
                             BlurRadius="8" 
@@ -670,42 +834,77 @@
                             Opacity=".42"/>
                         </Border.Effect>
                         <Grid
-                            Height="380"
+                            Height="400"
                             Width="1050"
-                            VerticalAlignment="Center"
+                            VerticalAlignment="Top"
                             HorizontalAlignment="Center"
                             Margin="0">
                             <StackPanel
-                                Width="400"
+                                Width="800"
                                 Height="50"
                                 Orientation="Horizontal"
                                 VerticalAlignment="Top"
                                 HorizontalAlignment="Left"
                                 Margin="80 5 0 0">
                                 <ComboBox
+                                    x:Name="cboSelectTypeOfChart"
+                                    DataContext="{StaticResource ReportVM}"
+                                    materialDesign:ComboBoxAssist.ClassicMode="true"
+                                    FontSize="16"
+                                    FontWeight="Medium" 
+                                    Foreground="#504D85"
+                                    Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+                                    materialDesign:HintAssist.Hint="Select chart type"
+                                    Width="160" 
+                                    Height="40" 
+                                    HorizontalAlignment="Left" 
+                                    VerticalAlignment="Top"
+                                    HorizontalContentAlignment="Left"
+                                    VerticalContentAlignment="Center" 
+                                    Padding="3,0,0,0" 
+                                    Margin="0,0,0,0" >
+                                    <ComboBoxItem Content="Agency"/>
+                                    <ComboBoxItem Content="Product"/>
+                                    <ComboBoxItem Content="Total And Debt"/>
+                                    <i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="SelectionChanged">
+                                            <i:InvokeCommandAction Command="{Binding SelectedTypeChangeCommand}" 
+                                           CommandParameter="{Binding ElementName=wdHome}"/>
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>
+                                </ComboBox>
+                                <ComboBox
                                     DataContext="{StaticResource ReportVM}"
                                     x:Name="cboSelectPeriod"
+                                    Foreground="#504D85"
                                     materialDesign:ComboBoxAssist.ClassicMode="true"
                                     FontSize="16"
                                     FontWeight="Medium" 
                                     Style="{StaticResource MaterialDesignFloatingHintComboBox}"
-                                    materialDesign:HintAssist.Hint="Chọn chu kỳ"
+                                    materialDesign:HintAssist.Hint="Select cycle"
                                     Width="160" 
                                     Height="40" 
                                     HorizontalAlignment="Left" 
+                                    VerticalAlignment="Top"
                                     HorizontalContentAlignment="Left"
                                     VerticalContentAlignment="Center" 
                                     Padding="3,0,0,0" 
-                                    Margin="0">
+                                    Margin="40 0 0 0">
                                     <i:Interaction.Triggers>
                                         <i:EventTrigger EventName="SelectionChanged">
                                             <i:InvokeCommandAction Command="{Binding SelectedPeriodChangedCommand}" 
                                            CommandParameter="{Binding ElementName=wdHome}"/>
                                         </i:EventTrigger>
                                     </i:Interaction.Triggers>
-                                    <ComboBoxItem Content="Theo tháng"/>
-                                    <ComboBoxItem Content="Theo quý"/>
-                                    <ComboBoxItem Content="Theo năm"/>
+                                    <ComboBoxItem 
+                                        Content="Monthly"
+                                        Foreground="#504D85"/>
+                                    <ComboBoxItem 
+                                        Content="Quarterly"
+                                        Foreground="#504D85"/>
+                                    <ComboBoxItem 
+                                        Content="Annual"
+                                        Foreground="#504D85"/>
                                 </ComboBox>
                                 <ComboBox
                                     x:Name="cboSelectTime"
@@ -714,19 +913,48 @@
                                     materialDesign:ComboBoxAssist.ClassicMode="true"
                                     FontSize="16"
                                     FontWeight="Medium" 
+                                    Foreground="#504D85"
                                     Style="{StaticResource MaterialDesignFloatingHintComboBox}"
-                                    materialDesign:HintAssist.Hint="Chọn"
+                                    materialDesign:HintAssist.Hint="Select time"
                                     Width="160" 
                                     Height="40" 
                                     HorizontalAlignment="Left" 
+                                    VerticalAlignment="Top"
                                     HorizontalContentAlignment="Left"
                                     VerticalContentAlignment="Center" 
                                     Padding="3,0,0,0" 
-                                    Margin="60,0,0,0" >
+                                    Margin="40,0,0,0" >
                                     <i:Interaction.Triggers>
                                         <i:EventTrigger EventName="SelectionChanged">
                                             <i:InvokeCommandAction Command="{Binding SelectedTimeChangeCommand}" 
                                            CommandParameter="{Binding ElementName=wdHome}"/>
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>
+                                </ComboBox>
+                                <ComboBox
+                                    x:Name="cboSelectYear"
+                                    DataContext="{StaticResource ReportVM}"
+                                    ItemsSource="{Binding ItemSourceTime2, Mode=TwoWay}"
+                                    materialDesign:ComboBoxAssist.ClassicMode="true"
+                                    FontSize="16"
+                                    FontWeight="Medium" 
+                                    Foreground="#504D85"
+                                    Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+                                    materialDesign:HintAssist.Hint="Select year"
+                                    Width="160" 
+                                    Height="40" 
+                                    HorizontalAlignment="Left" 
+                                    VerticalAlignment="Top"
+                                    HorizontalContentAlignment="Left"
+                                    VerticalContentAlignment="Center" 
+                                    Padding="3,0,0,0" 
+                                    Margin="40,0,0,0" >
+                                    <i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="SelectionChanged">
+                                            <i:InvokeCommandAction Command="{Binding SelectedTimeChangeCommand}" 
+                                           CommandParameter="{Binding ElementName=wdHome}"/>
+                                            <i:InvokeCommandAction Command="{Binding SelectedYearChangeCommand}"
+                                                                    CommandParameter="{Binding ElementName=wdHome}"/>
                                         </i:EventTrigger>
                                     </i:Interaction.Triggers>
                                 </ComboBox>
@@ -758,7 +986,8 @@
                                 </i:Interaction.Triggers>
                             </lvc:CartesianChart>
                         </Grid>
-                    </Border>                    
+
+                    </Border>
                 </Grid>
             </Grid>
             <!--Body stores-->
@@ -766,10 +995,6 @@
                 Grid.Row="1"
                 DataContext="{StaticResource StoreVM}"
                 x:Name="grdBody_Store"
-                Height="665"
-                Width="1140"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Bottom"
                 Visibility="Hidden">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="Loaded">
@@ -778,116 +1003,130 @@
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="3"></RowDefinition>
-                    <RowDefinition Height="100"></RowDefinition>
+                    <RowDefinition Height="2"></RowDefinition>
+                    <RowDefinition Height="60"></RowDefinition>
                     <RowDefinition></RowDefinition>
                 </Grid.RowDefinitions>
                 <Grid Grid.Row="0"
-                    Background="#FBA1BB"
-                      Width="1000">
+                    Background="#FBA1BB">
                 </Grid>
                 <Grid Grid.Row="1">
-                    <Border
-                        Background="{x:Null}"
-                        CornerRadius="8"
-                        BorderBrush="#FBA1BB"
-                        BorderThickness="1"
-                        Height="32"
-                        Width="200"
-                        HorizontalAlignment="Left"
-                        VerticalAlignment="Center"
-                        Margin="280,0">
-                        <ComboBox
-                            Name="cbbStore_Store"
-                            HorizontalAlignment="Center"
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1.5*"></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="0">
+                        <Rectangle
+                            HorizontalAlignment="Left"
                             VerticalAlignment="Center"
+                            Width="300"
                             Height="40"
-                            Width="240"
+                            Margin="30 10 0 0"
+                            StrokeThickness="2"
+                            RadiusX="5"
+                            RadiusY="5"
+                            Stroke="#E2D2DA"/>
+                        <TextBox
+                            x:Name="txtSearchAgency"
+                            Height="35"
                             BorderThickness="0"
-                            materialDesign:HintAssist.Hint="Hình thức xem"
-                            FontSize="17"
-                            FontWeight="SemiBold"
-                            Padding="0"
-                            HorizontalContentAlignment="Center"
-                            VerticalContentAlignment="Center" 
-                            Cursor="Arrow"
-                            ScrollViewer.VerticalScrollBarVisibility="Visible">
-                            <ComboBoxItem>Dạng một trang</ComboBoxItem>
-                            <ComboBoxItem>Dạng nhiều trang</ComboBoxItem>
+                            Width="250"
+                            materialDesign:HintAssist.Hint="Search..."
+                            FontSize="22"
+                            FontWeight="Regular"
+                            BorderBrush="#FCE5EC"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Center"
+                            Margin="40 10 0 0">
                             <i:Interaction.Triggers>
-                                <i:EventTrigger EventName="SelectionChanged">
-                                    <i:InvokeCommandAction Command="{Binding ChangeWayShowAgencyCommand}" 
+                                <i:EventTrigger EventName="TextChanged">
+                                    <i:InvokeCommandAction Command="{Binding SearchAgencyCommand}" 
                                                        CommandParameter="{Binding ElementName=wdHome}"/>
                                 </i:EventTrigger>
                             </i:Interaction.Triggers>
+                        </TextBox>
+                        <materialDesign:PackIcon
+		                    Kind="Magnify"
+		                    Width="40"
+		                    Height="35"
+		                    HorizontalAlignment="Left" 
+                            VerticalAlignment="Center"
+		                    Margin="290 10 0 0"/>
+                        <ComboBox
+                            Name="cbbStore_Store"
+                            materialDesign:ComboBoxAssist.ClassicMode="true"
+                            FontSize="17"
+                            FontWeight="Medium" 
+                            Background="Transparent"
+                            Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+                            materialDesign:ColorZoneAssist.Mode="Custom" 
+                            materialDesign:HintAssist.Hint="View mode"
+                            Width="200" 
+                            Height="50" 
+                            Padding="5,0,0,5" 
+                            Margin="400,0,0,0"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Center">
+                            <ComboBoxItem Content="List detail"></ComboBoxItem>
+                            <ComboBoxItem Content="Paging"></ComboBoxItem>
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="SelectionChanged">
+                                    <i:InvokeCommandAction
+                                        Command="{Binding ChangeWayShowAgencyCommand}" 
+                                        CommandParameter="{Binding ElementName=wdHome}"/>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
                         </ComboBox>
-                    </Border>
-                    <Button 
-                        x:Name="btnAddAgency"
-                        Width="112"
-                        Height="32"
-                        Background="#F79BB5"
-                        Uid="0"
-                        FocusVisualStyle="{x:Null}"
-                        BorderBrush="{x:Null}"
-                        Cursor="Hand"
-                        Foreground="#504D85"
-                        HorizontalAlignment="Right" 
-                        VerticalAlignment="Center"
-                        Content="Add agency"
-                        FontFamily="Segoe UI"
-                        Margin="0,25,60,25"
-                        Style="{StaticResource MaterialDesignRaisedButton}"
-                        ToolTip="Thêm đại lý"
-                        Command="{Binding OpenAddStoreWindowCommand}"
-                        CommandParameter="{Binding ElementName=wdHome}" Grid.Column="1">
-                    </Button>
-                    <TextBox
-                        x:Name="txtSearchAgency"
-                        VerticalAlignment="Center"
-                        HorizontalAlignment="Left"
-                        Height="32"
-                        Width="200"
-                        materialDesign:HintAssist.Hint="Search agency"
-                        FontSize="16"
-                        FontFamily="Poppins"
-                        FontWeight="Regular"
-                        BorderBrush="#F79BB5"
-                        HorizontalContentAlignment="Center"
-                        VerticalContentAlignment="Center"
-                        Style="{StaticResource MaterialDesignTextBox}"  
-                        materialDesign:TextFieldAssist.TextFieldCornerRadius="8"
-                        BorderThickness="1"
-                        Margin="60,25,0,25">
-                        <i:Interaction.Triggers>
-                            <i:EventTrigger EventName="TextChanged">
-                                <i:InvokeCommandAction Command="{Binding SearchAgencyCommand}" 
-                                                       CommandParameter="{Binding ElementName=wdHome}"/>
-                            </i:EventTrigger>
-                        </i:Interaction.Triggers>
-                    </TextBox>
-                    <materialDesign:PackIcon
-                        Kind="Search"
-                        Height="25"
-                        Width="25"
-                        Foreground="#F79BB5"
-                        HorizontalAlignment="Left"
-                        VerticalAlignment="Center"
-                        Margin="230,0"/>
+                    </Grid>
+                    <Grid Grid.Column="1">
+                        <Button
+                            x:Name="btnExportExcelStore"
+                            Background="#F79BB5"
+                            FocusVisualStyle="{x:Null}"
+                            BorderBrush="{x:Null}"
+                            Cursor="Hand"
+                            Foreground="#504D85"
+                            HorizontalAlignment="Right" 
+                            VerticalAlignment="Center"
+                            Content="Export Excel"
+                            Margin="0 0 160 0"
+                            Style="{StaticResource MaterialDesignRaisedButton}"
+                            Command="{Binding ExportExcelStoreCommand}"
+                            CommandParameter="{Binding ElementName=wdHome}">
+                        </Button>
+                        <Button
+                            x:Name="btnAddAgency"
+                            Background="#F79BB5"
+                            Uid="0"
+                            FocusVisualStyle="{x:Null}"
+                            BorderBrush="{x:Null}"
+                            Cursor="Hand"
+                            Foreground="#504D85"
+                            HorizontalAlignment="Right" 
+                            VerticalAlignment="Center"
+                            Content="Add agency"
+                            Margin="0 0 31.8 0"
+                            Style="{StaticResource MaterialDesignRaisedButton}"
+                            Command="{Binding OpenAddStoreWindowCommand}"
+                            CommandParameter="{Binding ElementName=wdHome}">
+                        </Button>
+                    </Grid>
                 </Grid>
                 <Grid Grid.Row="2">
                     <Grid
                         x:Name="grdListStore_Store"
-                        HorizontalAlignment="Center"
+                        Height="590"
                         Width="1070"
+                        Margin="0 10 0 0"
+                        Background="#FCE5EC" 
+                        VerticalAlignment="Top"
                         Visibility="Hidden">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="45"></RowDefinition>
                             <RowDefinition></RowDefinition>
                         </Grid.RowDefinitions>
                         <Grid Grid.Row="0"
-                            Background="#FF9CB9"
-                              Margin="0">
+                            Background="#FF9CB9">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="200"></ColumnDefinition>
                                 <ColumnDefinition Width="150"></ColumnDefinition>
@@ -952,15 +1191,14 @@
                                 VerticalAlignment="Center"
                                 Foreground="#504D85"/>
                         </Grid>
-                        <Grid Grid.Row="1">
+                        <Grid Grid.Row="1"
+                              Background="#F2F2F2">
                             <ScrollViewer 
                                 Grid.Row="2"
                                 HorizontalScrollBarVisibility="Disabled" 
                                 Margin="0"
                                 HorizontalAlignment="Left" 
                                 Style="{StaticResource FavsScrollViewer}"
-                                Width="1070" 
-                                Height="500"
                                 VerticalAlignment="Top"
                                 VerticalScrollBarVisibility="Auto">
                                 <StackPanel 
@@ -977,23 +1215,21 @@
                             <RowDefinition></RowDefinition>
                             <RowDefinition Height="110"></RowDefinition>
                         </Grid.RowDefinitions>
-                        <Grid>
+                        <Grid
+                            Width="1000">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition></ColumnDefinition>
                                 <ColumnDefinition></ColumnDefinition>
                                 <ColumnDefinition></ColumnDefinition>
                             </Grid.ColumnDefinitions>
                             <Grid
-                                x:Name="grdStoreFisrt">
-                            </Grid>
+                                x:Name="grdStoreFisrt"/>
                             <Grid
                                 x:Name="grdStoreSecond"
-                                Grid.Column="1">
-                            </Grid>
+                                Grid.Column="1"/>
                             <Grid
                                 x:Name="grdStoreThird"
-                                Grid.Column="2">
-                            </Grid>
+                                Grid.Column="2"/>
                         </Grid>
                         <Grid
                             Grid.Row="1">
@@ -1054,7 +1290,7 @@
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="3"></RowDefinition>
+                    <RowDefinition Height="2"></RowDefinition>
                     <RowDefinition Height="60"></RowDefinition>
                     <RowDefinition></RowDefinition>
                 </Grid.RowDefinitions>
@@ -1066,16 +1302,16 @@
                         <ColumnDefinition></ColumnDefinition>
                     </Grid.ColumnDefinitions>
                     <Grid Grid.Column="0">
-                        <Rectangle 
-                            HorizontalAlignment="Left" 
+                        <Rectangle
+                            HorizontalAlignment="Left"
                             VerticalAlignment="Center"
-                            Stroke="#FCE5EC"
-                            Fill="#FCE5EC"
-                            Margin="30 10 0 0"
+                            Width="300"
                             Height="40"
-                            Width ="300"
-                            RadiusX="10"
-                            RadiusY="10"/>
+                            Margin="30 10 0 0"
+                            StrokeThickness="2"
+                            RadiusX="5"
+                            RadiusY="5"
+                            Stroke="#E2D2DA"/>
                         <materialDesign:PackIcon
                             Kind="Magnify"
                             Width="40"
@@ -1086,13 +1322,13 @@
                         </materialDesign:PackIcon>
                         <TextBox
                             x:Name="txtSeachProduct"
+                            BorderThickness="0"
                             Height="35"
                             Width="250" 
                             HorizontalAlignment="Left"
                             Margin="40 10 0 0"
-                            materialDesign:HintAssist.Hint="Search product"
+                            materialDesign:HintAssist.Hint="Search..."
                             FontSize="22"
-                            FontFamily="Poppins"
                             FontWeight="Regular"
                             BorderBrush="#FCE5EC">
                             <i:Interaction.Triggers>
@@ -1111,37 +1347,30 @@
                             VerticalAlignment="Center"
                             Margin="0 0 30 0">
                             <Button
+                                x:Name="btnExportExcel"
+                                Margin="0 10 20 0"
+                                FocusVisualStyle="{x:Null}"
+                                BorderBrush="{x:Null}"
+                                Cursor="Hand"
+                                Background="#F79BB5"
+                                Foreground="#504D85"
+                                Content="Export excel"
+                                Style="{StaticResource MaterialDesignRaisedButton}"
+                                Command="{Binding ExportExcelProductCommand}"
+                                CommandParameter="{Binding ElementName=wdHome}">
+                            </Button>
+                            <Button
                                 x:Name="btnAddProduct"
-                                Margin="0 10 15 0"
+                                Margin="0 10 2 0"
                                 FocusVisualStyle="{x:Null}"
                                 BorderBrush="{x:Null}"
                                 Cursor="Hand"
                                 Background="#F79BB5"
                                 Foreground="#504D85"
                                 Content="Add product"
-                                FontFamily="Segoe UI"
-                                ToolTip="Thêm sản phẩm"
                                 Style="{StaticResource MaterialDesignRaisedButton}"
                                 Command="{Binding AddProductWindowCommand}"
                                 CommandParameter="{Binding ElementName=wdHome}">
-                            </Button>
-                            <Button
-                                x:Name="btnImportProduct"
-                                Margin="15 10 0 0"
-                                HorizontalAlignment="Left"
-                                VerticalAlignment="Center"
-                                FocusVisualStyle="{x:Null}"
-                                BorderBrush="{x:Null}"
-                                Cursor="Hand"
-                                Background="#F79BB5"
-                                Foreground="#504D85"
-                                Content="Import product"
-                                FontFamily="Segoe UI"
-                                ToolTip="Thêm sản phẩm"
-                                Command="{Binding AddImportProductWindowCommand}"
-                                CommandParameter="{Binding ElementName=wdHome}"
-                                Style="{StaticResource MaterialDesignRaisedButton}">
-                                
                             </Button>
                         </StackPanel>
                     </Grid>
@@ -1246,11 +1475,6 @@
                 Grid.Row="1"
                 DataContext="{StaticResource BusinessVM}"
                 x:Name="grdBody_Business"
-                Background="White"
-                Height="710"
-                Width="1140"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Bottom"
                 Visibility="Hidden">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="Loaded">
@@ -1294,7 +1518,7 @@
                                     HorizontalAlignment="Right"
                                     Margin="23,10"
                                     Padding="0"
-                                    materialDesign:HintAssist.Hint="Reload Business tag"
+                                    ToolTip="Reload Business tag"
                                     Command="{Binding ReloadBusinessTagCommand}"
                                     CommandParameter="{Binding ElementName=wdHome}">
                                     <materialDesign:PackIcon
@@ -1304,7 +1528,7 @@
                                         Height="35"
                                         Width="35"/>
                                 </Button>
-                                    <Grid>
+                                <Grid>
                                     <Border
                                         Margin="20,50,20,20"
                                         BorderBrush="#EBF0FF"
@@ -1400,34 +1624,40 @@
                                     HorizontalAlignment="Left"
                                     VerticalAlignment="Top"
                                     Margin="15,20"/>
-                                <Border
-                                    CornerRadius="8"
-                                    Background="#FCE5EC"
+                                <Rectangle
                                     Height="35"
-                                    Width="200"
+                                    Width="250"
                                     HorizontalAlignment="Left"
                                     VerticalAlignment="Top"
+                                    Stroke="#E2D2DA"
+                                    RadiusX="5"
+                                    RadiusY="5"
+                                    StrokeThickness="2"
                                     Margin="200,20">
-                                    <TextBox
-                                        x:Name="txbSearchProductsBusiness"
-                                        Height="35"
-                                        Width="200"
-                                        HorizontalAlignment="Left"
-                                        VerticalAlignment="Top"
-                                        HorizontalContentAlignment="Center"
-                                        VerticalContentAlignment="Center"
-                                        Style="{StaticResource MaterialDesignTextBox}"  
-                                        BorderBrush="{x:Null}"
-                                        DataContext="{StaticResource BusinessVM}">
-                                        <i:Interaction.Triggers>
-                                            <i:EventTrigger EventName="TextChanged">
-                                                <i:InvokeCommandAction Command="{Binding SearchProductBusinessCommand}" 
+                                </Rectangle>
+                                <TextBox
+                                    x:Name="txbSearchProductsBusiness"
+                                    Height="35"
+                                    Width="230"
+                                    BorderThickness="0"
+                                    materialDesign:HintAssist.Hint="Search..."
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Top"
+                                    Margin="210 20 0 0"
+                                    Padding="0 7 0 0"
+                                    FontWeight="Regular"
+                                    FontSize="16"
+                                    Style="{StaticResource MaterialDesignTextBox}"  
+                                    BorderBrush="{x:Null}"
+                                    DataContext="{StaticResource BusinessVM}">
+                                    <i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="TextChanged">
+                                            <i:InvokeCommandAction Command="{Binding SearchProductBusinessCommand}" 
                                                                    CommandParameter="{Binding ElementName=wdHome}"/>
-                                            </i:EventTrigger>
-                                        </i:Interaction.Triggers>
-                                    </TextBox>
-                                </Border>
-                                <Button
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>
+                                </TextBox>
+                                <!--<Button
                                     x:Name="btnSearchListProducts"
                                     Height="35"
                                     Width="35"
@@ -1435,14 +1665,14 @@
                                     Foreground="DimGray"
                                     VerticalAlignment="Top"
                                     HorizontalAlignment="Left"
-                                    Margin="365,20"
+                                    Margin="400,20"
                                     BorderBrush="{x:Null}"
                                     Padding="0">
                                     <materialDesign:PackIcon
                                         Kind="Search"
                                         Height="25"
                                         Width="25"/>
-                                </Button>
+                                </Button>-->
                                 <Grid 
                                     Height="200"
                                     Width="750"
@@ -1512,8 +1742,10 @@
                                             Height="40"
                                             Width="240"
                                             BorderThickness="0"
-                                            materialDesign:HintAssist.Hint="Đại lý"
+                                            materialDesign:HintAssist.Hint="Agency"
                                             FontSize="17"
+                                            Foreground="#504D85"
+                                            Background="Transparent"
                                             FontWeight="SemiBold"
                                             Padding="0"
                                             HorizontalContentAlignment="Center"
@@ -1549,6 +1781,7 @@
                                         Height="40"
                                         Width="250"
                                         Background="#FFB2C8"
+                                        Foreground="#504D85"
                                         BorderBrush="{x:Null}"
                                         materialDesign:ButtonAssist.CornerRadius="6"
                                         Content="Add"
@@ -1576,7 +1809,8 @@
                                     <RowDefinition></RowDefinition>
                                     <RowDefinition></RowDefinition>
                                     <RowDefinition></RowDefinition>
-                                    <RowDefinition Height="150"></RowDefinition>
+                                    <RowDefinition></RowDefinition>
+                                    <RowDefinition Height="100"></RowDefinition>
                                 </Grid.RowDefinitions>
                                 <Grid>
                                     <TextBlock
@@ -1601,11 +1835,10 @@
                                         Foreground="#6F6C99"
                                         FontSize="16"
                                         FontWeight="SemiBold"
-                                        Height="20"
                                         Width="100"
                                         HorizontalAlignment="Left"
                                         VerticalAlignment="Center"
-                                        Margin="20,10"/>
+                                        Margin="20,5"/>
                                     <TextBlock
                                         x:Name="txbAgencyinPayment"
                                         Text=""
@@ -1615,7 +1848,7 @@
                                         Height="20"
                                         HorizontalAlignment="Right"
                                         VerticalAlignment="Center"
-                                        Margin="10,10"/>
+                                        Margin="10,5"/>
                                 </Grid>
                                 <Grid
                                     Grid.Row="2">
@@ -1698,7 +1931,7 @@
                                 <Grid
                                     Grid.Row="5">
                                     <TextBlock
-                                        Text="Trả trước"
+                                        Text="Retainer"
                                         Foreground="#263238"
                                         FontSize="16"
                                         FontWeight="SemiBold"
@@ -1711,10 +1944,13 @@
                                         x:Name="txtRetainerPaymment"
                                         Text="0"
                                         Height="30"
-                                        Width="100"
+                                        Width="120"
                                         HorizontalAlignment="Right"
                                         VerticalAlignment="Top"
                                         Margin="50,5"
+                                        MaxLength="15"
+                                        FontSize="16"
+                                        Foreground="#263238"
                                         HorizontalContentAlignment="Right"
                                         VerticalContentAlignment="Bottom"
                                         materialDesign:BottomDashedLineAdorner.Brush="Gray">
@@ -1743,12 +1979,12 @@
                                     Grid.Row="6">
 
                                     <TextBlock
-                                        Text="Còn lại"
+                                        Text="Excess debt"
                                         Foreground="#263238"
                                         FontSize="16"
                                         FontWeight="SemiBold"
                                         Height="20"
-                                        Width="100"
+                                        Width="115"
                                         HorizontalAlignment="Left"
                                         VerticalAlignment="Center"
                                         Margin="20,12,0,11" Grid.ColumnSpan="2"/>
@@ -1774,6 +2010,39 @@
                                 </Grid>
                                 <Grid
                                     Grid.Row="7">
+
+                                    <TextBlock
+                                        Text="Excess cash"
+                                        Foreground="#263238"
+                                        FontSize="16"
+                                        FontWeight="SemiBold"
+                                        Height="20"
+                                        Width="100"
+                                        HorizontalAlignment="Left"
+                                        VerticalAlignment="Center"
+                                        Margin="20,12,0,11" Grid.ColumnSpan="2"/>
+                                    <TextBlock
+                                        x:Name="txbExcessCash"
+                                        Text="0"
+                                        Foreground="#263238"
+                                        FontSize="16"
+                                        FontWeight="SemiBold"
+                                        Height="20"
+                                        HorizontalAlignment="Right"
+                                        VerticalAlignment="Center"
+                                        Margin="50,0"/>
+                                    <TextBlock
+                                        Text="VND"
+                                        Foreground="#263238"
+                                        FontSize="16"
+                                        FontWeight="SemiBold"
+                                        Height="20"
+                                        HorizontalAlignment="Right"
+                                        VerticalAlignment="Center"
+                                        Margin="10,10"/>
+                                </Grid>
+                                <Grid
+                                    Grid.Row="8">
                                     <Button
                                         x:Name="btnPayinPayment"
                                         Height="40"
@@ -1799,39 +2068,777 @@
             <!--Body bills-->
             <Grid Grid.Row="1"
                 x:Name="grdBody_Bill"
+                DataContext="{StaticResource BillVM}"
                 Visibility="Hidden">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="Loaded">
+                        <i:InvokeCommandAction 
+                                            Command="{Binding InitCommand}"
+                                            CommandParameter="{Binding ElementName=wdHome}"/>
+                        
+                    </i:EventTrigger>
+                    <i:EventTrigger EventName="Loaded">
+                        <i:InvokeCommandAction 
+                                            Command="{Binding LoadStockReceiptCommnad}"
+                                            CommandParameter="{Binding ElementName=wdHome}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="2"></RowDefinition>
+                    <RowDefinition Height="60"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0"
+                      Background="#FBA1BB" >
+                </Grid>
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="400"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="0">
+                        <Rectangle
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Top"
+                            Width="300"
+                            Height="40"
+                            Margin="30 10 0 0"
+                            StrokeThickness="2"
+                            RadiusX="5"
+                            RadiusY="5"
+                            Stroke="#E2D2DA"/>
+                        <TextBox
+                            x:Name="txtSearchAgencyinBill"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Center"
+                            Width="250"
+                            Margin="40 0 0 0"
+                            BorderThickness="0"
+                            materialDesign:HintAssist.Hint="Search..."
+                            MaxLines="1"
+                            Height="35"
+                            FontSize="22"
+                            FontWeight="Regular"
+                            Padding="0"
+                            HorizontalContentAlignment="Left"
+                            VerticalContentAlignment="Center" >
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="TextChanged">
+                                    <i:InvokeCommandAction Command="{Binding SearchAgencyCommand}" 
+                                                       CommandParameter="{Binding ElementName=wdHome}"/>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </TextBox>
+                        <materialDesign:PackIcon Kind="Magnify"
+                                             Height="40"
+                                             Width="35"
+                                             HorizontalAlignment="Left"
+                                             VerticalAlignment="Top"
+                                             Margin="280 10 0 0"/>
+                    </Grid>
+                    <Grid Grid.Column="1">
+                        <Button 
+                            x:Name="btnOpenReceiptWindow" 
+                            x:Uid="3"
+                            Style="{StaticResource MaterialDesignRaisedButton}"
+                            Height="35" 
+                            Width="150" 
+                            Margin="50 0 0 0"
+                            HorizontalAlignment="Left" 
+                            VerticalAlignment="Center"
+                            Background="#F79BB5"
+                            Content="Receipt"
+                            FontSize="18"
+                            Foreground="#57548B"
+                            FontWeight="Bold"
+                            Visibility="Visible" 
+                            FocusVisualStyle="{x:Null}"
+                            BorderBrush="{x:Null}"
+                            Command="{Binding ShellOutCommand}"
+                            CommandParameter="{Binding ElementName=wdHome}">
+                        </Button>
+                    </Grid>
+                    <Grid Grid.Column="1">
+                        <Button 
+                            x:Name="btExcelBill" 
+                            x:Uid="3"
+                            Style="{StaticResource MaterialDesignRaisedButton}"
+                            Height="35" 
+                            Width="150" 
+                            Margin="0 0 32 0"
+                            HorizontalAlignment="Right" 
+                            VerticalAlignment="Center"
+                            Background="#F79BB5"
+                            Content="Export Excel"
+                            FontSize="18"
+                            Foreground="#57548B"
+                            FontWeight="Bold"
+                            Visibility="Visible" 
+                            FocusVisualStyle="{x:Null}"
+                            BorderBrush="{x:Null}"
+                            Command="{Binding ExportExcelCommand}"
+                            CommandParameter="{Binding ElementName=wdHome}">
+                        </Button>
+                    </Grid>
+                </Grid>
+                <Grid Grid.Row="2"
+                      x:Name="InvoiceTable"
+                      Height="590"
+                      Width="1070"
+                      Margin="0 10 0 0"
+                      VerticalAlignment="Top"
+                      Visibility="Visible">
+                    <Grid 
+                        x:Name="cardTitle"
+                        Height="60"
+                        Width="1070"
+                        Margin="0,0,0,0"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Top"
+                        Background="WhiteSmoke"
+                        Visibility="Visible"
+                        materialDesign:ShadowAssist.Darken="True"
+                        materialDesign:ShadowAssist.ShadowDepth="Depth1"
+                        materialDesign:ShadowAssist.ShadowEdges="All">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition Width="150"/>
+                            <ColumnDefinition Width="150"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid Grid.Column="0">
+                            <ComboBox
+                                x:Name="comboBoxBill"
+                                materialDesign:ComboBoxAssist.ClassicMode="true"
+                                FontSize="20"
+                                FontWeight="Medium" 
+                                Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+                                Margin="10 0 0 0"
+                                materialDesign:HintAssist.Hint="Choosing bill"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Top"
+                                FontFamily="Segoe UI"
+                                Foreground="#57548B"
+                                Visibility="Visible"
+                                Height="55"
+                                materialDesign:HintAssist.Foreground="Gray">
+                                <ComboBoxItem
+                                    Content="Stock Receipt" />
+                                <ComboBoxItem
+                                    Content="Releasing Bill" />
+                                <ComboBoxItem
+                                    Content="Receipt Bill" />
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="SelectionChanged">
+                                        <i:InvokeCommandAction Command="{Binding ClearCommand}"
+                                                               CommandParameter="{Binding ElementName=wdHome}"/>
+                                    </i:EventTrigger>
+                                    <i:EventTrigger EventName="SelectionChanged">
+                                        <i:InvokeCommandAction Command="{Binding SwitchCommand}"
+                                                               CommandParameter="{Binding ElementName=wdHome}"/>
+                                    </i:EventTrigger>
+                                    <i:EventTrigger EventName="SelectionChanged">
+                                        <i:InvokeCommandAction 
+                                            Command="{Binding LoadBillCommand}"
+                                            CommandParameter="{Binding ElementName=wdHome}"/>
+                                    </i:EventTrigger>
+                                    <i:EventTrigger EventName="SelectionChanged">
+                                        <i:InvokeCommandAction 
+                                            Command="{Binding LoadReceiptBillCommand}"
+                                            CommandParameter="{Binding ElementName=wdHome}"/>
+                                    </i:EventTrigger>
+                                    <i:EventTrigger EventName="SelectionChanged">
+                                        <i:InvokeCommandAction 
+                                            Command="{Binding LoadStockReceiptCommnad}"
+                                            CommandParameter="{Binding ElementName=wdHome}"/>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </ComboBox>
+                        </Grid>
+                        <Grid Grid.Column="1">
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <Grid Grid.Row="0">
+                                <TextBlock 
+                                    Text="Get money"
+                                    HorizontalAlignment="Right"
+                                    VerticalAlignment="Center"
+                                    FontSize="16"
+                                    FontFamily="Segoe UI"
+                                    FontWeight="SemiBold"
+                                    Foreground="Gray"
+                                    Visibility="Visible"
+                                    Margin="0,0,10,0"></TextBlock>
+                            </Grid>
+                            <Grid Grid.Row="1">
+                                <TextBlock 
+                                    x:Name="textCollect"
+                                    Text="Total"
+                                    HorizontalAlignment="Right"
+                                    VerticalAlignment="Center"
+                                    FontSize="16"
+                                    FontFamily="Segoe UI"
+                                    Foreground="#4BAC4D"
+                                    FontWeight="Medium"
+                                    Visibility="Visible"
+                                    Margin="0,0,10,0"></TextBlock>
+                            </Grid>
+                        </Grid>
+                        <Grid Grid.Column="2">
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <Grid Grid.Row="0">
+                                <TextBlock 
+                                    Text="Pay"
+                                    HorizontalAlignment="Right"
+                                    VerticalAlignment="Center"
+                                    FontSize="16"
+                                    FontWeight="SemiBold"
+                                    FontFamily="Segoe UI"
+                                    Foreground="Gray"
+                                    Visibility="Visible"
+                                    Margin="0,0,30,0">
+                                </TextBlock>
+                            </Grid>
+                            <Grid Grid.Row="1">
+                                <TextBlock 
+                                    x:Name="textPay"
+                                    Text="Total"
+                                    HorizontalAlignment="Right"
+                                    VerticalAlignment="Center"
+                                    FontSize="16"
+                                    FontFamily="Segoe UI"
+                                    Foreground="#F94F5E"
+                                    FontWeight="Medium"
+                                    Margin="0,0,30,0"
+                                    Visibility="Visible">
+                                </TextBlock>
+                            </Grid>
+                        </Grid>
 
-                <Grid
-                    Width="1140"
-                    Height="3"
-                    Background="#FBA1BB" 
-                    HorizontalAlignment="Left"
-                    VerticalAlignment="Top">
-
+                    </Grid>
+                    <Grid Grid.Row="1"
+                        x:Name="ColumnHeaderBill"
+                        Background="#FF9CB9"
+                        Height="45"
+                        Width="1070"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Top"
+                        Margin="0 75 0 0"
+                        Visibility="Visible">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="220"/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="60"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid>
+                            <TextBlock
+                            Text="ID"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Center"
+                            FontSize="22"
+                            Foreground="#504D85"
+                            FontWeight="SemiBold"/>
+                        </Grid>
+                        <Grid
+                        Grid.Column="1">
+                            <TextBlock
+                            Text="Agency Name"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Center"
+                            FontSize="22"
+                            Foreground="#504D85"
+                            FontWeight="SemiBold"/>
+                        </Grid>
+                        <Grid
+                        Grid.Column="2">
+                            <TextBlock
+                            Text="Check Out(MM/DD/YYYY)"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Center"
+                            FontSize="22"
+                            Foreground="#504D85"
+                            FontWeight="SemiBold"/>
+                        </Grid>
+                        <Grid
+                        Grid.Column="3">
+                            <TextBlock
+                                x:Name="LastBlock"
+                            Text="Debt"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Center"
+                            FontSize="22"
+                            Foreground="#504D85"
+                            FontWeight="SemiBold"/>
+                        </Grid>
+                    </Grid>
+                    <Grid Grid.Row="2"
+                        VerticalAlignment="Top"
+                        Margin="0 120 0 0"
+                        Background="WhiteSmoke">
+                        <ScrollViewer 
+                            x:Name="ScrollInvoice"
+                            HorizontalScrollBarVisibility="Disabled" 
+                            Grid.Row="2"
+                            Margin="0 0 0 0"
+                            HorizontalAlignment="Left" 
+                            Background="WhiteSmoke"
+                            Style="{StaticResource FavsScrollViewer}"
+                            VerticalScrollBarVisibility="Auto"
+                            Visibility="Hidden"
+                            Height="480">
+                            <StackPanel x:Name="stkBill"
+                                Width="1060"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Top"
+                                Margin="0 0 0 0" 
+                                Visibility="Hidden"
+                                Background="WhiteSmoke"/>
+                        </ScrollViewer>
+                        <ScrollViewer 
+                            x:Name="ScrollReceipt"
+                            HorizontalScrollBarVisibility="Disabled" 
+                            Grid.Row="2"
+                            Margin="0 0 0 0"
+                            HorizontalAlignment="Left" 
+                            Background="WhiteSmoke"
+                            Style="{StaticResource FavsScrollViewer}"
+                            VerticalScrollBarVisibility="Auto"
+                            Visibility="Hidden"
+                            Height="480">
+                            <StackPanel x:Name="stkReceiptBill"
+                                Width="1060"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Top"
+                                Margin="0 0 0 0"
+                                Background="WhiteSmoke"
+                                Visibility="Hidden"/>
+                        </ScrollViewer>
+                        <ScrollViewer 
+                            x:Name="ScrollStockReceipt"
+                            HorizontalScrollBarVisibility="Disabled" 
+                            Grid.Row="2"
+                            Margin="0 0 0 0"
+                            HorizontalAlignment="Left" 
+                            Background="WhiteSmoke"
+                            Style="{StaticResource FavsScrollViewer}"
+                            VerticalScrollBarVisibility="Auto"
+                            Visibility="Hidden"
+                            Height="480">
+                            <StackPanel x:Name="stkStockReceipt"
+                                Width="1060"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Top"
+                                Margin="0 0 0 0"
+                                Background="WhiteSmoke"
+                                Visibility="Hidden"/>
+                        </ScrollViewer>
+                    </Grid>
                 </Grid>
             </Grid>
             <!--Body report-->
             <Grid Grid.Row="1"
                 x:Name="grdBody_Report"
-                Visibility="Hidden">
-                <Grid
-                    Width="1140"
-                    Height="3"
-                    Background="#FBA1BB" 
-                    HorizontalAlignment="Left"
-                    VerticalAlignment="Top">
+                Visibility="Hidden"
+                DataContext="{StaticResource AgencyReportVM}">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="Loaded">
+                        <i:InvokeCommandAction Command="{Binding InitCommand}"
+                                               CommandParameter="{Binding ElementName=wdHome}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="2"></RowDefinition>
+                    <RowDefinition Height="60"></RowDefinition>
+                    <RowDefinition Height="60"></RowDefinition>
+                    <RowDefinition Height="60"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0"
+                    Background="#FBA1BB">
+                </Grid>
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="390"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="160"></ColumnDefinition>
+                        <ColumnDefinition Width="160"></ColumnDefinition>
+                        <ColumnDefinition Width="160"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="0">
+                        <Rectangle
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Top"
+                            Width="300"
+                            Height="40"
+                            Margin="30 10 0 0"
+                            StrokeThickness="2"
+                            RadiusX="5"
+                            RadiusY="5"
+                            Stroke="#E2D2DA"/>
+                        <TextBox
+                            x:Name="txtSearchReport"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Center"
+                            Width="250"
+                            Margin="40 0 0 0"
+                            BorderThickness="0"
+                            materialDesign:HintAssist.Hint="Search..."
+                            MaxLines="1"
+                            Height="35"
+                            FontSize="22"
+                            FontWeight="Regular"
+                            Padding="0"
+                            HorizontalContentAlignment="Left"
+                            VerticalContentAlignment="Center" >
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="TextChanged">
+                                    <i:InvokeCommandAction Command="{Binding SearchAgencyCommand}" 
+                                                       CommandParameter="{Binding ElementName=wdHome}"/>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </TextBox>
+                        <materialDesign:PackIcon Kind="Magnify"
+                                             Height="40"
+                                             Width="35"
+                                             HorizontalAlignment="Left"
+                                             VerticalAlignment="Top"
+                                             Margin="280 10 0 0"/>
+                    </Grid>
+                    <Grid Grid.Column="2"
+                          Visibility="Hidden">
+                        <Button x:Name="btSalesReport" 
+                            x:Uid="1"
+                            Style="{StaticResource MaterialDesignRaisedButton}"
+                            Height="35" 
+                            Width="150" 
+                            HorizontalContentAlignment="Center" 
+                            HorizontalAlignment="Center" 
+                            VerticalAlignment="Center"
+                            Background="#FBCCDA"
+                            Content="Sales Report"
+                            FontSize="18"
+                            Foreground="#57548B"
+                            FontWeight="Bold" 
+                            FocusVisualStyle="{x:Null}"
+                            BorderBrush="{x:Null}">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="Click">
+                                    <i:InvokeCommandAction Command="{Binding SwitchCommand}"
+                                                       CommandParameter="{Binding ElementName = wdHome}"/>
+                                </i:EventTrigger>
+                                <i:EventTrigger EventName="MouseMove">
+                                    <i:InvokeCommandAction Command="{Binding GetUidCommand}"
+                                                       CommandParameter="{Binding ElementName=btSalesReport}"/>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </Button>
+                    </Grid>
+                    <Grid Grid.Column="3"
+                          Visibility="Hidden">
+                        <Button x:Name="btDebtReport" 
+                            x:Uid="2"
+                            Style="{StaticResource MaterialDesignRaisedButton}"
+                            Height="35" 
+                            Width="150" 
+                            HorizontalContentAlignment="Center" 
+                            HorizontalAlignment="Center" 
+                            VerticalAlignment="Center"
+                            Background="#FBCCDA"
+                            Content="Debts Report"
+                            FontSize="18"
+                            Foreground="#57548B"
+                            FontWeight="Bold" 
+                            FocusVisualStyle="{x:Null}"
+                            BorderBrush="{x:Null}">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="Click">
+                                    <i:InvokeCommandAction Command="{Binding SwitchCommand}"
+                                                       CommandParameter="{Binding ElementName = wdHome}"/>
+                                </i:EventTrigger>
+                                <i:EventTrigger EventName="MouseMove">
+                                    <i:InvokeCommandAction Command="{Binding GetUidCommand}"
+                                                       CommandParameter="{Binding ElementName=btDebtReport}"/>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </Button>
+                    </Grid>
+                </Grid>
+                <Grid Grid.Row="2">
+                    <materialDesign:Card 
+                        x:Name="cardTitleSalesReport"
+                        Width="1070"
+                        Background="WhiteSmoke"
+                        Visibility="Visible">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                <ColumnDefinition Width="200"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid Grid.Column="0">
+                                <ComboBox
+                                    x:Name="comboBoxReport"
+                                    materialDesign:ComboBoxAssist.ClassicMode="true"
+                                    FontSize="20"
+                                    FontWeight="Medium" 
+                                    Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+                                    Margin="10 0 0 0"
+                                    materialDesign:HintAssist.Hint="Choosing report"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Top"
+                                    FontFamily="Segoe UI"
+                                    Foreground="#57548B"
+                                    Visibility="Visible"
+                                    Height="55"
+                                    materialDesign:HintAssist.Foreground="Gray">
+                                    <ComboBoxItem
+                                        Content="Sales Report" />
+                                    <ComboBoxItem
+                                        Content="Debts Report" />
+                                    <i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="SelectionChanged">
+                                            <i:InvokeCommandAction Command="{Binding SwitchCommand}"
+                                                               CommandParameter="{Binding ElementName=wdHome}"
+                                            />
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>
+                                </ComboBox>
+                            </Grid>
+                            <Grid Grid.Column="1">
+                                <DatePicker
+                                    x:Name="Date"
+                                    Height="50"
+                                    Width="150"
+                                    Background="#FBCCDA"
+                                    Foreground="#57548B"
+                                    FontFamily="Segoe UI"
+                                    FontWeight="DemiBold"
+                                    FontSize="22"
+                                    HorizontalContentAlignment="Center">
+                                    <i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="SelectedDateChanged">
+                                            <i:InvokeCommandAction Command="{Binding LoadSalesReportCommand}"
+                                                                   CommandParameter="{Binding ElementName=wdHome}">
+
+                                            </i:InvokeCommandAction>
+                                        </i:EventTrigger>
+                                        <i:EventTrigger EventName="SelectedDateChanged">
+                                            <i:InvokeCommandAction Command="{Binding LoadDebtsReportCommand}"
+                                                                   CommandParameter="{Binding ElementName=wdHome}">
+
+                                            </i:InvokeCommandAction>
+                                        </i:EventTrigger>
+                                        <i:EventTrigger EventName="SelectedDateChanged">
+                                            <i:InvokeCommandAction Command="{Binding CheckDateCommand}"
+                                                                   CommandParameter="{Binding ElementName=wdHome}"/>
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>
+
+                                </DatePicker>
+                            </Grid>
+                        </Grid>
+                    </materialDesign:Card>
+                </Grid>
+                <Grid Grid.Row="3">
+                    <materialDesign:Card 
+                        x:Name="cardSalesReport"
+                        Height="50"
+                        Width="1070"
+                        Margin="0,10,0,0"
+                        Padding="8"
+                        Background="#FF9CB9"
+                        Visibility="Hidden">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="80"></ColumnDefinition>
+                                <ColumnDefinition Width="250"></ColumnDefinition>
+                                <ColumnDefinition Width="230"></ColumnDefinition>
+                                <ColumnDefinition Width="250"></ColumnDefinition>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid Grid.Column="0">
+                                <TextBlock Text="No."
+                                    FontFamily="Segoe UI"
+                                    FontSize="25"
+                                    FontWeight="DemiBold"
+                                    Foreground="#57548B"
+                                    HorizontalAlignment="Center" 
+                                    VerticalAlignment="Center">
+                                </TextBlock>
+                            </Grid>
+                            <Grid Grid.Column="1">
+                                <TextBlock Text="Agency"
+                                    FontFamily="Segoe UI"
+                                    FontSize="25"
+                                    FontWeight="DemiBold"
+                                    Foreground="#57548B"
+                                    HorizontalAlignment="Center" 
+                                    VerticalAlignment="Center">
+                                </TextBlock>
+                            </Grid>
+                            <Grid Grid.Column="2">
+                                <TextBlock 
+                                    Text="Number Of Bills"
+                                    FontFamily="Segoe UI"
+                                    FontSize="25"
+                                    FontWeight="DemiBold"
+                                    Foreground="#57548B"
+                                    Margin="0,0,0,0" 
+                                    HorizontalAlignment="Center" 
+                                    VerticalAlignment="Center">
+                                </TextBlock>
+                            </Grid>
+                            <Grid Grid.Column="3">
+                                <TextBlock Text="Total"
+                                    FontFamily="Segoe UI"
+                                    FontSize="25"
+                                    FontWeight="DemiBold"
+                                    Foreground="#57548B"
+                                    HorizontalAlignment="Center" 
+                                    VerticalAlignment="Center">
+                                </TextBlock>
+                            </Grid>
+                            <Grid Grid.Column="4">
+                                <TextBlock 
+                                    Text="Ratio"
+                                    FontFamily="Segoe UI"
+                                    FontSize="25"
+                                    FontWeight="DemiBold"
+                                    Foreground="#57548B"
+                                    HorizontalAlignment="Center" 
+                                    VerticalAlignment="Center">
+                                </TextBlock>
+                            </Grid>
+                        </Grid>
+                    </materialDesign:Card>
+                    <materialDesign:Card 
+                        x:Name="cardDebtAgencyReport"
+                        Height="50"
+                        Width="1070"
+                        Margin="0,10,0,0"
+                        Padding="8"
+                        Background="#FF9CB9"
+                        Visibility="Hidden">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="80"></ColumnDefinition>
+                                <ColumnDefinition Width="250"></ColumnDefinition>
+                                <ColumnDefinition Width="250"></ColumnDefinition>
+                                <ColumnDefinition Width="250"></ColumnDefinition>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid Grid.Column="0">
+                                <TextBlock 
+                                    Text="No."
+                                    FontFamily="Segoe UI"
+                                    FontSize="25"
+                                    FontWeight="DemiBold"
+                                    Foreground="#57548B"
+                                    HorizontalAlignment="Center" 
+                                    VerticalAlignment="Center">
+                                </TextBlock>
+                            </Grid>
+                            <Grid Grid.Column="1">
+                                <TextBlock 
+                                    Text="Agency"
+                                    FontFamily="Segoe UI"
+                                    FontSize="25"
+                                    FontWeight="DemiBold"
+                                    Foreground="#57548B"
+                                    HorizontalAlignment="Center" 
+                                    VerticalAlignment="Center">
+                                </TextBlock>
+                            </Grid>
+                            <Grid Grid.Column="2">
+                                <TextBlock
+                                    Text="Original Debt"
+                                    FontFamily="Segoe UI"
+                                    FontSize="25"
+                                    FontWeight="DemiBold"
+                                    Foreground="#57548B"
+                                    Margin="0,0,0,0" 
+                                    HorizontalAlignment="Center" 
+                                    VerticalAlignment="Center">
+                                </TextBlock>
+                            </Grid>
+                            <Grid Grid.Column="3">
+                                <TextBlock
+                                    Text="Cost Overrun"
+                                    FontFamily="Segoe UI"
+                                    FontSize="25"
+                                    FontWeight="DemiBold"
+                                    Foreground="#57548B"
+                                    HorizontalAlignment="Center" 
+                                    VerticalAlignment="Center">
+                                </TextBlock>
+                            </Grid>
+                            <Grid Grid.Column="4">
+                                <TextBlock
+                                    Text="Total"
+                                    FontFamily="Segoe UI"
+                                    FontSize="25"
+                                    FontWeight="DemiBold"
+                                    Foreground="#57548B"
+                                    HorizontalAlignment="Center" 
+                                    VerticalAlignment="Center">
+                                </TextBlock>
+                            </Grid>
+                        </Grid>
+                    </materialDesign:Card>
+                </Grid>
+                <Grid Grid.Row="4"
+                      Width="1070"
+                      Height="480"
+                      VerticalAlignment="Top"
+                      Background="WhiteSmoke">
+                    <ScrollViewer 
+                        x:Name="scrollSales"
+                        Grid.Row="4"
+                        HorizontalScrollBarVisibility="Disabled" 
+                        Margin="0 0 0 0"
+                        HorizontalAlignment="Left" 
+                        Background="WhiteSmoke"
+                        Style="{StaticResource FavsScrollViewer}"
+                        VerticalScrollBarVisibility="Auto"
+                        Visibility="Hidden">
+                        <StackPanel 
+                            x:Name="stkSalesReport"
+                            Width="1070"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Top"
+                            Margin="0 0 0 0" >
+                        </StackPanel>
+                    </ScrollViewer>
+                    <ScrollViewer 
+                        x:Name="scrollDebt"
+                        Grid.Row="4"
+                        HorizontalScrollBarVisibility="Disabled" 
+                        Margin="0 0 0 0"
+                        HorizontalAlignment="Left" 
+                        Background="WhiteSmoke"
+                        Style="{StaticResource FavsScrollViewer}"
+                        VerticalScrollBarVisibility="Auto"
+                        Visibility="Hidden">
+                        <StackPanel 
+                            x:Name="stkDebtReport"
+                            Width="1070"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Top"
+                            Margin="0 0 0 0">
+                        </StackPanel>
+                    </ScrollViewer>
                 </Grid>
             </Grid>
             <!--Body setting-->
             <Grid
                 Grid.Row="1"
                 x:Name="grdBody_AccountSetting"
-                Height="710"
-                Width="1140"
-                Background="White"
-                HorizontalAlignment="Left"
                 DataContext="{StaticResource SettingVM}"
-                VerticalAlignment="Bottom"
                 Visibility="Hidden">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="Loaded">
@@ -1839,122 +2846,153 @@
                                                CommandParameter="{Binding ElementName=wdHome}"/>
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
-                <ScrollViewer
-                    HorizontalScrollBarVisibility="Disabled" 
-                    Margin="0,20"
-                    Style="{StaticResource FavsScrollViewer}"
-                    VerticalScrollBarVisibility="Auto">
-                    <StackPanel>
-                        <TextBlock
-                            Text="Setting"
-                            FontSize="40"
-                            Foreground="#504D85"
-                            FontWeight="SemiBold"
-                            HorizontalAlignment="Center"/>
-                        <TextBlock
-                            Text="Type of Agency"
-                            Foreground="#504D85"
-                            FontSize="30"
-                            VerticalAlignment="Bottom"
-                            HorizontalAlignment="Left"
-                            Margin="50,30,0,0"
-                            FontWeight="SemiBold"/>
-                        <Expander
-                            HorizontalAlignment="Stretch"
-                            Header="Rules"
-                            Foreground="#F68D7D"
-                            FontSize="14"
-                            Margin="40,0"
-                            Background="Transparent">
-                            <Grid
-                            Height="125">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="390"></ColumnDefinition>
-                                    <ColumnDefinition Width="410"></ColumnDefinition>
-                                    <ColumnDefinition></ColumnDefinition>
-                                </Grid.ColumnDefinitions>
-                                <Grid Grid.Column="0">
-                                    <Border 
-                                        BorderBrush="DarkGray"
-                                        Background="White"
-                                        BorderThickness="1,1,1,1"
-                                        CornerRadius="8"
-                                        Margin="20,0">
-                                        <Grid>
-                                            <TextBlock 
-                                                Text="Number of type"
-                                                Foreground="#504D85"
-                                                FontWeight="SemiBold"
-                                                HorizontalAlignment="Left"
-                                                VerticalAlignment="Top"
-                                                FontSize="20"
-                                                Margin="30,15"/>
-                                            <Grid
-                                                Background="Gray"
-                                                Height="1"
-                                                Width="300"/>
-                                            <TextBox
-                                                x:Name="txtNumberType_Setting"
-                                                Height="40"
-                                                Width="350"
-                                                HorizontalContentAlignment="Center"
-                                                HorizontalAlignment="Right"
-                                                VerticalAlignment="Bottom"
-                                                Margin="0,15"
-                                                FontSize="18"
-                                                BorderBrush="{x:Null}">
-                                                <i:Interaction.Triggers>
-                                                    <i:EventTrigger EventName="PreviewTextInput" >
-                                                        <ei:CallMethodAction TargetObject="{Binding}"
-                                                     MethodName="NumberValidationTextBox" />
-                                                    </i:EventTrigger>
-                                                </i:Interaction.Triggers>
-                                            </TextBox>
-                                        </Grid>
-                                    </Border>
-                                </Grid>
-                                <Grid Grid.Column="1">
-                                    <Border 
-                                        BorderBrush="DarkGray"
-                                        Background="White"
-                                        BorderThickness="1,1,1,1"
-                                        CornerRadius="8"
-                                        Margin="30,0">
-                                        <Grid>
-                                            <TextBlock 
-                                                Text="Number of agency in district"
-                                                Foreground="#504D85"
-                                                HorizontalAlignment="Left"
-                                                VerticalAlignment="Top"
-                                                Margin="30,15"
-                                                FontWeight="SemiBold"
-                                                FontSize="20"/>
-                                            <Grid
-                                                Background="Gray"
-                                                Height="1"
-                                                Width="300"/>
-                                            <TextBox
-                                                x:Name="txtNumberAgencyinDistrict_Setting"
-                                                Height="40"
-                                                Width="350"
-                                                HorizontalAlignment="Right"
-                                                HorizontalContentAlignment="Center"
-                                                VerticalAlignment="Bottom"
-                                                BorderBrush="{x:Null}"
-                                                FontSize="18"
-                                                Margin="0,15">
-                                                <i:Interaction.Triggers>
-                                                    <i:EventTrigger EventName="PreviewTextInput" >
-                                                        <ei:CallMethodAction TargetObject="{Binding}"
-                                                     MethodName="NumberValidationTextBox" />
-                                                    </i:EventTrigger>
-                                                </i:Interaction.Triggers>
-                                            </TextBox>
-                                        </Grid>
-                                    </Border>
-                                </Grid>
-                                <Grid Grid.Column="2">
-                                    <Button
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="2"></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0"
+                    Background="#FBA1BB"/>
+                <Grid Grid.Row="1">
+                    <ScrollViewer
+                        HorizontalScrollBarVisibility="Disabled" 
+                        Margin="0,20"
+                        Style="{StaticResource FavsScrollViewer}"
+                        VerticalScrollBarVisibility="Auto">
+                        <StackPanel>
+                            <TextBlock
+                                Text="Type of Agency"
+                                Foreground="#504D85"
+                                FontSize="30"
+                                VerticalAlignment="Bottom"
+                                HorizontalAlignment="Left"
+                                Margin="50,30,0,0"
+                                FontWeight="SemiBold"/>
+                            <Expander
+                                HorizontalAlignment="Stretch"
+                                Header="Rules"
+                                Foreground="#F68D7D"
+                                FontSize="14"
+                                Margin="40,0"
+                                Background="Transparent">
+                                <Grid
+                                    Height="150">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="390"></ColumnDefinition>
+                                        <ColumnDefinition Width="410"></ColumnDefinition>
+                                        <ColumnDefinition></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid Grid.Column="0">
+                                        <Border 
+                                            BorderBrush="DarkGray"
+                                            Background="White"
+                                            BorderThickness="1,1,1,1"
+                                            CornerRadius="8"
+                                            Margin="20,0">
+                                            <Grid>
+                                                <TextBlock 
+                                                    Text="Number of type"
+                                                    Foreground="#504D85"
+                                                    FontWeight="SemiBold"
+                                                    HorizontalAlignment="Left"
+                                                    VerticalAlignment="Top"
+                                                    FontSize="20"
+                                                    Margin="30,15"/>
+                                                <Grid
+                                                    Background="Gray"
+                                                    Height="1"
+                                                    Width="300"/>
+                                                <TextBox
+                                                    x:Name="txtNumberType_Setting"
+                                                    Height="40"
+                                                    Width="350"
+                                                    HorizontalContentAlignment="Center"
+                                                    HorizontalAlignment="Center"
+                                                    VerticalAlignment="Center"
+                                                    Margin="0 60 0 0"
+                                                    FontSize="18"
+                                                    MaxLength="4" 
+                                                    Validation.ErrorTemplate="{StaticResource textBoxErrorTemplate3}"
+                                                    BorderBrush="{x:Null}">
+                                                    <i:Interaction.Triggers>
+                                                        <i:EventTrigger EventName="PreviewTextInput" >
+                                                            <ei:CallMethodAction 
+                                                                TargetObject="{Binding}"
+                                                                MethodName="NumberValidationTextBox" />
+                                                        </i:EventTrigger>
+                                                        <i:EventTrigger EventName="TextChanged">
+                                                            <i:InvokeCommandAction 
+                                                                Command="{Binding SeparateThousandsCommand}" 
+                                                                CommandParameter="{Binding ElementName=txtNumberType_Setting}"/>
+                                                        </i:EventTrigger>
+                                                    </i:Interaction.Triggers>
+                                                    <TextBox.Text>
+                                                        <Binding Path="Name" Source="{StaticResource Product}" UpdateSourceTrigger="PropertyChanged" Mode="OneWayToSource">
+                                                            <Binding.ValidationRules>
+                                                                <vd:NotNullValidation ErrorMessage="Please enter number of type"/>
+                                                            </Binding.ValidationRules>
+                                                        </Binding>
+                                                    </TextBox.Text>
+                                                </TextBox>
+                                            </Grid>
+                                        </Border>
+                                    </Grid>
+                                    <Grid Grid.Column="1">
+                                        <Border 
+                                            BorderBrush="DarkGray"
+                                            Background="White"
+                                            BorderThickness="1,1,1,1"
+                                            CornerRadius="8"
+                                            Margin="30,0">
+                                            <Grid>
+                                                <TextBlock 
+                                                    Text="Number of agency in district"
+                                                    Foreground="#504D85"
+                                                    HorizontalAlignment="Left"
+                                                    VerticalAlignment="Top"
+                                                    Margin="30,15"
+                                                    FontWeight="SemiBold"
+                                                    FontSize="20"/>
+                                                <Grid
+                                                    Background="Gray"
+                                                    Height="1"
+                                                    Width="300"/>
+                                                <TextBox
+                                                    x:Name="txtNumberAgencyinDistrict_Setting"
+                                                    Height="40"
+                                                    Width="350"
+                                                    HorizontalAlignment="Right"
+                                                    HorizontalContentAlignment="Center"
+                                                    VerticalAlignment="Center"
+                                                    Margin="0 60 0 0"
+                                                    BorderBrush="{x:Null}"
+                                                    Validation.ErrorTemplate="{StaticResource textBoxErrorTemplate3}"
+                                                    FontSize="18"
+                                                    MaxLength="4">
+                                                    <i:Interaction.Triggers>
+                                                        <i:EventTrigger EventName="PreviewTextInput" >
+                                                            <ei:CallMethodAction 
+                                                                TargetObject="{Binding}"
+                                                                MethodName="NumberValidationTextBox" />
+                                                        </i:EventTrigger>
+                                                        <i:EventTrigger EventName="TextChanged">
+                                                            <i:InvokeCommandAction 
+                                                                Command="{Binding SeparateThousandsCommand}" 
+                                                                CommandParameter="{Binding ElementName=txtNumberAgencyinDistrict_Setting}"/>
+                                                        </i:EventTrigger>
+                                                    </i:Interaction.Triggers>
+                                                    <TextBox.Text>
+                                                        <Binding Path="Name" Source="{StaticResource Product}" UpdateSourceTrigger="PropertyChanged" Mode="OneWayToSource">
+                                                            <Binding.ValidationRules>
+                                                                <vd:NotNullValidation ErrorMessage="Please enter number of agency"/>
+                                                            </Binding.ValidationRules>
+                                                        </Binding>
+                                                    </TextBox.Text>
+                                                </TextBox>
+                                            </Grid>
+                                        </Border>
+                                    </Grid>
+                                    <Grid Grid.Column="2">
+                                        <Button
                                         x:Name="btnSaveRulesType_Setting"
                                         Height="30"
                                         Width="110"
@@ -1966,22 +3004,22 @@
                                         Margin="0,10"
                                         Command="{Binding SaveRulesType_SettingCommand}"
                                         CommandParameter="{Binding ElementName=wdHome}"/>
+                                    </Grid>
                                 </Grid>
-                            </Grid>
-                        </Expander>
-                        <Expander
+                            </Expander>
+                            <Expander
                             HorizontalAlignment="Stretch"
                             Header="List type"
                             Foreground="#F68D7D"
                             FontSize="14"
                             Margin="40,0"
                             Background="Transparent">
-                            <StackPanel
+                                <StackPanel
                                 x:Name="stkListType_Setting"
                                 Orientation="Vertical"
                                 TextBlock.Foreground="{DynamicResource MaterialDesignBody}"
                                 Margin="24,8,24,16">
-                                <Button
+                                    <Button
                                     x:Name="btnOpenAddType_Setting"
                                     Height="40"
                                     Width="1000"
@@ -1993,112 +3031,142 @@
                                     Foreground="LightGray"
                                     Visibility="Visible"
                                     Command="{Binding OpenAddTypeCommand}"/>
-                            </StackPanel>
-                        </Expander>
-                        <TextBlock
-                            Text="Product"
-                            Foreground="#504D85"
-                            FontSize="30"
-                            VerticalAlignment="Bottom"
-                            HorizontalAlignment="Left"
-                            Margin="50,30,0,0"
-                            FontWeight="SemiBold"/>
-                        <Expander
-                            HorizontalAlignment="Stretch"
-                            Header="Rules"
-                            Foreground="#F68D7D"
-                            FontSize="14"
-                            Margin="40,0"
-                            Background="Transparent">
-                            <Grid
-                                Height="125">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="390"></ColumnDefinition>
-                                    <ColumnDefinition Width="410"></ColumnDefinition>
-                                    <ColumnDefinition></ColumnDefinition>
-                                </Grid.ColumnDefinitions>
-                                <Grid Grid.Column="0">
-                                    <Border 
-                                        BorderBrush="DarkGray"
-                                        Background="White"
-                                        BorderThickness="1,1,1,1"
-                                        CornerRadius="8"
-                                        Margin="20,0">
-                                        <Grid>
-                                            <TextBlock 
-                                                Text="Number of type"
-                                                Foreground="#504D85"
-                                                FontWeight="SemiBold"
-                                                HorizontalAlignment="Left"
-                                                VerticalAlignment="Top"
-                                                FontSize="20"
-                                                Margin="30,15"/>
-                                            <Grid
-                                                Background="Gray"
-                                                Height="1"
-                                                Width="300"/>
-                                            <TextBox
-                                                x:Name="txtNumberProduct_Setting"
-                                                Height="40"
-                                                Width="350"
-                                                HorizontalContentAlignment="Center"
-                                                HorizontalAlignment="Right"
-                                                VerticalAlignment="Bottom"
-                                                Margin="0,15"
-                                                FontSize="18"
-                                                BorderBrush="{x:Null}">
-                                                <i:Interaction.Triggers>
-                                                    <i:EventTrigger EventName="PreviewTextInput" >
-                                                        <ei:CallMethodAction TargetObject="{Binding}"
-                                                     MethodName="NumberValidationTextBox" />
-                                                    </i:EventTrigger>
-                                                </i:Interaction.Triggers>
-                                            </TextBox>
-                                        </Grid>
-                                    </Border>
-                                </Grid>
-                                <Grid Grid.Column="1">
-                                    <Border 
-                                        BorderBrush="DarkGray"
-                                        Background="White"
-                                        BorderThickness="1,1,1,1"
-                                        CornerRadius="8"
-                                        Margin="20,0">
-                                        <Grid>
-                                            <TextBlock 
-                                                Text="Number of type"
-                                                Foreground="#504D85"
-                                                FontWeight="SemiBold"
-                                                HorizontalAlignment="Left"
-                                                VerticalAlignment="Top"
-                                                FontSize="20"
-                                                Margin="30,15"/>
-                                            <Grid
-                                                Background="Gray"
-                                                Height="1"
-                                                Width="300"/>
-                                            <TextBox
-                                                x:Name="txtNumberUnit_Setting"
-                                                Height="40"
-                                                Width="350"
-                                                HorizontalContentAlignment="Center"
-                                                HorizontalAlignment="Right"
-                                                VerticalAlignment="Bottom"
-                                                Margin="0,15"
-                                                FontSize="18"
-                                                BorderBrush="{x:Null}">
-                                                <i:Interaction.Triggers>
-                                                    <i:EventTrigger EventName="PreviewTextInput" >
-                                                        <ei:CallMethodAction TargetObject="{Binding}"
-                                                     MethodName="NumberValidationTextBox" />
-                                                    </i:EventTrigger>
-                                                </i:Interaction.Triggers>
-                                            </TextBox>
-                                        </Grid>
-                                    </Border>
-                                </Grid>
-                                <Grid Grid.Column="2">
-                                    <Button
+                                </StackPanel>
+                            </Expander>
+                            <TextBlock
+                                Text="Product"
+                                Foreground="#504D85"
+                                FontSize="30"
+                                VerticalAlignment="Bottom"
+                                HorizontalAlignment="Left"
+                                Margin="50,30,0,0"
+                                FontWeight="SemiBold"/>
+                            <Expander
+                                HorizontalAlignment="Stretch"
+                                Header="Rules"
+                                Foreground="#F68D7D"
+                                FontSize="14"
+                                Margin="40,0"
+                                Background="Transparent">
+                                <Grid
+                                    Height="150">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="390"></ColumnDefinition>
+                                        <ColumnDefinition Width="410"></ColumnDefinition>
+                                        <ColumnDefinition></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid Grid.Column="0">
+                                        <Border 
+                                            BorderBrush="DarkGray"
+                                            Background="White"
+                                            BorderThickness="1,1,1,1"
+                                            CornerRadius="8"
+                                            Margin="20,0">
+                                            <Grid>
+                                                <TextBlock 
+                                                    Text="Number of product"
+                                                    Foreground="#504D85"
+                                                    FontWeight="SemiBold"
+                                                    HorizontalAlignment="Left"
+                                                    VerticalAlignment="Top"
+                                                    FontSize="20"
+                                                    Margin="30,15"/>
+                                                <Grid
+                                                    Background="Gray"
+                                                    Height="1"
+                                                    Width="300"/>
+                                                <TextBox
+                                                    x:Name="txtNumberProduct_Setting"
+                                                    Height="40"
+                                                    Width="350"
+                                                    HorizontalContentAlignment="Center"
+                                                    HorizontalAlignment="Center"
+                                                    VerticalAlignment="Center"
+                                                    Margin="0 60 0 0"
+                                                    Validation.ErrorTemplate="{StaticResource textBoxErrorTemplate3}"
+                                                    FontSize="18"
+                                                    BorderBrush="{x:Null}"
+                                                    MaxLength="4">
+                                                    <i:Interaction.Triggers>
+                                                        <i:EventTrigger EventName="PreviewTextInput" >
+                                                            <ei:CallMethodAction 
+                                                                TargetObject="{Binding}"
+                                                                MethodName="NumberValidationTextBox" />
+                                                        </i:EventTrigger>
+                                                        <i:EventTrigger EventName="TextChanged">
+                                                            <i:InvokeCommandAction 
+                                                                Command="{Binding SeparateThousandsCommand}" 
+                                                                CommandParameter="{Binding ElementName=txtNumberProduct_Setting}"/>
+                                                        </i:EventTrigger>
+                                                    </i:Interaction.Triggers>
+                                                    <TextBox.Text>
+                                                        <Binding Path="Name" Source="{StaticResource Product}" UpdateSourceTrigger="PropertyChanged" Mode="OneWayToSource">
+                                                            <Binding.ValidationRules>
+                                                                <vd:NotNullValidation ErrorMessage="Please enter number of product"/>
+                                                            </Binding.ValidationRules>
+                                                        </Binding>
+                                                    </TextBox.Text>
+                                                </TextBox>
+                                            </Grid>
+                                        </Border>
+                                    </Grid>
+                                    <Grid Grid.Column="1">
+                                        <Border 
+                                            BorderBrush="DarkGray"
+                                            Background="White"
+                                            BorderThickness="1,1,1,1"
+                                            CornerRadius="8"
+                                            Margin="20,0">
+                                            <Grid>
+                                                <TextBlock 
+                                                    Text="Number of units type"
+                                                    Foreground="#504D85"
+                                                    FontWeight="SemiBold"
+                                                    HorizontalAlignment="Left"
+                                                    VerticalAlignment="Top"
+                                                    FontSize="20"
+                                                    Margin="30,15"/>
+                                                <Grid
+                                                    Background="Gray"
+                                                    Height="1"
+                                                    Width="300"/>
+                                                <TextBox
+                                                    x:Name="txtNumberUnit_Setting"
+                                                    Height="40"
+                                                    Width="350"
+                                                    HorizontalContentAlignment="Center"
+                                                    HorizontalAlignment="Center"
+                                                    VerticalAlignment="Center"
+                                                    Margin="0 60 0 0"
+                                                    FontSize="18"
+                                                    Validation.ErrorTemplate="{StaticResource textBoxErrorTemplate3}"
+                                                    BorderBrush="{x:Null}"
+                                                    MaxLength="4">
+                                                    <i:Interaction.Triggers>
+                                                        <i:EventTrigger EventName="PreviewTextInput" >
+                                                            <ei:CallMethodAction 
+                                                                TargetObject="{Binding}"
+                                                                MethodName="NumberValidationTextBox" />
+                                                        </i:EventTrigger>
+                                                        <i:EventTrigger EventName="TextChanged">
+                                                            <i:InvokeCommandAction 
+                                                                Command="{Binding SeparateThousandsCommand}" 
+                                                                CommandParameter="{Binding ElementName=txtNumberUnit_Setting}"/>
+                                                        </i:EventTrigger>
+                                                    </i:Interaction.Triggers>
+                                                    <TextBox.Text>
+                                                        <Binding Path="Name" Source="{StaticResource Product}" UpdateSourceTrigger="PropertyChanged" Mode="OneWayToSource">
+                                                            <Binding.ValidationRules>
+                                                                <vd:NotNullValidation ErrorMessage="Please enter number of units type"/>
+                                                            </Binding.ValidationRules>
+                                                        </Binding>
+                                                    </TextBox.Text>
+                                                </TextBox>
+                                            </Grid>
+                                        </Border>
+                                    </Grid>
+                                    <Grid Grid.Column="2">
+                                        <Button
                                         x:Name="btnSaveRulesProduct_Setting"
                                         Height="30"
                                         Width="110"
@@ -2110,11 +3178,12 @@
                                         Margin="0,10"
                                         Command="{Binding SaveRulesProduct_SettingCommand}"
                                         CommandParameter="{Binding ElementName=wdHome}"/>
+                                    </Grid>
                                 </Grid>
-                            </Grid>
-                        </Expander>
-                    </StackPanel>
-                </ScrollViewer>
+                            </Expander>
+                        </StackPanel>
+                    </ScrollViewer>
+                </Grid>
             </Grid>
         </Grid>
     </Grid>

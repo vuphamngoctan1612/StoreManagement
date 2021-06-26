@@ -1,0 +1,371 @@
+﻿<Window x:Class="StoreManagement.Views.ShellOutWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:StoreManagement.Views"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
+        xmlns:vd="clr-namespace:StoreManagement.Validations"
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
+        x:Name="wdShellOut"
+        ResizeMode="CanMinimize"
+        Title="Shell Out" 
+        DataContext="{StaticResource BillVM}"
+        Height="550" 
+        Width="550">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"></RowDefinition>
+            <RowDefinition Height="5.5*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <TextBlock
+                Text="Shell Out"
+                FontSize="30"
+                FontWeight="SemiBold"
+                Foreground="#504D85"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center">
+            </TextBlock>
+        </Grid>
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition Height="1.5*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0"
+                Width="480" 
+                Margin="0 0 0 0"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center">
+                <Label
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Content="ID Receipt Bill"
+                    FontSize="22"
+                    FontWeight="SemiBold"
+                    Margin="0 0 0 0"
+                    Foreground="#57548B">
+                </Label>
+                <Rectangle
+                    HorizontalAlignment="Left"
+                    Width="260"
+                    Margin="200 0 0 0"
+                    StrokeThickness="2"
+                    RadiusX="5"
+                    RadiusY="5"
+                    Stroke="#E2D2DA"/>
+                <TextBox
+                    Name="txtID"
+                    IsEnabled="False"
+                    materialDesign:HintAssist.Hint="Automatic"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Width="260"
+                    Margin="200 0 0 0"
+                    BorderThickness="0"
+                    MaxLines="1"
+                    Height="40"
+                    FontSize="16"
+                    FontWeight="SemiBold"
+                    Padding="10"
+                    HorizontalContentAlignment="Left"
+                    VerticalContentAlignment="Center">
+                </TextBox>
+            </Grid>
+            <Grid Grid.Row="1"
+                Width="480" 
+                Margin="0 0 0 0"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center">
+                <Label
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Content="Agency"
+                    FontSize="22"
+                    FontWeight="SemiBold"
+                    Margin="0 0 0 0"
+                    Foreground="#57548B">
+                </Label>
+                <Rectangle
+                    HorizontalAlignment="Left"
+                    Width="260"
+                    Margin="200 0 0 0"
+                    StrokeThickness="2"
+                    RadiusX="5"
+                    RadiusY="5"
+                    Stroke="#E2D2DA"/>
+                <ComboBox
+                    Name="cbbName"
+                    materialDesign:ComboBoxAssist.ClassicMode="true"
+                    materialDesign:HintAssist.Hint="Choose agency"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Width="260"
+                    Margin="200 0 0 0"
+                    BorderThickness="0"
+                    Height="40"
+                    FontSize="16"
+                    FontWeight="SemiBold"
+                    Padding="10"
+                    Validation.ErrorTemplate="{StaticResource textBoxErrorTemplate2}"
+                    HorizontalContentAlignment="Left"
+                    VerticalContentAlignment="Center"
+                    ItemsSource="{Binding Path=ListAgency, Mode=OneWay}"
+                    SelectedValuePath="ID"
+                    DisplayMemberPath="Name">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="SelectionChanged">
+                            <i:InvokeCommandAction Command="{Binding ChooseAgencyCommand}" 
+                                                CommandParameter="{Binding ElementName=wdShellOut}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                    <ComboBox.Text>
+                        <Binding Path="Name" Source="{StaticResource Units}" UpdateSourceTrigger="PropertyChanged" Mode="OneWayToSource">
+                            <Binding.ValidationRules>
+                                <vd:NotNullValidation ErrorMessage="Please choose item"/>
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </ComboBox.Text>
+                </ComboBox>
+            </Grid>
+            <Grid Grid.Row="2"
+                Width="480" 
+                Margin="0 0 0 0"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center">
+                <Label
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Content="Address"
+                    FontSize="22"
+                    FontWeight="SemiBold"
+                    Margin="0 0 0 0"
+                    Foreground="#57548B">
+                </Label>
+                <Rectangle
+                    HorizontalAlignment="Left"
+                    Width="260"
+                    Margin="200 0 0 0"
+                    StrokeThickness="2"
+                    RadiusX="5"
+                    RadiusY="5"
+                    Stroke="#E2D2DA"/>
+                <TextBox
+                    Name="txtAddress"
+                    materialDesign:HintAssist.Hint="Address"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Width="260"
+                    Margin="200 0 0 0"
+                    BorderThickness="0"
+                    MaxLines="1"
+                    Height="40"
+                    FontSize="16"
+                    FontWeight="SemiBold"
+                    Padding="10"
+                    Validation.ErrorTemplate="{StaticResource textBoxErrorTemplate}"
+                    HorizontalContentAlignment="Left"
+                    VerticalContentAlignment="Center"
+                    IsEnabled="False">
+                </TextBox>
+            </Grid>
+            <Grid Grid.Row="3"
+                Width="480" 
+                Margin="0 0 0 0"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center">
+                <Label
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Content="Debt"
+                    FontSize="22"
+                    FontWeight="SemiBold"
+                    Margin="0 0 0 0"
+                    Foreground="#57548B">
+                </Label>
+                <Rectangle
+                    HorizontalAlignment="Left"
+                    Width="260"
+                    Margin="200 0 0 0"
+                    StrokeThickness="2"
+                    RadiusX="5"
+                    RadiusY="5"
+                    Stroke="#E2D2DA"/>
+                <TextBox
+                    Name="txtDebt"
+                    materialDesign:HintAssist.Hint="Debt"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Width="260"
+                    Margin="200 0 0 0"
+                    BorderThickness="0"
+                    MaxLines="1"
+                    Height="40"
+                    FontSize="16"
+                    FontWeight="SemiBold"
+                    Padding="10"
+                    Validation.ErrorTemplate="{StaticResource textBoxErrorTemplate}"
+                    HorizontalContentAlignment="Left"
+                    VerticalContentAlignment="Center"
+                    IsEnabled="False">
+                </TextBox>
+            </Grid>
+            <Grid Grid.Row="4"
+                Width="480" 
+                Margin="0 0 0 0"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center">
+                <Label
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Content="Payment"
+                    FontSize="22"
+                    FontWeight="SemiBold"
+                    Margin="0 0 0 0"
+                    Foreground="#57548B">
+                </Label>
+                <Rectangle
+                    HorizontalAlignment="Left"
+                    Width="260"
+                    Margin="200 0 0 0"
+                    StrokeThickness="2"
+                    RadiusX="5"
+                    RadiusY="5"
+                    Stroke="#E2D2DA"/>
+                <TextBox
+                    Name="txtPayment"
+                    materialDesign:HintAssist.Hint="Enter payment"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Width="260"
+                    Margin="200 0 0 0"
+                    BorderThickness="0"
+                    MaxLines="1"
+                    Height="40"
+                    FontSize="16"
+                    FontWeight="SemiBold"
+                    Padding="10"
+                    Validation.ErrorTemplate="{StaticResource textBoxErrorTemplate2}"
+                    HorizontalContentAlignment="Left"
+                    VerticalContentAlignment="Center"
+                    MaxLength="15">
+                    <TextBox.Text>
+                        <Binding Path="Name" Source="{StaticResource Product}" UpdateSourceTrigger="PropertyChanged" Mode="OneWayToSource">
+                            <Binding.ValidationRules>
+                                <vd:NotNullValidation ErrorMessage="Please enter payment"/>
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </TextBox.Text>
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="PreviewTextInput" >
+                            <ei:CallMethodAction TargetObject="{Binding }"
+                                                MethodName="NumberValidationTextBox" />
+                        </i:EventTrigger>
+                        <i:EventTrigger EventName="TextChanged">
+                            <i:InvokeCommandAction Command="{Binding PaymentShellOutCommand}" 
+                                                CommandParameter="{Binding ElementName=wdShellOut}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </TextBox>
+            </Grid>
+            <Grid Grid.Row="5"
+                Width="480" 
+                Margin="0 0 0 0"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center">
+                <Label
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Content="Note"
+                    FontSize="22"
+                    FontWeight="SemiBold"
+                    Margin="0 0 0 0"
+                    Foreground="#57548B">
+                </Label>
+                <Rectangle
+                    HorizontalAlignment="Left"
+                    Width="260"
+                    Margin="200 0 0 0"
+                    StrokeThickness="2"
+                    RadiusX="5"
+                    RadiusY="5"
+                    Stroke="#E2D2DA"/>
+                <TextBox
+                    Name="txtMessage"
+                    materialDesign:HintAssist.Hint="Enter note"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Width="260"
+                    Margin="200 0 0 0"
+                    BorderThickness="0"
+                    MaxLines="1"
+                    Height="40"
+                    FontSize="16"
+                    FontWeight="SemiBold"
+                    Padding="10"
+                    Validation.ErrorTemplate="{StaticResource textBoxErrorTemplate}"
+                    HorizontalContentAlignment="Left"
+                    VerticalContentAlignment="Center">
+                </TextBox>
+            </Grid>
+            <Grid Grid.Row="6">
+                <Grid
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Height="40"
+                    Width="450"
+                    Margin="20 10 0 0">
+                    <Button 
+                        x:Name="btnPay"                        
+                        IsDefault="True"
+                        HorizontalAlignment="Left"
+                        HorizontalContentAlignment="Center"
+                        VerticalAlignment="Center"
+                        Width="110"
+                        Height="35"
+                        Margin="185 0 0 0"
+                        Content="Pay"
+                        BorderThickness="0"
+                        Foreground="#57548B"
+                        Background="#F79BB5"
+                        FontSize="22"
+                        Cursor="Hand"
+                        FocusVisualStyle="{x:Null}"
+                        FontWeight="SemiBold"
+                        Visibility="Visible"
+                        Command="{Binding PayCommand}"
+                        CommandParameter="{Binding ElementName=wdShellOut}">
+                    </Button>
+                    <Button 
+                        x:Name="btnClose"
+                        HorizontalAlignment="Left"
+                        HorizontalContentAlignment="Center"
+                        VerticalAlignment="Center"
+                        Width="110"
+                        Height="35"
+                        Margin="315 0 0 0"
+                        Content="Close"
+                        BorderThickness="0"
+                        Cursor="Hand"
+                        Background="#F0F0F0"
+                        FocusVisualStyle="{x:Null}"
+                        Foreground="#57548B"
+                        FontSize="22"
+                        FontWeight="SemiBold"
+                        Command="{Binding CloseWindowCommand}"
+                        CommandParameter="{Binding ElementName=wdShellOut}">
+                    </Button>
+                </Grid>
+            </Grid>
+        </Grid>
+    </Grid>
+</Window>

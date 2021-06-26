@@ -12,7 +12,7 @@
              d:DesignHeight="45" 
              d:DesignWidth="1070"
              Padding="0"
-             Margin="0">
+             Margin="1 0 1 0">
     <Grid 
         x:Name="grdMain"
         Background="#FFFFFF">
@@ -42,7 +42,7 @@
                 FontSize="18" 
                 FontWeight="SemiBold" />
             <TextBlock Grid.Column="1"
-                x:Name="txtSpecies"  
+                x:Name="cbbSpecies"  
                 Text="Species" 
                 HorizontalAlignment="Center"
                 FontFamily="Poppins"
@@ -88,7 +88,7 @@
             <Button
                 x:Name="btnEditAgency"
                 Grid.Column="6"
-                ToolTip="Sửa thông tin"
+                ToolTip="Edit"
                 Height="30"
                 Width="40"
                 HorizontalAlignment="Left"
@@ -113,7 +113,7 @@
                 x:Name="btnDeleteAgency"
                 Command="{Binding DeleteAgencyCommand}"
                 CommandParameter="{Binding ElementName=ucAgency}"
-                ToolTip="Xóa sản phẩm" 
+                ToolTip="Delete" 
                 Height="30"
                 Margin="0,0,15,5" 
                 FontSize="16" 

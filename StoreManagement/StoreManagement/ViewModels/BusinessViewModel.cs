@@ -3,6 +3,7 @@ using StoreManagement.Resources.UserControls;
 using StoreManagement.Views;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -31,6 +32,7 @@ namespace StoreManagement.ViewModels
         public ICommand SearchProductBusinessCommand { get; set; }
         public ICommand PrintInvoiceCommand { get; set; }
         public ICommand ReloadBusinessTagCommand { get; set; }
+        public ICommand ChangeValueCommand { get; set; }
 
         public BusinessViewModel()
         {
@@ -51,6 +53,37 @@ namespace StoreManagement.ViewModels
             SearchProductBusinessCommand = new RelayCommand<HomeWindow>((para) => true, (para) => SearchProductBusiness(para));
             PrintInvoiceCommand = new RelayCommand<InvoiceWindow>((para) => true, (para) => PrintInvoice(para));
             ReloadBusinessTagCommand = new RelayCommand<HomeWindow>((para) => true, (para) => ReloadBusiness());
+            ChangeValueCommand = new RelayCommand<BusinessProductChosenUC>((para) => true, (para) => ValueChangeProductChosen(para));
+        }
+
+        private void ValueChangeProductChosen(BusinessProductChosenUC para)
+        {
+            if (String.IsNullOrEmpty(para.tb_main.Text.ToString()) || int.Parse(para.tb_main.Text.ToString()) > 99999)
+            {
+                para.tb_main.Text = "1";
+            }
+
+            if (para.tb_main.Text == "0")
+                para.cmdDown.IsEnabled = false;
+            else
+                para.cmdDown.IsEnabled = true;
+
+            int id = int.Parse(para.txbID.Text);
+            if (DataProvider.Instance.DB.Products.Where(x => x.ID == id).First().Count < int.Parse(para.tb_main.Text))
+            {
+                CustomMessageBox.Show("Not enough product", "Notify", MessageBoxButton.OK, MessageBoxImage.Warning);
+                para.tb_main.Text = DataProvider.Instance.DB.Products.Where(x => x.ID == id).First().Count.ToString();
+                return;
+            }
+
+
+            int total = (int)ConvertToNumber(para.txbPrice.Text.ToString()) * int.Parse(para.tb_main.Text.ToString());
+            para.txbTotal.Text = SeparateThousands(total.ToString());
+
+            LoadTotalofPayment();
+
+            this.HomeWindow.txbChangePayment.Text = "";
+            this.HomeWindow.txtRetainerPaymment.Text = "";
         }
 
         private void PrintInvoice(InvoiceWindow para)
@@ -91,16 +124,26 @@ namespace StoreManagement.ViewModels
         {
             if (para.txbIDAgencyPayment.Text == "-1")
             {
-                MessageBox.Show("Vui lòng chọn đại lý");
+                CustomMessageBox.Show("Please choose agency!", "Notify", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
             if (ListProductChosen.Count == 0)
             {
-                MessageBox.Show("Vui lòng chọn sản phẩm");
+                CustomMessageBox.Show("Please choose product!", "Notify", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
 
-            MessageBoxResult mes = MessageBox.Show("Are you sure?", "Confirm", MessageBoxButton.YesNo);
+            int idAgency = int.Parse(this.HomeWindow.txbIDAgencyPayment.Text);
+            Agency agency = DataProvider.Instance.DB.Agencies.Where(x => x.ID == idAgency).First();
+            long excess = (long)(ConvertToNumber(this.HomeWindow.txbChangePayment.Text) * 1.02);
+            TypeOfAgency type = DataProvider.Instance.DB.TypeOfAgencies.Where(x => x.ID == agency.TypeOfAgency).First();
+            if ((excess + agency.Debt > type.MaxOfDebt))
+            {
+                CustomMessageBox.Show("Debt limit!", "Error!", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            MessageBoxResult mes = CustomMessageBox.Show("Are you sure?", "Confirm", MessageBoxButton.YesNo, MessageBoxImage.Question);
 
             if (mes != MessageBoxResult.Yes)
             {
@@ -117,7 +160,7 @@ namespace StoreManagement.ViewModels
 
                 uc.txbName.Text = item.txbName.Text;
                 uc.txbPrice.Text = item.txbPrice.Text;
-                uc.txbAmount.Text = item.txbAmount.Text;
+                uc.txbAmount.Text = item.tb_main.Text.ToString();
                 uc.txbUnit.Text = item.txbUnit.Text;
                 uc.txbTotal.Text = item.txbTotal.Text;
                 uc.txbID.Text = item.txbID.Text;
@@ -131,6 +174,10 @@ namespace StoreManagement.ViewModels
             wdInvoice.txbName.Text = this.HomeWindow.txbAgencyinPayment.Text;
             wdInvoice.txbPhone.Text = this.HomeWindow.txbPhoneNumberinPayment.Text;
             wdInvoice.txbAddress.Text = this.HomeWindow.txbAddressinPayment.Text;
+            wdInvoice.txbExcess.Visibility = Visibility.Visible;
+            wdInvoice.txbExcessText.Visibility = Visibility.Visible;
+            wdInvoice.txbExcessVND.Visibility = Visibility.Visible;
+            wdInvoice.txbExcess.Text = this.HomeWindow.txbExcessCash.Text;
 
             try
             {
@@ -150,7 +197,7 @@ namespace StoreManagement.ViewModels
             inv.AgencyID = int.Parse(this.HomeWindow.txbIDAgencyPayment.Text);
             inv.Checkout = DateTime.Parse(wdInvoice.txbDate.Text);
             inv.Debt = ConvertToNumber(wdInvoice.txbChange.Text);
-            //inv.Total = ConvertToNumber(wdInvoice.txbTotal.Text);
+            inv.Total = (long)(ConvertToNumber(wdInvoice.txbTotal.Text) * 1.02);
 
             DataProvider.Instance.DB.Invoices.Add(inv);
 
@@ -165,12 +212,40 @@ namespace StoreManagement.ViewModels
                 invInfo.Total = ConvertToNumber(item.txbTotal.Text);
 
                 DataProvider.Instance.DB.InvoiceInfoes.Add(invInfo);
+
+                Product product = new Product();
+                product = DataProvider.Instance.DB.Products.Where(x => x.ID == invInfo.ProductID).First();
+                product.Count -= invInfo.Amount;
+                DataProvider.Instance.DB.Products.AddOrUpdate(product);
             }
 
+            DataProvider.Instance.DB.SaveChanges();
+
+            Agency updateAgency = DataProvider.Instance.DB.Agencies.Where(x => x.ID == inv.AgencyID).First();
+            updateAgency.Debt += inv.Debt;
+            DataProvider.Instance.DB.Agencies.AddOrUpdate(updateAgency);
             DataProvider.Instance.DB.SaveChanges();
             wdInvoice.ShowDialog();
 
             ReloadBusiness();
+            //update today's sales result
+            ReportViewModel reportViewModel = new ReportViewModel();
+            reportViewModel.InitColumnChart(para);
+            reportViewModel.LoadSales(para);
+            //reload chart
+            reportViewModel.LoadChartByAgency();
+            reportViewModel.LoadChartByProduct();
+            //update invoices, stock, receipt
+            BillViewModel billViewModel = new BillViewModel();
+            billViewModel.Init(para);
+            billViewModel.LoadBill(para);
+            billViewModel.LoadStockReceipt(para);
+            billViewModel.LoadReceiptBill(para);
+            //update agency report
+            AgencyReportViewModel agencyReportViewModel = new AgencyReportViewModel();
+            agencyReportViewModel.Init(para);
+            agencyReportViewModel.LoadSalesReport(para);
+            agencyReportViewModel.LoadDebtsReport(para);
         }
 
         private void ReloadBusiness()
@@ -190,6 +265,7 @@ namespace StoreManagement.ViewModels
             this.HomeWindow.TotalFeeofProductChosenPayment.Text = "0";
             this.HomeWindow.txtRetainerPaymment.Text = "0";
             this.HomeWindow.txbChangePayment.Text = "0";
+            this.HomeWindow.txbExcessCash.Text = "0";
             this.HomeWindow.cbSearchAgency.ItemsSource = this.ListAgency;
             this.HomeWindow.cbSearchAgency.SelectedValuePath = "ID";
             this.HomeWindow.cbSearchAgency.DisplayMemberPath = "Name";
@@ -203,7 +279,7 @@ namespace StoreManagement.ViewModels
 
             if (String.IsNullOrEmpty(para.Text))
             {
-                MessageBox.Show("Vui lòng chọn đại lý");
+                CustomMessageBox.Show("Please choose agency!", "Notify", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
             else
             {
@@ -225,10 +301,15 @@ namespace StoreManagement.ViewModels
                 long retainer = ConvertToNumber(para.Text);
                 long total = ConvertToNumber(this.HomeWindow.TotalFeeofProductChosenPayment.Text);
 
-                if (retainer < total)
+                if (retainer <= total)
+                {
                     this.HomeWindow.txbChangePayment.Text = SeparateThousands((total - retainer).ToString());
+                }
                 else
-                    para.Text = "0";
+                {
+                    this.HomeWindow.txbExcessCash.Text = SeparateThousands((retainer - total).ToString());
+                    this.HomeWindow.txbChangePayment.Text = "0";
+                }
             }
             else
                 para.Text = "0";
@@ -264,6 +345,12 @@ namespace StoreManagement.ViewModels
             bool flag = true;
             int id = int.Parse(para.txbId.Text);
 
+            if (DataProvider.Instance.DB.Products.Where(x => x.ID == id).First().Count < 1)
+            {
+                CustomMessageBox.Show("No inventory in stock", "Notify", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
             if (ListProductChosen != null)
             {
                 foreach (Product item in ListProductChosen)
@@ -289,8 +376,8 @@ namespace StoreManagement.ViewModels
                 uc.txbID.Text = item.ID.ToString();
                 uc.txbName.Text = item.Name.ToString();
                 uc.txbPrice.Text = SeparateThousands(item.ExportPrice.Value.ToString());
-                uc.txbUnit.Text = item.Unit;
-                uc.txbAmount.Text = "1";
+                uc.tb_main.Text = "1";
+                uc.txbUnit.Text = DataProvider.Instance.DB.Units.Where(p => p.ID == item.UnitsID).Select(p => p.Name).First();
                 uc.txbTotal.Text = SeparateThousands(item.ExportPrice.Value.ToString());
 
                 this.HomeWindow.stkListProductChosenBusiness.Children.Add(uc);
@@ -301,9 +388,14 @@ namespace StoreManagement.ViewModels
                 {
                     if (item.txbID.Text == id.ToString())
                     {
-                        int amount = int.Parse(item.txbAmount.Text) + 1;
+                        if (DataProvider.Instance.DB.Products.Where(x => x.ID == id).First().Count == int.Parse(item.tb_main.Text))
+                        {
+                            CustomMessageBox.Show("Not enough product", "Notify", MessageBoxButton.OK, MessageBoxImage.Warning);
+                            return;
+                        }
+                        int amount = int.Parse(item.tb_main.Text) + 1;
                         long total = ConvertToNumber(item.txbPrice.Text) * amount;
-                        item.txbAmount.Text = amount.ToString();
+                        item.tb_main.Text = amount.ToString();
                         item.txbTotal.Text = SeparateThousands(total.ToString());
                     }
                 }

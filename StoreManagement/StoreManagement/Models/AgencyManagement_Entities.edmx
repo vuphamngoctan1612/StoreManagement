@@ -14,7 +14,7 @@
           <Property Name="DisplayName" Type="nvarchar" MaxLength="100" />
           <Property Name="Image" Type="image" />
           <Property Name="Location" Type="nvarchar" MaxLength="100" />
-          <Property Name="PhoneNumber" Type="nvarchar" MaxLength="100" />
+          <Property Name="PhoneNumber" Type="nvarchar" MaxLength="10" />
         </EntityType>
         <EntityType Name="Agency">
           <Key>
@@ -30,6 +30,13 @@
           <Property Name="Email" Type="varchar" MaxLength="100" />
           <Property Name="Debt" Type="bigint" />
           <Property Name="IsDelete" Type="bit" />
+        </EntityType>
+        <EntityType Name="District">
+          <Key>
+            <PropertyRef Name="Name" />
+          </Key>
+          <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="NumberAgencyInDistrict" Type="int" />
         </EntityType>
         <EntityType Name="Invoice">
           <Key>
@@ -57,7 +64,7 @@
           </Key>
           <Property Name="ID" Type="int" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="100" />
-          <Property Name="Unit" Type="nvarchar" MaxLength="100" />
+          <Property Name="UnitsID" Type="int" />
           <Property Name="Image" Type="image" />
           <Property Name="ImportPrice" Type="bigint" />
           <Property Name="ExportPrice" Type="bigint" />
@@ -92,7 +99,7 @@
           <Property Name="Amount" Type="bigint" />
           <Property Name="Price" Type="bigint" />
         </EntityType>
-        <EntityType Name="sysdiagrams">
+	<EntityType Name="sysdiagrams">
           <Key>
             <PropertyRef Name="diagram_id" />
           </Key>
@@ -109,6 +116,25 @@
           <Property Name="ID" Type="int" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="100" />
           <Property Name="MaxOfDebt" Type="bigint" />
+        </EntityType>
+        <Association Name="FK_District">
+          <End Role="District" Type="Self.District" Multiplicity="0..1" />
+          <End Role="Agency" Type="Self.Agency" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="District">
+              <PropertyRef Name="Name" />
+            </Principal>
+            <Dependent Role="Agency">
+              <PropertyRef Name="Name" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Units">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" />
         </EntityType>
         <Association Name="FK_Invoice_AgencyID">
           <End Role="Agency" Type="Self.Agency" Multiplicity="0..1" />
@@ -194,17 +220,35 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Units">
+          <End Role="Units" Type="Self.Units" Multiplicity="0..1" />
+          <End Role="Product" Type="Self.Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Units">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="UnitsID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="AgencyManagementModelStoreContainer">
           <EntitySet Name="Account" EntityType="Self.Account" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Agency" EntityType="Self.Agency" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="District" EntityType="Self.District" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Invoice" EntityType="Self.Invoice" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="InvoiceInfo" EntityType="Self.InvoiceInfo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Receipt" EntityType="Self.Receipt" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="StockReceipt" EntityType="Self.StockReceipt" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="StockReceiptInfo" EntityType="Self.StockReceiptInfo" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+ 	  <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TypeOfAgency" EntityType="Self.TypeOfAgency" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_District" Association="Self.FK_District">
+            <End Role="District" EntitySet="District" />
+            <End Role="Agency" EntitySet="Agency" />
+          </AssociationSet>
+          <EntitySet Name="Units" EntityType="Self.Units" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Invoice_AgencyID" Association="Self.FK_Invoice_AgencyID">
             <End Role="Agency" EntitySet="Agency" />
             <End Role="Invoice" EntitySet="Invoice" />
@@ -233,6 +277,10 @@
             <End Role="TypeOfAgency" EntitySet="TypeOfAgency" />
             <End Role="Agency" EntitySet="Agency" />
           </AssociationSet>
+          <AssociationSet Name="FK_Units" Association="Self.FK_Units">
+            <End Role="Units" EntitySet="Units" />
+            <End Role="Product" EntitySet="Product" />
+          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -249,6 +297,7 @@
           <EntitySet Name="StockReceipts" EntityType="AgencyManagementModel.StockReceipt" />
           <EntitySet Name="StockReceiptInfoes" EntityType="AgencyManagementModel.StockReceiptInfo" />
           <EntitySet Name="TypeOfAgencies" EntityType="AgencyManagementModel.TypeOfAgency" />
+          <EntitySet Name="Units" EntityType="AgencyManagementModel.Unit" />
           <AssociationSet Name="FK_Invoice_AgencyID" Association="AgencyManagementModel.FK_Invoice_AgencyID">
             <End Role="Agency" EntitySet="Agencies" />
             <End Role="Invoice" EntitySet="Invoices" />
@@ -273,9 +322,18 @@
             <End Role="Product" EntitySet="Products" />
             <End Role="StockReceiptInfo" EntitySet="StockReceiptInfoes" />
           </AssociationSet>
+          <AssociationSet Name="FK_Units" Association="AgencyManagementModel.FK_Units">
+            <End Role="Unit" EntitySet="Units" />
+            <End Role="Product" EntitySet="Products" />
+          </AssociationSet>
           <AssociationSet Name="FK_StockReceipt" Association="AgencyManagementModel.FK_StockReceipt">
             <End Role="StockReceipt" EntitySet="StockReceipts" />
             <End Role="StockReceiptInfo" EntitySet="StockReceiptInfoes" />
+          </AssociationSet>
+          <EntitySet Name="Districts" EntityType="AgencyManagementModel.District" />
+          <AssociationSet Name="FK_District" Association="AgencyManagementModel.FK_District">
+            <End Role="District" EntitySet="Districts" />
+            <End Role="Agency" EntitySet="Agencies" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="sysdiagram">
@@ -297,7 +355,7 @@
           <Property Name="DisplayName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="Image" Type="Binary" MaxLength="Max" FixedLength="false" />
           <Property Name="Location" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="PhoneNumber" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Agency">
           <Key>
@@ -316,6 +374,7 @@
           <NavigationProperty Name="Invoices" Relationship="AgencyManagementModel.FK_Invoice_AgencyID" FromRole="Agency" ToRole="Invoice" />
           <NavigationProperty Name="Receipts" Relationship="AgencyManagementModel.FK_Receipt_AgencyID" FromRole="Agency" ToRole="Receipt" />
           <NavigationProperty Name="TypeOfAgency1" Relationship="AgencyManagementModel.FK_Type" FromRole="Agency" ToRole="TypeOfAgency" />
+          <NavigationProperty Name="District1" Relationship="AgencyManagementModel.FK_District" FromRole="Agency" ToRole="District" />
         </EntityType>
         <EntityType Name="Invoice">
           <Key>
@@ -347,7 +406,7 @@
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" />
           <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="Unit" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="UnitsID" Type="Int32" />
           <Property Name="Image" Type="Binary" MaxLength="Max" FixedLength="false" />
           <Property Name="ImportPrice" Type="Int64" />
           <Property Name="ExportPrice" Type="Int64" />
@@ -355,6 +414,7 @@
           <Property Name="IsDelete" Type="Boolean" />
           <NavigationProperty Name="InvoiceInfoes" Relationship="AgencyManagementModel.FK_ProductID" FromRole="Product" ToRole="InvoiceInfo" />
           <NavigationProperty Name="StockReceiptInfoes" Relationship="AgencyManagementModel.FK_Product" FromRole="Product" ToRole="StockReceiptInfo" />
+          <NavigationProperty Name="Unit" Relationship="AgencyManagementModel.FK_Units" FromRole="Product" ToRole="Unit" />
         </EntityType>
         <EntityType Name="Receipt">
           <Key>
@@ -396,6 +456,14 @@
           <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="MaxOfDebt" Type="Int64" />
           <NavigationProperty Name="Agencies" Relationship="AgencyManagementModel.FK_Type" FromRole="TypeOfAgency" ToRole="Agency" />
+        </EntityType>
+        <EntityType Name="Unit">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Products" Relationship="AgencyManagementModel.FK_Units" FromRole="Unit" ToRole="Product" />
         </EntityType>
         <Association Name="FK_Invoice_AgencyID">
           <End Type="AgencyManagementModel.Agency" Role="Agency" Multiplicity="0..1" />
@@ -469,6 +537,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Units">
+          <End Type="AgencyManagementModel.Unit" Role="Unit" Multiplicity="0..1" />
+          <End Type="AgencyManagementModel.Product" Role="Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Unit">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="UnitsID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_StockReceipt">
           <End Type="AgencyManagementModel.StockReceipt" Role="StockReceipt" Multiplicity="1" />
           <End Type="AgencyManagementModel.StockReceiptInfo" Role="StockReceiptInfo" Multiplicity="*" />
@@ -481,13 +561,33 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="District">
+          <Key>
+            <PropertyRef Name="Name" />
+          </Key>
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="NumberAgencyInDistrict" Type="Int32" />
+          <NavigationProperty Name="Agencies" Relationship="AgencyManagementModel.FK_District" FromRole="District" ToRole="Agency" />
+        </EntityType>
+        <Association Name="FK_District">
+          <End Type="AgencyManagementModel.District" Role="District" Multiplicity="0..1" />
+          <End Type="AgencyManagementModel.Agency" Role="Agency" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="District">
+              <PropertyRef Name="Name" />
+            </Principal>
+            <Dependent Role="Agency">
+              <PropertyRef Name="Name" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="AgencyManagementModelStoreContainer" CdmEntityContainer="AgencyManagementEntities">
-          <EntitySetMapping Name="sysdiagrams">
+	  <EntitySetMapping Name="sysdiagrams">
             <EntityTypeMapping TypeName="AgencyManagementModel.sysdiagram">
               <MappingFragment StoreEntitySet="sysdiagrams">
                 <ScalarProperty Name="definition" ColumnName="definition" />
@@ -501,7 +601,7 @@
           <EntitySetMapping Name="Accounts">
             <EntityTypeMapping TypeName="AgencyManagementModel.Account">
               <MappingFragment StoreEntitySet="Account">
-                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+		<ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
                 <ScalarProperty Name="Location" ColumnName="Location" />
                 <ScalarProperty Name="Image" ColumnName="Image" />
                 <ScalarProperty Name="DisplayName" ColumnName="DisplayName" />
@@ -555,7 +655,7 @@
                 <ScalarProperty Name="ExportPrice" ColumnName="ExportPrice" />
                 <ScalarProperty Name="ImportPrice" ColumnName="ImportPrice" />
                 <ScalarProperty Name="Image" ColumnName="Image" />
-                <ScalarProperty Name="Unit" ColumnName="Unit" />
+                <ScalarProperty Name="UnitsID" ColumnName="UnitsID" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
@@ -600,7 +700,23 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-        </EntityContainerMapping>
+          <EntitySetMapping Name="Districts">
+            <EntityTypeMapping TypeName="AgencyManagementModel.District">
+              <MappingFragment StoreEntitySet="District">
+                <ScalarProperty Name="NumberAgencyInDistrict" ColumnName="NumberAgencyInDistrict" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Units">
+            <EntityTypeMapping TypeName="AgencyManagementModel.Unit">
+              <MappingFragment StoreEntitySet="Units">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
   </edmx:Runtime>
