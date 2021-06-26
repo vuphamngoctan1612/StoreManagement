@@ -6,7 +6,7 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:controls="clr-namespace:StoreManagement.Resources.UserControls"
         xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf" 
-        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions" xmlns:vd="clr-namespace:StoreManagement.Validations"
         mc:Ignorable="d"
         Title="Agency Management"
         Height="810"
@@ -1475,7 +1475,7 @@
                 Grid.Row="1"
                 DataContext="{StaticResource BusinessVM}"
                 x:Name="grdBody_Business"
-                Visibility="Visible">
+                Visibility="Hidden">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="Loaded">
                         <i:InvokeCommandAction Command="{Binding LoadBusinessWindowCommand}" 
@@ -2804,7 +2804,7 @@
                 Grid.Row="1"
                 x:Name="grdBody_AccountSetting"
                 DataContext="{StaticResource SettingVM}"
-                Visibility="Hidden">
+                Visibility="Visible">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="Loaded">
                         <i:InvokeCommandAction Command="{Binding LoadSettingWindowCommand}" 
@@ -2819,28 +2819,28 @@
                     Background="#FBA1BB"/>
                 <Grid Grid.Row="1">
                     <ScrollViewer
-                    HorizontalScrollBarVisibility="Disabled" 
-                    Margin="0,20"
-                    Style="{StaticResource FavsScrollViewer}"
-                    VerticalScrollBarVisibility="Auto">
+                        HorizontalScrollBarVisibility="Disabled" 
+                        Margin="0,20"
+                        Style="{StaticResource FavsScrollViewer}"
+                        VerticalScrollBarVisibility="Auto">
                         <StackPanel>
                             <TextBlock
-                            Text="Type of Agency"
-                            Foreground="#504D85"
-                            FontSize="30"
-                            VerticalAlignment="Bottom"
-                            HorizontalAlignment="Left"
-                            Margin="50,30,0,0"
-                            FontWeight="SemiBold"/>
+                                Text="Type of Agency"
+                                Foreground="#504D85"
+                                FontSize="30"
+                                VerticalAlignment="Bottom"
+                                HorizontalAlignment="Left"
+                                Margin="50,30,0,0"
+                                FontWeight="SemiBold"/>
                             <Expander
-                            HorizontalAlignment="Stretch"
-                            Header="Rules"
-                            Foreground="#F68D7D"
-                            FontSize="14"
-                            Margin="40,0"
-                            Background="Transparent">
+                                HorizontalAlignment="Stretch"
+                                Header="Rules"
+                                Foreground="#F68D7D"
+                                FontSize="14"
+                                Margin="40,0"
+                                Background="Transparent">
                                 <Grid
-                            Height="125">
+                                    Height="150">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="390"></ColumnDefinition>
                                         <ColumnDefinition Width="410"></ColumnDefinition>
@@ -2848,90 +2848,110 @@
                                     </Grid.ColumnDefinitions>
                                     <Grid Grid.Column="0">
                                         <Border 
-                                        BorderBrush="DarkGray"
-                                        Background="White"
-                                        BorderThickness="1,1,1,1"
-                                        CornerRadius="8"
-                                        Margin="20,0">
+                                            BorderBrush="DarkGray"
+                                            Background="White"
+                                            BorderThickness="1,1,1,1"
+                                            CornerRadius="8"
+                                            Margin="20,0">
                                             <Grid>
                                                 <TextBlock 
-                                                Text="Number of type"
-                                                Foreground="#504D85"
-                                                FontWeight="SemiBold"
-                                                HorizontalAlignment="Left"
-                                                VerticalAlignment="Top"
-                                                FontSize="20"
-                                                Margin="30,15"/>
+                                                    Text="Number of type"
+                                                    Foreground="#504D85"
+                                                    FontWeight="SemiBold"
+                                                    HorizontalAlignment="Left"
+                                                    VerticalAlignment="Top"
+                                                    FontSize="20"
+                                                    Margin="30,15"/>
                                                 <Grid
-                                                Background="Gray"
-                                                Height="1"
-                                                Width="300"/>
+                                                    Background="Gray"
+                                                    Height="1"
+                                                    Width="300"/>
                                                 <TextBox
-                                                x:Name="txtNumberType_Setting"
-                                                Height="40"
-                                                Width="350"
-                                                HorizontalContentAlignment="Center"
-                                                HorizontalAlignment="Right"
-                                                VerticalAlignment="Bottom"
-                                                Margin="0,15"
-                                                FontSize="18"
-                                                    MaxLength="4"
-                                                BorderBrush="{x:Null}">
+                                                    x:Name="txtNumberType_Setting"
+                                                    Height="40"
+                                                    Width="350"
+                                                    HorizontalContentAlignment="Center"
+                                                    HorizontalAlignment="Center"
+                                                    VerticalAlignment="Center"
+                                                    Margin="0 60 0 0"
+                                                    FontSize="18"
+                                                    MaxLength="4" 
+                                                    Validation.ErrorTemplate="{StaticResource textBoxErrorTemplate3}"
+                                                    BorderBrush="{x:Null}">
                                                     <i:Interaction.Triggers>
                                                         <i:EventTrigger EventName="PreviewTextInput" >
-                                                            <ei:CallMethodAction TargetObject="{Binding}"
-                                                     MethodName="NumberValidationTextBox" />
+                                                            <ei:CallMethodAction 
+                                                                TargetObject="{Binding}"
+                                                                MethodName="NumberValidationTextBox" />
                                                         </i:EventTrigger>
                                                         <i:EventTrigger EventName="TextChanged">
-                                                            <i:InvokeCommandAction Command="{Binding SeparateThousandsCommand}" 
-                                                       CommandParameter="{Binding ElementName=txtNumberType_Setting}"/>
+                                                            <i:InvokeCommandAction 
+                                                                Command="{Binding SeparateThousandsCommand}" 
+                                                                CommandParameter="{Binding ElementName=txtNumberType_Setting}"/>
                                                         </i:EventTrigger>
                                                     </i:Interaction.Triggers>
+                                                    <TextBox.Text>
+                                                        <Binding Path="Name" Source="{StaticResource Product}" UpdateSourceTrigger="PropertyChanged" Mode="OneWayToSource">
+                                                            <Binding.ValidationRules>
+                                                                <vd:NotNullValidation ErrorMessage="Please enter number of type"/>
+                                                            </Binding.ValidationRules>
+                                                        </Binding>
+                                                    </TextBox.Text>
                                                 </TextBox>
                                             </Grid>
                                         </Border>
                                     </Grid>
                                     <Grid Grid.Column="1">
                                         <Border 
-                                        BorderBrush="DarkGray"
-                                        Background="White"
-                                        BorderThickness="1,1,1,1"
-                                        CornerRadius="8"
-                                        Margin="30,0">
+                                            BorderBrush="DarkGray"
+                                            Background="White"
+                                            BorderThickness="1,1,1,1"
+                                            CornerRadius="8"
+                                            Margin="30,0">
                                             <Grid>
                                                 <TextBlock 
-                                                Text="Number of agency in district"
-                                                Foreground="#504D85"
-                                                HorizontalAlignment="Left"
-                                                VerticalAlignment="Top"
-                                                Margin="30,15"
-                                                FontWeight="SemiBold"
-                                                FontSize="20"/>
+                                                    Text="Number of agency in district"
+                                                    Foreground="#504D85"
+                                                    HorizontalAlignment="Left"
+                                                    VerticalAlignment="Top"
+                                                    Margin="30,15"
+                                                    FontWeight="SemiBold"
+                                                    FontSize="20"/>
                                                 <Grid
-                                                Background="Gray"
-                                                Height="1"
-                                                Width="300"/>
+                                                    Background="Gray"
+                                                    Height="1"
+                                                    Width="300"/>
                                                 <TextBox
-                                                x:Name="txtNumberAgencyinDistrict_Setting"
-                                                Height="40"
-                                                Width="350"
-                                                HorizontalAlignment="Right"
-                                                HorizontalContentAlignment="Center"
-                                                VerticalAlignment="Bottom"
-                                                BorderBrush="{x:Null}"
-                                                FontSize="18"
-                                                Margin="0,15"
+                                                    x:Name="txtNumberAgencyinDistrict_Setting"
+                                                    Height="40"
+                                                    Width="350"
+                                                    HorizontalAlignment="Right"
+                                                    HorizontalContentAlignment="Center"
+                                                    VerticalAlignment="Center"
+                                                    Margin="0 60 0 0"
+                                                    BorderBrush="{x:Null}"
+                                                    Validation.ErrorTemplate="{StaticResource textBoxErrorTemplate3}"
+                                                    FontSize="18"
                                                     MaxLength="4">
                                                     <i:Interaction.Triggers>
                                                         <i:EventTrigger EventName="PreviewTextInput" >
-                                                            <ei:CallMethodAction TargetObject="{Binding}"
-                                                     MethodName="NumberValidationTextBox" />
+                                                            <ei:CallMethodAction 
+                                                                TargetObject="{Binding}"
+                                                                MethodName="NumberValidationTextBox" />
                                                         </i:EventTrigger>
                                                         <i:EventTrigger EventName="TextChanged">
-                                                            <i:InvokeCommandAction Command="{Binding SeparateThousandsCommand}" 
-                                                       CommandParameter="{Binding ElementName=txtNumberAgencyinDistrict_Setting}"/>
+                                                            <i:InvokeCommandAction 
+                                                                Command="{Binding SeparateThousandsCommand}" 
+                                                                CommandParameter="{Binding ElementName=txtNumberAgencyinDistrict_Setting}"/>
                                                         </i:EventTrigger>
                                                     </i:Interaction.Triggers>
+                                                    <TextBox.Text>
+                                                        <Binding Path="Name" Source="{StaticResource Product}" UpdateSourceTrigger="PropertyChanged" Mode="OneWayToSource">
+                                                            <Binding.ValidationRules>
+                                                                <vd:NotNullValidation ErrorMessage="Please enter number of agency"/>
+                                                            </Binding.ValidationRules>
+                                                        </Binding>
+                                                    </TextBox.Text>
                                                 </TextBox>
                                             </Grid>
                                         </Border>
@@ -2979,22 +2999,22 @@
                                 </StackPanel>
                             </Expander>
                             <TextBlock
-                            Text="Product"
-                            Foreground="#504D85"
-                            FontSize="30"
-                            VerticalAlignment="Bottom"
-                            HorizontalAlignment="Left"
-                            Margin="50,30,0,0"
-                            FontWeight="SemiBold"/>
+                                Text="Product"
+                                Foreground="#504D85"
+                                FontSize="30"
+                                VerticalAlignment="Bottom"
+                                HorizontalAlignment="Left"
+                                Margin="50,30,0,0"
+                                FontWeight="SemiBold"/>
                             <Expander
-                            HorizontalAlignment="Stretch"
-                            Header="Rules"
-                            Foreground="#F68D7D"
-                            FontSize="14"
-                            Margin="40,0"
-                            Background="Transparent">
+                                HorizontalAlignment="Stretch"
+                                Header="Rules"
+                                Foreground="#F68D7D"
+                                FontSize="14"
+                                Margin="40,0"
+                                Background="Transparent">
                                 <Grid
-                                Height="125">
+                                    Height="150">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="390"></ColumnDefinition>
                                         <ColumnDefinition Width="410"></ColumnDefinition>
@@ -3002,90 +3022,110 @@
                                     </Grid.ColumnDefinitions>
                                     <Grid Grid.Column="0">
                                         <Border 
-                                        BorderBrush="DarkGray"
-                                        Background="White"
-                                        BorderThickness="1,1,1,1"
-                                        CornerRadius="8"
-                                        Margin="20,0">
+                                            BorderBrush="DarkGray"
+                                            Background="White"
+                                            BorderThickness="1,1,1,1"
+                                            CornerRadius="8"
+                                            Margin="20,0">
                                             <Grid>
                                                 <TextBlock 
-                                                Text="Number of product"
-                                                Foreground="#504D85"
-                                                FontWeight="SemiBold"
-                                                HorizontalAlignment="Left"
-                                                VerticalAlignment="Top"
-                                                FontSize="20"
-                                                Margin="30,15"/>
+                                                    Text="Number of product"
+                                                    Foreground="#504D85"
+                                                    FontWeight="SemiBold"
+                                                    HorizontalAlignment="Left"
+                                                    VerticalAlignment="Top"
+                                                    FontSize="20"
+                                                    Margin="30,15"/>
                                                 <Grid
-                                                Background="Gray"
-                                                Height="1"
-                                                Width="300"/>
+                                                    Background="Gray"
+                                                    Height="1"
+                                                    Width="300"/>
                                                 <TextBox
-                                                x:Name="txtNumberProduct_Setting"
-                                                Height="40"
-                                                Width="350"
-                                                HorizontalContentAlignment="Center"
-                                                HorizontalAlignment="Right"
-                                                VerticalAlignment="Bottom"
-                                                Margin="0,15"
-                                                FontSize="18"
-                                                BorderBrush="{x:Null}"
+                                                    x:Name="txtNumberProduct_Setting"
+                                                    Height="40"
+                                                    Width="350"
+                                                    HorizontalContentAlignment="Center"
+                                                    HorizontalAlignment="Center"
+                                                    VerticalAlignment="Center"
+                                                    Margin="0 60 0 0"
+                                                    Validation.ErrorTemplate="{StaticResource textBoxErrorTemplate3}"
+                                                    FontSize="18"
+                                                    BorderBrush="{x:Null}"
                                                     MaxLength="4">
                                                     <i:Interaction.Triggers>
                                                         <i:EventTrigger EventName="PreviewTextInput" >
-                                                            <ei:CallMethodAction TargetObject="{Binding}"
-                                                     MethodName="NumberValidationTextBox" />
+                                                            <ei:CallMethodAction 
+                                                                TargetObject="{Binding}"
+                                                                MethodName="NumberValidationTextBox" />
                                                         </i:EventTrigger>
                                                         <i:EventTrigger EventName="TextChanged">
-                                                            <i:InvokeCommandAction Command="{Binding SeparateThousandsCommand}" 
-                                                       CommandParameter="{Binding ElementName=txtNumberProduct_Setting}"/>
+                                                            <i:InvokeCommandAction 
+                                                                Command="{Binding SeparateThousandsCommand}" 
+                                                                CommandParameter="{Binding ElementName=txtNumberProduct_Setting}"/>
                                                         </i:EventTrigger>
                                                     </i:Interaction.Triggers>
+                                                    <TextBox.Text>
+                                                        <Binding Path="Name" Source="{StaticResource Product}" UpdateSourceTrigger="PropertyChanged" Mode="OneWayToSource">
+                                                            <Binding.ValidationRules>
+                                                                <vd:NotNullValidation ErrorMessage="Please enter number of product"/>
+                                                            </Binding.ValidationRules>
+                                                        </Binding>
+                                                    </TextBox.Text>
                                                 </TextBox>
                                             </Grid>
                                         </Border>
                                     </Grid>
                                     <Grid Grid.Column="1">
                                         <Border 
-                                        BorderBrush="DarkGray"
-                                        Background="White"
-                                        BorderThickness="1,1,1,1"
-                                        CornerRadius="8"
-                                        Margin="20,0">
+                                            BorderBrush="DarkGray"
+                                            Background="White"
+                                            BorderThickness="1,1,1,1"
+                                            CornerRadius="8"
+                                            Margin="20,0">
                                             <Grid>
                                                 <TextBlock 
-                                                Text="Number of unit type"
-                                                Foreground="#504D85"
-                                                FontWeight="SemiBold"
-                                                HorizontalAlignment="Left"
-                                                VerticalAlignment="Top"
-                                                FontSize="20"
-                                                Margin="30,15"/>
+                                                    Text="Number of units type"
+                                                    Foreground="#504D85"
+                                                    FontWeight="SemiBold"
+                                                    HorizontalAlignment="Left"
+                                                    VerticalAlignment="Top"
+                                                    FontSize="20"
+                                                    Margin="30,15"/>
                                                 <Grid
-                                                Background="Gray"
-                                                Height="1"
-                                                Width="300"/>
+                                                    Background="Gray"
+                                                    Height="1"
+                                                    Width="300"/>
                                                 <TextBox
-                                                x:Name="txtNumberUnit_Setting"
-                                                Height="40"
-                                                Width="350"
-                                                HorizontalContentAlignment="Center"
-                                                HorizontalAlignment="Right"
-                                                VerticalAlignment="Bottom"
-                                                Margin="0,15"
-                                                FontSize="18"
-                                                BorderBrush="{x:Null}"
+                                                    x:Name="txtNumberUnit_Setting"
+                                                    Height="40"
+                                                    Width="350"
+                                                    HorizontalContentAlignment="Center"
+                                                    HorizontalAlignment="Center"
+                                                    VerticalAlignment="Center"
+                                                    Margin="0 60 0 0"
+                                                    FontSize="18"
+                                                    Validation.ErrorTemplate="{StaticResource textBoxErrorTemplate3}"
+                                                    BorderBrush="{x:Null}"
                                                     MaxLength="4">
                                                     <i:Interaction.Triggers>
                                                         <i:EventTrigger EventName="PreviewTextInput" >
-                                                            <ei:CallMethodAction TargetObject="{Binding}"
-                                                     MethodName="NumberValidationTextBox" />
+                                                            <ei:CallMethodAction 
+                                                                TargetObject="{Binding}"
+                                                                MethodName="NumberValidationTextBox" />
                                                         </i:EventTrigger>
                                                         <i:EventTrigger EventName="TextChanged">
-                                                            <i:InvokeCommandAction Command="{Binding SeparateThousandsCommand}" 
-                                                       CommandParameter="{Binding ElementName=txtNumberUnit_Setting}"/>
+                                                            <i:InvokeCommandAction 
+                                                                Command="{Binding SeparateThousandsCommand}" 
+                                                                CommandParameter="{Binding ElementName=txtNumberUnit_Setting}"/>
                                                         </i:EventTrigger>
                                                     </i:Interaction.Triggers>
+                                                    <TextBox.Text>
+                                                        <Binding Path="Name" Source="{StaticResource Product}" UpdateSourceTrigger="PropertyChanged" Mode="OneWayToSource">
+                                                            <Binding.ValidationRules>
+                                                                <vd:NotNullValidation ErrorMessage="Please enter number of units type"/>
+                                                            </Binding.ValidationRules>
+                                                        </Binding>
+                                                    </TextBox.Text>
                                                 </TextBox>
                                             </Grid>
                                         </Border>

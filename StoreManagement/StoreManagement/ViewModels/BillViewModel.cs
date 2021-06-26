@@ -111,9 +111,9 @@ namespace StoreManagement.ViewModels
                 reportViewModel.LoadChartByAgency();
                 reportViewModel.LoadChartByProduct();
 
-                Init(this.HomeWindow);
-                LoadBill(this.HomeWindow);
-                LoadStockReceipt(this.HomeWindow);
+                //Init(this.HomeWindow);
+                //LoadBill(this.HomeWindow);
+                //LoadStockReceipt(this.HomeWindow);
                 LoadReceiptBill(this.HomeWindow);
 
                 AgencyReportViewModel agencyReportViewModel = new AgencyReportViewModel();

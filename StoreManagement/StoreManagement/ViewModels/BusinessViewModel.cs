@@ -129,7 +129,7 @@ namespace StoreManagement.ViewModels
                 return;
             }
 
-            MessageBoxResult mes = MessageBox.Show("Are you sure?", "Confirm", MessageBoxButton.YesNo, MessageBoxImage.Information);
+            MessageBoxResult mes = CustomMessageBox.Show("Are you sure?", "Confirm", MessageBoxButton.YesNo, MessageBoxImage.Information);
 
             if (mes != MessageBoxResult.Yes)
             {
