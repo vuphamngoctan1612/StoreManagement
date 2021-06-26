@@ -121,15 +121,15 @@ namespace StoreManagement.ViewModels
 
             int idAgency = int.Parse(this.HomeWindow.txbIDAgencyPayment.Text);
             Agency agency = DataProvider.Instance.DB.Agencies.Where(x => x.ID == idAgency).First();
-            long total = (long)(ConvertToNumber(this.HomeWindow.TotalFeeofProductChosenPayment.Text) * 1.02);
+            long excess = (long)(ConvertToNumber(this.HomeWindow.txbChangePayment.Text) * 1.02);
             TypeOfAgency type = DataProvider.Instance.DB.TypeOfAgencies.Where(x => x.ID == agency.TypeOfAgency).First();
-            if ((total + agency.Debt > type.MaxOfDebt))
+            if ((excess + agency.Debt > type.MaxOfDebt))
             {
                 CustomMessageBox.Show("Debt limit!", "Error!", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
 
-            MessageBoxResult mes = CustomMessageBox.Show("Are you sure?", "Confirm", MessageBoxButton.YesNo, MessageBoxImage.Information);
+            MessageBoxResult mes = MessageBox.Show("Are you sure?", "Confirm", MessageBoxButton.YesNo, MessageBoxImage.Information);
 
             if (mes != MessageBoxResult.Yes)
             {
@@ -282,7 +282,7 @@ namespace StoreManagement.ViewModels
                 long retainer = ConvertToNumber(para.Text);
                 long total = ConvertToNumber(this.HomeWindow.TotalFeeofProductChosenPayment.Text);
 
-                if (retainer < total)
+                if (retainer <= total)
                     this.HomeWindow.txbChangePayment.Text = SeparateThousands((total - retainer).ToString());
                 else
                     para.Text = "0";

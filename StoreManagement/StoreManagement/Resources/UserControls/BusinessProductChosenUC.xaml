@@ -34,7 +34,9 @@
             Foreground="#504D85"
             VerticalAlignment="Center"
             HorizontalAlignment="Left"
-            Margin="80,10"/>
+            TextWrapping="Wrap"
+            Width="150"
+            Margin="60,10"/>
         <TextBlock
             x:Name="txbUnit"
             Text="UNIT"
