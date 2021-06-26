@@ -42,6 +42,7 @@ namespace StoreManagement.ViewModels
         public ICommand EditAgencyCommand { get; set; }
         public ICommand OpenAddDistrictCommand { get; set; }
         public ICommand ExportExcelStoreCommand { get; set; }
+        public ICommand CheckDateCommand { get; set; }
 
         public StoreViewModel()
         {
@@ -70,6 +71,16 @@ namespace StoreManagement.ViewModels
             EditAgencyCommand = new RelayCommand<TextBlock>((para) => true, (para) => OpenEditStoreWindow(para.Text));
             OpenAddDistrictCommand = new RelayCommand<AddStoreWindow>((para) => true, (para) => OpenAddDistrictWindow(para));
             ExportExcelStoreCommand = new RelayCommand<HomeWindow>((para) => true, (para) => ExportExcelStore(para));
+            CheckDateCommand = new RelayCommand<AddStoreWindow>((para) => true, (para) => CheckDate(para));
+        }
+
+        private void CheckDate(AddStoreWindow para)
+        {
+            if (DateTime.Compare(DateTime.Now, (DateTime)para.dpCheckin.SelectedDate) < 0)
+            {
+                CustomMessageBox.Show("Could not select the month at the future!", "Notify", MessageBoxButton.OK, MessageBoxImage.Warning);
+                para.dpCheckin.Text = DateTime.Now.ToString();
+            }
         }
 
         public static DataTable ToDataTable<T>(List<T> items)
@@ -297,21 +308,25 @@ namespace StoreManagement.ViewModels
 
         private void DeleteStore(AgencyControlUC para)
         {
-            Agency store = new Agency();
-            int id = int.Parse(para.txtID.Text);
-            store = (Agency)DataProvider.Instance.DB.Agencies.Where(x => x.ID == id).First();
+            MessageBoxResult res = CustomMessageBox.Show("Are you sure?", "Notify", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (res == MessageBoxResult.Yes)
+            {
+                Agency store = new Agency();
+                int id = int.Parse(para.txtID.Text);
+                store = (Agency)DataProvider.Instance.DB.Agencies.Where(x => x.ID == id).First();
 
-            store.IsDelete = true;
-            DataProvider.Instance.DB.Agencies.AddOrUpdate(store);
-            DataProvider.Instance.DB.SaveChanges();
+                store.IsDelete = true;
+                DataProvider.Instance.DB.Agencies.AddOrUpdate(store);
+                DataProvider.Instance.DB.SaveChanges();
 
-            District district = DataProvider.Instance.DB.Districts.Where(x => x.Name == store.District).First();
-            district.NumberAgencyInDistrict -= 1;
+                District district = DataProvider.Instance.DB.Districts.Where(x => x.Name == store.District).First();
+                district.NumberAgencyInDistrict -= 1;
 
-            DataProvider.Instance.DB.Districts.AddOrUpdate(district);
-            DataProvider.Instance.DB.SaveChanges();
+                DataProvider.Instance.DB.Districts.AddOrUpdate(district);
+                DataProvider.Instance.DB.SaveChanges();
 
-            this.HomeWindow.stkStore_Store.Children.Remove(para);
+                this.HomeWindow.stkStore_Store.Children.Remove(para);
+            }            
         }
 
         private void SaveStore(AddStoreWindow para)

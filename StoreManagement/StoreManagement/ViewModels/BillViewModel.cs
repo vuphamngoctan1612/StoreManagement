@@ -44,7 +44,7 @@ namespace StoreManagement.ViewModels
         public ICommand PaymentShellOutCommand { get; set; }
         public ICommand PayCommand { get; set; }
         public ICommand CloseWindowCommand { get; set; }
-
+        public ICommand CloseReceiptBillWindowCommand { get; set; }
 
         public BillViewModel()
         {
@@ -69,6 +69,7 @@ namespace StoreManagement.ViewModels
             });
             PayCommand = new RelayCommand<ShellOutWindow>((para) => true, (para) => PayReceiptBill(para));
             CloseWindowCommand = new RelayCommand<ShellOutWindow>((para) => true, (para) => para.Close());
+            CloseReceiptBillWindowCommand = new RelayCommand<ReceiptBillWindow>((para) => true, (para) => para.Close());
         }
 
         private void PayReceiptBill(ShellOutWindow para)
