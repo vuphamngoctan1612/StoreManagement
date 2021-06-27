@@ -258,7 +258,7 @@ namespace StoreManagement.ViewModels
                 StockReceipt stockReceipt = new StockReceipt();
                 stockReceipt.ID = stockReceiptID;
                 stockReceipt.CheckIn = DateTime.Now;
-                stockReceipt.Total = product.Count * product.ImportPrice;
+                stockReceipt.Total = amount * product.ImportPrice;
 
                 DataProvider.Instance.DB.Products.AddOrUpdate(product);
                 DataProvider.Instance.DB.StockReceipts.AddOrUpdate(stockReceipt);
@@ -272,6 +272,9 @@ namespace StoreManagement.ViewModels
             finally
             {
                 this.LoadProduct(this.HomeWindow);
+                BillViewModel billViewModel = new BillViewModel();
+                billViewModel.LoadStockReceipt(this.HomeWindow);
+
                 para.Close();
             }
         }
