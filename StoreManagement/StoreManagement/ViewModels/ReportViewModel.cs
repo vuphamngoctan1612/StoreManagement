@@ -149,7 +149,7 @@ namespace StoreManagement.ViewModels
             catch { }
             if (sumInvoicesTotalYesterday != 0)
             {
-                para.yesterday_compare.Text = ((int)(100 * sumInvoicesTotal / sumInvoicesTotalYesterday) - 100).ToString("0.00") + "%";
+                para.yesterday_compare.Text = ((100 * sumInvoicesTotal / sumInvoicesTotalYesterday) - 100).ToString("0.00") + "%";
                 if (((int)(100 * sumInvoicesTotal / sumInvoicesTotalYesterday) - 100).ToString().First() == '-')
                 {
                     para.yesterday_compare.Foreground = (Brush)new BrushConverter().ConvertFrom("#E3507A");
@@ -166,12 +166,17 @@ namespace StoreManagement.ViewModels
             {
                 List<Int64> tempLastMonth = DataProvider.Instance.DB.Database.SqlQuery<Int64>("select sum(Total) from Invoice " +
                                                                                                 "where(select month(Checkout) as month) = (select month(GETDATE()) - 1 as month)").ToList();
+
+                List<Int64> tempThisMonth = DataProvider.Instance.DB.Database.SqlQuery<Int64>("select sum(Total) from Invoice " +
+                                                                                                "where(select month(Checkout) as month) = (select month(GETDATE()) as month)").ToList();
+
                 sumInvoicesLastMonth = (double)(tempLastMonth.First());
+                sumInvoicesThisMonth = (double)(tempThisMonth.First());
             }
             catch { }
             if (sumInvoicesLastMonth != 0)
             {
-                para.month_compare.Text = ((int)(100 * sumInvoicesThisMonth / sumInvoicesLastMonth) - 100).ToString("0.00") + "%";
+                para.month_compare.Text = ((100 * sumInvoicesThisMonth / sumInvoicesLastMonth) - 100).ToString("0.00") + "%";
                 if (((int)(100 * sumInvoicesThisMonth / sumInvoicesLastMonth) - 100).ToString().First() == '-')
                 {
                     para.month_compare.Foreground = (Brush)new BrushConverter().ConvertFrom("#E3507A");
