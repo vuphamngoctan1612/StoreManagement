@@ -100,7 +100,7 @@ namespace StoreManagement.ViewModels
                     {
                         if (invoice.Checkout.Value.Month == DateTime.Now.Month && invoice.Checkout.Value.Year == DateTime.Now.Year)
                         {
-                            dept += invoice.Debt;
+                            deptDebt += invoice.Debt;
                             countDebt++;
                             invoiceDebtAfter.Add(invoice);
                         }
@@ -118,7 +118,7 @@ namespace StoreManagement.ViewModels
                     debtReportUC.txtOriginalDebt.Text = "0";
                     debtReportUC.txtCostOverrun.Text = "0";
                 }
-                debtReportUC.txtTotal.Text = dept.ToString();
+                debtReportUC.txtTotal.Text = ConvertToString(dept);
 
                 para.stkDebtReport.Children.Add(debtReportUC);
             }
