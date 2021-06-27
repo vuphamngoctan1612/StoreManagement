@@ -136,7 +136,7 @@
                     <Button 
                         x:Name="btnStores" 
                         Uid="1"
-                        Content="Stores"
+                        Content="Agencies"
                         Foreground="#504D85"
                         Margin="0" 
                         Height="45" 

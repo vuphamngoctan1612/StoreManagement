@@ -149,7 +149,7 @@ namespace StoreManagement.ViewModels
             catch { }
             if (sumInvoicesTotalYesterday != 0)
             {
-                para.yesterday_compare.Text = ((int)(100 * sumInvoicesTotal / sumInvoicesTotalYesterday) - 100).ToString() + "%";
+                para.yesterday_compare.Text = ((int)(100 * sumInvoicesTotal / sumInvoicesTotalYesterday) - 100).ToString("0.00") + "%";
                 if (((int)(100 * sumInvoicesTotal / sumInvoicesTotalYesterday) - 100).ToString().First() == '-')
                 {
                     para.yesterday_compare.Foreground = (Brush)new BrushConverter().ConvertFrom("#E3507A");
@@ -171,7 +171,7 @@ namespace StoreManagement.ViewModels
             catch { }
             if (sumInvoicesLastMonth != 0)
             {
-                para.month_compare.Text = ((int)(100 * sumInvoicesThisMonth / sumInvoicesLastMonth) - 100).ToString() + "%";
+                para.month_compare.Text = ((int)(100 * sumInvoicesThisMonth / sumInvoicesLastMonth) - 100).ToString("0.00") + "%";
                 if (((int)(100 * sumInvoicesThisMonth / sumInvoicesLastMonth) - 100).ToString().First() == '-')
                 {
                     para.month_compare.Foreground = (Brush)new BrushConverter().ConvertFrom("#E3507A");

@@ -326,6 +326,8 @@ namespace StoreManagement.ViewModels
                 invoiceWindow.txbAddress.Text = "University of Infomation Technology";
                 invoiceWindow.txbIDinvoice.Text = stockReceipt.ID.ToString();
                 invoiceWindow.txbDate.Text = stockReceipt.CheckIn.Value.ToShortDateString();
+
+                invoiceWindow.stkListProductChosenInvoice.Children.Add(new BillUC());
                 foreach (StockReceiptInfo stockReceiptInfo in stockReceiptInfos)
                 {
                     BillUC billUC = new BillUC();
@@ -360,6 +362,8 @@ namespace StoreManagement.ViewModels
                 invoiceWindow.txbPhone.Text = invoice.Agency.PhoneNumber;
                 invoiceWindow.txbIDinvoice.Text = invoice.ID.ToString();
                 invoiceWindow.txbDate.Text = invoice.Checkout.Value.ToShortDateString();
+
+                invoiceWindow.stkListProductChosenInvoice.Children.Add(new BillUC());
                 foreach (InvoiceInfo invoiceInfo in invoiceInfos)
                 {
                     Product product = new Product();
