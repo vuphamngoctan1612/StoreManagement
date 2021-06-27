@@ -336,8 +336,8 @@ namespace StoreManagement.ViewModels
                     billUC.UnitName.Text = stockReceiptInfo.Product.Name.ToString();
                     billUC.Unit.Text = stockReceiptInfo.Product.Unit.Name.ToString();
                     billUC.Amount.Text = ConvertToString(stockReceiptInfo.Amount);
-                    billUC.Price.Text = ConvertToString(stockReceiptInfo.Product.ExportPrice);
-                    billUC.Total.Text = ConvertToString(stockReceiptInfo.Price);
+                    billUC.Price.Text = ConvertToString(stockReceiptInfo.Price);
+                    billUC.Total.Text = ConvertToString(stockReceiptInfo.Amount * stockReceiptInfo.Price);
                     invoiceWindow.stkListProductChosenInvoice.Children.Add(billUC);
                 }
                 invoiceWindow.txbTotal.Text = ConvertToString(stockReceipt.Total);

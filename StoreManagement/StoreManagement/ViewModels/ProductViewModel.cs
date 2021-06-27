@@ -352,6 +352,17 @@ namespace StoreManagement.ViewModels
                 return;
             }
 
+            StreamReader sr = new StreamReader("../../cache.txt");
+            string cache = sr.ReadToEnd();
+            sr.Close();
+            string[] rulesSetting = cache.Split(' ');
+
+            if (DataProvider.Instance.DB.Products.Where(x => x.IsDelete == false).Count() >= int.Parse(rulesSetting[2]))
+            {
+                CustomMessageBox.Show("Product limit!", "Notify", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
             try
             {
                 int id = int.Parse(para.txtID.Text);

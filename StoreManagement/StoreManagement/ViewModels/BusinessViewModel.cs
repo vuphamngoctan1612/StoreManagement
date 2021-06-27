@@ -197,7 +197,7 @@ namespace StoreManagement.ViewModels
             inv.AgencyID = int.Parse(this.HomeWindow.txbIDAgencyPayment.Text);
             inv.Checkout = DateTime.Parse(wdInvoice.txbDate.Text);
             inv.Debt = ConvertToNumber(wdInvoice.txbChange.Text);
-            inv.Total = (long)(ConvertToNumber(wdInvoice.txbTotal.Text) * 1.02);
+            inv.Total = (long)(ConvertToNumber(wdInvoice.txbTotal.Text));
 
             DataProvider.Instance.DB.Invoices.Add(inv);
 
