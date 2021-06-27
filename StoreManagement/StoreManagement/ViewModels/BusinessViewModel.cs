@@ -304,6 +304,7 @@ namespace StoreManagement.ViewModels
                 if (retainer <= total)
                 {
                     this.HomeWindow.txbChangePayment.Text = SeparateThousands((total - retainer).ToString());
+                    this.HomeWindow.txbExcessCash.Text = "0";
                 }
                 else
                 {
