@@ -558,7 +558,7 @@
             <Grid Grid.Row="1"
                 x:Name="grdBody_Main"
                 DataContext="{StaticResource ReportVM}"
-                Visibility="Visible">
+                Visibility="Hidden">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="2"></RowDefinition>
                     <RowDefinition Height="210"></RowDefinition>
@@ -1281,7 +1281,7 @@
             <Grid Grid.Row="1"                 
                 DataContext="{StaticResource ProductVM}"
                 x:Name="grdBody_Product"
-                Visibility="Hidden">
+                Visibility="Visible">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="Loaded">
                         <i:InvokeCommandAction 
@@ -1298,46 +1298,90 @@
                     Background="#FBA1BB"/>
                 <Grid Grid.Row="1">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition Width="1.5*"></ColumnDefinition>
                         <ColumnDefinition></ColumnDefinition>
                     </Grid.ColumnDefinitions>
                     <Grid Grid.Column="0">
-                        <Rectangle
-                            HorizontalAlignment="Left"
-                            VerticalAlignment="Center"
+                        <Grid 
+                            Margin="30 5 0 0"
                             Width="300"
-                            Height="40"
-                            Margin="30 10 0 0"
-                            StrokeThickness="2"
-                            RadiusX="5"
-                            RadiusY="5"
-                            Stroke="#E2D2DA"/>
-                        <materialDesign:PackIcon
-                            Kind="Magnify"
-                            Width="40"
-                            Height="35"
-                            HorizontalAlignment="Stretch" 
-                            VerticalAlignment="Stretch"
-                            Margin="45 10 0 0">
-                        </materialDesign:PackIcon>
-                        <TextBox
-                            x:Name="txtSeachProduct"
-                            BorderThickness="0"
-                            Height="35"
-                            Width="250" 
                             HorizontalAlignment="Left"
-                            Margin="40 10 0 0"
-                            materialDesign:HintAssist.Hint="Search..."
-                            FontSize="22"
-                            FontWeight="Regular"
-                            BorderBrush="#FCE5EC">
-                            <i:Interaction.Triggers>
-                                <i:EventTrigger EventName="TextChanged">
-                                    <i:InvokeCommandAction Command="{Binding SearchProductCommand}" 
-                                                       CommandParameter="{Binding ElementName=wdHome}"/>
-                                </i:EventTrigger>
-                            </i:Interaction.Triggers>
-                        </TextBox>
+                            VerticalAlignment="Center">
+                            <Rectangle
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                Width="300"
+                                Height="40"
+                                Margin="0 0 0 0"
+                                StrokeThickness="2"
+                                RadiusX="5"
+                                RadiusY="5"
+                                Stroke="#E2D2DA"/>
+                            <materialDesign:PackIcon
+                                Kind="Magnify"
+                                Width="40"
+                                Height="35"
+                                HorizontalAlignment="Left" 
+                                VerticalAlignment="Center"
+                                Margin="260 0 0 0">
+                            </materialDesign:PackIcon>
+                            <TextBox
+                                x:Name="txtSeachProduct"
+                                BorderThickness="0"
+                                Height="35"
+                                Width="250" 
+                                HorizontalAlignment="Left"
+                                Margin="10 0 0 0"
+                                materialDesign:HintAssist.Hint="Search..."
+                                FontSize="22"
+                                FontWeight="Regular"
+                                BorderBrush="#FCE5EC">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="TextChanged">
+                                        <i:InvokeCommandAction
+                                            Command="{Binding SearchProductCommand}" 
+                                            CommandParameter="{Binding ElementName=wdHome}"/>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </TextBox>
+                        </Grid>
+                        <Grid
+                            Width="240"
+                            Margin="0 5 80 0"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Center"
+                            Height="40">
+                            <Rectangle 
+                                Stroke="#E2D2DA"
+                                StrokeThickness="2"
+                                RadiusY="5" 
+                                RadiusX="5" />
+                            <ComboBox
+                                x:Name="cboSelectFast"
+                                materialDesign:ComboBoxAssist.ClassicMode="True"
+                                materialDesign:HintAssist.Hint="Select list by type"
+                                Height="35"
+                                FontSize="22"
+                                Width="220"
+                                BorderThickness="0"
+                                Padding="0,0,5,0"
+                                ItemsSource="{Binding ItemsSourceUnits}"
+                                SelectedItem="{Binding SelectedUnits}"
+                                DisplayMemberPath="Name"
+                                VerticalContentAlignment="Center"
+                                HorizontalContentAlignment="Left"
+                                FontWeight="Regular"
+                                BorderBrush="{StaticResource Black2}" 
+                                Background="{StaticResource White}">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="SelectionChanged">
+                                        <i:InvokeCommandAction 
+                                            Command="{Binding SelectedChangedUnitsCommand}"
+                                            CommandParameter="{Binding ElementName=wdHome}"/>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </ComboBox>
+                        </Grid>
                     </Grid>
                     <Grid Grid.Column="1">
                         <StackPanel 
@@ -1357,6 +1401,19 @@
                                 Content="Export excel"
                                 Style="{StaticResource MaterialDesignRaisedButton}"
                                 Command="{Binding ExportExcelProductCommand}"
+                                CommandParameter="{Binding ElementName=wdHome}">
+                            </Button>
+                            <Button
+                                Margin="0 10 20 0"
+                                FocusVisualStyle="{x:Null}"
+                                BorderBrush="{x:Null}"
+                                Cursor="Hand"
+                                Background="#F79BB5"
+                                Foreground="#504D85"
+                                Content="Import product"
+                                DataContext="{StaticResource ImportProductVM}"
+                                Style="{StaticResource MaterialDesignRaisedButton}"
+                                Command="{Binding OpenImportProductWindowCommand}"
                                 CommandParameter="{Binding ElementName=wdHome}">
                             </Button>
                             <Button
@@ -1728,7 +1785,7 @@
                                     Grid.Row="1">
                                     <Border
                                         Background="{x:Null}"
-                                        CornerRadius="8"
+                                        CornerRadius="5"
                                         BorderBrush="LightGray"
                                         BorderThickness="1"
                                         Height="40"
@@ -1737,6 +1794,7 @@
                                         VerticalAlignment="Center">
                                         <ComboBox
                                             Name="cbSearchAgency"
+                                            materialDesign:ComboBoxAssist.ClassicMode="True"
                                             HorizontalAlignment="Center"
                                             VerticalAlignment="Center"
                                             Height="40"
@@ -1747,7 +1805,7 @@
                                             Foreground="#504D85"
                                             Background="Transparent"
                                             FontWeight="SemiBold"
-                                            Padding="0"
+                                            Padding="0 0 10 0"
                                             HorizontalContentAlignment="Center"
                                             VerticalContentAlignment="Center" 
                                             Cursor="Arrow"
@@ -1785,6 +1843,8 @@
                                         BorderBrush="{x:Null}"
                                         materialDesign:ButtonAssist.CornerRadius="6"
                                         Content="Add"
+                                        FontSize="20"
+                                        FontWeight="SemiBold"
                                         Command="{Binding AddAgencytoPaymentCommand}"
                                         CommandParameter="{Binding ElementName=cbSearchAgency}">
                                     </Button>
@@ -2044,6 +2104,7 @@
                                 <Grid
                                     Grid.Row="8">
                                     <Button
+                                        IsDefault="True"
                                         x:Name="btnPayinPayment"
                                         Height="40"
                                         Width="250"

@@ -665,15 +665,15 @@ namespace StoreManagement.ViewModels
                 return pageNumber;
         }
 
-        private String SeparateThousands(String txt)
-        {
-            if (!string.IsNullOrEmpty(txt))
-            {
-                System.Globalization.CultureInfo culture = new System.Globalization.CultureInfo("en-US");
-                ulong valueBefore = ulong.Parse(ConvertToNumber(txt).ToString(), System.Globalization.NumberStyles.AllowThousands);
-                txt = String.Format(culture, "{0:N0}", valueBefore);
-            }
-            return txt;
-        }
+        //private String SeparateThousands(String txt)
+        //{
+        //    if (!string.IsNullOrEmpty(txt))
+        //    {
+        //        System.Globalization.CultureInfo culture = new System.Globalization.CultureInfo("en-US");
+        //        ulong valueBefore = ulong.Parse(ConvertToNumber(txt).ToString(), System.Globalization.NumberStyles.AllowThousands);
+        //        txt = String.Format(culture, "{0:N0}", valueBefore);
+        //    }
+        //    return txt;
+        //}
     }
 }

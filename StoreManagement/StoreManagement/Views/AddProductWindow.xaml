@@ -13,7 +13,7 @@
         Background="White"
         Title="Add product window" 
         Height="500" 
-        Width="900"
+        Width="950"
         ResizeMode="CanMinimize"
         x:Name="wdAddProduct"
         WindowStartupLocation="CenterScreen">
@@ -75,12 +75,14 @@
                     <RowDefinition Height="0.8*"></RowDefinition>
                     <RowDefinition Height="0.8*"></RowDefinition>
                     <RowDefinition Height="0.8*"></RowDefinition>
+                    <RowDefinition Height="0.8*"></RowDefinition>
                     <RowDefinition></RowDefinition>
                 </Grid.RowDefinitions>
                 <Grid Grid.Row="0"
-                    Width="450" 
+                    Width="550"
                     VerticalAlignment="Center"
-                    HorizontalAlignment="Center">
+                    HorizontalAlignment="Left"
+                    Margin="30 0 0 0">
                     <Label
                         HorizontalAlignment="Left"
                         VerticalAlignment="Center"
@@ -92,8 +94,8 @@
                     </Label>
                     <Rectangle
                         HorizontalAlignment="Left"
-                        Width="340"
-                        Margin="100 0 0 0"
+                        Width="400"
+                        Margin="150 0 0 0"
                         StrokeThickness="2"
                         RadiusX="5"
                         RadiusY="5"
@@ -104,8 +106,8 @@
                         materialDesign:HintAssist.Hint="Automatic"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Center"
-                        Width="320"
-                        Margin="110 0 0 0"
+                        Width="380"
+                        Margin="160 0 0 0"
                         BorderThickness="0"
                         MaxLines="1"
                         Height="40"
@@ -118,9 +120,10 @@
                     </TextBox>
                 </Grid>
                 <Grid Grid.Row="1"
-                    Width="450" 
+                    Width="550"
                     VerticalAlignment="Center"
-                    HorizontalAlignment="Center">
+                    HorizontalAlignment="Left"
+                    Margin="30 0 0 0">
                     <Label
                         HorizontalAlignment="Left"
                         VerticalAlignment="Center"
@@ -131,8 +134,8 @@
                     </Label>
                     <Rectangle
                         HorizontalAlignment="Left"
-                        Width="340"
-                        Margin="100 0 0 0"
+                        Width="400"
+                        Margin="150 0 0 0"
                         StrokeThickness="2"
                         RadiusX="5"
                         RadiusY="5"
@@ -143,8 +146,8 @@
                         materialDesign:HintAssist.Hint="Enter your product name"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Center"
-                        Width="320"
-                        Margin="110 0 0 0"
+                        Width="380"
+                        Margin="160 0 0 0"
                         BorderThickness="0"
                         MaxLines="1"
                         Height="40"
@@ -165,32 +168,25 @@
                     </TextBox>
                 </Grid>
                 <Grid Grid.Row="2"
-                    Width="550" 
+                    Width="600" 
                     VerticalAlignment="Center"
-                    HorizontalAlignment="Center">
+                    HorizontalAlignment="Left"
+                    Margin="30 0 0 0">
                     <Label
                         HorizontalAlignment="Left"
                         VerticalAlignment="Center"
-                        Margin="50 0 0 0"
+                        Margin="0 0 0 0"
                         Content="Units"
                         FontSize="22"
                         FontWeight="SemiBold"
                         Foreground="#57548B">
                     </Label>
-                    <!--<Rectangle
-                        HorizontalAlignment="Left"
-                        Width="340"
-                        Margin="150 0 0 0"
-                        StrokeThickness="2"
-                        RadiusX="10"
-                        RadiusY="10"
-                        Stroke="#E2D2DA"/>-->
                     <Border
                         HorizontalAlignment="Left"
                         Background="Transparent"
                         BorderBrush="#E2D2DA"
                         BorderThickness="2"
-                        Width="340"
+                        Width="400"
                         Margin="150 0 0 0"
                         CornerRadius="5">
                         <ComboBox
@@ -202,7 +198,7 @@
                             Background="{x:Null}"
                             FocusVisualStyle="{x:Null}"
                             Height="35"
-                            Width="320"
+                            Width="380"
                             Margin="10 0 0 0"
                             Padding="0 0 15 0"
                             BorderThickness="0"
@@ -230,7 +226,7 @@
                         Opacity="0.85"
                         VerticalAlignment="Center"
                         HorizontalAlignment="Right"
-                        Margin="0 0 18 1"
+                        Margin="10 0 18 1"
                         Width="30"
                         Height="30"
                         Kind="PlusCircleOutline">
@@ -241,7 +237,7 @@
                         Foreground="#57548B"
                         Height="35"
                         Width="35"
-                        Margin="0 0 15 0"
+                        Margin="10 0 15 0"
                         HorizontalAlignment="Right"
                         VerticalAlignment="Center"
                         Cursor="Hand"
@@ -250,21 +246,82 @@
                     </Button>
                 </Grid>
                 <Grid Grid.Row="3"
-                    Width="450" 
+                    Width="550"
                     VerticalAlignment="Center"
-                    HorizontalAlignment="Center">
+                    HorizontalAlignment="Left"
+                    Margin="30 0 0 0">
                     <Label
                         HorizontalAlignment="Left"
                         VerticalAlignment="Center"
-                        Content="Price"
+                        Content="Import price"
                         FontSize="22"
                         FontWeight="SemiBold"
                         Foreground="#57548B">
                     </Label>
                     <Rectangle
                         HorizontalAlignment="Left"
-                        Width="340"
-                        Margin="100 0 0 0"
+                        Width="400"
+                        Margin="150 0 0 0"
+                        StrokeThickness="2"
+                        RadiusX="5"
+                        RadiusY="5"
+                        Stroke="#E2D2DA"/>
+                    <TextBox
+                        x:Name="txtImportPrice"
+                        MaxLength="15"
+                        materialDesign:HintAssist.Hint="Enter your import price"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Width="380"
+                        Margin="160 0 0 0"
+                        BorderThickness="0"
+                        MaxLines="1"
+                        Height="40"
+                        FontSize="17"
+                        FontWeight="SemiBold"
+                        Padding="0"
+                        HorizontalContentAlignment="Left"
+                        VerticalContentAlignment="Center"
+                        Validation.ErrorTemplate="{StaticResource textBoxErrorTemplate}"
+                        >
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="TextChanged">
+                                <i:InvokeCommandAction
+                                    Command="{Binding SeparateThousandsCommand}" 
+                                    CommandParameter="{Binding ElementName=txtImportPrice}"/>
+                            </i:EventTrigger>
+                            <i:EventTrigger EventName="PreviewTextInput">
+                                <ei:CallMethodAction 
+                                    TargetObject="{Binding }" 
+                                    MethodName="NumberValidationTextBox" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                        <TextBox.Text>
+                            <Binding Path="ImportPrice" Source="{StaticResource Product}" UpdateSourceTrigger="PropertyChanged" Mode="OneWayToSource">
+                                <Binding.ValidationRules>
+                                    <vd:NotNullValidation ErrorMessage="Please enter import price"/>
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox.Text>
+                    </TextBox>
+                </Grid>
+                <Grid Grid.Row="4"
+                    Width="550"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Left"
+                    Margin="30 0 0 0">
+                    <Label
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Content="Export price"
+                        FontSize="22"
+                        FontWeight="SemiBold"
+                        Foreground="#57548B">
+                    </Label>
+                    <Rectangle
+                        HorizontalAlignment="Left"
+                        Width="400"
+                        Margin="150 0 0 0"
                         StrokeThickness="2"
                         RadiusX="5"
                         RadiusY="5"
@@ -272,11 +329,11 @@
                     <TextBox
                         x:Name="txtPrice"
                         MaxLength="15"
-                        materialDesign:HintAssist.Hint="Enter your price"
+                        materialDesign:HintAssist.Hint="Enter your export price"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Center"
-                        Width="320"
-                        Margin="110 0 0 0"
+                        Width="380"
+                        Margin="160 0 0 0"
                         BorderThickness="0"
                         MaxLines="1"
                         Height="40"
@@ -300,62 +357,55 @@
                             </i:EventTrigger>
                         </i:Interaction.Triggers>
                         <TextBox.Text>
-                            <Binding Path="Name" Source="{StaticResource Product}" UpdateSourceTrigger="PropertyChanged" Mode="OneWayToSource">
+                            <Binding Path="ExportPrice" Source="{StaticResource Product}" UpdateSourceTrigger="PropertyChanged" Mode="OneWayToSource">
                                 <Binding.ValidationRules>
-                                    <vd:NotNullValidation ErrorMessage="Please enter price"/>
+                                    <vd:NotNullValidation ErrorMessage="Please enter export price"/>
                                 </Binding.ValidationRules>
                             </Binding>
                         </TextBox.Text>
                     </TextBox>
                 </Grid>
-                <Grid Grid.Row="4">
-                    <Grid
-                        HorizontalAlignment="Center"
+                <Grid Grid.Row="5">
+                    <Button 
+                        x:Name="btnSave"
+                        IsDefault="True"
+                        HorizontalAlignment="Left"
+                        HorizontalContentAlignment="Center"
                         VerticalAlignment="Center"
-                        Height="40"
-                        Width="450"
-                        Margin="0 30 0 30">
-                        <Button 
-                            x:Name="btnSave"
-                            IsDefault="True"
-                            HorizontalAlignment="Left"
-                            HorizontalContentAlignment="Center"
-                            VerticalAlignment="Center"
-                            Width="110"
-                            Height="35"
-                            Margin="150 0 0 0"
-                            Content="Save"
-                            BorderThickness="0"
-                            Foreground="#57548B"
-                            Background="#F79BB5"
-                            FontSize="22"
-                            Cursor="Hand"
-                            FocusVisualStyle="{x:Null}"
-                            FontWeight="SemiBold"
-                            Visibility="Visible"
-                            Command="{Binding AddProduct_SaveCommand}"
-                            CommandParameter="{Binding ElementName=wdAddProduct}">
-                        </Button>
-                        <Button 
-                            x:Name="btnClose"
-                            HorizontalAlignment="Left"
-                            HorizontalContentAlignment="Center"
-                            VerticalAlignment="Center"
-                            Width="110"
-                            Height="35"
-                            Margin="300 0 0 0"
-                            Content="Close"
-                            BorderThickness="0"
-                            Cursor="Hand"
-                            Background="#F0F0F0"
-                            FocusVisualStyle="{x:Null}"
-                            Foreground="#57548B"
-                            FontSize="22"
-                            FontWeight="SemiBold"
-                            Command="{Binding CloseWindowCommand}"
-                            CommandParameter="{Binding ElementName=wdAddProduct}">
-                        </Button>
-                    </Grid>
+                        Width="110"
+                        Height="35"
+                        Margin="250 0 0 0"
+                        Content="Save"
+                        BorderThickness="0"
+                        Foreground="#57548B"
+                        Background="#F79BB5"
+                        FontSize="22"
+                        Cursor="Hand"
+                        FocusVisualStyle="{x:Null}"
+                        FontWeight="SemiBold"
+                        Visibility="Visible"
+                        Command="{Binding AddProduct_SaveCommand}"
+                        CommandParameter="{Binding ElementName=wdAddProduct}">
+                    </Button>
+                    <Button 
+                        x:Name="btnClose"
+                        HorizontalAlignment="Left"
+                        HorizontalContentAlignment="Center"
+                        VerticalAlignment="Center"
+                        Width="110"
+                        Height="35"
+                        Margin="400 0 0 0"
+                        Content="Close"
+                        BorderThickness="0"
+                        Cursor="Hand"
+                        Background="#F0F0F0"
+                        FocusVisualStyle="{x:Null}"
+                        Foreground="#57548B"
+                        FontSize="22"
+                        FontWeight="SemiBold"
+                        Command="{Binding CloseWindowCommand}"
+                        CommandParameter="{Binding ElementName=wdAddProduct}">
+                    </Button>
                 </Grid>
             </Grid>
         </Grid>

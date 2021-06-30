@@ -348,16 +348,16 @@ namespace StoreManagement.ViewModels
             para.txtNumberUnit_Setting.SelectionStart = para.txtNumberUnit_Setting.Text.Length;
         }
 
-        private String SeparateThousands(String txt)
-        {
-            if (!string.IsNullOrEmpty(txt))
-            {
-                System.Globalization.CultureInfo culture = new System.Globalization.CultureInfo("en-US");
-                ulong valueBefore = ulong.Parse(ConvertToNumber(txt).ToString(), System.Globalization.NumberStyles.AllowThousands);
-                txt = String.Format(culture, "{0:N0}", valueBefore);
-            }
-            return txt;
-        }
+        //public string SeparateThousands(string txt)
+        //{
+        //    if (!string.IsNullOrEmpty(txt))
+        //    {
+        //        System.Globalization.CultureInfo culture = new System.Globalization.CultureInfo("en-US");
+        //        ulong valueBefore = ulong.Parse(ConvertToNumber(txt).ToString(), System.Globalization.NumberStyles.AllowThousands);
+        //        txt = string.Format(culture, "{0:N0}", valueBefore);
+        //    }
+        //    return txt;
+        //}
 
         private int LimitOfAgencyinDistrict()
         {
