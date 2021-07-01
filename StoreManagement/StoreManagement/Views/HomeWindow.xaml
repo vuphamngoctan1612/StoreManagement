@@ -1057,7 +1057,8 @@
                             HorizontalAlignment="Left"
                             VerticalAlignment="Center"
                             Margin="40 10 0 0"
-                            Visibility="Hidden">
+                            Visibility="Hidden"
+                            MaxLength="15">
                             <i:Interaction.Triggers>
                                 <i:EventTrigger EventName="PreviewTextInput" >
                                     <ei:CallMethodAction TargetObject="{Binding }"

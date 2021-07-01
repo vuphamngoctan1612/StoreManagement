@@ -141,12 +141,27 @@ namespace StoreManagement.ViewModels
             MessageBoxResult res = CustomMessageBox.Show("Are you sure?", "Confirm", MessageBoxButton.YesNo, MessageBoxImage.Question);
             if (res == MessageBoxResult.Yes)
             {
+                InvoiceWindow invoiceWindow = new InvoiceWindow();
                 StockReceipt stockReceipt = new StockReceipt();
                 stockReceipt.ID = int.Parse(this.Window.txbStockID.Text);
                 stockReceipt.CheckIn = DateTime.Now;
                 stockReceipt.Total = ConvertToNumber(para.txbTotalPrice.Text);
 
                 DataProvider.Instance.DB.StockReceipts.Add(stockReceipt);
+
+                invoiceWindow.txbName.Text = "Our company";
+                invoiceWindow.txbAddress.Text = "University of Infomation Technology";
+                invoiceWindow.txbPhone.Text = "0xxxxxxxxx";
+                invoiceWindow.txbIDinvoice.Text = stockReceipt.ID.ToString();
+                invoiceWindow.txbDate.Text = DateTime.Now.ToShortDateString();
+                invoiceWindow.txbRetainer.Visibility = System.Windows.Visibility.Hidden;
+                invoiceWindow.txbRetainerText.Visibility = System.Windows.Visibility.Hidden;
+                invoiceWindow.txbRetainerVND.Visibility = System.Windows.Visibility.Hidden;
+                invoiceWindow.txbChange.Visibility = System.Windows.Visibility.Hidden;
+                invoiceWindow.txbChangeText.Visibility = System.Windows.Visibility.Hidden;
+                invoiceWindow.txbChangeVND.Visibility = System.Windows.Visibility.Hidden;
+                invoiceWindow.txbTotal.Text = ConvertToString(stockReceipt.Total);
+                invoiceWindow.stkListProductChosenInvoice.Children.Add(new BillUC());
 
                 foreach (StockReceiptControlUC item in this.Window.stkImportProducts.Children)
                 {
@@ -162,10 +177,21 @@ namespace StoreManagement.ViewModels
 
                     DataProvider.Instance.DB.Products.AddOrUpdate(product);
                     DataProvider.Instance.DB.StockReceiptInfoes.Add(stockReceiptInfo);
+
+                    BillUC billUC = new BillUC();
+                    billUC.ID.Text = stockReceiptInfo.ProductID.ToString();
+                    billUC.UnitName.Text = stockReceiptInfo.Product.Name.ToString();
+                    billUC.Unit.Text = stockReceiptInfo.Product.Unit.Name.ToString();
+                    billUC.Amount.Text = ConvertToString(stockReceiptInfo.Amount);
+                    billUC.Price.Text = ConvertToString(stockReceiptInfo.Price);
+                    billUC.Total.Text = ConvertToString(stockReceiptInfo.Amount * stockReceiptInfo.Price);
+                    invoiceWindow.stkListProductChosenInvoice.Children.Add(billUC);
                 }
                 // update count in list product
                 ProductViewModel productViewModel = new ProductViewModel();
                 productViewModel.LoadProduct(this.HomeWindow);
+
+                invoiceWindow.Show();
 
                 DataProvider.Instance.DB.SaveChanges();
             }
