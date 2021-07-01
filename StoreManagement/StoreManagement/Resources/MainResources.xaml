@@ -10,11 +10,12 @@
     <viewmodels:ProductViewModel x:Key="ProductVM"></viewmodels:ProductViewModel>
     <viewmodels:ReportViewModel x:Key="ReportVM"></viewmodels:ReportViewModel>
     <viewmodels:AgencyReportViewModel x:Key="AgencyReportVM"></viewmodels:AgencyReportViewModel>
-    <viewmodels:BusinessViewModel x:Key="BusinessVM"/>
-    <viewmodels:SettingViewModel x:Key="SettingVM"/>
+    <viewmodels:BusinessViewModel x:Key="BusinessVM"></viewmodels:BusinessViewModel>
+    <viewmodels:SettingViewModel x:Key="SettingVM"></viewmodels:SettingViewModel>
     <viewmodels:AccountViewModel x:Key="AccountVM"></viewmodels:AccountViewModel>
     <viewmodels:UnitsViewModel x:Key="UnitsVM"></viewmodels:UnitsViewModel>
-    <viewmodels:DistrictViewModel x:Key="DistrictVM"/>
+    <viewmodels:DistrictViewModel x:Key="DistrictVM"></viewmodels:DistrictViewModel>
+    <viewmodels:ImportProductViewModel x:Key="ImportProductVM"></viewmodels:ImportProductViewModel>
     <models:Product x:Key="Product"/>
     <models:Unit x:Key="Units"/>
     <models:Agency x:Key="Agency"/>
@@ -50,6 +51,22 @@
                 Text="{Binding ElementName=placeholder, Path=AdornedElement.(Validation.Errors)[0].ErrorContent}"
                 TextWrapping="Wrap" 
                 HorizontalAlignment="Left"/>
+        </StackPanel>
+    </ControlTemplate>
+
+    <ControlTemplate x:Key="textBoxErrorTemplate3">
+        <StackPanel>
+            <AdornedElementPlaceholder x:Name="placeholder"/>
+            <TextBlock 
+                Background="Transparent"
+                DockPanel.Dock="Bottom" 
+                Foreground="#FFF44336"
+                Padding="0 0 0 0"
+                FontSize="14"
+                MaxWidth="220"
+                Text="{Binding ElementName=placeholder, Path=AdornedElement.(Validation.Errors)[0].ErrorContent}"
+                TextWrapping="Wrap" 
+                HorizontalAlignment="Center"/>
         </StackPanel>
     </ControlTemplate>
 

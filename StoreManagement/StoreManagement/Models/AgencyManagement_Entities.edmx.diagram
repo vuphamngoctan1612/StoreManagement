@@ -25,6 +25,8 @@
         <AssociationConnector Association="AgencyManagementModel.FK_StockReceipt" />
         <EntityTypeShape EntityType="AgencyManagementModel.District" Width="2.125" PointX="6.75" PointY="6" />
         <AssociationConnector Association="AgencyManagementModel.FK_District" />
+        <EntityTypeShape EntityType="AgencyManagementModel.Setting" Width="1.5" PointX="0.75" PointY="0.75" />
+        <AssociationConnector Association="AgencyManagementModel.FK_District1" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

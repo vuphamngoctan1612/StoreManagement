@@ -14,6 +14,7 @@
                 <ResourceDictionary Source="Resources/ColorPalette.xaml"></ResourceDictionary>
                 <ResourceDictionary Source="Resources/ButtonStyle.xaml"></ResourceDictionary>
                 <ResourceDictionary Source="Resources/ScrollBarStyle.xaml"></ResourceDictionary>
+                <ResourceDictionary Source="Resources/DropShadowStyles.xaml"></ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

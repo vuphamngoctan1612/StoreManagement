@@ -68,8 +68,8 @@
                         Name="Label_Cancel" 
                         Padding="0"
                         Margin="0" 
-                        Content="Hủy"
-                        Foreground="#57548B"/>
+                        Content="Cancel"
+                        Foreground="#F0F0F0"/>
                 </Button>
                 <Button 
                     Name="Button_No" 
@@ -88,8 +88,8 @@
                         Name="Label_No" 
                         Padding="0" 
                         Margin="0" 
-                        Content="Không"
-                        Foreground="#57548B"/>
+                        Content="No"
+                        Foreground="White"/>
                 </Button>
                 <Button 
                     Name="Button_Yes" 
@@ -108,8 +108,8 @@
                         Name="Label_Yes" 
                         Padding="0"
                         Margin="0" 
-                        Content="Có"
-                        Foreground="#57548B"/>
+                        Content="Yes"
+                        Foreground="White"/>
                 </Button>
                 <Button 
                     Name="Button_OK" 
@@ -120,14 +120,14 @@
                     Height="26" 
                     Click="Button_OK_Click"
                     FocusVisualStyle="{x:Null}"
-                    Background="#F79BB5"
+                    Background="#FF1976D2"
                     BorderBrush="{x:Null}">
                     <Label 
                         Name="Label_Ok" 
                         Padding="0" 
                         Margin="0" 
                         Content="Ok"
-                        Foreground="#57548B"/>
+                        Foreground="White"/>
                 </Button>
             </DockPanel>
         </Grid>

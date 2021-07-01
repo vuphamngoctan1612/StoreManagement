@@ -15,8 +15,6 @@ create table Account
 	constraint PK_Account primary key(Username)
 )
 go
-insert into Account
-values ('dung', '625d45c587033e8970af8b4e3fdb575c', 'dung' , null)
 
 create table Agency
 (
@@ -67,13 +65,7 @@ create table Units
 
 	constraint PK_Units primary key(ID)
 )
-insert into Units
-values(3,'Hộp')
-Alter table Product
-add UnitsID int
-update Product
-set UnitsID = 1
-
+go
 
 create table Invoice
 (
@@ -138,8 +130,17 @@ create table District
 
 	constraint PK_District primary key(Name)
 )
+go
 
-insert into District values('Quận 1',2)
+create table Setting
+(
+	ID int,
+	NumberStoreInDistrict int default 0,
+
+	constraint PK_Setting primary key(ID)
+)
+
+insert into Setting values(1, 4)
 
 alter table Agency add constraint FK_District foreign key(District) references District(Name)
 go
@@ -167,34 +168,34 @@ go
 alter table StockReceiptInfo add constraint FK_Product foreign key(ProductID) references Product(ID)
 go
 
--- insert
-insert into TypeOfAgency values (1, 'Type 1', 1000000)
-insert into TypeOfAgency values (2, 'Type 2', 2000000)
+---- insert
+--insert into TypeOfAgency values (1, 'Type 1', 1000000)
+--insert into TypeOfAgency values (2, 'Type 2', 2000000)
 
-insert into Agency values (1, 'Agency 1', 1, '0987654321', 'TP HCM', 'Quan 1', GETDATE(), 'abcdxyz@gmail.com', 500000, 0)
-insert into Agency values (2, 'Agency 2', 2, '0987234321', 'TP HCM', 'Quan 1', GETDATE(), 'abcdxyz@gmail.com', 600000, 0)
-insert into Agency values (3, 'Agency 3', 2, '0985314321', 'TP HCM', 'Quan 1', GETDATE(), 'abcdxyz@gmail.com', 800000, 0)
-insert into Agency values (4, 'Agency 4', 1, '0987844321', 'TP HCM', 'Quan 1', GETDATE(), 'abcdxyz@gmail.com', 900000, 0)
+--insert into Agency values (1, 'Agency 1', 1, '0987654321', 'TP HCM', 'Quan 1', GETDATE(), 'abcdxyz@gmail.com', 500000, 0)
+--insert into Agency values (2, 'Agency 2', 2, '0987234321', 'TP HCM', 'Quan 1', GETDATE(), 'abcdxyz@gmail.com', 600000, 0)
+--insert into Agency values (3, 'Agency 3', 2, '0985314321', 'TP HCM', 'Quan 1', GETDATE(), 'abcdxyz@gmail.com', 800000, 0)
+--insert into Agency values (4, 'Agency 4', 1, '0987844321', 'TP HCM', 'Quan 1', GETDATE(), 'abcdxyz@gmail.com', 900000, 0)
 
-insert into Invoice values (1,1,'2021-2-19', 200000, 20000000)
-insert into Invoice values (2,1,'2021-2-28', 340000, 2900000)
-insert into Invoice values (3,1,'2021-2-3', 6100000, 5200000)
+--insert into Invoice values (1,1,'2021-2-19', 200000, 20000000)
+--insert into Invoice values (2,1,'2021-2-28', 340000, 2900000)
+--insert into Invoice values (3,1,'2021-2-3', 6100000, 5200000)
 
-insert into Invoice values (4,2,'2021-3-20', 860000, 5600000)
-insert into Invoice values (5,2,'2021-3-21', 900000, 6000000)
-insert into Invoice values (6,2,'2021-3-24', 640000, 5000000)
-insert into Invoice values (7,2,'2021-3-25', 2500000, 2500000)
+--insert into Invoice values (4,2,'2021-3-20', 860000, 5600000)
+--insert into Invoice values (5,2,'2021-3-21', 900000, 6000000)
+--insert into Invoice values (6,2,'2021-3-24', 640000, 5000000)
+--insert into Invoice values (7,2,'2021-3-25', 2500000, 2500000)
 
-insert into Invoice values (8,3,'2021-4-9', 700000, 9000000)
-insert into Invoice values (9,3,'2021-4-10', 900000, 2500000)
-insert into Invoice values (10,3,'2021-4-3', 550000, 200000)
-insert into Invoice values (11,3,'2021-4-25', 1000000, 1000000)
+--insert into Invoice values (8,3,'2021-4-9', 700000, 9000000)
+--insert into Invoice values (9,3,'2021-4-10', 900000, 2500000)
+--insert into Invoice values (10,3,'2021-4-3', 550000, 200000)
+--insert into Invoice values (11,3,'2021-4-25', 1000000, 1000000)
 
-insert into Invoice values (12,4,'2021-1-19', 2000000, 20000000)
-insert into Invoice values (13,4,GETDATE(), 210000, 2900000)
-insert into Invoice values (14,4,GETDATE(), 500000, 5200000)
-insert into Invoice values (15,4,GETDATE(), 200000, 4000000)
-insert into Invoice values (16,4,'2021-1-25', 290000, 2900000)
+--insert into Invoice values (12,4,'2021-1-19', 2000000, 20000000)
+--insert into Invoice values (13,4,GETDATE(), 210000, 2900000)
+--insert into Invoice values (14,4,GETDATE(), 500000, 5200000)
+--insert into Invoice values (15,4,GETDATE(), 200000, 4000000)
+--insert into Invoice values (16,4,'2021-1-25', 290000, 2900000)
 
 
 -- đống này kh insert được do thiếu product
@@ -207,25 +208,3 @@ insert into Invoice values (16,4,'2021-1-25', 290000, 2900000)
 --INSERT INTO InvoiceInfo VALUES (2, 2,3, 450000)
 --INSERT INTO InvoiceInfo VALUES (2, 3,3, 600000)
 --INSERT INTO InvoiceInfo VALUES (2, 4,3, 1000000)
-SELECT TOP 5 Agency.ID FROM Agency 
-JOIN Invoice ON Agency.ID = Invoice.AgencyID 
-WHERE MONTH(checkout) = 5 and YEAR(checkout) = 2021
-GROUP BY Agency.ID 
-ORDER BY SUM(INVOICE.TOTAL) DESC
-
-select  sum(Total) as Total from Invoice 
-WHERE YEAR(checkout) = 2021 and DATEPART(QUARTER, CHECKOUT) = 2
-group by AgencyID 
-order by Total DESC 
-SELECT TOP 5 Product.ID FROM Product
-JOIN InvoiceInfo ON Product.ID = InvoiceInfo.ProductID
-JOIN Invoice ON Invoice.ID = InvoiceInfo.InvoiceID
-WHERE MONTH(Checkout) = 5 and YEAR(Checkout) = 2021
-GROUP BY Product.ID
-ORDER BY SUM(InvoiceInfo.TOTAL) DESC
-select sum(InvoiceInfo.Total) as total from InvoiceInfo 
-                                            JOIN Invoice ON Invoice.ID = InvoiceInfo.InvoiceID 
-                                            WHERE YEAR(CHECKOUT) = 2021
-                                            group by ProductID 
-                                            order by Total DESC 
-select * from InvoiceInfo

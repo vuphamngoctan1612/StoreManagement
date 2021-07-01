@@ -44,7 +44,7 @@ namespace StoreManagement.ViewModels
         public ICommand PaymentShellOutCommand { get; set; }
         public ICommand PayCommand { get; set; }
         public ICommand CloseWindowCommand { get; set; }
-
+        public ICommand CloseReceiptBillWindowCommand { get; set; }
 
         public BillViewModel()
         {
@@ -69,6 +69,7 @@ namespace StoreManagement.ViewModels
             });
             PayCommand = new RelayCommand<ShellOutWindow>((para) => true, (para) => PayReceiptBill(para));
             CloseWindowCommand = new RelayCommand<ShellOutWindow>((para) => true, (para) => para.Close());
+            CloseReceiptBillWindowCommand = new RelayCommand<ReceiptBillWindow>((para) => true, (para) => para.Close());
         }
 
         private void PayReceiptBill(ShellOutWindow para)
@@ -110,9 +111,9 @@ namespace StoreManagement.ViewModels
                 reportViewModel.LoadChartByAgency();
                 reportViewModel.LoadChartByProduct();
 
-                Init(this.HomeWindow);
-                LoadBill(this.HomeWindow);
-                LoadStockReceipt(this.HomeWindow);
+                //Init(this.HomeWindow);
+                //LoadBill(this.HomeWindow);
+                //LoadStockReceipt(this.HomeWindow);
                 LoadReceiptBill(this.HomeWindow);
 
                 AgencyReportViewModel agencyReportViewModel = new AgencyReportViewModel();
@@ -188,16 +189,16 @@ namespace StoreManagement.ViewModels
             para.cbbName.DisplayMemberPath = "Name";
         }
 
-        private String SeparateThousands(String txt)
-        {
-            if (!string.IsNullOrEmpty(txt))
-            {
-                System.Globalization.CultureInfo culture = new System.Globalization.CultureInfo("en-US");
-                ulong valueBefore = ulong.Parse(ConvertToNumber(txt).ToString(), System.Globalization.NumberStyles.AllowThousands);
-                txt = String.Format(culture, "{0:N0}", valueBefore);
-            }
-            return txt;
-        }
+        //private String SeparateThousands(String txt)
+        //{
+        //    if (!string.IsNullOrEmpty(txt))
+        //    {
+        //        System.Globalization.CultureInfo culture = new System.Globalization.CultureInfo("en-US");
+        //        ulong valueBefore = ulong.Parse(ConvertToNumber(txt).ToString(), System.Globalization.NumberStyles.AllowThousands);
+        //        txt = String.Format(culture, "{0:N0}", valueBefore);
+        //    }
+        //    return txt;
+        //}
 
         public void Init(HomeWindow para)
         {
@@ -325,6 +326,8 @@ namespace StoreManagement.ViewModels
                 invoiceWindow.txbAddress.Text = "University of Infomation Technology";
                 invoiceWindow.txbIDinvoice.Text = stockReceipt.ID.ToString();
                 invoiceWindow.txbDate.Text = stockReceipt.CheckIn.Value.ToShortDateString();
+
+                invoiceWindow.stkListProductChosenInvoice.Children.Add(new BillUC());
                 foreach (StockReceiptInfo stockReceiptInfo in stockReceiptInfos)
                 {
                     BillUC billUC = new BillUC();
@@ -333,8 +336,8 @@ namespace StoreManagement.ViewModels
                     billUC.UnitName.Text = stockReceiptInfo.Product.Name.ToString();
                     billUC.Unit.Text = stockReceiptInfo.Product.Unit.Name.ToString();
                     billUC.Amount.Text = ConvertToString(stockReceiptInfo.Amount);
-                    billUC.Price.Text = ConvertToString(stockReceiptInfo.Product.ExportPrice);
-                    billUC.Total.Text = ConvertToString(stockReceiptInfo.Price);
+                    billUC.Price.Text = ConvertToString(stockReceiptInfo.Price);
+                    billUC.Total.Text = ConvertToString(stockReceiptInfo.Amount * stockReceiptInfo.Price);
                     invoiceWindow.stkListProductChosenInvoice.Children.Add(billUC);
                 }
                 invoiceWindow.txbTotal.Text = ConvertToString(stockReceipt.Total);
@@ -359,6 +362,8 @@ namespace StoreManagement.ViewModels
                 invoiceWindow.txbPhone.Text = invoice.Agency.PhoneNumber;
                 invoiceWindow.txbIDinvoice.Text = invoice.ID.ToString();
                 invoiceWindow.txbDate.Text = invoice.Checkout.Value.ToShortDateString();
+
+                invoiceWindow.stkListProductChosenInvoice.Children.Add(new BillUC());
                 foreach (InvoiceInfo invoiceInfo in invoiceInfos)
                 {
                     Product product = new Product();

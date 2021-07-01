@@ -63,6 +63,20 @@ namespace StoreManagement.ViewModels
                 para.tb_main.Text = "1";
             }
 
+            if (para.tb_main.Text == "0")
+                para.cmdDown.IsEnabled = false;
+            else
+                para.cmdDown.IsEnabled = true;
+
+            int id = int.Parse(para.txbID.Text);
+            if (DataProvider.Instance.DB.Products.Where(x => x.ID == id).First().Count < int.Parse(para.tb_main.Text))
+            {
+                CustomMessageBox.Show("Not enough product", "Notify", MessageBoxButton.OK, MessageBoxImage.Warning);
+                para.tb_main.Text = DataProvider.Instance.DB.Products.Where(x => x.ID == id).First().Count.ToString();
+                return;
+            }
+
+
             int total = (int)ConvertToNumber(para.txbPrice.Text.ToString()) * int.Parse(para.tb_main.Text.ToString());
             para.txbTotal.Text = SeparateThousands(total.ToString());
 
@@ -129,7 +143,7 @@ namespace StoreManagement.ViewModels
                 return;
             }
 
-            MessageBoxResult mes = MessageBox.Show("Are you sure?", "Confirm", MessageBoxButton.YesNo, MessageBoxImage.Information);
+            MessageBoxResult mes = CustomMessageBox.Show("Are you sure?", "Confirm", MessageBoxButton.YesNo, MessageBoxImage.Question);
 
             if (mes != MessageBoxResult.Yes)
             {
@@ -160,6 +174,10 @@ namespace StoreManagement.ViewModels
             wdInvoice.txbName.Text = this.HomeWindow.txbAgencyinPayment.Text;
             wdInvoice.txbPhone.Text = this.HomeWindow.txbPhoneNumberinPayment.Text;
             wdInvoice.txbAddress.Text = this.HomeWindow.txbAddressinPayment.Text;
+            wdInvoice.txbExcess.Visibility = Visibility.Visible;
+            wdInvoice.txbExcessText.Visibility = Visibility.Visible;
+            wdInvoice.txbExcessVND.Visibility = Visibility.Visible;
+            wdInvoice.txbExcess.Text = this.HomeWindow.txbExcessCash.Text;
 
             try
             {
@@ -179,7 +197,7 @@ namespace StoreManagement.ViewModels
             inv.AgencyID = int.Parse(this.HomeWindow.txbIDAgencyPayment.Text);
             inv.Checkout = DateTime.Parse(wdInvoice.txbDate.Text);
             inv.Debt = ConvertToNumber(wdInvoice.txbChange.Text);
-            inv.Total = (long)(ConvertToNumber(wdInvoice.txbTotal.Text) * 1.02);
+            inv.Total = (long)(ConvertToNumber(wdInvoice.txbTotal.Text));
 
             DataProvider.Instance.DB.Invoices.Add(inv);
 
@@ -247,6 +265,7 @@ namespace StoreManagement.ViewModels
             this.HomeWindow.TotalFeeofProductChosenPayment.Text = "0";
             this.HomeWindow.txtRetainerPaymment.Text = "0";
             this.HomeWindow.txbChangePayment.Text = "0";
+            this.HomeWindow.txbExcessCash.Text = "0";
             this.HomeWindow.cbSearchAgency.ItemsSource = this.ListAgency;
             this.HomeWindow.cbSearchAgency.SelectedValuePath = "ID";
             this.HomeWindow.cbSearchAgency.DisplayMemberPath = "Name";
@@ -283,9 +302,15 @@ namespace StoreManagement.ViewModels
                 long total = ConvertToNumber(this.HomeWindow.TotalFeeofProductChosenPayment.Text);
 
                 if (retainer <= total)
+                {
                     this.HomeWindow.txbChangePayment.Text = SeparateThousands((total - retainer).ToString());
+                    this.HomeWindow.txbExcessCash.Text = "0";
+                }
                 else
-                    para.Text = "0";
+                {
+                    this.HomeWindow.txbExcessCash.Text = SeparateThousands((retainer - total).ToString());
+                    this.HomeWindow.txbChangePayment.Text = "0";
+                }
             }
             else
                 para.Text = "0";
@@ -320,6 +345,12 @@ namespace StoreManagement.ViewModels
         {
             bool flag = true;
             int id = int.Parse(para.txbId.Text);
+
+            if (DataProvider.Instance.DB.Products.Where(x => x.ID == id).First().Count < 1)
+            {
+                CustomMessageBox.Show("No inventory in stock", "Notify", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
 
             if (ListProductChosen != null)
             {
@@ -358,6 +389,11 @@ namespace StoreManagement.ViewModels
                 {
                     if (item.txbID.Text == id.ToString())
                     {
+                        if (DataProvider.Instance.DB.Products.Where(x => x.ID == id).First().Count == int.Parse(item.tb_main.Text))
+                        {
+                            CustomMessageBox.Show("Not enough product", "Notify", MessageBoxButton.OK, MessageBoxImage.Warning);
+                            return;
+                        }
                         int amount = int.Parse(item.tb_main.Text) + 1;
                         long total = ConvertToNumber(item.txbPrice.Text) * amount;
                         item.tb_main.Text = amount.ToString();
@@ -388,15 +424,15 @@ namespace StoreManagement.ViewModels
             }
         }
 
-        private String SeparateThousands(String txt)
-        {
-            if (!string.IsNullOrEmpty(txt))
-            {
-                System.Globalization.CultureInfo culture = new System.Globalization.CultureInfo("en-US");
-                ulong valueBefore = ulong.Parse(ConvertToNumber(txt).ToString(), System.Globalization.NumberStyles.AllowThousands);
-                txt = String.Format(culture, "{0:N0}", valueBefore);
-            }
-            return txt;
-        }
+        //private String SeparateThousands(String txt)
+        //{
+        //    if (!string.IsNullOrEmpty(txt))
+        //    {
+        //        System.Globalization.CultureInfo culture = new System.Globalization.CultureInfo("en-US");
+        //        ulong valueBefore = ulong.Parse(ConvertToNumber(txt).ToString(), System.Globalization.NumberStyles.AllowThousands);
+        //        txt = String.Format(culture, "{0:N0}", valueBefore);
+        //    }
+        //    return txt;
+        //}
     }
 }

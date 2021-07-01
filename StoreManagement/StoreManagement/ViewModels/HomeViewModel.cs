@@ -61,11 +61,15 @@ namespace StoreManagement.ViewModels
                     para.grdBody_Store.Visibility = System.Windows.Visibility.Visible;
                     para.rec_btn_Menu_Store.Fill = (Brush)new BrushConverter().ConvertFrom("#FF9E9F");
                     StoreViewModel storeViewModel = new StoreViewModel();
-                    storeViewModel.Load3Stores(para,1);
+                    para.cbbStore_Store.SelectedIndex = 0;
+                    para.cbbSearch.SelectedIndex = 0;
+                    storeViewModel.ChangeWayShowAgency(para);
                     break;
                 case 2:
                     para.grdBody_Product.Visibility = System.Windows.Visibility.Visible;
                     para.rec_btn_Menu_Product.Fill = (Brush)new BrushConverter().ConvertFrom("#FF9E9F");
+                    ProductViewModel productViewModel = new ProductViewModel();
+                    productViewModel.LoadProduct(para);
                     break;
                 case 3:
                     para.grdBody_Business.Visibility = System.Windows.Visibility.Visible;

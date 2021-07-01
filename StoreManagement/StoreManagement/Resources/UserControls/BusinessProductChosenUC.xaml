@@ -87,8 +87,8 @@
             Command="{Binding RemovefromListChosenCommand}"
             CommandParameter="{Binding ElementName=ProductChosenUC}">
             <materialDesign:PackIcon
-                Kind="Delete"
-                Foreground="Gray"/>
+                Kind="DeleteOutline"
+                Foreground="#FFF44336"/>
         </Button>
         <UserControl
             Height="32"
@@ -179,7 +179,6 @@
                     </TextBox>
                     <Button 
                         x:Name="cmdUp" 
-                        x:FieldModifier="private" 
                         Grid.Column="1" 
                         Grid.Row="0" 
                         Width="auto" 
@@ -195,8 +194,7 @@
                         </Button.Content>
                     </Button>
                     <Button 
-                        x:Name="cmdDown" 
-                        x:FieldModifier="private" 
+                        x:Name="cmdDown"  
                         Grid.Column="1" 
                         Grid.Row="1" 
                         Width="auto" 
