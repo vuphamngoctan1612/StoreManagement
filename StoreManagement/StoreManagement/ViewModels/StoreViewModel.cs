@@ -274,8 +274,11 @@ namespace StoreManagement.ViewModels
                 LoadListAgency(para);
                 para.grdListStore_Store.Visibility = Visibility.Visible;
                 para.grdList3Store_Store.Visibility = Visibility.Hidden;
-                para.cbbSearch.Items.Add("Debt - Upper");
-                para.cbbSearch.Items.Add("Debt - Lower");
+                if (para.cbbSearch.Items.Count == 3)
+                {
+                    para.cbbSearch.Items.Add("Debt - Upper");
+                    para.cbbSearch.Items.Add("Debt - Lower");
+                }
                 para.cbbSearch.SelectedIndex = 0;
             }
             else
@@ -283,8 +286,11 @@ namespace StoreManagement.ViewModels
                 Load3Stores(this.HomeWindow, PageNumber);
                 para.grdListStore_Store.Visibility = Visibility.Hidden;
                 para.grdList3Store_Store.Visibility = Visibility.Visible;
-                para.cbbSearch.Items.Remove("Debt - Upper");
-                para.cbbSearch.Items.Remove("Debt - Lower");
+                if (para.cbbSearch.Items.Count == 5)
+                {
+                    para.cbbSearch.Items.Remove("Debt - Upper");
+                    para.cbbSearch.Items.Remove("Debt - Lower");
+                }
                 para.cbbSearch.SelectedIndex = 0;
             }
         }
@@ -744,6 +750,9 @@ namespace StoreManagement.ViewModels
             this.ListType = DataProvider.Instance.DB.TypeOfAgencies.ToList();
             AddStoreWindow wd = new AddStoreWindow();
             LoadListDistrict(wd);
+            wd.grdDebt.Visibility = Visibility.Visible;
+            wd.grdEdit.Visibility = Visibility.Visible;
+            wd.grdSave.Visibility = Visibility.Hidden;
             wd.txtID.Text = store.ID.ToString();
             wd.txtName.Text = store.Name.ToString();
             wd.txtAddress.Text = store.Address.ToString();
