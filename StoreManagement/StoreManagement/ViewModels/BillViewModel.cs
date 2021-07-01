@@ -111,9 +111,9 @@ namespace StoreManagement.ViewModels
                 reportViewModel.LoadChartByAgency();
                 reportViewModel.LoadChartByProduct();
 
-                Init(this.HomeWindow);
-                LoadBill(this.HomeWindow);
-                LoadStockReceipt(this.HomeWindow);
+                //Init(this.HomeWindow);
+                //LoadBill(this.HomeWindow);
+                //LoadStockReceipt(this.HomeWindow);
                 LoadReceiptBill(this.HomeWindow);
 
                 AgencyReportViewModel agencyReportViewModel = new AgencyReportViewModel();
@@ -326,6 +326,8 @@ namespace StoreManagement.ViewModels
                 invoiceWindow.txbAddress.Text = "University of Infomation Technology";
                 invoiceWindow.txbIDinvoice.Text = stockReceipt.ID.ToString();
                 invoiceWindow.txbDate.Text = stockReceipt.CheckIn.Value.ToShortDateString();
+
+                invoiceWindow.stkListProductChosenInvoice.Children.Add(new BillUC());
                 foreach (StockReceiptInfo stockReceiptInfo in stockReceiptInfos)
                 {
                     BillUC billUC = new BillUC();
@@ -334,8 +336,8 @@ namespace StoreManagement.ViewModels
                     billUC.UnitName.Text = stockReceiptInfo.Product.Name.ToString();
                     billUC.Unit.Text = stockReceiptInfo.Product.Unit.Name.ToString();
                     billUC.Amount.Text = ConvertToString(stockReceiptInfo.Amount);
-                    billUC.Price.Text = ConvertToString(stockReceiptInfo.Product.ExportPrice);
-                    billUC.Total.Text = ConvertToString(stockReceiptInfo.Price);
+                    billUC.Price.Text = ConvertToString(stockReceiptInfo.Price);
+                    billUC.Total.Text = ConvertToString(stockReceiptInfo.Amount * stockReceiptInfo.Price);
                     invoiceWindow.stkListProductChosenInvoice.Children.Add(billUC);
                 }
                 invoiceWindow.txbTotal.Text = ConvertToString(stockReceipt.Total);
@@ -360,6 +362,8 @@ namespace StoreManagement.ViewModels
                 invoiceWindow.txbPhone.Text = invoice.Agency.PhoneNumber;
                 invoiceWindow.txbIDinvoice.Text = invoice.ID.ToString();
                 invoiceWindow.txbDate.Text = invoice.Checkout.Value.ToShortDateString();
+
+                invoiceWindow.stkListProductChosenInvoice.Children.Add(new BillUC());
                 foreach (InvoiceInfo invoiceInfo in invoiceInfos)
                 {
                     Product product = new Product();

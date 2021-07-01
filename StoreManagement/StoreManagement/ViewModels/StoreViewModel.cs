@@ -308,6 +308,11 @@ namespace StoreManagement.ViewModels
 
         private void DeleteStore(AgencyControlUC para)
         {
+            if (ConvertToNumber(para.txtDebt.Text) > 0)
+            {
+                CustomMessageBox.Show("Debt must be equal 0!", "Notify", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
             MessageBoxResult res = CustomMessageBox.Show("Are you sure?", "Notify", MessageBoxButton.YesNo, MessageBoxImage.Question);
             if (res == MessageBoxResult.Yes)
             {

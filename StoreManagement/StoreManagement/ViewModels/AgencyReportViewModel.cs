@@ -86,9 +86,9 @@ namespace StoreManagement.ViewModels
                 //
                 long? deptDebt = 0;
                 int countDebt = 0;
-                List<Invoice> invoicesDebt = new List<Invoice>();
                 List<Invoice> invoicesDebtAfter = new List<Invoice>();
                 DebtReportUC debtReportUC = new DebtReportUC();
+                List<Invoice> invoiceDebtAfter = new List<Invoice>();
                 debtReportUC.Height = 45;
                 debtReportUC.Width = 1070;
                 debtReportUC.txtNo.Text = agency.ID.ToString();
@@ -100,25 +100,25 @@ namespace StoreManagement.ViewModels
                     {
                         if (invoice.Checkout.Value.Month == DateTime.Now.Month && invoice.Checkout.Value.Year == DateTime.Now.Year)
                         {
-                            dept += invoice.Debt;
+                            deptDebt += invoice.Debt;
                             countDebt++;
-                            invoicesDebtAfter.Add(invoice);
+                            invoiceDebtAfter.Add(invoice);
                         }
                     }
                     catch { }
                 }
                 checkDebt++;
-                if (invoicesDebtAfter.Count != 0)
+                if (invoiceDebtAfter.Count != 0)
                 {
-                    debtReportUC.txtOriginalDebt.Text = ConvertToString(invoicesDebtAfter.First().Debt);
-                    debtReportUC.txtCostOverrun.Text = ConvertToString(deptDebt - invoicesDebtAfter.First().Debt);
+                    debtReportUC.txtOriginalDebt.Text = ConvertToString(invoiceDebtAfter.First().Debt);
+                    debtReportUC.txtCostOverrun.Text = ConvertToString(deptDebt - invoiceDebtAfter.First().Debt);
                 }
                 else
                 {
                     debtReportUC.txtOriginalDebt.Text = "0";
                     debtReportUC.txtCostOverrun.Text = "0";
                 }
-                debtReportUC.txtTotal.Text = dept.ToString();
+                debtReportUC.txtTotal.Text = ConvertToString(dept);
 
                 para.stkDebtReport.Children.Add(debtReportUC);
             }

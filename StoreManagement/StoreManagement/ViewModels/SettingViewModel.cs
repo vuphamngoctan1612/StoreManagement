@@ -177,12 +177,14 @@ namespace StoreManagement.ViewModels
 
             if (string.IsNullOrEmpty(para.txtNumberProduct_Setting.Text))
             {
+                para.txtNumberProduct_Setting.Text = "";
                 para.txtNumberType_Setting.Focus();
                 return;
             }
 
             if (string.IsNullOrEmpty(para.txtNumberUnit_Setting.Text))
             {
+                para.txtNumberUnit_Setting.Text = "";
                 para.txtNumberAgencyinDistrict_Setting.Focus();
                 return;
             }
@@ -238,12 +240,14 @@ namespace StoreManagement.ViewModels
 
             if (string.IsNullOrEmpty(para.txtNumberType_Setting.Text))
             {
+                para.txtNumberType_Setting.Text = "";
                 para.txtNumberType_Setting.Focus();
                 return;
             }
 
             if (string.IsNullOrEmpty(para.txtNumberAgencyinDistrict_Setting.Text))
             {
+                para.txtNumberAgencyinDistrict_Setting.Text = "";
                 para.txtNumberAgencyinDistrict_Setting.Focus();
                 return;
             }

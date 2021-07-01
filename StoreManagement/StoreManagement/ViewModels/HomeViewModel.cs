@@ -66,6 +66,8 @@ namespace StoreManagement.ViewModels
                 case 2:
                     para.grdBody_Product.Visibility = System.Windows.Visibility.Visible;
                     para.rec_btn_Menu_Product.Fill = (Brush)new BrushConverter().ConvertFrom("#FF9E9F");
+                    ProductViewModel productViewModel = new ProductViewModel();
+                    productViewModel.LoadProduct(para);
                     break;
                 case 3:
                     para.grdBody_Business.Visibility = System.Windows.Visibility.Visible;
