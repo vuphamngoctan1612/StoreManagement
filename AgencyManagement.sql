@@ -135,7 +135,7 @@ go
 create table Setting
 (
 	ID int,
-	MaxNumberStoreInDistrict int default 0,
+	NumberStoreInDistrict int default 0,
 
 	constraint PK_Setting primary key(ID)
 )
