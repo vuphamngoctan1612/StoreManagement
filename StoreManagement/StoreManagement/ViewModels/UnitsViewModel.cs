@@ -24,6 +24,18 @@ namespace StoreManagement.ViewModels
 
         private void AddUnits(AddUnitsWindow para)
         {
+
+            StreamReader sr = new StreamReader("../../cache.txt");
+            string cache = sr.ReadToEnd();
+            sr.Close();
+            string[] rulesSetting = cache.Split(' ');
+
+            if (DataProvider.Instance.DB.Units.Count() >= int.Parse(rulesSetting[3]))
+            {
+                CustomMessageBox.Show("Unit limit!", "Notify", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
             if (string.IsNullOrEmpty(para.txtName.Text))
             {
                 para.txtName.Focus();
