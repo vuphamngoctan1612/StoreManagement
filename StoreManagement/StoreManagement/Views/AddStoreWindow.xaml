@@ -11,14 +11,14 @@
         DataContext="{StaticResource StoreVM}"
         Background="White"
         Title="Add agency" 
-        Height="700" 
+        Height="620" 
         Width="1100"
         ResizeMode="CanMinimize"
         x:Name="wdAddstore"
         WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="90"></RowDefinition>
+            <RowDefinition Height="80"></RowDefinition>
             <!--<RowDefinition Height="0.8*"></RowDefinition>
             <RowDefinition Height="1*"></RowDefinition>
             <RowDefinition Height="0.8*"></RowDefinition>
@@ -30,7 +30,7 @@
             <RowDefinition Height="1*"></RowDefinition>
             <RowDefinition Height="1*"></RowDefinition>-->
             <RowDefinition></RowDefinition>
-            <RowDefinition Height="100"></RowDefinition>            
+            <RowDefinition Height="60"></RowDefinition>
         </Grid.RowDefinitions>
         <Grid Grid.Row="0">
             <!--<materialDesign:PackIcon 
@@ -258,6 +258,75 @@
                     </Button>
                 </Grid>
                 <Grid Grid.Row="4"
+                      x:Name="grdDebt"
+                      Visibility="Hidden"
+                    Width="500" 
+                    VerticalAlignment="Center">
+                    <Label
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Content="Debt"
+                        FontSize="22"
+                        FontWeight="SemiBold"
+                        Margin="10 0 0 0"
+                        Foreground="#57548B">
+                    </Label>
+                    <Rectangle
+                        HorizontalAlignment="Right"
+                        Width="350"
+                        Margin="0 0 30 0"
+                        StrokeThickness="2"
+                        RadiusX="5"
+                        RadiusY="5"
+                        Stroke="#E2D2DA"/>
+                    <TextBox
+                        x:Name="txtDebt"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Center"
+                        MaxLength="15"
+                        Width="330"
+                        Margin="0 0 40 0"
+                        BorderThickness="0"
+                        materialDesign:HintAssist.Hint="Enter debt"
+                        MaxLines="1"
+                        Height="40"
+                        FontSize="17"
+                        FontWeight="SemiBold"
+                        Padding="0"
+                        HorizontalContentAlignment="Left"
+                        VerticalContentAlignment="Center" 
+                        IsEnabled="False"
+                        Validation.ErrorTemplate="{StaticResource textBoxErrorTemplate}"
+                        >
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="PreviewTextInput" >
+                                <ei:CallMethodAction TargetObject="{Binding }"
+                                                MethodName="NumberValidationTextBox" />
+                            </i:EventTrigger>
+                            <i:EventTrigger EventName="TextChanged">
+                                <i:InvokeCommandAction Command="{Binding SeparateThousandsCommand}" 
+                                                CommandParameter="{Binding ElementName=txtDebt}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                        <TextBox.Text>
+                            <Binding Path="Debt" Source="{StaticResource Agency}" UpdateSourceTrigger="PropertyChanged" Mode="OneWayToSource">
+                                <Binding.ValidationRules>
+                                    <vd:NotNullValidation ErrorMessage="Please enter debt"/>
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox.Text>
+                    </TextBox>
+                </Grid>
+            </Grid>
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0"
                     Width="500" 
                     VerticalAlignment="Center">
                     <Label
@@ -302,16 +371,7 @@
                         </TextBox.Text>
                     </TextBox>
                 </Grid>
-            </Grid>
-            <Grid Grid.Column="1">
-                <Grid.RowDefinitions>
-                    <RowDefinition></RowDefinition>
-                    <RowDefinition></RowDefinition>
-                    <RowDefinition></RowDefinition>
-                    <RowDefinition></RowDefinition>
-                    <RowDefinition></RowDefinition>
-                </Grid.RowDefinitions>
-                <Grid Grid.Row="0"
+                <Grid Grid.Row="1"
                     Width="500" 
                     VerticalAlignment="Center">
                     <Label
@@ -364,7 +424,7 @@
                         </TextBox.Text>
                     </TextBox>
                 </Grid>
-                <Grid Grid.Row="1"
+                <Grid Grid.Row="2"
                     Width="500" 
                     VerticalAlignment="Center">
                     <Label
@@ -409,7 +469,7 @@
                         </TextBox.Text>
                     </TextBox>
                 </Grid>
-                <Grid Grid.Row="2"
+                <Grid Grid.Row="3"
                     Width="500" 
                     VerticalAlignment="Center">
                     <Label
@@ -459,72 +519,60 @@
                         RadiusY="5"
                         Stroke="#E2D2DA"/>
                 </Grid>
-                <Grid Grid.Row="3"
-                    Width="500" 
-                    VerticalAlignment="Center">
-                    <Label
+                <Grid 
+                    x:Name="grdSave"
+                    Grid.Row="4">
+                    <Button 
+                        x:Name="btnSave"
+                        IsDefault="True"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Center"
-                        Content="Debt"
+                        Margin="140 40 0 0"
+                        Width="110"
+                        Height="38"
+                        Content="Save"
+                        BorderThickness="0"
+                        Foreground="#57548B"
+                        Background="#F79BB5"
+                        FontSize="22"
+                        Cursor="Hand"
+                        FontWeight="SemiBold"
+                        Command="{Binding SaveStoreCommand}"
+                        CommandParameter="{Binding ElementName=wdAddstore}">
+                    </Button>
+                    <Button 
+                        x:Name="btnClose0"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Margin="290 40 0 0"
+                        Width="110"
+                        Height="38"
+                        Content="Close"
+                        BorderThickness="0"
+                        Cursor="Hand"
+                        Background="#F0F0F0"
+                        Foreground="#57548B"
                         FontSize="22"
                         FontWeight="SemiBold"
-                        Margin="10 0 0 0"
-                        Foreground="#57548B">
-                    </Label>
-                    <Rectangle
-                        HorizontalAlignment="Right"
-                        Width="350"
-                        Margin="0 0 30 0"
-                        StrokeThickness="2"
-                        RadiusX="5"
-                        RadiusY="5"
-                        Stroke="#E2D2DA"/>
-                    <TextBox
-                        x:Name="txtDebt"
-                        HorizontalAlignment="Right"
-                        VerticalAlignment="Center"
-                        MaxLength="15"
-                        Width="330"
-                        Margin="0 0 40 0"
-                        BorderThickness="0"
-                        materialDesign:HintAssist.Hint="Enter debt"
-                        MaxLines="1"
-                        Height="40"
-                        FontSize="17"
-                        FontWeight="SemiBold"
-                        Padding="0"
-                        HorizontalContentAlignment="Left"
-                        VerticalContentAlignment="Center"                
-                        Validation.ErrorTemplate="{StaticResource textBoxErrorTemplate}"
-                        >
-                        <i:Interaction.Triggers>
-                            <i:EventTrigger EventName="PreviewTextInput" >
-                                <ei:CallMethodAction TargetObject="{Binding }"
-                                                MethodName="NumberValidationTextBox" />
-                            </i:EventTrigger>
-                            <i:EventTrigger EventName="TextChanged">
-                                <i:InvokeCommandAction Command="{Binding SeparateThousandsCommand}" 
-                                                CommandParameter="{Binding ElementName=txtDebt}"/>
-                            </i:EventTrigger>
-                        </i:Interaction.Triggers>
-                        <TextBox.Text>
-                            <Binding Path="Debt" Source="{StaticResource Agency}" UpdateSourceTrigger="PropertyChanged" Mode="OneWayToSource">
-                                <Binding.ValidationRules>
-                                    <vd:NotNullValidation ErrorMessage="Please enter debt"/>
-                                </Binding.ValidationRules>
-                            </Binding>
-                        </TextBox.Text>
-                    </TextBox>
+                        Command="{Binding CloseStoreWindowCommand}"
+                        CommandParameter="{Binding ElementName=wdAddstore}">
+                    </Button>
                 </Grid>
             </Grid>
         </Grid>
-        <Grid Grid.Row="2">
+        <Grid Grid.Row="2"
+              x:Name="grdEdit"
+              Visibility="Hidden">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1017*"/>
+                <ColumnDefinition Width="76*"/>
+            </Grid.ColumnDefinitions>
             <Button 
-                x:Name="btnSave"
+                x:Name="btnEdit"
                 IsDefault="True"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Center"
-                Margin="680 0 0 0"
+                Margin="680,11,0,11"
                 Width="110"
                 Height="38"
                 Content="Save"
@@ -541,7 +589,7 @@
                 x:Name="btnClose"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Center"
-                Margin="830 0 0 0"
+                Margin="830,11,0,11"
                 Width="110"
                 Height="38"
                 Content="Close"

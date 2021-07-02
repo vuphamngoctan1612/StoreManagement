@@ -73,6 +73,17 @@ namespace StoreManagement.ViewModels
                 txt.Select(txt.Text.Length, 0);
             }
         }
+        public string SeparateThousands(String text)
+        {
+            if (!string.IsNullOrEmpty(text))
+            {
+                System.Globalization.CultureInfo culture = new System.Globalization.CultureInfo("en-US");
+                ulong valueBefore = ulong.Parse(ConvertToNumber(text).ToString(), System.Globalization.NumberStyles.AllowThousands);
+                string res = String.Format(culture, "{0:N0}", valueBefore);
+                return res;
+            }
+            return "";
+        }
         //Chỉ cho nhập số
         public void NumberValidationTextBox(object sender, TextCompositionEventArgs e)
         {

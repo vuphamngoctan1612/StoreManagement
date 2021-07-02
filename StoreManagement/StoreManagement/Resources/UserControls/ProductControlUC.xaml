@@ -86,7 +86,6 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition></ColumnDefinition>
                     <ColumnDefinition></ColumnDefinition>
-                    <ColumnDefinition></ColumnDefinition>
                 </Grid.ColumnDefinitions>
                 <Button Grid.Column="0"
                     x:Name="btnEditProduct"
@@ -111,7 +110,7 @@
                         Width="24">
                     </materialDesign:PackIcon>
                 </Button>
-                <Button Grid.Column="1"
+                <!--<Button Grid.Column="1"
                     x:Name="btnImportProduct"
                     Height="30"
                     Width="30"
@@ -133,8 +132,8 @@
                         Width="24"
                         Height="24">
                     </materialDesign:PackIcon>
-                </Button>
-                <Button Grid.Column="2"
+                </Button>-->
+                <Button Grid.Column="1"
                     x:Name="btnDeleteProduct"
                     ToolTip="Delete product" 
                     Height="30"

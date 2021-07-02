@@ -132,6 +132,16 @@ create table District
 )
 go
 
+create table Setting
+(
+	ID int,
+	NumberStoreInDistrict int default 0,
+
+	constraint PK_Setting primary key(ID)
+)
+
+insert into Setting values(1, 4)
+
 alter table Agency add constraint FK_District foreign key(District) references District(Name)
 go
 
