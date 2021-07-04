@@ -107,7 +107,6 @@ namespace StoreManagement.ViewModels
 
         public ReportViewModel()
         {
-            //LoadTop3AgencyCommand = new RelayCommand<HomeWindow>((para) => true, (para) => LoadTop3Agency(para));
             InitColumnChartCommand = new RelayCommand<HomeWindow>((para) => true, (para) => InitColumnChart(para));
             SelectedTypeChangeCommand = new RelayCommand<HomeWindow>((para) => true, (para) => cboSelectTypeOfChartIndex_Changed(para));
             LoadSalesResult = new RelayCommand<HomeWindow>((para) => true, (para) => LoadSales(para));
@@ -385,9 +384,9 @@ namespace StoreManagement.ViewModels
 
             para.cboSelectPeriod.Text = "Monthly";
 
-            para.cboSelectTime.Text =month;
+            para.cboSelectTime.Text = month;
 
-            para.cboSelectYear.Text =year;
+            para.cboSelectYear.Text = year;
 
             para.cboSelectYear.Visibility = System.Windows.Visibility.Hidden;
 
@@ -453,6 +452,7 @@ namespace StoreManagement.ViewModels
             Labels = this.GetTop5AgencyByQuarter(quarter, year);
             Formatter = value => ConvertToString(value);
         }
+
         public void LoadChartByProduct()
         {
             string currenYear = DateTime.Now.Year.ToString();
@@ -511,7 +511,8 @@ namespace StoreManagement.ViewModels
             Labels = this.GetTop5ProductByQuarter(quarter, year);
             Formatter = value => ConvertToString(value);
         }
-        private void LoadChartByMonth(string month, string year)
+
+        public void LoadChartByMonth(string month, string year)
         {
             AxisXTitle = "Day";
             SeriesCollection = new SeriesCollection
@@ -535,7 +536,7 @@ namespace StoreManagement.ViewModels
             Labels = this.GetDayInMonth(month, year);
             Formatter = value => ConvertToString(value);
         }
-        private void LoadChartByYear(string year)
+        public void LoadChartByYear(string year)
         {
             AxisXTitle = "Month";
             SeriesCollection = new SeriesCollection
@@ -559,7 +560,7 @@ namespace StoreManagement.ViewModels
             Labels = this.GetMonthInYear(year);
             Formatter = value => ConvertToString(value);
         }
-        private void LoadChartByQuarter(string year)
+        public void LoadChartByQuarter(string year)
         {
             AxisXTitle = "Quarter";
             SeriesCollection = new SeriesCollection

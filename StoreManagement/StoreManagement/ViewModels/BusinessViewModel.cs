@@ -230,11 +230,12 @@ namespace StoreManagement.ViewModels
             ReloadBusiness();
             //update today's sales result
             ReportViewModel reportViewModel = new ReportViewModel();
-            reportViewModel.InitColumnChart(para);
             reportViewModel.LoadSales(para);
             //reload chart
-            reportViewModel.LoadChartByAgency();
-            reportViewModel.LoadChartByProduct();
+                //reportViewModel.InitColumnChart(para);
+                //reportViewModel.LoadChartByMonth(DateTime.Now.Month.ToString(), DateTime.Now.Year.ToString());
+                //reportViewModel.LoadChartByAgency();
+                //reportViewModel.LoadChartByProduct();
             //update invoices, stock, receipt
             BillViewModel billViewModel = new BillViewModel();
             billViewModel.Init(para);
