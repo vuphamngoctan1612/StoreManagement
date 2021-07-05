@@ -10,11 +10,12 @@
     <viewmodels:ProductViewModel x:Key="ProductVM"></viewmodels:ProductViewModel>
     <viewmodels:ReportViewModel x:Key="ReportVM"></viewmodels:ReportViewModel>
     <viewmodels:AgencyReportViewModel x:Key="AgencyReportVM"></viewmodels:AgencyReportViewModel>
-    <viewmodels:BusinessViewModel x:Key="BusinessVM"/>
-    <viewmodels:SettingViewModel x:Key="SettingVM"/>
+    <viewmodels:BusinessViewModel x:Key="BusinessVM"></viewmodels:BusinessViewModel>
+    <viewmodels:SettingViewModel x:Key="SettingVM"></viewmodels:SettingViewModel>
     <viewmodels:AccountViewModel x:Key="AccountVM"></viewmodels:AccountViewModel>
     <viewmodels:UnitsViewModel x:Key="UnitsVM"></viewmodels:UnitsViewModel>
-    <viewmodels:DistrictViewModel x:Key="DistrictVM"/>
+    <viewmodels:DistrictViewModel x:Key="DistrictVM"></viewmodels:DistrictViewModel>
+    <viewmodels:ImportProductViewModel x:Key="ImportProductVM"></viewmodels:ImportProductViewModel>
     <models:Product x:Key="Product"/>
     <models:Unit x:Key="Units"/>
     <models:Agency x:Key="Agency"/>

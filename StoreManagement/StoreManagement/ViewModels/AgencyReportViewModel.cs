@@ -57,6 +57,7 @@ namespace StoreManagement.ViewModels
                 long? total = 0;
                 long? dept = 0;
                 int count = 0;
+                double totalDebtThisMonth = GetTotalThisMonth(DateTime.Now.Month.ToString(), DateTime.Now.Year.ToString());
                 List<Invoice> invoices = new List<Invoice>();
                 SalesReportUC salesReportUC = new SalesReportUC();
                 salesReportUC.Width = 1070;
@@ -79,7 +80,7 @@ namespace StoreManagement.ViewModels
                 }
                 salesReportUC.txtNumberOfBills.Text = count.ToString();
                 salesReportUC.txtTotal.Text = ConvertToString(total);
-                salesReportUC.txtRatio.Text = (100 * (double)dept / (double)(total + 1)).ToString("0.00") + "%";
+                salesReportUC.txtRatio.Text = (100 * (double)total / (double)(totalDebtThisMonth + 1)).ToString("0.00") + "%";
                 para.stkSalesReport.Children.Add(salesReportUC);
                 para.scrollSales.Visibility = Visibility.Visible;
                 check++;
@@ -100,7 +101,7 @@ namespace StoreManagement.ViewModels
                     {
                         if (invoice.Checkout.Value.Month == DateTime.Now.Month && invoice.Checkout.Value.Year == DateTime.Now.Year)
                         {
-                            dept += invoice.Debt;
+                            deptDebt += invoice.Debt;
                             countDebt++;
                             invoiceDebtAfter.Add(invoice);
                         }
@@ -118,7 +119,7 @@ namespace StoreManagement.ViewModels
                     debtReportUC.txtOriginalDebt.Text = "0";
                     debtReportUC.txtCostOverrun.Text = "0";
                 }
-                debtReportUC.txtTotal.Text = dept.ToString();
+                debtReportUC.txtTotal.Text = ConvertToString(dept);
 
                 para.stkDebtReport.Children.Add(debtReportUC);
             }
@@ -230,6 +231,7 @@ namespace StoreManagement.ViewModels
                 long? total = 0;
                 long? dept = 0;
                 int count = 0;
+                double totalDebtThisMonth = GetTotalThisMonth(para.Date.SelectedDate.Value.Month.ToString(), para.Date.SelectedDate.Value.Year.ToString());
                 List<Invoice> invoices = new List<Invoice>();
                 SalesReportUC salesReportUC = new SalesReportUC();
                 salesReportUC.Width = 1070;
@@ -252,9 +254,27 @@ namespace StoreManagement.ViewModels
                 }
                 salesReportUC.txtNumberOfBills.Text = count.ToString();
                 salesReportUC.txtTotal.Text = ConvertToString(total);
-                salesReportUC.txtRatio.Text = (100 * (double)dept / (double)(total + 1)).ToString("0.00") + "%";
+                salesReportUC.txtRatio.Text = (100 * (double)total / (double)(totalDebtThisMonth + 1)).ToString("0.00") + "%";
                 this.HomeWindow.stkSalesReport.Children.Add(salesReportUC);
                 check++;
+            }
+        }
+
+        private double GetTotalThisMonth(string month, string year)
+        {
+            
+            double total = 0;
+            try
+            {
+                string query1 = string.Format("select  sum(Total) as Total from Invoice " +
+                                            "WHERE MONTH(CHECKOUT) = {0} AND YEAR(CHECKOUT) = {1} ", month, year);
+                Int64 temp = DataProvider.Instance.DB.Database.SqlQuery<Int64>(query1).ToList().First();
+                total = (double)temp;
+                return total;
+            }
+            catch
+            {
+                return total;
             }
         }
     }

@@ -45,18 +45,21 @@ namespace StoreManagement.ViewModels
                 }
                 else
                 {
-                    MessageBox.Show("Exceed the number of districts limit: 20");
+                    CustomMessageBox.Show("Exceed the number of districts limit: 20", "Notify", MessageBoxButton.OK, MessageBoxImage.Error);
                     para.isSucceed = false;
                     return;
                 }
+                para.Close();
             }
             catch
             {
+                CustomMessageBox.Show("District name already exists!", "Notify", MessageBoxButton.OK, MessageBoxImage.Error);
+                para.txtName.Clear();
                 para.isSucceed = false;
             }
             finally
             {
-                para.Close();
+                
             }
         }
 

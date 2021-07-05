@@ -43,6 +43,8 @@ namespace StoreManagement.ViewModels
         public ICommand OpenAddDistrictCommand { get; set; }
         public ICommand ExportExcelStoreCommand { get; set; }
         public ICommand CheckDateCommand { get; set; }
+        public ICommand SearchByCommand { get; set; }
+        public ICommand SearchDebtAgencyCommand { get; set; }
 
         public StoreViewModel()
         {
@@ -51,7 +53,12 @@ namespace StoreManagement.ViewModels
             PageNumber = 1;
             string query = "SELECT * FROM AGENCY WHERE ISDELETE = 0";
             this.ListStores = DataProvider.Instance.DB.Agencies.SqlQuery(query).ToList();
-            LoadStoreOnWindowCommand = new RelayCommand<HomeWindow>((para) => true, (para) => Load3Stores(para, PageNumber));
+            LoadStoreOnWindowCommand = new RelayCommand<HomeWindow>((para) => true, (para) =>
+            {
+                para.cbbStore_Store.SelectedIndex = 0;
+                para.cbbSearch.SelectedIndex = 0;
+                ChangeWayShowAgency(para);
+            });
             NextPageStoresCommand = new RelayCommand<HomeWindow>((para) => true, (para) => {
                 PageNumber = LoadNextPage(PageNumber);
                 ReLoad3Stores(this.HomeWindow, this.ListStores, PageNumber);
@@ -72,6 +79,80 @@ namespace StoreManagement.ViewModels
             OpenAddDistrictCommand = new RelayCommand<AddStoreWindow>((para) => true, (para) => OpenAddDistrictWindow(para));
             ExportExcelStoreCommand = new RelayCommand<HomeWindow>((para) => true, (para) => ExportExcelStore(para));
             CheckDateCommand = new RelayCommand<AddStoreWindow>((para) => true, (para) => CheckDate(para));
+            SearchByCommand = new RelayCommand<HomeWindow>((para) => true, (para) => SearchByAgency(para));
+            SearchDebtAgencyCommand = new RelayCommand<HomeWindow>((para) => true, (para) => SearchDebtAgency(para));
+        }
+
+        private void SearchDebtAgency(HomeWindow para)
+        {
+            switch (para.cbbSearch.SelectedIndex)
+            {
+                case 3:
+                    if (para.txtSearchDebtAgency.Text != "")
+                        foreach (AgencyControlUC control in HomeWindow.stkStore_Store.Children)
+                        {
+                            long debt = ConvertToNumber(control.txtDebt.Text);
+                            if (debt < ConvertToNumber(this.HomeWindow.txtSearchDebtAgency.Text))
+                            {
+                                control.Visibility = Visibility.Collapsed;
+                            }
+                            else
+                            {
+                                control.Visibility = Visibility.Visible;
+                            }
+                        }
+                    else
+                        foreach (AgencyControlUC control in HomeWindow.stkStore_Store.Children)
+                        {
+                            control.Visibility = Visibility.Visible;
+                        }
+                    break;
+                case 4:
+                    if (para.txtSearchDebtAgency.Text != "")
+                        foreach (AgencyControlUC control in HomeWindow.stkStore_Store.Children)
+                        {
+                            long debt = ConvertToNumber(control.txtDebt.Text);
+                            if (debt > ConvertToNumber(this.HomeWindow.txtSearchDebtAgency.Text))
+                            {
+                                control.Visibility = Visibility.Collapsed;
+                            }
+                            else
+                            {
+                                control.Visibility = Visibility.Visible;
+                            }
+                        }
+                    else
+                        foreach (AgencyControlUC control in HomeWindow.stkStore_Store.Children)
+                        {
+                            control.Visibility = Visibility.Visible;
+                        }
+                    break;
+            }
+        }
+
+        private void SearchByAgency(HomeWindow para)
+        {
+            para.txtSearchAgency.Clear();
+            para.txtSearchDebtAgency.Clear();
+
+            foreach (AgencyControlUC control in HomeWindow.stkStore_Store.Children)
+            {
+                control.Visibility = Visibility.Visible;
+            }
+            switch (para.cbbSearch.SelectedIndex)
+            {
+                case 0:
+                case 1:
+                case 2:
+                    para.txtSearchAgency.Visibility = Visibility.Visible;
+                    para.txtSearchDebtAgency.Visibility = Visibility.Hidden;
+                    break;
+                case 3:
+                case 4:
+                    para.txtSearchAgency.Visibility = Visibility.Hidden;
+                    para.txtSearchDebtAgency.Visibility = Visibility.Visible;
+                    break;
+            }
         }
 
         private void CheckDate(AddStoreWindow para)
@@ -186,24 +267,37 @@ namespace StoreManagement.ViewModels
             para.cbDistrict.DisplayMemberPath = "Name";
         }
 
-        private void ChangeWayShowAgency(HomeWindow para)
+        public void ChangeWayShowAgency(HomeWindow para)
         {
             if (para.cbbStore_Store.SelectedIndex == 0)
             {
-                LoadListAgency();
+                LoadListAgency(para);
                 para.grdListStore_Store.Visibility = Visibility.Visible;
                 para.grdList3Store_Store.Visibility = Visibility.Hidden;
+                if (para.cbbSearch.Items.Count == 3)
+                {
+                    para.cbbSearch.Items.Add("Debt - Upper");
+                    para.cbbSearch.Items.Add("Debt - Lower");
+                }
+                para.cbbSearch.SelectedIndex = 0;
             }
             else
             {
                 Load3Stores(this.HomeWindow, PageNumber);
                 para.grdListStore_Store.Visibility = Visibility.Hidden;
                 para.grdList3Store_Store.Visibility = Visibility.Visible;
+                if (para.cbbSearch.Items.Count == 5)
+                {
+                    para.cbbSearch.Items.Remove("Debt - Upper");
+                    para.cbbSearch.Items.Remove("Debt - Lower");
+                }
+                para.cbbSearch.SelectedIndex = 0;
             }
         }
 
-        private void LoadListAgency()
+        private void LoadListAgency(HomeWindow para)
         {
+            this.HomeWindow = para;
             this.HomeWindow.stkStore_Store.Children.Clear();
             string query = "SELECT * FROM AGENCY WHERE ISDELETE = 0";
             this.ListStores = DataProvider.Instance.DB.Agencies.SqlQuery(query).ToList();
@@ -227,87 +321,256 @@ namespace StoreManagement.ViewModels
 
         private void SearchAgency(HomeWindow para)
         {
-            if (para.grdListStore_Store.Visibility == Visibility.Visible)
+            switch (para.cbbSearch.SelectedIndex)
             {
-                foreach (AgencyControlUC control in HomeWindow.stkStore_Store.Children)
-                {
-                    if (!control.txtName.Text.ToLower().Contains(this.HomeWindow.txtSearchAgency.Text))
+                case 0:
+                    if (para.cbbStore_Store.SelectedIndex == 0)
                     {
-                        control.Visibility = Visibility.Collapsed;
+                        foreach (AgencyControlUC control in HomeWindow.stkStore_Store.Children)
+                        {
+                            if (!control.txtName.Text.ToLower().Contains(this.HomeWindow.txtSearchAgency.Text))
+                            {
+                                control.Visibility = Visibility.Collapsed;
+                            }
+                            else
+                            {
+                                control.Visibility = Visibility.Visible;
+                            }
+                        }
                     }
                     else
                     {
-                        control.Visibility = Visibility.Visible;
-                    }
-                }
-            }
-            else
-            {
-                int loadPos = 0;
-                int i = 0;
-                int pos = 0;
+                        int loadPos = 0;
+                        int i = 0;
+                        int pos = 0;
 
-                string query = "SELECT * FROM AGENCY WHERE ISDELETE = 0";
+                        string query = "SELECT * FROM AGENCY WHERE ISDELETE = 0";
 
-                this.ListStores = DataProvider.Instance.DB.Agencies.SqlQuery(query).ToList();
+                        this.ListStores = DataProvider.Instance.DB.Agencies.SqlQuery(query).ToList();
 
-                if (String.IsNullOrEmpty(this.HomeWindow.txtSearchAgency.Text))
-                {
-                    Load3Stores(para, PageNumber);
-                }
-                else
-                {
-                    para.grdStoreFisrt.Children.Clear();
-                    para.grdStoreSecond.Children.Clear();
-                    para.grdStoreThird.Children.Clear();
-
-                    //hiển thị ds theo phân trang(number page)
-                    while (i < 3)
-                    {
-                        for (pos = loadPos; pos < this.ListStores.Count; pos++)
+                        if (String.IsNullOrEmpty(this.HomeWindow.txtSearchAgency.Text))
                         {
-                            if (this.ListStores[pos].Name.ToLower().Contains(this.HomeWindow.txtSearchAgency.Text.ToLower()))
+                            Load3Stores(para, PageNumber);
+                        }
+                        else
+                        {
+                            para.grdStoreFisrt.Children.Clear();
+                            para.grdStoreSecond.Children.Clear();
+                            para.grdStoreThird.Children.Clear();
+
+                            //hiển thị ds theo phân trang(number page)
+                            while (i < 3)
                             {
-                                i++;
-                                loadPos = pos + 1;
-                                int typeA = int.Parse(ListStores[pos].TypeOfAgency.ToString());
-                                TypeOfAgency type = (TypeOfAgency)DataProvider.Instance.DB.TypeOfAgencies.Where(x => x.ID == typeA).First();
-
-                                StoreControlUC uc = new StoreControlUC();
-                                uc.Height = 350;
-                                uc.Width = 250;
-                                uc.txbID.Text = ListStores[pos].ID.ToString();
-                                uc.AgencyName.Text = ListStores[pos].Name.ToString();
-                                uc.txbAgencyPhone.Text = ListStores[pos].PhoneNumber.ToString();
-                                uc.txbAgencyDate.Text = ListStores[pos].CheckIn.Value.ToShortDateString();
-                                uc.txbAgencyPosition.Text = ListStores[pos].Address.ToString();
-                                uc.txbAgencyType.Text = type.Name.ToString();
-
-                                switch (i - 1)
+                                for (pos = loadPos; pos < this.ListStores.Count; pos++)
                                 {
-                                    case 0:
-                                        para.grdStoreFisrt.Children.Add(uc);
-                                        break;
-                                    case 1:
-                                        para.grdStoreSecond.Children.Add(uc);
-                                        break;
-                                    case 2:
-                                        para.grdStoreThird.Children.Add(uc);
-                                        break;
+                                    if (this.ListStores[pos].Name.ToLower().Contains(this.HomeWindow.txtSearchAgency.Text.ToLower()))
+                                    {
+                                        i++;
+                                        loadPos = pos + 1;
+                                        int typeA = int.Parse(ListStores[pos].TypeOfAgency.ToString());
+                                        TypeOfAgency type = (TypeOfAgency)DataProvider.Instance.DB.TypeOfAgencies.Where(x => x.ID == typeA).First();
+
+                                        StoreControlUC uc = new StoreControlUC();
+                                        uc.Height = 350;
+                                        uc.Width = 250;
+                                        uc.txbID.Text = ListStores[pos].ID.ToString();
+                                        uc.AgencyName.Text = ListStores[pos].Name.ToString();
+                                        uc.txbAgencyPhone.Text = ListStores[pos].PhoneNumber.ToString();
+                                        uc.txbAgencyDate.Text = ListStores[pos].CheckIn.Value.ToShortDateString();
+                                        uc.txbAgencyPosition.Text = ListStores[pos].Address.ToString();
+                                        uc.txbAgencyType.Text = type.Name.ToString();
+
+                                        switch (i - 1)
+                                        {
+                                            case 0:
+                                                para.grdStoreFisrt.Children.Add(uc);
+                                                break;
+                                            case 1:
+                                                para.grdStoreSecond.Children.Add(uc);
+                                                break;
+                                            case 2:
+                                                para.grdStoreThird.Children.Add(uc);
+                                                break;
+                                        }
+                                    }
+                                }
+                                if (pos == this.ListStores.Count)
+                                {
+                                    break;
                                 }
                             }
                         }
-                        if (pos == this.ListStores.Count)
+                    }
+                    break;
+                case 1:
+                    if (para.cbbStore_Store.SelectedIndex == 0)
+                    {
+                        foreach (AgencyControlUC control in HomeWindow.stkStore_Store.Children)
                         {
-                            break;
+                            if (!control.cbbSpecies.Text.ToLower().Contains(this.HomeWindow.txtSearchAgency.Text))
+                            {
+                                control.Visibility = Visibility.Collapsed;
+                            }
+                            else
+                            {
+                                control.Visibility = Visibility.Visible;
+                            }
                         }
                     }
-                }
+                    else
+                    {
+                        int loadPos = 0;
+                        int i = 0;
+                        int pos = 0;
+
+                        string query = "SELECT * FROM AGENCY WHERE ISDELETE = 0";
+
+                        this.ListStores = DataProvider.Instance.DB.Agencies.SqlQuery(query).ToList();
+
+                        if (String.IsNullOrEmpty(this.HomeWindow.txtSearchAgency.Text))
+                        {
+                            Load3Stores(para, PageNumber);
+                        }
+                        else
+                        {
+                            para.grdStoreFisrt.Children.Clear();
+                            para.grdStoreSecond.Children.Clear();
+                            para.grdStoreThird.Children.Clear();
+
+                            //hiển thị ds theo phân trang(number page)
+                            while (i < 3)
+                            {
+                                for (pos = loadPos; pos < this.ListStores.Count; pos++)
+                                {
+                                    if (this.ListStores[pos].TypeOfAgency.ToString().ToLower().Contains(this.HomeWindow.txtSearchAgency.Text.ToLower()))
+                                    {
+                                        i++;
+                                        loadPos = pos + 1;
+                                        int typeA = int.Parse(ListStores[pos].TypeOfAgency.ToString());
+                                        TypeOfAgency type = (TypeOfAgency)DataProvider.Instance.DB.TypeOfAgencies.Where(x => x.ID == typeA).First();
+
+                                        StoreControlUC uc = new StoreControlUC();
+                                        uc.Height = 350;
+                                        uc.Width = 250;
+                                        uc.txbID.Text = ListStores[pos].ID.ToString();
+                                        uc.AgencyName.Text = ListStores[pos].Name.ToString();
+                                        uc.txbAgencyPhone.Text = ListStores[pos].PhoneNumber.ToString();
+                                        uc.txbAgencyDate.Text = ListStores[pos].CheckIn.Value.ToShortDateString();
+                                        uc.txbAgencyPosition.Text = ListStores[pos].Address.ToString();
+                                        uc.txbAgencyType.Text = type.Name.ToString();
+
+                                        switch (i - 1)
+                                        {
+                                            case 0:
+                                                para.grdStoreFisrt.Children.Add(uc);
+                                                break;
+                                            case 1:
+                                                para.grdStoreSecond.Children.Add(uc);
+                                                break;
+                                            case 2:
+                                                para.grdStoreThird.Children.Add(uc);
+                                                break;
+                                        }
+                                    }
+                                }
+                                if (pos == this.ListStores.Count)
+                                {
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                    break;
+                case 2:
+                    if (para.cbbStore_Store.SelectedIndex == 0)
+                    {
+                        foreach (AgencyControlUC control in HomeWindow.stkStore_Store.Children)
+                        {
+                            if (!control.txtDistrict.Text.ToLower().Contains(this.HomeWindow.txtSearchAgency.Text))
+                            {
+                                control.Visibility = Visibility.Collapsed;
+                            }
+                            else
+                            {
+                                control.Visibility = Visibility.Visible;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        int loadPos = 0;
+                        int i = 0;
+                        int pos = 0;
+
+                        string query = "SELECT * FROM AGENCY WHERE ISDELETE = 0";
+
+                        this.ListStores = DataProvider.Instance.DB.Agencies.SqlQuery(query).ToList();
+
+                        if (String.IsNullOrEmpty(this.HomeWindow.txtSearchAgency.Text))
+                        {
+                            Load3Stores(para, PageNumber);
+                        }
+                        else
+                        {
+                            para.grdStoreFisrt.Children.Clear();
+                            para.grdStoreSecond.Children.Clear();
+                            para.grdStoreThird.Children.Clear();
+
+                            //hiển thị ds theo phân trang(number page)
+                            while (i < 3)
+                            {
+                                for (pos = loadPos; pos < this.ListStores.Count; pos++)
+                                {
+                                    if (this.ListStores[pos].District.ToLower().Contains(this.HomeWindow.txtSearchAgency.Text.ToLower()))
+                                    {
+                                        i++;
+                                        loadPos = pos + 1;
+                                        int typeA = int.Parse(ListStores[pos].TypeOfAgency.ToString());
+                                        TypeOfAgency type = (TypeOfAgency)DataProvider.Instance.DB.TypeOfAgencies.Where(x => x.ID == typeA).First();
+
+                                        StoreControlUC uc = new StoreControlUC();
+                                        uc.Height = 350;
+                                        uc.Width = 250;
+                                        uc.txbID.Text = ListStores[pos].ID.ToString();
+                                        uc.AgencyName.Text = ListStores[pos].Name.ToString();
+                                        uc.txbAgencyPhone.Text = ListStores[pos].PhoneNumber.ToString();
+                                        uc.txbAgencyDate.Text = ListStores[pos].CheckIn.Value.ToShortDateString();
+                                        uc.txbAgencyPosition.Text = ListStores[pos].Address.ToString();
+                                        uc.txbAgencyType.Text = type.Name.ToString();
+
+                                        switch (i - 1)
+                                        {
+                                            case 0:
+                                                para.grdStoreFisrt.Children.Add(uc);
+                                                break;
+                                            case 1:
+                                                para.grdStoreSecond.Children.Add(uc);
+                                                break;
+                                            case 2:
+                                                para.grdStoreThird.Children.Add(uc);
+                                                break;
+                                        }
+                                    }
+                                }
+                                if (pos == this.ListStores.Count)
+                                {
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                    break;
+
             }
         }
 
         private void DeleteStore(AgencyControlUC para)
         {
+            if (ConvertToNumber(para.txtDebt.Text) > 0)
+            {
+                CustomMessageBox.Show("Debt must be equal 0!", "Notify", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
             MessageBoxResult res = CustomMessageBox.Show("Are you sure?", "Notify", MessageBoxButton.YesNo, MessageBoxImage.Question);
             if (res == MessageBoxResult.Yes)
             {
@@ -332,13 +595,8 @@ namespace StoreManagement.ViewModels
         private void SaveStore(AddStoreWindow para)
         {
             string oldDistrict = "";
-            StreamReader sr = new StreamReader("../../cache.txt");
-            string cache = sr.ReadToEnd();
-            sr.Close();
 
             string district = "";
-
-            string[] rulesSetting = cache.Split(' ');
 
             if (string.IsNullOrEmpty(para.txtName.Text))
             {
@@ -391,6 +649,7 @@ namespace StoreManagement.ViewModels
 
             district = para.cbDistrict.Text;
             int? number = DataProvider.Instance.DB.Districts.Where(x => x.Name == district).First().NumberAgencyInDistrict;
+            int setting = DataProvider.Instance.DB.Settings.First().NumberStoreInDistrict;
 
             if (para.Title == "Edit agency")
             {
@@ -400,7 +659,7 @@ namespace StoreManagement.ViewModels
                 oldDistrict = agency.District;
                 if (district != agency.District)
                 {
-                    if (int.Parse(rulesSetting[1]) <= number)
+                    if (setting <= number)
                     {
                         CustomMessageBox.Show("Number of agency in this district is full!", "Notify", MessageBoxButton.OK, MessageBoxImage.Warning);
                         return;
@@ -409,7 +668,7 @@ namespace StoreManagement.ViewModels
             }
             else
             {
-                if (int.Parse(rulesSetting[1]) <= number)
+                if (setting <= number)
                 {
                     CustomMessageBox.Show("Number of agency in this district is full!", "Notify", MessageBoxButton.OK, MessageBoxImage.Warning);
                     return;
@@ -473,7 +732,7 @@ namespace StoreManagement.ViewModels
                 }
                 else
                 {
-                    LoadListAgency();
+                    LoadListAgency(this.HomeWindow);
                 }
                 para.Close();
             }
@@ -491,6 +750,9 @@ namespace StoreManagement.ViewModels
             this.ListType = DataProvider.Instance.DB.TypeOfAgencies.ToList();
             AddStoreWindow wd = new AddStoreWindow();
             LoadListDistrict(wd);
+            wd.grdDebt.Visibility = Visibility.Visible;
+            wd.grdEdit.Visibility = Visibility.Visible;
+            wd.grdSave.Visibility = Visibility.Hidden;
             wd.txtID.Text = store.ID.ToString();
             wd.txtName.Text = store.Name.ToString();
             wd.txtAddress.Text = store.Address.ToString();
@@ -537,6 +799,7 @@ namespace StoreManagement.ViewModels
             }
             finally
             {
+                wd.txtDebt.Text = "0";
                 wd.ShowDialog();
             }
         }
@@ -660,15 +923,15 @@ namespace StoreManagement.ViewModels
                 return pageNumber;
         }
 
-        private String SeparateThousands(String txt)
-        {
-            if (!string.IsNullOrEmpty(txt))
-            {
-                System.Globalization.CultureInfo culture = new System.Globalization.CultureInfo("en-US");
-                ulong valueBefore = ulong.Parse(ConvertToNumber(txt).ToString(), System.Globalization.NumberStyles.AllowThousands);
-                txt = String.Format(culture, "{0:N0}", valueBefore);
-            }
-            return txt;
-        }
+        //private String SeparateThousands(String txt)
+        //{
+        //    if (!string.IsNullOrEmpty(txt))
+        //    {
+        //        System.Globalization.CultureInfo culture = new System.Globalization.CultureInfo("en-US");
+        //        ulong valueBefore = ulong.Parse(ConvertToNumber(txt).ToString(), System.Globalization.NumberStyles.AllowThousands);
+        //        txt = String.Format(culture, "{0:N0}", valueBefore);
+        //    }
+        //    return txt;
+        //}
     }
 }

@@ -197,7 +197,7 @@ namespace StoreManagement.ViewModels
             inv.AgencyID = int.Parse(this.HomeWindow.txbIDAgencyPayment.Text);
             inv.Checkout = DateTime.Parse(wdInvoice.txbDate.Text);
             inv.Debt = ConvertToNumber(wdInvoice.txbChange.Text);
-            inv.Total = (long)(ConvertToNumber(wdInvoice.txbTotal.Text) * 1.02);
+            inv.Total = (long)(ConvertToNumber(wdInvoice.txbTotal.Text));
 
             DataProvider.Instance.DB.Invoices.Add(inv);
 
@@ -230,11 +230,12 @@ namespace StoreManagement.ViewModels
             ReloadBusiness();
             //update today's sales result
             ReportViewModel reportViewModel = new ReportViewModel();
-            reportViewModel.InitColumnChart(para);
             reportViewModel.LoadSales(para);
             //reload chart
-            reportViewModel.LoadChartByAgency();
-            reportViewModel.LoadChartByProduct();
+                //reportViewModel.InitColumnChart(para);
+                //reportViewModel.LoadChartByMonth(DateTime.Now.Month.ToString(), DateTime.Now.Year.ToString());
+                //reportViewModel.LoadChartByAgency();
+                //reportViewModel.LoadChartByProduct();
             //update invoices, stock, receipt
             BillViewModel billViewModel = new BillViewModel();
             billViewModel.Init(para);
@@ -304,6 +305,7 @@ namespace StoreManagement.ViewModels
                 if (retainer <= total)
                 {
                     this.HomeWindow.txbChangePayment.Text = SeparateThousands((total - retainer).ToString());
+                    this.HomeWindow.txbExcessCash.Text = "0";
                 }
                 else
                 {
@@ -423,15 +425,15 @@ namespace StoreManagement.ViewModels
             }
         }
 
-        private String SeparateThousands(String txt)
-        {
-            if (!string.IsNullOrEmpty(txt))
-            {
-                System.Globalization.CultureInfo culture = new System.Globalization.CultureInfo("en-US");
-                ulong valueBefore = ulong.Parse(ConvertToNumber(txt).ToString(), System.Globalization.NumberStyles.AllowThousands);
-                txt = String.Format(culture, "{0:N0}", valueBefore);
-            }
-            return txt;
-        }
+        //private String SeparateThousands(String txt)
+        //{
+        //    if (!string.IsNullOrEmpty(txt))
+        //    {
+        //        System.Globalization.CultureInfo culture = new System.Globalization.CultureInfo("en-US");
+        //        ulong valueBefore = ulong.Parse(ConvertToNumber(txt).ToString(), System.Globalization.NumberStyles.AllowThousands);
+        //        txt = String.Format(culture, "{0:N0}", valueBefore);
+        //    }
+        //    return txt;
+        //}
     }
 }

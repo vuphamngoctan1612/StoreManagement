@@ -10,23 +10,19 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace StoreManagement.Views
+namespace StoreManagement.Resources.UserControls
 {
     /// <summary>
-    /// Interaction logic for AddProductWindow.xaml
+    /// Interaction logic for StockReceiptControlUC.xaml
     /// </summary>
-    public partial class AddProductWindow : Window
+    public partial class StockReceiptControlUC : UserControl
     {
-        public AddProductWindow()
+        public StockReceiptControlUC()
         {
             InitializeComponent();
-
-            this.txtName.Text = null;
-            this.cbbUnits.Text = null;
-            this.txtPrice.Text = null;
-            this.txtImportPrice.Text = null;
         }
     }
 }

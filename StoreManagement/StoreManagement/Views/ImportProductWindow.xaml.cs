@@ -22,11 +22,6 @@ namespace StoreManagement.Views
         public ImportProductWindow()
         {
             InitializeComponent();
-
-            this.txtProductName.Text = null;
-            this.txtImportPrice.Text = null;
-            this.txtAmount.Text = null;
-            this.cbbUnits.Text = null;
         }
     }
 }

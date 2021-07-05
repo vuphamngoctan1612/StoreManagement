@@ -107,7 +107,6 @@ namespace StoreManagement.ViewModels
 
         public ReportViewModel()
         {
-            //LoadTop3AgencyCommand = new RelayCommand<HomeWindow>((para) => true, (para) => LoadTop3Agency(para));
             InitColumnChartCommand = new RelayCommand<HomeWindow>((para) => true, (para) => InitColumnChart(para));
             SelectedTypeChangeCommand = new RelayCommand<HomeWindow>((para) => true, (para) => cboSelectTypeOfChartIndex_Changed(para));
             LoadSalesResult = new RelayCommand<HomeWindow>((para) => true, (para) => LoadSales(para));
@@ -149,7 +148,7 @@ namespace StoreManagement.ViewModels
             catch { }
             if (sumInvoicesTotalYesterday != 0)
             {
-                para.yesterday_compare.Text = ((int)(100 * sumInvoicesTotal / sumInvoicesTotalYesterday) - 100).ToString() + "%";
+                para.yesterday_compare.Text = ((100 * sumInvoicesTotal / sumInvoicesTotalYesterday) - 100).ToString("0.00") + "%";
                 if (((int)(100 * sumInvoicesTotal / sumInvoicesTotalYesterday) - 100).ToString().First() == '-')
                 {
                     para.yesterday_compare.Foreground = (Brush)new BrushConverter().ConvertFrom("#E3507A");
@@ -166,12 +165,17 @@ namespace StoreManagement.ViewModels
             {
                 List<Int64> tempLastMonth = DataProvider.Instance.DB.Database.SqlQuery<Int64>("select sum(Total) from Invoice " +
                                                                                                 "where(select month(Checkout) as month) = (select month(GETDATE()) - 1 as month)").ToList();
+
+                List<Int64> tempThisMonth = DataProvider.Instance.DB.Database.SqlQuery<Int64>("select sum(Total) from Invoice " +
+                                                                                                "where(select month(Checkout) as month) = (select month(GETDATE()) as month)").ToList();
+
                 sumInvoicesLastMonth = (double)(tempLastMonth.First());
+                sumInvoicesThisMonth = (double)(tempThisMonth.First());
             }
             catch { }
             if (sumInvoicesLastMonth != 0)
             {
-                para.month_compare.Text = ((int)(100 * sumInvoicesThisMonth / sumInvoicesLastMonth) - 100).ToString() + "%";
+                para.month_compare.Text = ((100 * sumInvoicesThisMonth / sumInvoicesLastMonth) - 100).ToString("0.00") + "%";
                 if (((int)(100 * sumInvoicesThisMonth / sumInvoicesLastMonth) - 100).ToString().First() == '-')
                 {
                     para.month_compare.Foreground = (Brush)new BrushConverter().ConvertFrom("#E3507A");
@@ -380,9 +384,9 @@ namespace StoreManagement.ViewModels
 
             para.cboSelectPeriod.Text = "Monthly";
 
-            para.cboSelectTime.Text =month;
+            para.cboSelectTime.Text = month;
 
-            para.cboSelectYear.Text =year;
+            para.cboSelectYear.Text = year;
 
             para.cboSelectYear.Visibility = System.Windows.Visibility.Hidden;
 
@@ -448,6 +452,7 @@ namespace StoreManagement.ViewModels
             Labels = this.GetTop5AgencyByQuarter(quarter, year);
             Formatter = value => ConvertToString(value);
         }
+
         public void LoadChartByProduct()
         {
             string currenYear = DateTime.Now.Year.ToString();
@@ -506,7 +511,8 @@ namespace StoreManagement.ViewModels
             Labels = this.GetTop5ProductByQuarter(quarter, year);
             Formatter = value => ConvertToString(value);
         }
-        private void LoadChartByMonth(string month, string year)
+
+        public void LoadChartByMonth(string month, string year)
         {
             AxisXTitle = "Day";
             SeriesCollection = new SeriesCollection
@@ -530,7 +536,7 @@ namespace StoreManagement.ViewModels
             Labels = this.GetDayInMonth(month, year);
             Formatter = value => ConvertToString(value);
         }
-        private void LoadChartByYear(string year)
+        public void LoadChartByYear(string year)
         {
             AxisXTitle = "Month";
             SeriesCollection = new SeriesCollection
@@ -554,7 +560,7 @@ namespace StoreManagement.ViewModels
             Labels = this.GetMonthInYear(year);
             Formatter = value => ConvertToString(value);
         }
-        private void LoadChartByQuarter(string year)
+        public void LoadChartByQuarter(string year)
         {
             AxisXTitle = "Quarter";
             SeriesCollection = new SeriesCollection

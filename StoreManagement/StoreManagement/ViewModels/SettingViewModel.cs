@@ -42,7 +42,6 @@ namespace StoreManagement.ViewModels
 
             LoadSettingWindowCommand = new RelayCommand<HomeWindow>((para) => true, (para) => LoadSettingWindow(para));
             SaveRulesType_SettingCommand = new RelayCommand<HomeWindow>((para) => true, (para) => SaveRulesType_Setting(para));
-            SaveRulesProduct_SettingCommand = new RelayCommand<HomeWindow>((para) => true, (para) => SaveRulesProduct_Setting(para));
             EditTypeCommand = new RelayCommand<TypeOfAgencyUC>((para) => true, (para) => EditType(para));
             DeleteTypeCommand = new RelayCommand<TypeOfAgencyUC>((para) => true, (para) => DeleteType(para));
             SaveStoreCommand = new RelayCommand<AddTypeOfAgencyWindow>((para) => true, (para) => SaveStore(para));
@@ -56,12 +55,6 @@ namespace StoreManagement.ViewModels
             AddTypeOfAgencyWindow wd = new AddTypeOfAgencyWindow();
             this.ListType = DataProvider.Instance.DB.TypeOfAgencies.ToList<TypeOfAgency>();
 
-            string[] rules = this.cache.Split(' ');
-            if (this.ListType.Count >= int.Parse(rules[0]))
-            {
-                CustomMessageBox.Show("Over the limit in Setting!", "Notify", MessageBoxButton.OK, MessageBoxImage.Warning);
-                return;
-            }
             try
             {
                 wd.txtID.Text = (this.ListType.Last().ID + 1).ToString();
@@ -165,85 +158,10 @@ namespace StoreManagement.ViewModels
             wd.ShowDialog();
         }
 
-        private void SaveRulesProduct_Setting(HomeWindow para)
-        {
-            this.HomeWindow = para;
-
-            StreamReader sr = new StreamReader("../../cache.txt");
-            this.cache = sr.ReadToEnd();
-            sr.Close();
-
-            string[] rulesSetting = this.cache.Split(' ');
-
-            if (string.IsNullOrEmpty(para.txtNumberProduct_Setting.Text))
-            {
-                para.txtNumberProduct_Setting.Text = "";
-                para.txtNumberType_Setting.Focus();
-                return;
-            }
-
-            if (string.IsNullOrEmpty(para.txtNumberUnit_Setting.Text))
-            {
-                para.txtNumberUnit_Setting.Text = "";
-                para.txtNumberAgencyinDistrict_Setting.Focus();
-                return;
-            }
-
-            if (ConvertToNumber(para.txtNumberProduct_Setting.Text).ToString() == rulesSetting[2] && ConvertToNumber(para.txtNumberUnit_Setting.Text).ToString() == rulesSetting[3])
-            {
-                CustomMessageBox.Show("Setting is not change...!", "Notify", MessageBoxButton.OK, MessageBoxImage.Warning);
-                return;
-            }
-
-            int countProduct = DataProvider.Instance.DB.Products.Where(x => x.IsDelete == false).Count();
-
-            if (countProduct > ConvertToNumber(para.txtNumberProduct_Setting.Text))
-            {
-                string show = string.Format("Number of product must be greater than or equal to than {0}!", countProduct);
-                CustomMessageBox.Show(show, "Notify", MessageBoxButton.OK, MessageBoxImage.Warning);
-                return;
-            }
-
-            int limit = LimitOfUnit();
-
-            if (limit > ConvertToNumber(para.txtNumberUnit_Setting.Text))
-            {
-                string show = string.Format("Number of unit must be greater than or equal to than {0}!", limit);
-                CustomMessageBox.Show(show, "Notify", MessageBoxButton.OK, MessageBoxImage.Warning);
-                return;
-            }
-
-            string newCache = string.Format("{0} {1} {2} {3}", rulesSetting[0], rulesSetting[1], ConvertToNumber(para.txtNumberProduct_Setting.Text), ConvertToNumber(para.txtNumberUnit_Setting.Text));
-
-            string fileName = @"../../cache.txt";
-
-            if (File.Exists(fileName))
-            {
-                File.Delete(fileName);
-            }
-
-            File.AppendAllText(fileName, newCache);
-            this.cache = newCache;
-
-            CustomMessageBox.Show("Success", "Notify", MessageBoxButton.OK, MessageBoxImage.Information);
-        }
-
         private void SaveRulesType_Setting(HomeWindow para)
         {
-            this.HomeWindow = para;
-
-            StreamReader sr = new StreamReader("../../cache.txt");
-            this.cache = sr.ReadToEnd();
-            sr.Close();
-
-            string[] rulesSetting = this.cache.Split(' ');
-
-            if (string.IsNullOrEmpty(para.txtNumberType_Setting.Text))
-            {
-                para.txtNumberType_Setting.Text = "";
-                para.txtNumberType_Setting.Focus();
-                return;
-            }
+            int limit= LimitOfAgencyinDistrict();
+            int count = DataProvider.Instance.DB.Settings.First().NumberStoreInDistrict;
 
             if (string.IsNullOrEmpty(para.txtNumberAgencyinDistrict_Setting.Text))
             {
@@ -252,22 +170,11 @@ namespace StoreManagement.ViewModels
                 return;
             }
 
-            if (ConvertToNumber(para.txtNumberType_Setting.Text).ToString() == rulesSetting[0] && ConvertToNumber(para.txtNumberAgencyinDistrict_Setting.Text).ToString() == rulesSetting[1])
+            if (ConvertToNumber(para.txtNumberAgencyinDistrict_Setting.Text) == count)
             {
                 CustomMessageBox.Show("Setting is not change...!", "Notify", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
-
-            this.ListType = DataProvider.Instance.DB.TypeOfAgencies.ToList();
-
-            if (this.ListType.Count > ConvertToNumber(para.txtNumberType_Setting.Text))
-            {
-                string show = string.Format("Number of type must be greater than or equal to than {0}!", this.ListType.Count);
-                CustomMessageBox.Show(show, "Notify", MessageBoxButton.OK, MessageBoxImage.Warning);
-                return;
-            }
-
-            int limit = LimitOfAgencyinDistrict();
 
             if (limit > ConvertToNumber(para.txtNumberAgencyinDistrict_Setting.Text))
             {
@@ -275,19 +182,10 @@ namespace StoreManagement.ViewModels
                 CustomMessageBox.Show(show, "Notify", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
-
-            string newCache = string.Format("{0} {1} {2} {3}", ConvertToNumber(para.txtNumberType_Setting.Text), ConvertToNumber(para.txtNumberAgencyinDistrict_Setting.Text), rulesSetting[2], rulesSetting[3]);
-
-            string fileName = @"../../cache.txt";
-
-            if (File.Exists(fileName))
-            {
-                File.Delete(fileName);
-            }
-
-            File.AppendAllText(fileName, newCache);
-            this.cache = newCache;
-
+            Setting setting = DataProvider.Instance.DB.Settings.Where(x => x.ID == 1).First();
+            setting.NumberStoreInDistrict = (int)ConvertToNumber(para.txtNumberAgencyinDistrict_Setting.Text);
+            DataProvider.Instance.DB.Settings.AddOrUpdate(setting);
+            DataProvider.Instance.DB.SaveChanges();
             CustomMessageBox.Show("Success", "Notify", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
@@ -295,22 +193,6 @@ namespace StoreManagement.ViewModels
         {
             this.HomeWindow = para;
             this.ListType = DataProvider.Instance.DB.TypeOfAgencies.ToList<TypeOfAgency>();
-
-            StreamReader sr = new StreamReader("../../cache.txt");
-            this.cache = sr.ReadToEnd();
-            sr.Close();
-
-            string[] rulesSetting = this.cache.Split(' ');
-
-            para.txtNumberType_Setting.Text = ConvertToString(long.Parse(rulesSetting[0]));
-            para.txtNumberAgencyinDistrict_Setting.Text = ConvertToString(long.Parse(rulesSetting[1]));
-            para.txtNumberProduct_Setting.Text = ConvertToString(long.Parse(rulesSetting[2]));
-            para.txtNumberUnit_Setting.Text = ConvertToString(long.Parse(rulesSetting[3]));
-
-            para.txtNumberType_Setting.SelectionStart = para.txtNumberType_Setting.Text.Length;
-            para.txtNumberAgencyinDistrict_Setting.SelectionStart = para.txtNumberAgencyinDistrict_Setting.Text.Length;
-            para.txtNumberProduct_Setting.SelectionStart = para.txtNumberProduct_Setting.Text.Length;
-            para.txtNumberUnit_Setting.SelectionStart = para.txtNumberUnit_Setting.Text.Length;
 
             for (int i = 0; i < this.ListType.Count; i++)
             {
@@ -323,6 +205,11 @@ namespace StoreManagement.ViewModels
                 para.stkListType_Setting.Children.Add(uc);
             }
 
+
+            int count = DataProvider.Instance.DB.Settings.First().NumberStoreInDistrict;
+            para.txtNumberAgencyinDistrict_Setting.Text = ConvertToString(count);
+            para.txtNumberAgencyinDistrict_Setting.SelectionStart = para.txtNumberAgencyinDistrict_Setting.Text.Length;
+
             Button bt = new Button();
             bt = (Button)para.stkListType_Setting.Children[0];
             para.stkListType_Setting.Children.RemoveAt(0);
@@ -331,32 +218,11 @@ namespace StoreManagement.ViewModels
 
         public void Reload(HomeWindow para)
         {
-            StreamReader sr = new StreamReader("../../cache.txt");
-            this.cache = sr.ReadToEnd();
-            sr.Close();
+            this.HomeWindow = para;
 
-            string[] rulesSetting = this.cache.Split(' ');
-
-            para.txtNumberType_Setting.Text = rulesSetting[0];
-            para.txtNumberAgencyinDistrict_Setting.Text = rulesSetting[1];
-            para.txtNumberProduct_Setting.Text = rulesSetting[2];
-            para.txtNumberUnit_Setting.Text = rulesSetting[3];
-
-            para.txtNumberType_Setting.SelectionStart = para.txtNumberType_Setting.Text.Length;
+            int count = DataProvider.Instance.DB.Settings.First().NumberStoreInDistrict;
+            para.txtNumberAgencyinDistrict_Setting.Text = ConvertToString(count);
             para.txtNumberAgencyinDistrict_Setting.SelectionStart = para.txtNumberAgencyinDistrict_Setting.Text.Length;
-            para.txtNumberProduct_Setting.SelectionStart = para.txtNumberProduct_Setting.Text.Length;
-            para.txtNumberUnit_Setting.SelectionStart = para.txtNumberUnit_Setting.Text.Length;
-        }
-
-        private String SeparateThousands(String txt)
-        {
-            if (!string.IsNullOrEmpty(txt))
-            {
-                System.Globalization.CultureInfo culture = new System.Globalization.CultureInfo("en-US");
-                ulong valueBefore = ulong.Parse(ConvertToNumber(txt).ToString(), System.Globalization.NumberStyles.AllowThousands);
-                txt = String.Format(culture, "{0:N0}", valueBefore);
-            }
-            return txt;
         }
 
         private int LimitOfAgencyinDistrict()
@@ -380,15 +246,6 @@ namespace StoreManagement.ViewModels
             }
 
             return max;
-        }
-
-        private int LimitOfUnit()
-        {
-            List<Product> list = DataProvider.Instance.DB.Products.ToList();
-
-            var results = DataProvider.Instance.DB.Products.Where(x => x.IsDelete == false).Select(x => x.Unit).Distinct().ToList();
-
-            return results.Count;
         }
     }
 }

@@ -87,8 +87,8 @@
             Command="{Binding RemovefromListChosenCommand}"
             CommandParameter="{Binding ElementName=ProductChosenUC}">
             <materialDesign:PackIcon
-                Kind="Delete"
-                Foreground="Gray"/>
+                Kind="DeleteOutline"
+                Foreground="#FFF44336"/>
         </Button>
         <UserControl
             Height="32"

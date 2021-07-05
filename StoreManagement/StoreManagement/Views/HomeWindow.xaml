@@ -136,7 +136,7 @@
                     <Button 
                         x:Name="btnStores" 
                         Uid="1"
-                        Content="Stores"
+                        Content="Agencies"
                         Foreground="#504D85"
                         Margin="0" 
                         Height="45" 
@@ -1012,7 +1012,7 @@
                 </Grid>
                 <Grid Grid.Row="1">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="1.5*"></ColumnDefinition>
+                        <ColumnDefinition Width="2.5*"></ColumnDefinition>
                         <ColumnDefinition></ColumnDefinition>
                     </Grid.ColumnDefinitions>
                     <Grid Grid.Column="0">
@@ -1045,6 +1045,31 @@
                                 </i:EventTrigger>
                             </i:Interaction.Triggers>
                         </TextBox>
+                        <TextBox
+                            x:Name="txtSearchDebtAgency"
+                            Height="35"
+                            BorderThickness="0"
+                            Width="250"
+                            materialDesign:HintAssist.Hint="Search..."
+                            FontSize="22"
+                            FontWeight="Regular"
+                            BorderBrush="#FCE5EC"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Center"
+                            Margin="40 10 0 0"
+                            Visibility="Hidden"
+                            MaxLength="15">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="PreviewTextInput" >
+                                    <ei:CallMethodAction TargetObject="{Binding }"
+                                                MethodName="NumberValidationTextBox" />
+                                </i:EventTrigger>
+                                <i:EventTrigger EventName="TextChanged">
+                                    <i:InvokeCommandAction Command="{Binding SearchDebtAgencyCommand}" 
+                                                CommandParameter="{Binding ElementName=wdHome}"/>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </TextBox>
                         <materialDesign:PackIcon
 		                    Kind="Magnify"
 		                    Width="40"
@@ -1052,6 +1077,32 @@
 		                    HorizontalAlignment="Left" 
                             VerticalAlignment="Center"
 		                    Margin="290 10 0 0"/>
+                        <ComboBox
+                            Name="cbbSearch"
+                            materialDesign:ComboBoxAssist.ClassicMode="true"
+                            FontSize="17"
+                            FontWeight="Medium" 
+                            Background="Transparent"
+                            Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+                            materialDesign:ColorZoneAssist.Mode="Custom" 
+                            materialDesign:HintAssist.Hint="Search by..."
+                            Width="200" 
+                            Height="50" 
+                            Padding="5,0,0,5" 
+                            Margin="370,0,0,0"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Center">
+                            <ComboBoxItem Content="Name"></ComboBoxItem>
+                            <ComboBoxItem Content="Type"></ComboBoxItem>
+                            <ComboBoxItem Content="District"></ComboBoxItem>
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="SelectionChanged">
+                                    <i:InvokeCommandAction
+                                        Command="{Binding SearchByCommand}" 
+                                        CommandParameter="{Binding ElementName=wdHome}"/>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </ComboBox>
                         <ComboBox
                             Name="cbbStore_Store"
                             materialDesign:ComboBoxAssist.ClassicMode="true"
@@ -1064,7 +1115,7 @@
                             Width="200" 
                             Height="50" 
                             Padding="5,0,0,5" 
-                            Margin="400,0,0,0"
+                            Margin="600,0,0,0"
                             HorizontalAlignment="Left"
                             VerticalAlignment="Center">
                             <ComboBoxItem Content="List detail"></ComboBoxItem>
@@ -1298,46 +1349,90 @@
                     Background="#FBA1BB"/>
                 <Grid Grid.Row="1">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition Width="1.5*"></ColumnDefinition>
                         <ColumnDefinition></ColumnDefinition>
                     </Grid.ColumnDefinitions>
                     <Grid Grid.Column="0">
-                        <Rectangle
-                            HorizontalAlignment="Left"
-                            VerticalAlignment="Center"
+                        <Grid 
+                            Margin="30 5 0 0"
                             Width="300"
-                            Height="40"
-                            Margin="30 10 0 0"
-                            StrokeThickness="2"
-                            RadiusX="5"
-                            RadiusY="5"
-                            Stroke="#E2D2DA"/>
-                        <materialDesign:PackIcon
-                            Kind="Magnify"
-                            Width="40"
-                            Height="35"
-                            HorizontalAlignment="Stretch" 
-                            VerticalAlignment="Stretch"
-                            Margin="45 10 0 0">
-                        </materialDesign:PackIcon>
-                        <TextBox
-                            x:Name="txtSeachProduct"
-                            BorderThickness="0"
-                            Height="35"
-                            Width="250" 
                             HorizontalAlignment="Left"
-                            Margin="40 10 0 0"
-                            materialDesign:HintAssist.Hint="Search..."
-                            FontSize="22"
-                            FontWeight="Regular"
-                            BorderBrush="#FCE5EC">
-                            <i:Interaction.Triggers>
-                                <i:EventTrigger EventName="TextChanged">
-                                    <i:InvokeCommandAction Command="{Binding SearchProductCommand}" 
-                                                       CommandParameter="{Binding ElementName=wdHome}"/>
-                                </i:EventTrigger>
-                            </i:Interaction.Triggers>
-                        </TextBox>
+                            VerticalAlignment="Center">
+                            <Rectangle
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                Width="300"
+                                Height="40"
+                                Margin="0 0 0 0"
+                                StrokeThickness="2"
+                                RadiusX="5"
+                                RadiusY="5"
+                                Stroke="#E2D2DA"/>
+                            <materialDesign:PackIcon
+                                Kind="Magnify"
+                                Width="40"
+                                Height="35"
+                                HorizontalAlignment="Left" 
+                                VerticalAlignment="Center"
+                                Margin="260 0 0 0">
+                            </materialDesign:PackIcon>
+                            <TextBox
+                                x:Name="txtSeachProduct"
+                                BorderThickness="0"
+                                Height="35"
+                                Width="250" 
+                                HorizontalAlignment="Left"
+                                Margin="10 0 0 0"
+                                materialDesign:HintAssist.Hint="Search..."
+                                FontSize="22"
+                                FontWeight="Regular"
+                                BorderBrush="#FCE5EC">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="TextChanged">
+                                        <i:InvokeCommandAction
+                                            Command="{Binding SearchProductCommand}" 
+                                            CommandParameter="{Binding ElementName=wdHome}"/>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </TextBox>
+                        </Grid>
+                        <Grid
+                            Width="240"
+                            Margin="0 5 80 0"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Center"
+                            Height="40">
+                            <Rectangle 
+                                Stroke="#E2D2DA"
+                                StrokeThickness="2"
+                                RadiusY="5" 
+                                RadiusX="5" />
+                            <ComboBox
+                                x:Name="cboSelectFast"
+                                materialDesign:ComboBoxAssist.ClassicMode="True"
+                                materialDesign:HintAssist.Hint="Select list by type"
+                                Height="35"
+                                FontSize="22"
+                                Width="220"
+                                BorderThickness="0"
+                                Padding="0,0,5,0"
+                                ItemsSource="{Binding ItemsSourceUnits}"
+                                SelectedItem="{Binding SelectedUnits}"
+                                DisplayMemberPath="Name"
+                                VerticalContentAlignment="Center"
+                                HorizontalContentAlignment="Left"
+                                FontWeight="Regular"
+                                BorderBrush="{StaticResource Black2}" 
+                                Background="{StaticResource White}">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="SelectionChanged">
+                                        <i:InvokeCommandAction 
+                                            Command="{Binding SelectedChangedUnitsCommand}"
+                                            CommandParameter="{Binding ElementName=wdHome}"/>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </ComboBox>
+                        </Grid>
                     </Grid>
                     <Grid Grid.Column="1">
                         <StackPanel 
@@ -1357,6 +1452,19 @@
                                 Content="Export excel"
                                 Style="{StaticResource MaterialDesignRaisedButton}"
                                 Command="{Binding ExportExcelProductCommand}"
+                                CommandParameter="{Binding ElementName=wdHome}">
+                            </Button>
+                            <Button
+                                Margin="0 10 20 0"
+                                FocusVisualStyle="{x:Null}"
+                                BorderBrush="{x:Null}"
+                                Cursor="Hand"
+                                Background="#F79BB5"
+                                Foreground="#504D85"
+                                Content="Import product"
+                                DataContext="{StaticResource ImportProductVM}"
+                                Style="{StaticResource MaterialDesignRaisedButton}"
+                                Command="{Binding OpenImportProductWindowCommand}"
                                 CommandParameter="{Binding ElementName=wdHome}">
                             </Button>
                             <Button
@@ -1728,7 +1836,7 @@
                                     Grid.Row="1">
                                     <Border
                                         Background="{x:Null}"
-                                        CornerRadius="8"
+                                        CornerRadius="5"
                                         BorderBrush="LightGray"
                                         BorderThickness="1"
                                         Height="40"
@@ -1737,6 +1845,7 @@
                                         VerticalAlignment="Center">
                                         <ComboBox
                                             Name="cbSearchAgency"
+                                            materialDesign:ComboBoxAssist.ClassicMode="True"
                                             HorizontalAlignment="Center"
                                             VerticalAlignment="Center"
                                             Height="40"
@@ -1747,7 +1856,7 @@
                                             Foreground="#504D85"
                                             Background="Transparent"
                                             FontWeight="SemiBold"
-                                            Padding="0"
+                                            Padding="0 0 10 0"
                                             HorizontalContentAlignment="Center"
                                             VerticalContentAlignment="Center" 
                                             Cursor="Arrow"
@@ -1785,6 +1894,8 @@
                                         BorderBrush="{x:Null}"
                                         materialDesign:ButtonAssist.CornerRadius="6"
                                         Content="Add"
+                                        FontSize="20"
+                                        FontWeight="SemiBold"
                                         Command="{Binding AddAgencytoPaymentCommand}"
                                         CommandParameter="{Binding ElementName=cbSearchAgency}">
                                     </Button>
@@ -2044,6 +2155,7 @@
                                 <Grid
                                     Grid.Row="8">
                                     <Button
+                                        IsDefault="True"
                                         x:Name="btnPayinPayment"
                                         Height="40"
                                         Width="250"
@@ -2075,7 +2187,7 @@
                         <i:InvokeCommandAction 
                                             Command="{Binding InitCommand}"
                                             CommandParameter="{Binding ElementName=wdHome}"/>
-                        
+
                     </i:EventTrigger>
                     <i:EventTrigger EventName="Loaded">
                         <i:InvokeCommandAction 
@@ -2877,65 +2989,10 @@
                                 <Grid
                                     Height="150">
                                     <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="390"></ColumnDefinition>
+                                        <ColumnDefinition Width="200"></ColumnDefinition>
                                         <ColumnDefinition Width="410"></ColumnDefinition>
                                         <ColumnDefinition></ColumnDefinition>
                                     </Grid.ColumnDefinitions>
-                                    <Grid Grid.Column="0">
-                                        <Border 
-                                            BorderBrush="DarkGray"
-                                            Background="White"
-                                            BorderThickness="1,1,1,1"
-                                            CornerRadius="8"
-                                            Margin="20,0">
-                                            <Grid>
-                                                <TextBlock 
-                                                    Text="Number of type"
-                                                    Foreground="#504D85"
-                                                    FontWeight="SemiBold"
-                                                    HorizontalAlignment="Left"
-                                                    VerticalAlignment="Top"
-                                                    FontSize="20"
-                                                    Margin="30,15"/>
-                                                <Grid
-                                                    Background="Gray"
-                                                    Height="1"
-                                                    Width="300"/>
-                                                <TextBox
-                                                    x:Name="txtNumberType_Setting"
-                                                    Height="40"
-                                                    Width="350"
-                                                    HorizontalContentAlignment="Center"
-                                                    HorizontalAlignment="Center"
-                                                    VerticalAlignment="Center"
-                                                    Margin="0 60 0 0"
-                                                    FontSize="18"
-                                                    MaxLength="4" 
-                                                    Validation.ErrorTemplate="{StaticResource textBoxErrorTemplate3}"
-                                                    BorderBrush="{x:Null}">
-                                                    <i:Interaction.Triggers>
-                                                        <i:EventTrigger EventName="PreviewTextInput" >
-                                                            <ei:CallMethodAction 
-                                                                TargetObject="{Binding}"
-                                                                MethodName="NumberValidationTextBox" />
-                                                        </i:EventTrigger>
-                                                        <i:EventTrigger EventName="TextChanged">
-                                                            <i:InvokeCommandAction 
-                                                                Command="{Binding SeparateThousandsCommand}" 
-                                                                CommandParameter="{Binding ElementName=txtNumberType_Setting}"/>
-                                                        </i:EventTrigger>
-                                                    </i:Interaction.Triggers>
-                                                    <TextBox.Text>
-                                                        <Binding Path="Name" Source="{StaticResource Product}" UpdateSourceTrigger="PropertyChanged" Mode="OneWayToSource">
-                                                            <Binding.ValidationRules>
-                                                                <vd:NotNullValidation ErrorMessage="Please enter number of type"/>
-                                                            </Binding.ValidationRules>
-                                                        </Binding>
-                                                    </TextBox.Text>
-                                                </TextBox>
-                                            </Grid>
-                                        </Border>
-                                    </Grid>
                                     <Grid Grid.Column="1">
                                         <Border 
                                             BorderBrush="DarkGray"
@@ -2944,18 +3001,22 @@
                                             CornerRadius="8"
                                             Margin="30,0">
                                             <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="103*"/>
+                                                    <ColumnDefinition Width="246*"/>
+                                                </Grid.ColumnDefinitions>
                                                 <TextBlock 
                                                     Text="Number of agency in district"
                                                     Foreground="#504D85"
                                                     HorizontalAlignment="Left"
                                                     VerticalAlignment="Top"
-                                                    Margin="30,15"
+                                                    Margin="30,15,0,0"
                                                     FontWeight="SemiBold"
-                                                    FontSize="20"/>
+                                                    FontSize="20" Grid.ColumnSpan="2"/>
                                                 <Grid
                                                     Background="Gray"
                                                     Height="1"
-                                                    Width="300"/>
+                                                    Width="300" Grid.ColumnSpan="2" Margin="24,74,24.8,73.8"/>
                                                 <TextBox
                                                     x:Name="txtNumberAgencyinDistrict_Setting"
                                                     Height="40"
@@ -2963,11 +3024,11 @@
                                                     HorizontalAlignment="Right"
                                                     HorizontalContentAlignment="Center"
                                                     VerticalAlignment="Center"
-                                                    Margin="0 60 0 0"
+                                                    Margin="-1,84,-0.2,24.8"
                                                     BorderBrush="{x:Null}"
                                                     Validation.ErrorTemplate="{StaticResource textBoxErrorTemplate3}"
                                                     FontSize="18"
-                                                    MaxLength="4">
+                                                    MaxLength="4" Grid.ColumnSpan="2">
                                                     <i:Interaction.Triggers>
                                                         <i:EventTrigger EventName="PreviewTextInput" >
                                                             <ei:CallMethodAction 
@@ -3033,7 +3094,7 @@
                                     Command="{Binding OpenAddTypeCommand}"/>
                                 </StackPanel>
                             </Expander>
-                            <TextBlock
+                            <!--<TextBlock
                                 Text="Product"
                                 Foreground="#504D85"
                                 FontSize="30"
@@ -3180,7 +3241,7 @@
                                         CommandParameter="{Binding ElementName=wdHome}"/>
                                     </Grid>
                                 </Grid>
-                            </Expander>
+                            </Expander>-->
                         </StackPanel>
                     </ScrollViewer>
                 </Grid>
