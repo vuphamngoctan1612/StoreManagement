@@ -20,8 +20,8 @@
   - Sử dụng hệ quản trị cơ sở dữ liệu SQL Server Management, tiến hành chạy file AgencyManagement.sql để tạo database.
   - Thay đổi tên data source bằng tên server của SQL Server của máy cài đặt tại file App.config(dòng 13). (./StoreManagement/StoreManagement/StoreManagement/App.config)
   - Sau khi cài đặt xong thì sẽ có sắn tài khoản mặc định cho việc đăng nhập vào hệ thống:
-      username: admin
-      password: 1
+      - username: admin
+      - password: 1
 
 ## Thành viên tham gia dự án
 
